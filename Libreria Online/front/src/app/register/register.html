@@ -1,1 +1,39 @@
-<p>register works!</p>
+<p-card header="Registro de usuario" styleClass="register-card">
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <div class="field">
+      <label>Nombre</label>
+      <input pInputText formControlName="nombre" />
+    </div>
+
+    <div class="field">
+      <label>Apellido</label>
+      <input pInputText formControlName="apellido" />
+    </div>
+
+    <div class="field">
+      <label>Direccion</label>
+      <input pInputText formControlName="direccion" />
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input pInputText formControlName="email" />
+    </div>
+
+    <div class="field">
+      <label>Contraseña</label>
+      <p-password formControlName="password" [toggleMask]="true"></p-password>
+    </div>
+
+    <div class="field">
+      <label>Confirmar contraseña</label>
+      <p-password formControlName="confirmPassword" [toggleMask]="true"></p-password>
+    </div>
+
+    <button pButton type="submit" label="Registrarse"></button>
+
+  </form>
+
+</p-card>
