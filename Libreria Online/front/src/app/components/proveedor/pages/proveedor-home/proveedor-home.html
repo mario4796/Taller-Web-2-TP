@@ -1,0 +1,90 @@
+<div class="provider-home">
+  <nav class="top-nav">
+    <div class="brand">
+      <span class="material-symbols-rounded brand-icon">auto_stories</span>
+      <span>Librería Online</span>
+    </div>
+
+    <div class="nav-links">
+      <button *ngFor="let item of navItems" class="nav-link" [class.active]="item.active" type="button">
+        <span class="material-symbols-rounded">{{ item.icon }}</span>
+        <span>{{ item.label }}</span>
+      </button>
+    </div>
+
+    <div class="nav-actions">
+      <p-inputgroup class="nav-search">
+        <p-inputgroup-addon>
+          <span class="material-symbols-rounded search-icon">search</span>
+        </p-inputgroup-addon>
+
+        <input pInputText type="text" placeholder="Buscar por título, autor o ISBN..." />
+      </p-inputgroup>
+
+      <!-- hamburger button visible on small screens -->
+      <p-button class="hamburger-button" [rounded]="true" [text]="true" styleClass="nav-icon-button" (onClick)="toggleMobileNav()"
+        aria-label="Abrir menú">
+        <span class="material-symbols-rounded">menu</span>
+      </p-button>
+
+      <p-button [rounded]="true" [text]="true" styleClass="nav-icon-button" (onClick)="toggleTheme()"
+        [attr.aria-label]="isDark() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'">
+        <span class="material-symbols-rounded">
+          {{ isDark() ? 'light_mode' : 'dark_mode' }}
+        </span>
+      </p-button>
+
+      <div class="user-menu">
+        <p-avatar label="MR" shape="circle"></p-avatar>
+
+        <div class="user-text">
+          <strong>María Rodríguez</strong>
+          <span>Proveedor</span>
+        </div>
+
+        <span class="material-symbols-rounded">expand_more</span>
+      </div>
+    </div>
+
+    <!-- mobile nav (dropdown) -->
+    <div class="mobile-nav" [class.open]="mobileNavOpen()">
+      <div class="mobile-nav-inner">
+        <button *ngFor="let item of navItems" class="mobile-nav-item" type="button" (click)="mobileNavOpen.set(false)">
+          <span class="material-symbols-rounded">{{ item.icon }}</span>
+          <span>{{ item.label }}</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-content">
+    <section class="welcome-section">
+      <div>
+        <p class="eyebrow">Panel del proveedor</p>
+        <h1>Gestioná tu actividad en Librería Online</h1>
+        <p class="description">
+          Revisá tus peticiones, ofertas, ventas y recomendaciones desde un mismo lugar.
+        </p>
+      </div>
+
+      <div class="welcome-actions">
+        <p-button label="Ver peticiones" icon="pi pi-arrow-right" iconPos="right" severity="help"></p-button>
+
+        <p-button label="Recomendar libro" icon="pi pi-plus" iconPos="left" severity="help"
+          [outlined]="true"></p-button>
+      </div>
+    </section>
+
+    <section class="empty-preview">
+      <div class="empty-icon">
+        <span class="material-symbols-rounded">dashboard_customize</span>
+      </div>
+
+      <h2>Acá va el resumen del proveedor</h2>
+
+      <p>
+        Después podés agregar las tarjetas de métricas, actividad reciente y tabla de peticiones.
+      </p>
+    </section>
+  </main>
+</div>
