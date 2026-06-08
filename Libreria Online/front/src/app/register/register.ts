@@ -50,12 +50,20 @@ export class Register implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-      const { confirmPassword, ...usuario } = this.form.value;
-
-      this.usuarioService.agregarUsuario(usuario);
-
-      console.log('Usuario registrado');
+    const { confirmPassword, ...usuario } = this.form.value;
+    const repetido = this.usuarioService.emailRepetido(usuario)
+    if (!repetido.exito){
+      console.log('Usuario NO registrado');
       this.router.navigate(['']);
+      return;
+    }
+
+    
+
+    this.usuarioService.agregarUsuario(usuario);
+
+    console.log('Usuario registrado');
+    this.router.navigate(['']);
     }
   
   matchPasswords(control: AbstractControl): ValidationErrors | null {
