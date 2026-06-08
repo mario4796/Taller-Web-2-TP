@@ -5,3 +5,40 @@
   
   background: #f5f6fa;
 }
+
+/* Contenedor del error para obligarlo a bajar y darle espacio */
+.p-error-container {
+    display: block;
+    margin-top: 0.35rem;
+    animation: fadeIn 0.2s ease-in-out; /* Animación suave para que no aparezca de golpe */
+}
+
+/* Estilos específicos para el texto del error */
+.p-error {
+    color: #ef4444; /* Rojo estándar de PrimeNG (puedes usar #d32f2f si prefieres uno más oscuro) */
+    font-size: 0.875rem; /* Tamaño de fuente sutil, más chico que el label */
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    padding-bottom: 1em;
+    padding-top: 1em;
+}
+
+/* Efecto opcional: Agrega un pequeño icono de advertencia antes del texto sin tocar el HTML */
+.p-error::before {
+    content: "⚠️"; 
+    margin-right: 0.35rem;
+    font-size: 0.75rem;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-3px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

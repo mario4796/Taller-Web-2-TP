@@ -25,11 +25,21 @@
     <div class="field">
       <label>Contraseña</label>
       <p-password formControlName="password" [toggleMask]="true"></p-password>
+    @if (form.get('password')?.hasError('pattern') && form.get('password')?.touched) {
+      
+        <small class="p-error">La contraseña es muy débil. Debe tener al menos 6 caracteres, una mayúscula y un número.</small>
+    }
     </div>
 
     <div class="field">
       <label>Confirmar contraseña</label>
       <p-password formControlName="confirmPassword" [toggleMask]="true"></p-password>
+
+
+
+      @if (form.get('confirmPassword')?.hasError('noMatch') && form.get('confirmPassword')?.touched){
+        <small class="p-error">Las contraseñas no coinciden </small>
+      } 
     </div>
 
     <button pButton type="submit" label="Registrarse"></button>

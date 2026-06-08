@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ReactiveFormsModule, FormBuilder, Validators} from '@angular/forms';
+import {ReactiveFormsModule, FormBuilder, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
 import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
 import {ButtonModule} from 'primeng/button';
@@ -25,6 +25,7 @@ import {Router} from '@angular/router'
 
 export class Register implements OnInit {
   form: any;
+  strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
@@ -37,8 +38,10 @@ export class Register implements OnInit {
       apellido: ['', Validators.required],
       direccion: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern(this.strongPasswordPattern)]],
       confirmPassword: ['', Validators.required]
+    },{
+      validators: this.matchPasswords
     });
   }
 
@@ -55,6 +58,15 @@ export class Register implements OnInit {
       this.router.navigate(['']);
     }
   
+  matchPasswords(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get ('confirmPassword')?.value;
+    if (password !== confirmPassword){
+      control.get('confirmPassword')?.setErrors({ noMatch:true});
+      return {passwordsDoNotMatch:true}
+    }
+    return null;
+  }
 
 
 }
