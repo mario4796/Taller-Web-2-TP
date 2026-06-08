@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Button } from 'primeng/button';
@@ -8,31 +8,15 @@ import { InputGroupAddon } from 'primeng/inputgroupaddon';
 import { InputText } from 'primeng/inputtext';
 
 @Component({
-  selector: 'app-proveedor-home',
-  standalone: true,
-  imports: [
-    CommonModule,
-    Button,
-    Avatar,
-    InputText,
-    InputGroup,
-    InputGroupAddon
-  ],
-  templateUrl: './proveedor-home.html',
-  styleUrls: ['./proveedor-home.css']
+  selector: 'app-nav',
+  imports: [CommonModule, Button, Avatar, InputGroup, InputGroupAddon, InputText],
+  templateUrl: './nav.html',
+  styleUrl: './nav.css',
 })
-export class ProveedorHome implements OnInit {
+export class Nav implements OnInit{
+
   isDark = signal(false);
   mobileNavOpen = signal(false);
-
-  navItems = [
-    { label: 'Inicio', icon: 'home', active: true },
-    { label: 'Peticiones', icon: 'assignment' },
-    { label: 'Ofertas', icon: 'sell' },
-    { label: 'Estadísticas', icon: 'monitoring' },
-    { label: 'Ventas', icon: 'shopping_cart' },
-    { label: 'Recomendar libro', icon: 'auto_stories' }
-  ];
 
   ngOnInit(): void {
     const savedTheme = localStorage.getItem('theme');
@@ -55,4 +39,17 @@ export class ProveedorHome implements OnInit {
   toggleMobileNav(): void {
     this.mobileNavOpen.set(!this.mobileNavOpen());
   }
+
+   navItems = [
+    { label: 'Inicio', icon: 'home', active: true },
+    { label: 'Peticiones', icon: 'assignment' },
+    { label: 'Ofertas', icon: 'sell' },
+    { label: 'Estadísticas', icon: 'monitoring' },
+    { label: 'Ventas', icon: 'shopping_cart' },
+    { label: 'Recomendar libro', icon: 'auto_stories' }
+  ];
+
+  @Input() logueado: boolean = true;
+  @Input() role: string = '';
+  @Input() userName: string = '';
 }
