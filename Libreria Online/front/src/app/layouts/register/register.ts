@@ -20,7 +20,7 @@ import {Router} from '@angular/router'
     CardModule
   ],
   templateUrl: './register.html',
-  styleUrl: './register.css',
+  styleUrls: ['./register.css'],
 })
 
 export class Register implements OnInit {

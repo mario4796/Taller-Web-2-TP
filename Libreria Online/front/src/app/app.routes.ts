@@ -1,7 +1,15 @@
 import { Routes } from '@angular/router';
-import { Register } from './register/register'
+import { HomeUser } from './layouts/home-user/home-user';
+import { ProveedorHome } from './modules/proveedor/pages/proveedor-home/proveedor-home';
 
 export const routes: Routes = [
-    {path: 'register', component: Register},
-    
+  {
+    path: '',
+    component: HomeUser
+  },
+  {
+    path: 'proveedor',
+    component: ProveedorHome
+  }
+
 ];
