@@ -1,0 +1,96 @@
+<svg width="1600" height="520" viewBox="0 0 1600 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="purpleBook" x1="1330" y1="96" x2="1330" y2="434" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A855F7"/>
+      <stop offset="1" stop-color="#6D28D9"/>
+    </linearGradient>
+
+    <linearGradient id="softLilac" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#F6F1FF"/>
+      <stop offset="1" stop-color="#EBDDFF"/>
+    </linearGradient>
+
+    <linearGradient id="warmBook" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#F8E7D5"/>
+      <stop offset="1" stop-color="#EFD2B4"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="170%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#120826" flood-opacity="0.18"/>
+    </filter>
+
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="180%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#5B21B6" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Transparent banner composition, no background -->
+  <g opacity="0.12">
+    <circle cx="1448" cy="118" r="4" fill="#A855F7"/>
+    <circle cx="1478" cy="118" r="4" fill="#A855F7"/>
+    <circle cx="1508" cy="118" r="4" fill="#A855F7"/>
+    <circle cx="1448" cy="148" r="4" fill="#A855F7"/>
+    <circle cx="1478" cy="148" r="4" fill="#A855F7"/>
+    <circle cx="1508" cy="148" r="4" fill="#A855F7"/>
+    <circle cx="1448" cy="178" r="4" fill="#A855F7"/>
+    <circle cx="1478" cy="178" r="4" fill="#A855F7"/>
+    <circle cx="1508" cy="178" r="4" fill="#A855F7"/>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <!-- subtle ground only under objects -->
+    <ellipse cx="1328" cy="435" rx="310" ry="28" fill="#8B5CF6" opacity="0.12"/>
+  </g>
+
+  <!-- Plant -->
+  <g filter="url(#shadow)">
+    <ellipse cx="1146" cy="431" rx="78" ry="13" fill="#6D28D9" opacity="0.10"/>
+    <path d="M1074 316H1218L1205 420C1202 440 1186 454 1167 454H1125C1106 454 1090 440 1087 420L1074 316Z" fill="#F7EBDD" stroke="#D8C0E8" stroke-opacity="0.65" stroke-width="2"/>
+    <path d="M1074 316H1218L1214 340H1078L1074 316Z" fill="#FFF5EE" opacity="0.92"/>
+    <ellipse cx="1146" cy="317" rx="72" ry="18" fill="#FFF9F4" stroke="#D8C0E8" stroke-opacity="0.45" stroke-width="1.5"/>
+
+    <!-- stems -->
+    <path d="M1144 314C1137 266 1106 227 1068 194" stroke="#93A872" stroke-width="4.8" stroke-linecap="round"/>
+    <path d="M1148 314C1154 257 1182 215 1224 182" stroke="#93A872" stroke-width="4.8" stroke-linecap="round"/>
+    <path d="M1145 314C1147 270 1140 235 1121 202" stroke="#93A872" stroke-width="4.2" stroke-linecap="round"/>
+    <path d="M1147 314C1137 267 1162 242 1195 210" stroke="#93A872" stroke-width="4.2" stroke-linecap="round"/>
+
+    <!-- leaves left -->
+    <ellipse cx="1071" cy="195" rx="29" ry="13" transform="rotate(34 1071 195)" fill="#BDC99D"/>
+    <ellipse cx="1101" cy="222" rx="29" ry="13" transform="rotate(-26 1101 222)" fill="#CCD6AF"/>
+    <ellipse cx="1035" cy="173" rx="26" ry="12" transform="rotate(24 1035 173)" fill="#D0D7B5"/>
+    <ellipse cx="1077" cy="246" rx="29" ry="13" transform="rotate(18 1077 246)" fill="#B1C08C"/>
+
+    <!-- leaves center -->
+    <ellipse cx="1120" cy="202" rx="27" ry="12" transform="rotate(-46 1120 202)" fill="#C2CDA3"/>
+    <ellipse cx="1139" cy="241" rx="30" ry="13" transform="rotate(28 1139 241)" fill="#D4DDBA"/>
+    <ellipse cx="1122" cy="273" rx="27" ry="12" transform="rotate(-24 1122 273)" fill="#B6C392"/>
+
+    <!-- leaves right -->
+    <ellipse cx="1227" cy="181" rx="31" ry="14" transform="rotate(-28 1227 181)" fill="#C3CEA1"/>
+    <ellipse cx="1196" cy="216" rx="31" ry="14" transform="rotate(31 1196 216)" fill="#D0D8B2"/>
+    <ellipse cx="1241" cy="228" rx="28" ry="12" transform="rotate(-16 1241 228)" fill="#B5C291"/>
+    <ellipse cx="1179" cy="256" rx="28" ry="12" transform="rotate(22 1179 256)" fill="#C0CC9E"/>
+  </g>
+
+  <!-- Books -->
+  <g filter="url(#shadow)">
+    <ellipse cx="1365" cy="435" rx="265" ry="16" fill="#6D28D9" opacity="0.10"/>
+
+    <rect x="1234" y="116" width="90" height="318" rx="10" fill="#FEFEFF" stroke="#D8C0E8" stroke-opacity="0.75" stroke-width="2"/>
+    <rect x="1324" y="136" width="92" height="298" rx="10" fill="#FBF9FF" stroke="#D8C0E8" stroke-opacity="0.75" stroke-width="2"/>
+    <rect x="1416" y="96" width="86" height="338" rx="10" fill="url(#purpleBook)" stroke="#7240D2" stroke-opacity="0.85" stroke-width="2"/>
+    <rect x="1502" y="136" width="84" height="298" rx="10" fill="#F2EBFF" stroke="#D8C0E8" stroke-opacity="0.8" stroke-width="2"/>
+    <rect x="1586" y="168" width="86" height="266" rx="10" fill="url(#warmBook)" stroke="#E6CBB0" stroke-opacity="0.9" stroke-width="2"/>
+
+    <!-- subtle spines -->
+    <rect x="1247" y="139" width="4" height="272" rx="2" fill="#EFE3FA"/>
+    <rect x="1341" y="160" width="4" height="252" rx="2" fill="#E7D8F6"/>
+    <rect x="1431" y="122" width="4" height="286" rx="2" fill="#B98AF6" opacity="0.55"/>
+    <rect x="1516" y="159" width="4" height="250" rx="2" fill="#D9C7F1"/>
+    <rect x="1598" y="188" width="4" height="220" rx="2" fill="#EAC49C"/>
+
+    <!-- top flap on first book -->
+    <path d="M1234 134C1254 127 1302 128 1324 144V116C1324 105 1315 96 1304 96H1246C1239 96 1234 101 1234 108V134Z" fill="#F5EEFE" stroke="#D8C0E8" stroke-opacity="0.65" stroke-width="1.5"/>
+  </g>
+</svg>

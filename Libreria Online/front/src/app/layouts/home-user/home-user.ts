@@ -15,7 +15,7 @@ export class HomeUser {
   logueado = false;
   //home//
 
-  //imageBanner = 'img/HomeUser-Banner.webp';
+  imageBanner = 'img/libreria_banner_transparente.svg';
   eyebrow = 'Bienvenido a la Librería Online';
   title = 'Descubrí tu próximo libro favorito';
   description = 'Explorá miles de titulos de todos los gégneros. leé. aprendé e inspirate.';

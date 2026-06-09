@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" fill="none">
+  <defs>
+    <linearGradient id="gPurple" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A97FFF"/>
+      <stop offset="100%" stop-color="#6A3EF0"/>
+    </linearGradient>
+    <linearGradient id="gLavender" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F4EEFF"/>
+      <stop offset="100%" stop-color="#DDD0FF"/>
+    </linearGradient>
+    <linearGradient id="gCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F3F0FD"/>
+    </linearGradient>
+    <linearGradient id="gBook" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F6E2C5"/>
+      <stop offset="100%" stop-color="#E1BC8C"/>
+    </linearGradient>
+    <filter id="shadowSoft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="b"/>
+      <feOffset dy="6" result="o"/>
+      <feColorMatrix in="o" type="matrix" values="0 0 0 0 0.41 0 0 0 0 0.29 0 0 0 0 0.86 0 0 0 0.16 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+    <filter id="shadowBig" x="-20%" y="-20%" width="150%" height="150%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="10" result="b"/>
+      <feOffset dy="10" result="o"/>
+      <feColorMatrix in="o" type="matrix" values="0 0 0 0 0.41 0 0 0 0 0.29 0 0 0 0 0.86 0 0 0 0.18 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+    <style>
+      .thin{stroke:#DDD6F0;stroke-width:4;stroke-linecap:round}
+      .tick{stroke:#8E67FF;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .line{stroke:#C4B3F5;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;fill:none}
+    </style>
+  </defs>
+
+  <!-- Transparent background -->
+
+  <!-- Ground shadows -->
+  <ellipse cx="1180" cy="770" rx="325" ry="45" fill="#7A57FF" opacity="0.10"/>
+  <ellipse cx="1335" cy="752" rx="120" ry="22" fill="#7A57FF" opacity="0.08"/>
+
+  <!-- Decorative leaves -->
+  <g opacity="0.88">
+    <path d="M1455 640c12-28 35-49 67-60-1 35-16 61-44 80-11 8-24 12-36 16 5-10 9-22 13-36Z" fill="#C3D497"/>
+    <path d="M1481 702c-29-12-49-33-60-62 34 0 60 16 77 46 7 12 10 24 11 36-8-5-16-11-28-20Z" fill="#AFC286"/>
+  </g>
+  <g opacity="0.84">
+    <path d="M930 628c-30-8-53-25-65-52 34-4 62 8 81 34 8 10 12 21 14 32-9-4-18-8-30-14Z" fill="#B8CA90"/>
+    <path d="M961 612c1-29 15-53 40-72 14 27 13 53-2 78-7 10-16 18-25 24-1-9-5-19-13-30Z" fill="#C7D79E"/>
+  </g>
+
+  <!-- Shelf with managed books -->
+  <g transform="translate(1260 295)" filter="url(#shadowSoft)">
+    <rect x="0" y="0" width="10" height="355" rx="5" fill="#D9CCFB"/>
+    <rect x="210" y="0" width="10" height="355" rx="5" fill="#D9CCFB"/>
+    <rect x="-6" y="92" width="226" height="14" rx="7" fill="#E0D6FF"/>
+    <rect x="-6" y="210" width="226" height="14" rx="7" fill="#E0D6FF"/>
+    <rect x="-6" y="328" width="226" height="14" rx="7" fill="#E0D6FF"/>
+
+    <rect x="16" y="27" width="38" height="65" rx="8" fill="#F5F3FF" stroke="#D9D1F6"/>
+    <rect x="57" y="17" width="34" height="75" rx="8" fill="#D9CCFF"/>
+    <rect x="95" y="34" width="40" height="58" rx="8" fill="url(#gPurple)"/>
+    <rect x="140" y="23" width="26" height="69" rx="8" fill="#F1DCBE"/>
+    <rect x="170" y="40" width="28" height="52" rx="8" fill="#C9B9FF"/>
+
+    <rect x="94" y="162" width="86" height="48" rx="10" fill="url(#gPurple)" opacity="0.95"/>
+    <rect x="104" y="170" width="66" height="8" rx="4" fill="#8A63FA" opacity="0.55"/>
+
+    <rect x="18" y="284" width="26" height="44" rx="6" fill="#EFEAFF"/>
+    <rect x="50" y="278" width="48" height="50" rx="6" fill="#7B4DF4"/>
+    <rect x="103" y="289" width="30" height="39" rx="6" fill="#C8B8FF"/>
+    <rect x="138" y="283" width="22" height="45" rx="6" fill="#6F43F1"/>
+    <rect x="165" y="291" width="28" height="37" rx="6" fill="#E9E4FF"/>
+  </g>
+
+  <!-- Main admin dashboard card -->
+  <g transform="translate(1020 390)" filter="url(#shadowBig)">
+    <rect x="0" y="0" width="310" height="238" rx="28" fill="url(#gCard)"/>
+    <rect x="0" y="0" width="310" height="238" rx="28" stroke="#E4DAFF" stroke-width="3"/>
+
+    <!-- header strip -->
+    <rect x="24" y="24" width="110" height="18" rx="9" fill="#E6E0F5"/>
+    <circle cx="258" cy="34" r="7" fill="#A37BFF"/>
+    <circle cx="280" cy="34" r="7" fill="#D6C8FF"/>
+
+    <!-- bars chart -->
+    <g transform="translate(28 70)">
+      <path d="M0 96H122" class="line" opacity="0.5"/>
+      <rect x="8" y="48" width="20" height="48" rx="8" fill="#D7CAFF"/>
+      <rect x="40" y="28" width="20" height="68" rx="8" fill="#B99BFF"/>
+      <rect x="72" y="10" width="20" height="86" rx="8" fill="url(#gPurple)"/>
+      <rect x="104" y="36" width="20" height="60" rx="8" fill="#E8E1FF"/>
+      <path d="M6 78C25 63 41 67 53 55C68 41 86 47 100 31C107 24 113 17 122 16" class="line"/>
+      <circle cx="122" cy="16" r="6" fill="#8E67FF"/>
+    </g>
+
+    <!-- donut / metric -->
+    <g transform="translate(182 70)">
+      <circle cx="50" cy="50" r="38" stroke="#E9E2FF" stroke-width="16" fill="none"/>
+      <path d="M50 12A38 38 0 1 1 17 69" stroke="url(#gPurple)" stroke-width="16" stroke-linecap="round" fill="none"/>
+      <text x="50" y="56" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#6B44F2">82%</text>
+    </g>
+
+    <!-- lower stat cards -->
+    <g transform="translate(24 176)">
+      <rect x="0" y="0" width="82" height="38" rx="12" fill="#F3EEFF"/>
+      <rect x="10" y="9" width="18" height="18" rx="6" fill="#D7CAFF"/>
+      <rect x="36" y="11" width="34" height="8" rx="4" fill="#D8D2E8"/>
+      <rect x="36" y="23" width="24" height="6" rx="3" fill="#E8E5F1"/>
+
+      <rect x="90" y="0" width="82" height="38" rx="12" fill="#F3EEFF"/>
+      <circle cx="106" cy="19" r="9" fill="#A77EFF"/>
+      <rect x="120" y="11" width="34" height="8" rx="4" fill="#D8D2E8"/>
+      <rect x="120" y="23" width="24" height="6" rx="3" fill="#E8E5F1"/>
+    </g>
+  </g>
+
+  <!-- Floating analytics cards -->
+  <g transform="translate(930 318)" filter="url(#shadowSoft)">
+    <rect x="0" y="0" width="132" height="84" rx="20" fill="#FBFAFE" stroke="#E2D8FF"/>
+    <rect x="18" y="19" width="18" height="18" rx="6" fill="#A77EFF"/>
+    <rect x="48" y="22" width="58" height="10" rx="5" fill="#D8D2E8"/>
+    <rect x="48" y="39" width="40" height="8" rx="4" fill="#ECE7F6"/>
+    <path d="M19 57h92" class="thin" opacity="0.6"/>
+    <path d="M20 63c10-7 18-10 27-8 10 2 15 11 28 8 10-2 17-9 24-12 5-2 8-2 12-1" class="line" stroke-width="4"/>
+  </g>
+
+  <g transform="translate(1245 345)" filter="url(#shadowSoft)">
+    <rect x="0" y="0" width="122" height="76" rx="18" fill="#FBFAFE" stroke="#E2D8FF"/>
+    <circle cx="28" cy="26" r="11" fill="#E8DFFF"/>
+    <path d="M21 26l5 5 9-11" class="tick" stroke-width="4"/>
+    <rect x="48" y="19" width="52" height="9" rx="4.5" fill="#D8D2E8"/>
+    <rect x="48" y="35" width="36" height="7" rx="3.5" fill="#ECE7F6"/>
+    <rect x="20" y="53" width="80" height="8" rx="4" fill="#F0EBFB"/>
+  </g>
+
+  <!-- Admin gear icon bubble -->
+  <g transform="translate(1100 260)" filter="url(#shadowSoft)">
+    <circle cx="0" cy="0" r="46" fill="url(#gPurple)"/>
+    <g transform="translate(-20 -20)">
+      <circle cx="20" cy="20" r="10" fill="#F7F4FF"/>
+      <path d="M20 2l3 7 7 2 6-4 6 6-4 6 2 7 7 3v8l-7 3-2 7 4 6-6 6-6-4-7 2-3 7h-8l-3-7-7-2-6 4-6-6 4-6-2-7-7-3v-8l7-3 2-7-4-6 6-6 6 4 7-2 3-7h8Z" stroke="#F7F4FF" stroke-width="4" fill="none" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- Stack of books / records -->
+  <g transform="translate(830 582)" filter="url(#shadowSoft)">
+    <rect x="0" y="96" width="220" height="66" rx="20" fill="url(#gPurple)"/>
+    <rect x="18" y="66" width="192" height="58" rx="16" fill="#EEE7FF" stroke="#D6C8FF"/>
+    <rect x="34" y="32" width="178" height="48" rx="14" fill="#FCFBFE" stroke="#E6D8C2"/>
+    <rect x="49" y="0" width="148" height="44" rx="12" fill="#D9CCFF"/>
+    <path d="M84 80v32c11-5 15-5 27 0V80Z" fill="#7D51FF"/>
+    <path d="M70 18h108" class="thin"/>
+    <path d="M58 101h130" class="thin" opacity="0.55"/>
+  </g>
+
+  <!-- User management card / small panel -->
+  <g transform="translate(1160 610)" filter="url(#shadowSoft)">
+    <rect x="0" y="0" width="98" height="82" rx="16" fill="#FBFAFE" stroke="#E2D8FF"/>
+    <circle cx="23" cy="26" r="10" fill="#CDBBFF"/>
+    <path d="M10 50c6-10 12-14 22-14s16 4 22 14" stroke="#CDBBFF" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <rect x="46" y="18" width="34" height="8" rx="4" fill="#D8D2E8"/>
+    <rect x="46" y="32" width="24" height="6" rx="3" fill="#ECE7F6"/>
+    <rect x="17" y="60" width="64" height="8" rx="4" fill="#F0EBFB"/>
+  </g>
+
+  <!-- Small admin box/card front right -->
+  <g transform="translate(1300 648)" filter="url(#shadowSoft)">
+    <rect x="0" y="0" width="130" height="96" rx="14" fill="url(#gBook)"/>
+    <path d="M0 24 45 10H118l12 14Z" fill="#F7E4CD" opacity="0.95"/>
+    <rect x="30" y="0" width="22" height="52" rx="4" fill="url(#gPurple)"/>
+    <rect x="83" y="0" width="18" height="40" rx="4" fill="#FAF3EA" opacity="0.85"/>
+    <g transform="translate(24 63)" opacity="0.55">
+      <circle cx="10" cy="10" r="8" stroke="#9A6F3E" stroke-width="4" fill="none"/>
+      <path d="M10 3v14M3 10h14" stroke="#9A6F3E" stroke-width="4" stroke-linecap="round"/>
+      <rect x="32" y="0" width="28" height="20" rx="8" stroke="#9A6F3E" stroke-width="4" fill="none"/>
+      <path d="M45 4c4 0 8 5 8 8 0 6-5 10-8 13-3-3-8-7-8-13 0-3 4-8 8-8Z" stroke="#9A6F3E" stroke-width="4" fill="none"/>
+    </g>
+  </g>
+</svg>
