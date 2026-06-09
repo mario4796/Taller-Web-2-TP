@@ -13,7 +13,7 @@ import { InputText } from 'primeng/inputtext';
   styleUrl: './home.css',
 })
 export class Home {
-  //@Input() imageBanner: string = '';
+  @Input() imageBanner: string = '';
   @Input() eyebrow: string = '';
   @Input() title: string = '';
   @Input() description: string = '';
