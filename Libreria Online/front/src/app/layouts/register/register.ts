@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ReactiveFormsModule, FormBuilder, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
+import {ReactiveFormsModule, FormBuilder, Validators, AbstractControl, ValidationErrors, FormGroup} from '@angular/forms';
 import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
 import {ButtonModule} from 'primeng/button';
@@ -23,27 +23,25 @@ import {Router} from '@angular/router'
   styleUrls: ['./register.css'],
 })
 
-export class Register implements OnInit {
-  form: any;
+export class Register  {
+  
   strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/
-  constructor(
-    private fb: FormBuilder,
-    private usuarioService: UsuarioService,
-    private router : Router,
-  ){}
+  private fb = inject(FormBuilder);
+  private usuarioService = inject(UsuarioService);
+  private router = inject(Router);
 
-  ngOnInit() {
-    this.form = this.fb.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      direccion: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(this.strongPasswordPattern)]],
-      confirmPassword: ['', Validators.required]
-    },{
-      validators: this.matchPasswords
+
+  public form: FormGroup = this.fb.group({
+    nombre: ['', Validators.required],
+    apellido: ['', Validators.required],
+    direccion: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.pattern(this.strongPasswordPattern)]],
+    confirmPassword: ['', Validators.required]
+   },{
+      validators: (control) => this.matchPasswords(control)
     });
-  }
+  
 
   submit(){
     if (this.form.invalid){
@@ -66,7 +64,7 @@ export class Register implements OnInit {
     this.router.navigate(['']);
     }
   
-  matchPasswords(control: AbstractControl): ValidationErrors | null {
+  private matchPasswords(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
     const confirmPassword = control.get ('confirmPassword')?.value;
     if (password !== confirmPassword){
@@ -76,5 +74,5 @@ export class Register implements OnInit {
     return null;
   }
 
-
 }
+

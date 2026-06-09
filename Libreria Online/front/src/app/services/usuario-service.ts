@@ -16,11 +16,6 @@ export class UsuarioService {
   ];
   constructor(){}
   agregarUsuario(usuario: any ) : void {
-  //   const validacion = this.emailRepetido(usuario);
-  //   if (!validacion.exito) {
-  //   console.warn('Registro cancelado:', validacion.mensaje);
-  //   return; 
-  // }
     this.usuarios.push(usuario);
     console.log('Usuario agregado:' , usuario);
     console.log('DB temp actualizado:' , this.usuarios );
@@ -37,6 +32,14 @@ export class UsuarioService {
       exito: true, 
       mensaje: "" 
     };
+  }
+  
+  login(emailForm: string, passwordForm: string) {
+    const usuarioEncontrado = this.usuarios.find(
+      user => user.email === emailForm && user.password === passwordForm
+    );
+    
+    return usuarioEncontrado;
   }
 
   
