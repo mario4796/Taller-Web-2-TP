@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" fill="none">
+  <defs>
+    <linearGradient id="gPurple" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A67BFF"/>
+      <stop offset="100%" stop-color="#6C3DF2"/>
+    </linearGradient>
+    <linearGradient id="gLav" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F2ECFF"/>
+      <stop offset="100%" stop-color="#D9CCFF"/>
+    </linearGradient>
+    <linearGradient id="gBox" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F3D9B8"/>
+      <stop offset="100%" stop-color="#DEB17D"/>
+    </linearGradient>
+    <filter id="blurShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="10" result="blur"/>
+      <feOffset dy="8" result="off"/>
+      <feColorMatrix in="off" type="matrix" values="0 0 0 0 0.45 0 0 0 0 0.31 0 0 0 0 0.90 0 0 0 0.18 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+      <feOffset dy="4" result="off"/>
+      <feColorMatrix in="off" type="matrix" values="0 0 0 0 0.40 0 0 0 0 0.30 0 0 0 0 0.85 0 0 0 0.16 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+    <style>
+      .line{stroke:#C6B3FA;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .thin{stroke:#D9D2EE;stroke-width:4;stroke-linecap:round}
+    </style>
+  </defs>
+
+  <!-- Transparent background by default -->
+
+  <!-- Base soft shadow shapes -->
+  <ellipse cx="1180" cy="760" rx="335" ry="42" fill="#7E57FF" opacity="0.10"/>
+  <ellipse cx="1390" cy="732" rx="118" ry="18" fill="#7E57FF" opacity="0.08"/>
+
+  <!-- Decorative plants behind -->
+  <g opacity="0.9">
+    <path d="M900 610c-28-10-48-29-56-55 32-1 58 13 73 39 6 11 8 22 8 32-7-5-15-11-25-16Z" fill="#B8C98E"/>
+    <path d="M931 587c-2-32 10-58 36-76 17 27 16 56-2 82-8 11-19 20-28 25 0-10-2-20-6-31Z" fill="#C5D59A"/>
+    <path d="M878 639c-28 6-54 1-77-19 22-21 50-27 78-17 13 5 23 13 30 21-10 4-20 9-31 15Z" fill="#AFC283"/>
+  </g>
+
+  <!-- Shelf -->
+  <g transform="translate(1215 285)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="10" height="380" rx="5" fill="#D8CCFB"/>
+    <rect x="235" y="0" width="10" height="380" rx="5" fill="#D8CCFB"/>
+    <rect x="-5" y="82" width="255" height="14" rx="7" fill="#DDD3FF"/>
+    <rect x="-5" y="205" width="255" height="14" rx="7" fill="#DDD3FF"/>
+    <rect x="-5" y="328" width="255" height="14" rx="7" fill="#DDD3FF"/>
+
+    <!-- top books -->
+    <rect x="18" y="15" width="38" height="68" rx="8" fill="#F4F1FF" stroke="#D2C4FF"/>
+    <rect x="58" y="10" width="32" height="73" rx="8" fill="#E1D8FF"/>
+    <rect x="92" y="28" width="52" height="55" rx="8" fill="url(#gPurple)"/>
+    <rect x="148" y="42" width="32" height="41" rx="8" fill="#F2DABB"/>
+    <rect x="182" y="32" width="42" height="51" rx="8" fill="#D8CCFB"/>
+
+    <!-- top plant -->
+    <g transform="translate(148 -8)">
+      <path d="M40 52c-12-12-18-29-16-48 20 6 34 20 38 38 2 9 1 17-1 24-5-4-11-9-21-14Z" fill="#AFC283"/>
+      <path d="M52 44c0-21 9-38 27-50 10 18 10 38-1 56-5 8-11 14-18 18 0-7-2-15-8-24Z" fill="#C5D59A"/>
+      <path d="M30 53c-15 2-29-1-42-11 11-12 27-16 42-11 7 3 13 7 17 12-6 2-11 5-17 10Z" fill="#B8C98E"/>
+      <path d="M54 49c8-15 22-25 40-28-1 17-10 31-25 40-7 4-15 6-22 7 3-5 6-11 7-19Z" fill="#AFC283"/>
+      <rect x="38" y="66" width="46" height="34" rx="10" fill="#FBFAFE" stroke="#DDD7EC"/>
+      <ellipse cx="61" cy="68" rx="26" ry="5" fill="#EDE7FF"/>
+    </g>
+
+    <!-- middle shelf storage box -->
+    <rect x="104" y="166" width="102" height="58" rx="10" fill="url(#gPurple)" opacity="0.95"/>
+    <rect x="115" y="174" width="80" height="10" rx="5" fill="#8D68FF" opacity="0.5"/>
+
+    <!-- bottom books -->
+    <rect x="28" y="284" width="30" height="44" rx="6" fill="#E1D8FF"/>
+    <rect x="63" y="279" width="55" height="49" rx="6" fill="#7A4CF5"/>
+    <rect x="123" y="291" width="36" height="37" rx="6" fill="#C7B7FF"/>
+    <rect x="164" y="286" width="26" height="42" rx="6" fill="#6F43F1"/>
+  </g>
+
+  <!-- Large center box -->
+  <g transform="translate(945 395)" filter="url(#blurShadow)">
+    <rect x="0" y="0" width="260" height="190" rx="16" fill="url(#gBox)"/>
+    <path d="M0 38 98 18H246L260 38Z" fill="#F7E3C9" opacity="0.9"/>
+    <rect x="92" y="0" width="34" height="82" rx="4" fill="url(#gPurple)"/>
+    <rect x="206" y="0" width="24" height="74" rx="4" fill="#F7F0E7" opacity="0.85"/>
+    <g transform="translate(196 92)" opacity="0.55">
+      <rect x="0" y="0" width="42" height="42" rx="8" fill="none" stroke="#9A6F3E" stroke-width="4"/>
+      <path d="M11 21h20M10 11l10-5 10 5v20l-10 5-10-5Z" stroke="#9A6F3E" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- Small box right front -->
+  <g transform="translate(1286 617)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="132" height="110" rx="12" fill="url(#gBox)"/>
+    <path d="M0 26 47 12H120l12 14Z" fill="#F8E6D0" opacity="0.95"/>
+    <rect x="28" y="0" width="25" height="58" rx="4" fill="url(#gPurple)"/>
+    <rect x="86" y="0" width="18" height="46" rx="4" fill="#FAF4EC" opacity="0.85"/>
+    <g transform="translate(22 75)" opacity="0.55">
+      <path d="M0 10h15M7 0v20" stroke="#9A6F3E" stroke-width="4" stroke-linecap="round"/>
+      <path d="M32 2h18c4 0 7 3 7 7v9c0 4-3 7-7 7H32c-4 0-7-3-7-7V9c0-4 3-7 7-7Z" stroke="#9A6F3E" stroke-width="4" fill="none"/>
+      <path d="M39 9c4-5 8-5 12 0-1 7-4 11-6 13-3-2-6-6-6-13Z" stroke="#9A6F3E" stroke-width="4" fill="none"/>
+    </g>
+  </g>
+
+  <!-- Books stack left front -->
+  <g transform="translate(802 555)" filter="url(#softShadow)">
+    <rect x="0" y="98" width="212" height="66" rx="20" fill="url(#gPurple)"/>
+    <rect x="16" y="74" width="184" height="54" rx="16" fill="#EEE7FF" stroke="#D6C8FF"/>
+    <rect x="34" y="0" width="202" height="74" rx="16" fill="#FCFBFE" stroke="#E6D8C2"/>
+    <rect x="44" y="-18" width="144" height="42" rx="12" fill="#D9CCFF"/>
+    <path d="M76 74v34c13-6 16-6 29 0V74Z" fill="#7D51FF"/>
+    <path d="M64 22h110" class="thin"/>
+    <path d="M55 98h135" class="thin" opacity="0.55"/>
+  </g>
+
+  <!-- Clipboard / checklist -->
+  <g transform="translate(1042 508) rotate(6)" filter="url(#blurShadow)">
+    <rect x="0" y="26" width="170" height="264" rx="24" fill="url(#gPurple)"/>
+    <rect x="16" y="42" width="138" height="226" rx="18" fill="#FAF9FE"/>
+    <rect x="53" y="0" width="62" height="42" rx="18" fill="#8F67FF"/>
+    <rect x="73" y="-9" width="22" height="28" rx="11" fill="#AE90FF"/>
+
+    <!-- rows -->
+    <g transform="translate(33 72)">
+      <!-- repeat 4 -->
+      <g transform="translate(0 0)">
+        <rect x="0" y="0" width="26" height="26" rx="6" fill="#E7DEFF"/>
+        <rect x="5" y="5" width="16" height="16" rx="4" fill="#C4AEFF"/>
+        <rect x="38" y="4" width="53" height="8" rx="4" fill="#DCD8E7"/>
+        <rect x="38" y="17" width="72" height="7" rx="3.5" fill="#EBE7F3"/>
+        <rect x="114" y="2" width="24" height="24" rx="8" fill="#EEE9FF"/>
+        <path d="M120 15l5 5 10-13" class="line" stroke-width="5"/>
+      </g>
+      <g transform="translate(0 52)">
+        <rect x="0" y="0" width="26" height="26" rx="6" fill="#E7DEFF"/>
+        <rect x="5" y="5" width="16" height="16" rx="4" fill="#9A73FF"/>
+        <rect x="38" y="4" width="53" height="8" rx="4" fill="#DCD8E7"/>
+        <rect x="38" y="17" width="72" height="7" rx="3.5" fill="#EBE7F3"/>
+        <rect x="114" y="2" width="24" height="24" rx="8" fill="#EEE9FF"/>
+        <path d="M120 15l5 5 10-13" class="line" stroke-width="5"/>
+      </g>
+      <g transform="translate(0 104)">
+        <rect x="0" y="0" width="26" height="26" rx="6" fill="#E7DEFF"/>
+        <rect x="5" y="5" width="16" height="16" rx="4" fill="#AE90FF"/>
+        <rect x="38" y="4" width="53" height="8" rx="4" fill="#DCD8E7"/>
+        <rect x="38" y="17" width="72" height="7" rx="3.5" fill="#EBE7F3"/>
+        <rect x="114" y="2" width="24" height="24" rx="8" fill="#EEE9FF"/>
+        <path d="M120 15l5 5 10-13" class="line" stroke-width="5"/>
+      </g>
+      <g transform="translate(0 156)">
+        <rect x="0" y="0" width="26" height="26" rx="6" fill="#E7DEFF"/>
+        <rect x="5" y="5" width="16" height="16" rx="4" fill="#7D51FF"/>
+        <rect x="38" y="4" width="53" height="8" rx="4" fill="#DCD8E7"/>
+        <rect x="38" y="17" width="72" height="7" rx="3.5" fill="#EBE7F3"/>
+        <rect x="114" y="2" width="24" height="24" rx="8" fill="#EEE9FF"/>
+        <path d="M120 15l5 5 10-13" class="line" stroke-width="5"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Location pin and route -->
+  <g transform="translate(1002 265)">
+    <path d="M78 0c-26 0-47 20-47 46 0 31 41 73 46 78 1 1 2 2 3 2s2-1 3-2c5-5 46-47 46-78 0-26-21-46-47-46Z" fill="url(#gPurple)"/>
+    <circle cx="78" cy="46" r="16" fill="#F8F5FF"/>
+    <path d="M0 124c36-39 74-54 116-50" stroke="#C9B5FF" stroke-width="6" stroke-linecap="round" stroke-dasharray="12 14" fill="none"/>
+    <circle cx="0" cy="124" r="11" fill="#C9B5FF"/>
+  </g>
+
+  <!-- Side foliage right -->
+  <g opacity="0.88">
+    <path d="M1438 629c15-29 38-49 71-60-2 36-19 62-48 80-12 7-25 11-37 13 5-9 10-20 14-33Z" fill="#C5D59A"/>
+    <path d="M1463 684c-31-12-52-32-63-62 36 0 63 15 81 44 7 12 11 24 12 36-8-5-18-11-30-18Z" fill="#AFC283"/>
+  </g>
+
+  <!-- Small front box partially behind clipboard -->
+  <g transform="translate(1180 570)" filter="url(#softShadow)">
+    <rect x="0" y="30" width="98" height="78" rx="10" fill="#D8C4A3" opacity="0.92"/>
+    <path d="M0 48 38 28H92l6 20Z" fill="#E7D2B7" opacity="0.9"/>
+    <rect x="32" y="30" width="14" height="34" rx="3" fill="#A67BFF" opacity="0.65"/>
+  </g>
+</svg>

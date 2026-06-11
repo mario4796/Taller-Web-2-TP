@@ -1,1 +1,49 @@
-<p>register works!</p>
+<p-card header="Registro de usuario" styleClass="register-card">
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <div class="field">
+      <label>Nombre</label>
+      <input pInputText formControlName="nombre" />
+    </div>
+
+    <div class="field">
+      <label>Apellido</label>
+      <input pInputText formControlName="apellido" />
+    </div>
+
+    <div class="field">
+      <label>Direccion</label>
+      <input pInputText formControlName="direccion" />
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input pInputText formControlName="email" />
+    </div>
+
+    <div class="field">
+      <label>Contraseña</label>
+      <p-password formControlName="password" [toggleMask]="true"></p-password>
+    @if (form.get('password')?.hasError('pattern') && form.get('password')?.touched) {
+      
+        <small class="p-error">La contraseña es muy débil. Debe tener al menos 6 caracteres, una mayúscula y un número.</small>
+    }
+    </div>
+
+    <div class="field">
+      <label>Confirmar contraseña</label>
+      <p-password formControlName="confirmPassword" [toggleMask]="true"></p-password>
+
+
+
+      @if (form.get('confirmPassword')?.hasError('noMatch') && form.get('confirmPassword')?.touched){
+        <small class="p-error">Las contraseñas no coinciden </small>
+      } 
+    </div>
+
+    <button pButton type="submit" label="Registrarse"></button>
+
+  </form>
+
+</p-card>

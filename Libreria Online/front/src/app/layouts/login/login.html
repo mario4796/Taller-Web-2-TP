@@ -1,1 +1,39 @@
-<p>login works!</p>
+<p-card header="Iniciar Sesión" styleClass="register-card">
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <div class="field">
+      <label>Email</label>
+      <input pInputText formControlName="email" type="email" />
+      @if (form.get('email')?.invalid && form.get('email')?.touched) {
+        @if (form.get('email')?.hasError('required')) {
+          <small class="p-error">El email es obligatorio.</small>
+        }
+        @if (form.get('email')?.hasError('email')) {
+          <small class="p-error">Ingresa un formato de email válido.</small>
+        }
+      }
+    </div>
+
+    <div class="field">
+      <label>Contraseña</label>
+      <p-password 
+        formControlName="password" 
+        [toggleMask]="true" 
+        [feedback]="false"> </p-password>
+      
+      @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
+        <small class="p-error">La contraseña es obligatoria.</small>
+      }
+    </div>
+
+    <button 
+      pButton 
+      type="submit" 
+      label="Ingresar" 
+      [disabled]="form.invalid">
+    </button>
+
+  </form>
+
+</p-card>

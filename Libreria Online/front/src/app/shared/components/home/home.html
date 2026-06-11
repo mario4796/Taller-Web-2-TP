@@ -1,30 +1,30 @@
 <main class="page-content">
-    <section class="welcome-section">
-      <div>
-        <p class="eyebrow">{{ eyebrow }}</p>
-        <h1>{{ title }}</h1>
-        <p class="description">
-          {{ description }}
-        </p>
-      </div>
-
-      <div class="welcome-actions">
-        <p-button label="{{buttonText}}" icon="pi pi-arrow-right" iconPos="right" severity="help"></p-button>
-
-        <p-button label="{{buttonLink}}" icon="pi pi-plus" iconPos="left" severity="help"
-          [outlined]="true"></p-button>
-      </div>
-    </section>
-
-    <section class="empty-preview">
-      <div class="empty-icon">
-        <span class="material-symbols-rounded">dashboard_customize</span>
-      </div>
-
-      <h2>Contenido</h2>
-
-      <p>
-        Contenido
+  <section class="welcome-section" [style.background-image]="'url(' + imageBanner + ')'">
+    <div>
+      <p class="eyebrow">{{ eyebrow }}</p>
+      <h1>{{ title }}</h1>
+      <p class="description">
+        {{ description }}
       </p>
-    </section>
-  </main>
+    </div>
+
+    <div class="welcome-actions">
+      <p-button label="{{buttonText}}" icon="pi pi-arrow-right" iconPos="right" severity="help"></p-button>
+
+      <p-button label="{{buttonLink}}" icon="pi pi-plus" iconPos="left" severity="help" [outlined]="true"></p-button>
+    </div>
+  </section>
+
+  <section class="empty-preview">
+    <div class="empty-icon">
+      <span class="material-symbols-rounded">dashboard_customize</span>
+    </div>
+
+    <h2>Contenido</h2>
+
+    <!-- agregar libro-->
+    @if (role === 'proveedor') {
+      <app-agregar-libro></app-agregar-libro>
+    }
+  </section>
+</main>

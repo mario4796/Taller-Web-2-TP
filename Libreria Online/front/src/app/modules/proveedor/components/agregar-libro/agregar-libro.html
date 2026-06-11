@@ -1,0 +1,74 @@
+<div class="dialog-trigger">
+  <p-button (click)="showDialog()" label="Agregar libro" icon="pi pi-plus" iconPos="left" severity="help" />
+
+  <p-dialog header="Agregar libro" [modal]="true" [(visible)]="visible" [style]="{ width: '34rem' }" styleClass="book-dialog">
+    <span class="dialog-helper">Completa los datos del libro antes de guardarlo.</span>
+
+    <form [formGroup]="bookForm" class="book-form">
+      <p-inputgroup class="book-inputgroup">
+        <p-floatlabel variant="in">
+          <input pInputText id="isbn" formControlName="isbn" autocomplete="off" />
+          <label for="isbn">ISBN</label>
+        </p-floatlabel>
+        <p-inputgroup-addon>
+          <i class="pi pi-barcode"></i>
+        </p-inputgroup-addon>
+      </p-inputgroup>
+      @if (isbn && isbn.invalid && isbn.touched) {
+        <small class="error-message">
+          ISBN requerido (10-20 caracteres, números y guiones)
+        </small>
+      }
+
+      <p-inputgroup class="book-inputgroup">
+        <p-floatlabel variant="in">
+          <input pInputText id="author" formControlName="author" autocomplete="off" />
+          <label for="author">Autor</label>
+        </p-floatlabel>
+        <p-inputgroup-addon>
+          <i class="pi pi-user"></i>
+        </p-inputgroup-addon>
+      </p-inputgroup>
+      @if (author && author.invalid && author.touched) {
+        <small class="error-message">
+          Autor requerido (mínimo 3 caracteres)
+        </small>
+      }
+
+      <p-inputgroup class="book-inputgroup">
+        <p-floatlabel variant="in">
+          <p-inputnumber inputId="price" formControlName="price" mode="currency" currency="USD" locale="es-AR"></p-inputnumber>
+          <label for="price">Precio</label>
+        </p-floatlabel>
+        <p-inputgroup-addon>
+          <i class="pi pi-dollar"></i>
+        </p-inputgroup-addon>
+      </p-inputgroup>
+      @if (price && price.invalid && price.touched) {
+        <small class="error-message">
+          Precio requerido (mayor a 0)
+        </small>
+      }
+
+      <p-inputgroup class="book-inputgroup">
+        <p-floatlabel variant="in">
+          <p-inputnumber inputId="stock" formControlName="stock" [useGrouping]="false"></p-inputnumber>
+          <label for="stock">Stock</label>
+        </p-floatlabel>
+        <p-inputgroup-addon>
+          <i class="pi pi-box"></i>
+        </p-inputgroup-addon>
+      </p-inputgroup>
+      @if (stock && stock.invalid && stock.touched) {
+        <small class="error-message">
+          Stock requerido (número entero mayor a 0)
+        </small>
+      }
+    </form>
+
+    <div class="dialog-actions">
+      <p-button label="Cancelar" severity="danger" [text]="true" (click)="closeDialog()" />
+      <p-button label="Guardar" [outlined]="true" severity="secondary" (click)="guardarLibro()" [loading]="isLoading" [disabled]="bookForm.invalid || isLoading" />
+    </div>
+  </p-dialog>
+</div>
