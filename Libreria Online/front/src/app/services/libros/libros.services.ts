@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-// Ajustá estas rutas según dónde tengas los archivos en tu proyecto
 import { Libro } from '../../modules/libros/interfaces/libro.interface';
 import { LibroRest } from './mapping/libro.interface.rest';
 import { LibroMapper } from './mapping/libro.mapper';
@@ -22,10 +21,9 @@ export class LibrosService {
   listLibros(): Observable<Libro[]> {
     console.log("Pidiéndole los libros al backend...");
 
-
-    return this.http.get<LibroRest[]>(this.apiUrl).pipe(
+    return this.http.get<{ message: string, data: LibroRest[] }>(this.apiUrl).pipe(
       map((res) => {
-        return LibroMapper.mapRestLibroArrayToLibroArrayFront(res);
+        return LibroMapper.mapRestLibroArrayToLibroArrayFront(res.data);
       })
     );
   }
