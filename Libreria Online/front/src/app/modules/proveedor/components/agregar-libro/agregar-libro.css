@@ -1,0 +1,49 @@
+.dialog-trigger {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+}
+
+.dialog-helper {
+  display: block;
+  text-align: left;
+  margin-bottom: 1.5rem;
+  color: var(--text-color-secondary);
+  line-height: 1.5;
+}
+
+.book-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.book-inputgroup {
+  width: 100%;
+}
+
+.book-inputgroup :is(input, .p-inputnumber, .p-floatlabel) {
+  width: 100%;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+:host ::ng-deep .book-dialog .p-dialog-header {
+  padding-bottom: 0.5rem;
+}
+
+:host ::ng-deep .book-dialog .p-dialog-content {
+  padding-top: 0;
+}
+
+.error-message {
+  display: block;
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+}
