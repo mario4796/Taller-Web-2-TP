@@ -7,6 +7,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { LibrosService } from '../../../../services/libros/libros.services';
 
 @Component({
   selector: 'app-agregar-libro',
@@ -19,7 +20,8 @@ export class AgregarLibro implements OnInit {
   visible: boolean = false;
   isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder) {}
+  // Inyectamos tu servicio acá
+  constructor(private fb: FormBuilder, private librosService: LibrosService) {}
 
   ngOnInit() {
     this.initializeForm();
@@ -27,9 +29,11 @@ export class AgregarLibro implements OnInit {
 
   private initializeForm() {
     this.bookForm = this.fb.group({
+      // Agregamos el nombre y pasamos todo al español para que matchee con el backend
+      nombre: ['', [Validators.required, Validators.minLength(2)]],
       isbn: ['', [Validators.required, Validators.pattern(/^[0-9-]{10,20}$/)]],
-      author: ['', [Validators.required, Validators.minLength(3)]],
-      price: [null, [Validators.required, Validators.min(0)]],
+      autor: ['', [Validators.required, Validators.minLength(3)]],
+      precio: [null, [Validators.required, Validators.min(0)]],
       stock: [null, [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)]],
     });
   }
@@ -44,53 +48,51 @@ export class AgregarLibro implements OnInit {
   }
 
   guardarLibro() {
-    if (this.bookForm.invalid) {
-      console.error('Formulario inválido', this.bookForm.errors);
-      return;
-    }
+  console.log('--- 1. INICIANDO GUARDADO ---');
+  console.log('Estado general del formulario:', this.bookForm.status);
+  console.log('Valores actuales del formulario:', this.bookForm.value);
 
-    this.isLoading = true;
-    const formData = this.bookForm.value;
+  if (this.bookForm.invalid) {
+    console.error('❌ ERROR: El formulario es inválido. Deteniendo ejecución.');
 
-    console.log('Datos del libro a guardar:', formData);
+    // Este bloque revisa campo por campo y te avisa cuál rompe las reglas
+    Object.keys(this.bookForm.controls).forEach(key => {
+      const controlErrors = this.bookForm.get(key)?.errors;
+      if (controlErrors != null) {
+        console.error(`El campo '${key}' está fallando:`, controlErrors);
+      }
+    });
 
-    // this.libroService.agregarLibro(formData).subscribe(
-    //   (response) => {
-    //     console.log('Libro guardado exitosamente', response);
-    //     this.closeDialog();
-    //     this.isLoading = false;
-    //   },
-    //   (error) => {
-    //     console.error('Error al guardar el libro', error);
-    //     this.isLoading = false;
-    //   }
-    // );
+    return; // Acá es donde se muere el proceso si falta algo
+  }
 
-    // test
-    setTimeout(() => {
-      console.log('Libro guardado (simulado)');
+  console.log('✅ 2. Formulario válido. Preparando envío al backend...');
+  this.isLoading = true;
+  const formData = this.bookForm.value;
+
+  console.log('Datos exactos que viajan al servicio:', formData);
+
+  this.librosService.crearLibro(formData).subscribe({
+    next: (response) => {
+      console.log('🟢 3. ÉXITO: El backend respondió que todo salió bien', response);
       this.closeDialog();
       this.isLoading = false;
-    }, 1000);
-  }
+    },
+    error: (error: any) => {
+      console.error('🔴 3. ERROR DEL BACKEND:', error);
+      this.isLoading = false;
+    }
+  });
+}
 
   private resetForm() {
     this.bookForm.reset();
   }
 
-  get isbn() {
-    return this.bookForm.get('isbn');
-  }
-
-  get author() {
-    return this.bookForm.get('author');
-  }
-
-  get price() {
-    return this.bookForm.get('price');
-  }
-
-  get stock() {
-    return this.bookForm.get('stock');
-  }
+  // Getters actualizados
+  get nombre() { return this.bookForm.get('nombre'); }
+  get isbn() { return this.bookForm.get('isbn'); }
+  get autor() { return this.bookForm.get('autor'); }
+  get precio() { return this.bookForm.get('precio'); }
+  get stock() { return this.bookForm.get('stock'); }
 }

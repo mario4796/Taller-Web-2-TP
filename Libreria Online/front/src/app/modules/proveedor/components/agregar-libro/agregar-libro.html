@@ -5,6 +5,20 @@
     <span class="dialog-helper">Completa los datos del libro antes de guardarlo.</span>
 
     <form [formGroup]="bookForm" class="book-form">
+
+      <p-inputgroup class="book-inputgroup">
+        <p-floatlabel variant="in">
+          <input pInputText id="nombre" formControlName="nombre" autocomplete="off" />
+          <label for="nombre">Título del Libro</label>
+        </p-floatlabel>
+        <p-inputgroup-addon>
+          <i class="pi pi-book"></i>
+        </p-inputgroup-addon>
+      </p-inputgroup>
+      @if (nombre && nombre.invalid && nombre.touched) {
+        <small class="error-message">Título requerido</small>
+      }
+
       <p-inputgroup class="book-inputgroup">
         <p-floatlabel variant="in">
           <input pInputText id="isbn" formControlName="isbn" autocomplete="off" />
@@ -22,14 +36,14 @@
 
       <p-inputgroup class="book-inputgroup">
         <p-floatlabel variant="in">
-          <input pInputText id="author" formControlName="author" autocomplete="off" />
-          <label for="author">Autor</label>
+          <input pInputText id="autor" formControlName="autor" autocomplete="off" />
+          <label for="autor">Autor</label>
         </p-floatlabel>
         <p-inputgroup-addon>
           <i class="pi pi-user"></i>
         </p-inputgroup-addon>
       </p-inputgroup>
-      @if (author && author.invalid && author.touched) {
+      @if (autor && autor.invalid && autor.touched) {
         <small class="error-message">
           Autor requerido (mínimo 3 caracteres)
         </small>
@@ -37,14 +51,14 @@
 
       <p-inputgroup class="book-inputgroup">
         <p-floatlabel variant="in">
-          <p-inputnumber inputId="price" formControlName="price" mode="currency" currency="USD" locale="es-AR"></p-inputnumber>
-          <label for="price">Precio</label>
+          <p-inputnumber inputId="precio" formControlName="precio" mode="currency" currency="USD" locale="es-AR"></p-inputnumber>
+          <label for="precio">Precio</label>
         </p-floatlabel>
         <p-inputgroup-addon>
           <i class="pi pi-dollar"></i>
         </p-inputgroup-addon>
       </p-inputgroup>
-      @if (price && price.invalid && price.touched) {
+      @if (precio && precio.invalid && precio.touched) {
         <small class="error-message">
           Precio requerido (mayor a 0)
         </small>
