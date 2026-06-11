@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
@@ -19,6 +19,7 @@ export class AgregarLibro implements OnInit {
   bookForm!: FormGroup;
   visible: boolean = false;
   isLoading: boolean = false;
+  @Output() libroCreado = new EventEmitter<void>();
 
   // Inyectamos tu servicio acá
   constructor(private fb: FormBuilder, private librosService: LibrosService) {}
@@ -48,22 +49,11 @@ export class AgregarLibro implements OnInit {
   }
 
   guardarLibro() {
-  console.log('--- 1. INICIANDO GUARDADO ---');
-  console.log('Estado general del formulario:', this.bookForm.status);
-  console.log('Valores actuales del formulario:', this.bookForm.value);
+
 
   if (this.bookForm.invalid) {
     console.error('❌ ERROR: El formulario es inválido. Deteniendo ejecución.');
-
-    // Este bloque revisa campo por campo y te avisa cuál rompe las reglas
-    Object.keys(this.bookForm.controls).forEach(key => {
-      const controlErrors = this.bookForm.get(key)?.errors;
-      if (controlErrors != null) {
-        console.error(`El campo '${key}' está fallando:`, controlErrors);
-      }
-    });
-
-    return; // Acá es donde se muere el proceso si falta algo
+    return;
   }
 
   console.log('✅ 2. Formulario válido. Preparando envío al backend...');
@@ -77,6 +67,7 @@ export class AgregarLibro implements OnInit {
       console.log('🟢 3. ÉXITO: El backend respondió que todo salió bien', response);
       this.closeDialog();
       this.isLoading = false;
+      this.libroCreado.emit();
     },
     error: (error: any) => {
       console.error('🔴 3. ERROR DEL BACKEND:', error);
