@@ -1,0 +1,61 @@
+<div class="card" style="width: 95vw; margin: 20px auto; font-family: var(--font-family);">
+  
+  <div style="margin-bottom: 20px;">
+    <h2 style="margin: 0; color: var(--text-color); font-size: 1.75rem;">Control de Inventario</h2>
+    <p style="margin: 5px 0 0 0; color: var(--text-color-secondary); font-size: 0.875rem;">
+      Estructura nativa en barras (Ordenado por menor stock).
+    </p>
+  </div>
+
+  @if (cargando) {
+    <div style="text-align: center; padding: 40px; color: var(--text-color-secondary);">
+      Cargando datos del inventario...
+    </div>
+  }
+
+  @if (errorError) {
+    <div style="color: var(--red-500); padding: 15px; border-radius: 6px; background-color: var(--red-50);">
+      {{ errorError }}
+    </div>
+  }
+
+  @if (!cargando && !errorError) {
+    <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+      
+      @for (item of libros(); track item.id) {
+        <div class="libro-row" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--surface-d); border-radius: 8px; padding: 12px 20px; background-color: var(--surface-card);">
+          
+          <div style="display: flex; align-items: center; gap: 20px; flex: 1;">
+            // aca iria imagen pedida por api de tercero 
+            
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+              <span style="font-weight: 600; font-size: 1.1rem; color: var(--text-color);">
+                {{ item.nombre }}
+              </span>
+              <span style="font-size: 0.85rem; color: var(--text-color-secondary);">
+                Autor: <strong style="color: var(--text-color);">{{ item.autor }}</strong> | ISBN: <strong>{{ item.isbn }}</strong>
+              </span>
+            </div>
+          </div>
+
+          <div style="text-align: right; display: flex; flex-direction: column; gap: 4px; align-items: flex-end; min-width: 120px;">
+            <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-color-secondary); font-weight: 700;">
+              Stock
+            </span>
+            <p-tag 
+              [value]="item.stock + ' un.'" 
+              [severity]="getSeverity(item.stock)"
+              [style]="{'font-size': '0.95rem', 'padding': '6px 12px'}">
+            </p-tag>
+          </div>
+
+        </div>
+      } @empty {
+        <div style="text-align: center; padding: 20px; color: var(--text-color-secondary);">
+          No se encontraron libros en el sistema.
+        </div>
+      }
+
+    </div>
+  }
+</div>
