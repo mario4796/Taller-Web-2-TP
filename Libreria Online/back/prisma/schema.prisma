@@ -18,13 +18,14 @@ model Compradores {
 }
 
 model Libros {
-  id     Int     @id @default(autoincrement())
-  isbn   String  @unique @db.VarChar(20)
-  nombre String  @db.VarChar(255)
-  autor  String  @db.VarChar(255)
-  precio Decimal @db.Decimal(10, 2)
-  stock  Int?    @default(0)
-  estado String? @default("DISPONIBLE") @db.VarChar(50)
+  id      Int           @id @default(autoincrement())
+  isbn    String        @unique @db.VarChar(20)
+  nombre  String        @db.VarChar(255)
+  autor   String        @db.VarChar(255)
+  precio  Decimal       @db.Decimal(10, 2)
+  stock   Int?          @default(0)
+  estado  String?       @default("DISPONIBLE") @db.VarChar(50)
+  ofertas OfertaLibro[] 
 }
 
 model Proveedores {
@@ -43,4 +44,28 @@ model Usuarios {
   Administradores Administradores?
   Compradores     Compradores?
   Proveedores     Proveedores?
+}
+enum EstadoOferta {
+  ESPERANDO_ADMIN       
+  ESPERANDO_PROVEEDOR   
+  ACEPTADA             
+  RECHAZADA             
+}
+
+model OfertaLibro {
+  id               Int          @id @default(autoincrement())
+  isbn             String
+  nombre           String       
+  autor            String
+  precioProveedor  Decimal      @db.Decimal(10, 2)
+  cantidadProveedor  Int          
+  cantidadAdmin      Int?
+  estado           EstadoOferta @default(ESPERANDO_ADMIN)
+  createdAt        DateTime     @default(now())
+  
+  // proveedorId      Int
+  //Proveedor        Proveedores  @relation(fields: [proveedorId], references: [usuario_id])
+
+  libroId          Int?
+  Libro            Libros?      @relation(fields: [libroId], references: [id])
 }

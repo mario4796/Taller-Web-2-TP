@@ -16,10 +16,10 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "../models.js"
-import { type PrismaClient } from "./class.js"
+import type * as Prisma from "../models.ts"
+import { type PrismaClient } from "./class.ts"
 
-export type * from '../models.js'
+export type * from '../models.ts'
 
 export type DMMF = typeof runtime.DMMF
 
@@ -388,7 +388,8 @@ export const ModelName = {
   Compradores: 'Compradores',
   Libros: 'Libros',
   Proveedores: 'Proveedores',
-  Usuarios: 'Usuarios'
+  Usuarios: 'Usuarios',
+  OfertaLibro: 'OfertaLibro'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -404,7 +405,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "administradores" | "compradores" | "libros" | "proveedores" | "usuarios"
+    modelProps: "administradores" | "compradores" | "libros" | "proveedores" | "usuarios" | "ofertaLibro"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -778,6 +779,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    OfertaLibro: {
+      payload: Prisma.$OfertaLibroPayload<ExtArgs>
+      fields: Prisma.OfertaLibroFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OfertaLibroFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OfertaLibroFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>
+        }
+        findFirst: {
+          args: Prisma.OfertaLibroFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OfertaLibroFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>
+        }
+        findMany: {
+          args: Prisma.OfertaLibroFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>[]
+        }
+        create: {
+          args: Prisma.OfertaLibroCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>
+        }
+        createMany: {
+          args: Prisma.OfertaLibroCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OfertaLibroCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>[]
+        }
+        delete: {
+          args: Prisma.OfertaLibroDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>
+        }
+        update: {
+          args: Prisma.OfertaLibroUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>
+        }
+        deleteMany: {
+          args: Prisma.OfertaLibroDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OfertaLibroUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OfertaLibroUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>[]
+        }
+        upsert: {
+          args: Prisma.OfertaLibroUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>
+        }
+        aggregate: {
+          args: Prisma.OfertaLibroAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOfertaLibro>
+        }
+        groupBy: {
+          args: Prisma.OfertaLibroGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OfertaLibroGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OfertaLibroCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OfertaLibroCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -864,6 +939,22 @@ export const UsuariosScalarFieldEnum = {
 export type UsuariosScalarFieldEnum = (typeof UsuariosScalarFieldEnum)[keyof typeof UsuariosScalarFieldEnum]
 
 
+export const OfertaLibroScalarFieldEnum = {
+  id: 'id',
+  isbn: 'isbn',
+  nombre: 'nombre',
+  autor: 'autor',
+  precioProveedor: 'precioProveedor',
+  cantidadProveedor: 'cantidadProveedor',
+  cantidadAdmin: 'cantidadAdmin',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  libroId: 'libroId'
+} as const
+
+export type OfertaLibroScalarFieldEnum = (typeof OfertaLibroScalarFieldEnum)[keyof typeof OfertaLibroScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -933,6 +1024,34 @@ export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'Decimal[]'
  */
 export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
+ * Reference to a field of type 'EstadoOferta'
+ */
+export type EnumEstadoOfertaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoOferta'>
+    
+
+
+/**
+ * Reference to a field of type 'EstadoOferta[]'
+ */
+export type ListEnumEstadoOfertaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoOferta[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime'
+ */
+export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime[]'
+ */
+export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -1064,6 +1183,7 @@ export type GlobalOmitConfig = {
   libros?: Prisma.LibrosOmit
   proveedores?: Prisma.ProveedoresOmit
   usuarios?: Prisma.UsuariosOmit
+  ofertaLibro?: Prisma.OfertaLibroOmit
 }
 
 /* Types for Logging */
