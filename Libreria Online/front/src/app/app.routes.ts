@@ -4,6 +4,7 @@ import { ProveedorHome } from './modules/proveedor/pages/proveedor-home/proveedo
 import { Libros } from './modules/proveedor/pages/libros/libros';
 import { Register } from './layouts/register/register';
 import { Login } from './layouts/login/login';
+import { ProveedorRecomendacion } from './modules/proveedor/pages/proveedor-recomendacion/proveedor-recomendacion';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,10 @@ export const routes: Routes = [
   {
     path: 'proveedor/libros',
     component: Libros
+  },
+  {
+    path: 'proveedor/proveedor-recomendacion',
+    component: ProveedorRecomendacion
   },
   {
     path: 'register',

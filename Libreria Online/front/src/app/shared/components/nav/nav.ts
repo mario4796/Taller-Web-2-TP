@@ -12,6 +12,7 @@ interface NavItem {
   label: string;
   icon: string;
   active?: boolean;
+  link?: string;
 }
 
 @Component({
@@ -24,6 +25,7 @@ export class Nav implements OnInit, OnChanges {
   @Input() logueado: boolean = true;
   @Input() role: string = '';
   @Input() userName: string = '';
+  @Input() activeItem: string = '';
 
   isDark = signal(false);
   mobileNavOpen = signal(false);
@@ -41,10 +43,10 @@ export class Nav implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['logueado'] || changes['role']) {
-      this.setNavItems();
-    }
+  if (changes['logueado'] || changes['role'] || changes['activeItem']) {
+    this.setNavItems();
   }
+}
 
   toggleTheme(): void {
     const newValue = !this.isDark();
@@ -60,46 +62,51 @@ export class Nav implements OnInit, OnChanges {
   }
 
   private setNavItems(): void {
-    if (!this.logueado) {
-      this.navItems = [
-        { label: 'Inicio', icon: 'home', active: true },
-        { label: 'Categorías', icon: 'category' },
-        { label: 'Ofertas', icon: 'sell' }
-      ];
-      return;
-    }
-
-    switch (this.role) {
-      case 'admin':
-        this.navItems = [
-          { label: 'Inicio', icon: 'home', active: true },
-          { label: 'Usuarios', icon: 'people' },
-          { label: 'Libros', icon: 'book' },
-          { label: 'Stock', icon: 'inventory' },
-          { label: 'Reportes', icon: 'description' }
-        ];
-        break;
-
-      case 'proveedor':
-        this.navItems = [
-          { label: 'Inicio', icon: 'home', active: true },
-          { label: 'Peticiones', icon: 'assignment' },
-          { label: 'Ofertas', icon: 'sell' },
-          { label: 'Estadísticas', icon: 'monitoring' },
-          { label: 'Ventas', icon: 'shopping_cart' },
-          { label: 'Recomendar libro', icon: 'auto_stories' }
-        ];
-        break;
-
-      case 'comprador':
-      default:
-        this.navItems = [
-          { label: 'Inicio', icon: 'home', active: true },
-          { label: 'Categorías', icon: 'category' },
-          { label: 'Ofertas', icon: 'sell' },
-          { label: 'Mis pedidos', icon: 'shopping_cart' }
-        ];
-        break;
-    }
+  if (!this.logueado) {
+    this.navItems = [
+      { label: 'Inicio', icon: 'home', active: this.activeItem === 'Inicio' },
+      { label: 'Categorías', icon: 'category', active: this.activeItem === 'Categorías' },
+      { label: 'Ofertas', icon: 'sell', active: this.activeItem === 'Ofertas' }
+    ];
+    return;
   }
+
+  switch (this.role) {
+    case 'admin':
+      this.navItems = [
+        { label: 'Inicio', icon: 'home', active: this.activeItem === 'Inicio' },
+        { label: 'Usuarios', icon: 'people', active: this.activeItem === 'Usuarios' },
+        { label: 'Libros', icon: 'book', active: this.activeItem === 'Libros' },
+        { label: 'Stock', icon: 'inventory', active: this.activeItem === 'Stock' },
+        { label: 'Reportes', icon: 'description', active: this.activeItem === 'Reportes' }
+      ];
+      break;
+
+    case 'proveedor':
+      this.navItems = [
+        { label: 'Inicio', icon: 'home', link: '/proveedor', active: this.activeItem === 'Inicio' },
+        { label: 'Peticiones', icon: 'assignment', active: this.activeItem === 'Peticiones' },
+        { label: 'Ofertas', icon: 'sell', active: this.activeItem === 'Ofertas' },
+        { label: 'Estadísticas', icon: 'monitoring', active: this.activeItem === 'Estadísticas' },
+        { label: 'Ventas', icon: 'shopping_cart', active: this.activeItem === 'Ventas' },
+        {
+          label: 'Recomendar libro',
+          icon: 'auto_stories',
+          link: '/proveedor/proveedor-recomendacion',
+          active: this.activeItem === 'Recomendar libro'
+        }
+      ];
+      break;
+
+    case 'comprador':
+    default:
+      this.navItems = [
+        { label: 'Inicio', icon: 'home', active: this.activeItem === 'Inicio' },
+        { label: 'Categorías', icon: 'category', active: this.activeItem === 'Categorías' },
+        { label: 'Ofertas', icon: 'sell', active: this.activeItem === 'Ofertas' },
+        { label: 'Mis pedidos', icon: 'shopping_cart', active: this.activeItem === 'Mis pedidos' }
+      ];
+      break;
+  }
+}
 }

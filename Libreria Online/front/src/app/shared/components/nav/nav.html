@@ -6,7 +6,7 @@
 
   <div class="nav-links">
     @for (item of navItems; track item.label) {
-    <button class="nav-link" [class.active]="item.active" type="button">
+    <button class="nav-link" [routerLink]="item.link" [class.active]="item.active" type="button">
       <span class="material-symbols-rounded">{{ item.icon }}</span>
       <span>{{ item.label }}</span>
     </button>
@@ -14,13 +14,13 @@
   </div>
 
   <div class="nav-actions">
-    <p-inputgroup class="nav-search">
+    <!-- <p-inputgroup class="nav-search">
       <p-inputgroup-addon>
         <span class="material-symbols-rounded search-icon">search</span>
       </p-inputgroup-addon>
 
       <input pInputText type="text" placeholder="Buscar por título, autor o ISBN..." />
-    </p-inputgroup>
+    </p-inputgroup> -->
 
     <!-- hamburger button visible on small screens -->
     <p-button class="hamburger-button" [rounded]="true" [text]="true" styleClass="nav-icon-button"
