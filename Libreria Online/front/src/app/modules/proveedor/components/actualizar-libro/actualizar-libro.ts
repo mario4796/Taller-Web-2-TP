@@ -10,7 +10,7 @@ import { InputText } from 'primeng/inputtext';
 
 import { LibrosService } from '../../../../services/libros/libros.services';
 import { Libro } from '../../../libros/interfaces/libro.interface';
-import { ToastService } from '../../../../shared/services/toast.service';
+import { ToastService } from '../../../../services/toast.service';
 
 @Component({
   selector: 'app-actualizar-libro',
