@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -20,21 +20,22 @@ import { ToastService } from '../../../../services/toast.service';
   styleUrl: './actualizar-libro.css',
 })
 export class ActualizarLibro {
-  bookForm: FormGroup;
   visible = false;
   isLoading = false;
   libroSeleccionado: Libro | null = null;
 
   @Output() libroActualizado = new EventEmitter<void>();
 
-  constructor(private fb: FormBuilder, private librosService: LibrosService, private toastService: ToastService) {
-    this.bookForm = this.fb.group({
-      nombre: ['', [Validators.required, Validators.minLength(2)]],
-      isbn: ['', [Validators.required, Validators.pattern(/^[0-9-]{10,20}$/)]],
-      autor: ['', [Validators.required, Validators.minLength(3)]],
-      precio: [null, [Validators.required, Validators.min(0)]],
-    });
-  }
+  private fb = inject(FormBuilder);
+  private librosService = inject(LibrosService);
+  private toastService = inject(ToastService);
+
+  bookForm: FormGroup = this.fb.group({
+    nombre: ['', [Validators.required, Validators.minLength(2)]],
+    isbn: ['', [Validators.required, Validators.pattern(/^[0-9-]{10,20}$/)]],
+    autor: ['', [Validators.required, Validators.minLength(3)]],
+    precio: [null, [Validators.required, Validators.min(0)]],
+  });
 
   showDialog(libro: Libro): void {
     this.libroSeleccionado = libro;

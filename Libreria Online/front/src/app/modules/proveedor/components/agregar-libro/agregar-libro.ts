@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
@@ -23,8 +23,9 @@ export class AgregarLibro implements OnInit {
   isLoading: boolean = false;
   @Output() libroCreado = new EventEmitter<void>();
 
-  // Inyectamos tu servicio acá
-  constructor(private fb: FormBuilder, private librosService: LibrosService, private toastService: ToastService) {}
+  private fb = inject(FormBuilder);
+  private librosService = inject(LibrosService);
+  private toastService = inject(ToastService);
 
   ngOnInit() {
     this.initializeForm();

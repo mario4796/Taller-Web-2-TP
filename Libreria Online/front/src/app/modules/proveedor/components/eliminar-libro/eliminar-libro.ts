@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { Button } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 
@@ -20,7 +20,8 @@ export class EliminarLibro {
 
   @Output() libroEliminado = new EventEmitter<void>();
 
-  constructor(private librosService: LibrosService, private toastService: ToastService) {}
+  private librosService = inject(LibrosService);
+  private toastService = inject(ToastService);
 
   showDialog(libro: Libro): void {
     this.libroSeleccionado = libro;

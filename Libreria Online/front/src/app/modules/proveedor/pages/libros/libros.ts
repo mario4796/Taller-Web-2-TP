@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ViewChild } from '@angular/core';
@@ -38,11 +38,9 @@ export class Libros implements OnInit {
 
   @ViewChild('tablaLibros') tablaLibros?: Table;
 
-  constructor(
-    private librosService: LibrosService,
-    private toastService: ToastService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  private librosService = inject(LibrosService);
+  private toastService = inject(ToastService);
+  private cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     this.obtenerLibros();
