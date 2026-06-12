@@ -8,9 +8,11 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { LibrosService } from '../../../../services/libros/libros.services';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-agregar-libro',
+  standalone: true,
   imports: [Button, ReactiveFormsModule, InputText, DialogModule, InputGroupModule, InputGroupAddonModule, FloatLabelModule, InputNumberModule],
   templateUrl: './agregar-libro.html',
   styleUrl: './agregar-libro.css',
@@ -22,7 +24,7 @@ export class AgregarLibro implements OnInit {
   @Output() libroCreado = new EventEmitter<void>();
 
   // Inyectamos tu servicio acá
-  constructor(private fb: FormBuilder, private librosService: LibrosService) {}
+  constructor(private fb: FormBuilder, private librosService: LibrosService, private toastService: ToastService) {}
 
   ngOnInit() {
     this.initializeForm();
@@ -67,11 +69,13 @@ export class AgregarLibro implements OnInit {
       console.log('🟢 3. ÉXITO: El backend respondió que todo salió bien', response);
       this.closeDialog();
       this.isLoading = false;
+        this.toastService.created('Libro');
       this.libroCreado.emit();
     },
     error: (error: any) => {
       console.error('🔴 3. ERROR DEL BACKEND:', error);
       this.isLoading = false;
+        this.toastService.error('No se pudo crear el libro.');
     }
   });
 }

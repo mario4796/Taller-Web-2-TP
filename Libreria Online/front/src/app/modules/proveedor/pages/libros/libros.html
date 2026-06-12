@@ -1,0 +1,98 @@
+<app-nav [userName]="userName" [role]="role"></app-nav>
+
+<p-toast position="top-right"></p-toast>
+
+<section class="books-page">
+	<header class="books-header">
+		<div>
+			<p class="books-eyebrow">Gestión de libros</p>
+			<h2>Administrá el catálogo</h2>
+			<p class="books-description">Usá los botones para crear, editar o eliminar libros sin salir de esta pantalla.</p>
+		</div>
+
+		<div class="books-toolbar">
+			<app-agregar-libro (libroCreado)="obtenerLibros()"></app-agregar-libro>
+		</div>
+	</header>
+
+	<app-actualizar-libro #editarLibro (libroActualizado)="obtenerLibros()"></app-actualizar-libro>
+	<app-eliminar-libro #borrarLibro (libroEliminado)="obtenerLibros()"></app-eliminar-libro>
+
+	<div class="card">
+		<p-table
+			#tablaLibros
+			[value]="libros"
+			[globalFilterFields]="['nombre', 'autor', 'isbn']"
+			[loading]="cargando"
+			[tableStyle]="{ 'min-width': '56rem' }"
+			styleClass="p-datatable-striped books-table"
+			[paginator]="true"
+			[rows]="5"
+			[rowsPerPageOptions]="[5, 10, 20]">
+
+			<ng-template pTemplate="caption">
+				<div class="books-caption">
+					<p-inputgroup class="books-search-group">
+						<p-inputgroup-addon>
+							<i class="pi pi-search"></i>
+						</p-inputgroup-addon>
+						<p-floatlabel variant="in">
+							<input
+								pInputText
+								id="book-search"
+								type="text"
+								[(ngModel)]="searchValue"
+								(ngModelChange)="buscarLibros($event)" />
+							<label for="book-search">Buscar libro</label>
+						</p-floatlabel>
+					</p-inputgroup>
+				</div>
+			</ng-template>
+
+			<ng-template pTemplate="header">
+				<tr>
+					<th>Título</th>
+					<th>Autor</th>
+					<th>ISBN</th>
+					<th>Precio</th>
+					<th>Stock</th>
+					<th style="text-align: center;">Acciones</th>
+				</tr>
+			</ng-template>
+
+			<ng-template pTemplate="body" let-libro>
+				<tr>
+					<td><strong>{{ libro.nombre }}</strong></td>
+					<td>{{ libro.autor }}</td>
+					<td>{{ libro.isbn }}</td>
+					<td>{{ libro.precio | currency:'USD':'symbol':'1.2-2':'es-AR' }}</td>
+					<td>
+						<div class="stock-cell">
+							<span class="stock-amount">{{ libro.stock }} uds.</span>
+							<p-tag
+								class="stock-tag"
+								[value]="''"
+								[icon]="stockIcon(libro.stock)"
+								[severity]="stockSeverity(libro.stock)"
+								[pTooltip]="stockTooltip(libro.stock)"
+								tooltipPosition="top">
+							</p-tag>
+						</div>
+					</td>
+					<td style="text-align: center;">
+						<p-button icon="pi pi-pencil" [rounded]="true" [text]="true" (click)="editarLibro.showDialog(libro)" severity="info" title="Editar"></p-button>
+						<p-button icon="pi pi-trash" [rounded]="true" [text]="true" (click)="borrarLibro.showDialog(libro)" severity="danger" title="Eliminar"></p-button>
+					</td>
+				</tr>
+			</ng-template>
+
+			<ng-template pTemplate="emptymessage">
+				<tr>
+					<td colspan="6" style="text-align: center; padding: 2rem;">
+						No hay libros cargados en la base de datos todavía.
+					</td>
+				</tr>
+			</ng-template>
+		</p-table>
+	</div>
+</section>

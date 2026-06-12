@@ -9,7 +9,22 @@
     </div>
 
     <div class="welcome-actions">
-      <p-button label="{{buttonText}}" icon="pi pi-arrow-right" iconPos="right" severity="help"></p-button>
+      @if (buttonRoute) {
+        <p-button
+          [routerLink]="buttonRoute"
+          label="{{buttonText}}"
+          icon="pi pi-arrow-right"
+          iconPos="right"
+          severity="help">
+        </p-button>
+      } @else {
+        <p-button
+          label="{{buttonText}}"
+          icon="pi pi-arrow-right"
+          iconPos="right"
+          severity="help">
+        </p-button>
+      }
 
       <p-button label="{{buttonLink}}" icon="pi pi-plus" iconPos="left" severity="help" [outlined]="true"></p-button>
     </div>
@@ -21,10 +36,6 @@
     </div>
 
     <h2>Contenido</h2>
-
-    <!-- agregar libro-->
-    @if (role === 'proveedor') {
-      <app-agregar-libro></app-agregar-libro>
-    }
+    <p>Selecciona una acción para continuar.</p>
   </section>
 </main>

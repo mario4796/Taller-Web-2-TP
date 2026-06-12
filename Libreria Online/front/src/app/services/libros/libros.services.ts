@@ -14,8 +14,6 @@ export class LibrosService {
 
   http = inject(HttpClient);
 
-  // Armamos la URL base apuntando a tu backend.
-  // Asumo que tu environment.API_URL tiene "http://localhost:3000"
   private apiUrl = `${environment.API_URL}/api/libros`;
 
   listLibros(): Observable<Libro[]> {
@@ -36,7 +34,7 @@ export class LibrosService {
     );
   }
 
-  crearLibro(libro: Libro): Observable<Libro> {
+  crearLibro(libro: Omit<Libro, 'id'>): Observable<Libro> {
     return this.http.post<any>(this.apiUrl, libro).pipe(
       map((res) => {
         return LibroMapper.mapRestLibrotoLibroFrontU(res.data);
@@ -45,10 +43,10 @@ export class LibrosService {
   }
 
 
-  updateLibro(id: number, libro: Libro): Observable<Libro> {
-    return this.http.put<LibroRest>(`${this.apiUrl}/${id}`, libro).pipe(
+  updateLibro(id: number, libro: Omit<Libro, 'id' | 'stock'>): Observable<Libro> {
+    return this.http.put<{ message: string, data: LibroRest }>(`${this.apiUrl}/${id}`, libro).pipe(
       map((res) => {
-         return LibroMapper.mapRestLibrotoLibroFrontU(res);
+         return LibroMapper.mapRestLibrotoLibroFrontU(res.data);
       })
     );
   }

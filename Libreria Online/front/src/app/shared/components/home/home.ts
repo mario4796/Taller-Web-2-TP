@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
-import { AgregarLibro } from '../../../modules/proveedor/components/agregar-libro/agregar-libro';
 
 @Component({
   selector: 'app-home',
-  imports: [Button, AgregarLibro],
+  standalone: true,
+  imports: [Button, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -15,5 +16,6 @@ export class Home {
   @Input() description: string = '';
   @Input() buttonText: string = '';
   @Input() buttonLink: string = '';
+  @Input() buttonRoute: string = '';
   @Input() role: string = '';
 }

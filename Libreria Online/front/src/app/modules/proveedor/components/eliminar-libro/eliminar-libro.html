@@ -1,0 +1,12 @@
+<p-dialog header="Eliminar libro" [modal]="true" [(visible)]="visible" [style]="{ width: '28rem' }" styleClass="book-dialog">
+	<p class="dialog-helper">
+		@if (libroSeleccionado) {
+			Vas a eliminar <strong>{{ libroSeleccionado.nombre }}</strong>. Esta acción no se puede deshacer.
+		}
+	</p>
+
+	<div class="dialog-actions">
+		<p-button label="Cancelar" severity="secondary" [text]="true" (click)="closeDialog()" />
+		<p-button label="Eliminar" severity="danger" (click)="eliminarLibro()" [loading]="isLoading" />
+	</div>
+</p-dialog>
