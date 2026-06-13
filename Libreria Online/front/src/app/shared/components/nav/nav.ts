@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -7,6 +7,7 @@ import { Avatar } from 'primeng/avatar';
 import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddon } from 'primeng/inputgroupaddon';
 import { InputText } from 'primeng/inputtext';
+import { AuthService } from '../../../services/Auth/auth-service';
 
 interface NavItem {
   label: string;
@@ -29,10 +30,12 @@ export class Nav implements OnInit, OnChanges {
 
   isDark = signal(false);
   mobileNavOpen = signal(false);
+    private authService = inject(AuthService);
 
   navItems: NavItem[] = [];
 
   ngOnInit(): void {
+    console.log(localStorage.getItem('role'))
     const savedTheme = localStorage.getItem('theme');
     const shouldUseDark = savedTheme === 'dark';
 
@@ -56,10 +59,17 @@ export class Nav implements OnInit, OnChanges {
 
     localStorage.setItem('theme', newValue ? 'dark' : 'light');
   }
+  
 
   toggleMobileNav(): void {
     this.mobileNavOpen.set(!this.mobileNavOpen());
   }
+
+  logout(){
+    this.authService.logout();
+  }
+
+  
 
   private setNavItems(): void {
   if (!this.logueado) {

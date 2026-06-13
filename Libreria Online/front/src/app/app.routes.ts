@@ -5,9 +5,10 @@ import { Libros } from './modules/proveedor/pages/libros/libros';
 import { Register } from './layouts/register/register';
 import { Login } from './layouts/login/login';
 import { Carrito } from './modules/carrito/carrito';
-import { Libro } from './modules/libro/libro';
 import { Usuario } from './modules/usuario/usuario-component/usuario';
 import { ProveedorRecomendacion } from './modules/proveedor/pages/proveedor-recomendacion/proveedor-recomendacion';
+import { Estanteria } from './modules/estanteria/estanteria';
+import { authGuard } from './services/Auth/auth-guard';
 
 export const routes: Routes = [
   {
@@ -16,7 +17,9 @@ export const routes: Routes = [
   },
   {
     path: 'proveedor',
-    component: ProveedorHome
+    component: ProveedorHome,
+    canActivate: [authGuard],
+    data: { roles: ['PROVEEDOR'] }
   },
   {
     path: 'proveedor/libros',
@@ -39,12 +42,16 @@ export const routes: Routes = [
     component: Carrito
   },
   {
-    path: 'libro',
-    component: Libro
+    path: 'libros',
+    component: Estanteria
   },
 {
   path:'usuarios',
   component: Usuario
+},
+{
+  path:'home',
+  component: HomeUser
 }
 
 

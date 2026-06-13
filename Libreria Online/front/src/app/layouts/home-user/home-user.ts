@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Nav } from '../../shared/components/nav/nav';
 import { Home } from '../../shared/components/home/home';
@@ -9,10 +9,21 @@ import { Home } from '../../shared/components/home/home';
   templateUrl: './home-user.html',
   styleUrl: './home-user.css',
 })
-export class HomeUser {
+export class HomeUser implements OnInit {
   //nav//
-
   logueado = false;
+  
+  ngOnInit(): void {
+    this.verificarLogin();
+  }
+
+  verificarLogin(){
+    console.log(localStorage.getItem('usuario'));
+    if(localStorage.getItem('usuario') !=null){
+      this.logueado = true;
+    }
+  }
+
   //home//
 
   imageBanner = 'img/libreria_banner_transparente.svg';

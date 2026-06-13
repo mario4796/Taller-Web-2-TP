@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { UsuarioService } from '../../api/services/usuario/usuario-service';
 
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/Auth/auth-service';
 @Component({
   selector: 'app-login',
   imports: [
@@ -24,6 +25,7 @@ export class Login {
   private fb = inject (FormBuilder);
 
   private usuarioService = inject(UsuarioService);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
   public form: FormGroup = this.fb.group({
@@ -43,7 +45,9 @@ export class Login {
   this.usuarioService.login(datos).subscribe({
     next: (respuesta) => {
 
-      localStorage.setItem('usuario', JSON.stringify(respuesta));
+      console.log(respuesta.tipo_usuario_id);
+      this.authService.setSesion(respuesta.tipo_usuario_id, respuesta);
+      console.log(localStorage.getItem('usuario'));
       
       this.router.navigate(['']);
     },

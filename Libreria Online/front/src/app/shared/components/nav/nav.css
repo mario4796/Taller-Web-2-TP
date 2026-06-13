@@ -63,12 +63,12 @@
 
 :host-context(.app-dark) .nav-link:hover {
   color: #c084fc;
-  background: rgba(168, 85, 247, 0.10);
+  background: rgba(168, 85, 247, 0.1);
 }
 
 .nav-link.active {
   color: #7c3aed;
-  background: rgba(124, 58, 237, 0.10);
+  background: rgba(124, 58, 237, 0.1);
 }
 
 :host-context(.app-dark) .nav-link.active {
@@ -122,7 +122,7 @@
 
 :host-context(.app-dark) ::ng-deep .nav-search .p-inputgroup-addon {
   border-color: rgba(192, 132, 252, 0.22);
-  background: rgba(168, 85, 247, 0.10);
+  background: rgba(168, 85, 247, 0.1);
 }
 
 :host ::ng-deep .nav-search .p-inputtext {
@@ -355,20 +355,20 @@
   /* Use explicit solid colors for light/dark to avoid inherited transparency */
   background-color: #ffffff;
   color: #0b1220;
-  border-top: 1px solid rgba(0,0,0,0.06);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  box-shadow: 0 10px 30px rgba(2,6,23,0.14);
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.14);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  animation: mobileNavIn .16s ease;
+  animation: mobileNavIn 0.16s ease;
   opacity: 1 !important;
 }
 
 :host-context(.app-dark) .mobile-nav.open {
   background-color: #071022;
   color: #e6e6f0;
-  border-top-color: rgba(192,132,252,0.06);
+  border-top-color: rgba(192, 132, 252, 0.06);
 }
 
 .mobile-nav .mobile-nav-item:hover {
@@ -376,8 +376,14 @@
 }
 
 @keyframes mobileNavIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 700px) {
@@ -388,4 +394,33 @@
   .hamburger-button {
     display: inline-flex;
   }
+}
+
+/* Logout button */
+:host ::ng-deep .logout-button {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  transition: all 0.2s ease;
+}
+
+:host ::ng-deep .logout-button:hover {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border-color: #dc2626;
+  transform: translateY(-1px);
+}
+
+:host-context(.app-dark) ::ng-deep .logout-button {
+  border-color: rgba(248, 113, 113, 0.25);
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+:host-context(.app-dark) ::ng-deep .logout-button:hover {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
 }

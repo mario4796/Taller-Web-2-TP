@@ -38,6 +38,11 @@ export type Libros = Prisma.LibrosModel
  */
 export type Proveedores = Prisma.ProveedoresModel
 /**
+ * Model TiposUsuario
+ * 
+ */
+export type TiposUsuario = Prisma.TiposUsuarioModel
+/**
  * Model Usuarios
  * 
  */

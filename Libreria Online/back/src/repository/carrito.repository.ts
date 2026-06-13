@@ -1,4 +1,4 @@
-import { Libro } from "../entities/Libro";
+import { Libro } from "../models/libro.model";
 import { prisma } from "../prisma";
 import { Prisma } from "../prisma/client";
 
@@ -20,6 +20,7 @@ export class CarritoRepository {
     const subtotal = Number(libro.precio) * cantidad;
 
     return await prisma.detallesCarrito.upsert({
+
       where: {
         carrito_id_libro_id: {
           carrito_id: carritoId,

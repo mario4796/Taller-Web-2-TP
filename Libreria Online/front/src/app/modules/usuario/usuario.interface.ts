@@ -5,5 +5,5 @@ export interface UsuarioPrueba{
     nombre:string,
     apellido: string,
     direccion: string,
-    tipo_usuario:string,
+    tipo_usuario_id:number,
 }

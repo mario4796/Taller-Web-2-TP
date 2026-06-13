@@ -13,7 +13,7 @@ export class UsuarioMapper{
             nombre: usuarioRest.nombre,
             apellido: usuarioRest.apellido,
             direccion: usuarioRest.direccion,
-            tipo_usuario: usuarioRest.tipo_usuario
+            tipo_usuario_id: usuarioRest.tipo_usuario
         }
     }
 

@@ -16,22 +16,26 @@ export class CompradorService {
 
     async agregarProducto(compradorId: number, libroId: number, cantidad: number) {
         
-        // 1. Busco el libro para saber el precio y si hay stock disponible
-        const libro = await this.libroRepository.findLibroById(libroId);
-        if (!libro || libro.stock < cantidad) {
-            throw new Error("No hay stock suficiente o el libro no existe");
-        }
+   
+       // 1. Buscar libro
+    const libro = await this.libroRepository.findLibroById(libroId);
+    if (!libro) {
+        throw new Error("El libro no existe.");
+    }
+    
+    // 2. Validar stock (usando tu modelo)
+    if (libro.stock < cantidad) {
+        throw new Error("No hay stock suficiente.");
+    }
 
-        // 2. Busco el carrito del comprador
-        let carrito = await this.carritoRepository.findCarritoByIdComprador(compradorId);
-        
+    // 3. Buscar carrito
+    const carrito = await this.carritoRepository.findCarritoByIdComprador(compradorId);
+    
+    // 4. Validar existencia estricta (no creamos nada nuevo)
+    if (!carrito || !carrito.id) {
+        throw new Error("Carrito no encontrado para este comprador.");
+    }
 
-        // Control de seguridad extra para TypeScript
-        if (carrito?.id === undefined) {
-            throw new Error("Error crítico: El carrito no posee un ID válido.");
-        }
-
-        // 3. Agrego el libro al carrito (Ya no usamos 'carrito?.id' sino 'carrito.id' seguro)
-        return await this.carritoRepository.agregarLibroAlCarrito(carrito.id, libro, cantidad);
+    return await this.carritoRepository.agregarLibroAlCarrito(carrito.id, libro, cantidad);
     }
 }

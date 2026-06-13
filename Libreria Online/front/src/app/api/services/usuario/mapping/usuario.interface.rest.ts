@@ -5,5 +5,5 @@ export interface UsuarioRest{
     nombre:string,
     apellido: string,
     direccion: string,
-    tipo_usuario:string,
+    tipo_usuario:number,
 }

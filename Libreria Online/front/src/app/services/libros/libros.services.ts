@@ -14,7 +14,7 @@ export class LibrosService {
 
   http = inject(HttpClient);
 
-  private apiUrl = `${environment.API_URL}/api/libros`;
+  private apiUrl = `${environment.API_URL}/libros`;
 
   listLibros(): Observable<Libro[]> {
     console.log("Pidiéndole los libros al backend...");
