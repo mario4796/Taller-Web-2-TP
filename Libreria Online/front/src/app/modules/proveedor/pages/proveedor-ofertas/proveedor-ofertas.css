@@ -1,0 +1,222 @@
+.offers-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.offers-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.offers-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #8b5cf6;
+  margin: 0 0 0.35rem;
+}
+
+.offers-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.offers-description {
+  margin: 0.5rem 0 0;
+  color: #5b6472;
+}
+
+.offers-toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card {
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  padding: 1rem;
+}
+
+:host-context(.app-dark) .card {
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+}
+
+.offers-caption {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0 1rem;
+}
+
+.offers-search-group {
+  min-width: min(100%, 24rem);
+}
+
+.quantity-cell {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.quantity-cell span {
+  font-weight: 700;
+}
+
+.quantity-cell small {
+  color: #64748b;
+}
+
+.dialog-helper {
+  display: block;
+  text-align: left;
+  margin-bottom: 1.5rem;
+  color: var(--text-color-secondary);
+  line-height: 1.5;
+}
+
+.offer-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.offer-inputgroup {
+  width: 100%;
+}
+
+.offer-inputgroup :is(input, .p-inputnumber, .p-floatlabel) {
+  width: 100%;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.error-message {
+  display: block;
+  color: red;
+  font-size: 0.875rem;
+  margin-top: -0.65rem;
+}
+
+:host ::ng-deep .offers-search-group .p-inputgroup-addon,
+:host ::ng-deep .offer-inputgroup .p-inputgroup-addon {
+  border-color: #dbe2ea;
+  background: #f8fafc;
+  color: #64748b;
+  border-radius: 0;
+}
+
+:host ::ng-deep .offers-search-group .p-inputtext,
+:host ::ng-deep .offer-inputgroup .p-inputtext,
+:host ::ng-deep .offer-inputgroup .p-inputnumber-input {
+  border-color: #dbe2ea;
+  background: #fff;
+  color: #0f172a;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+:host ::ng-deep .offers-search-group .p-inputtext:enabled:focus,
+:host ::ng-deep .offer-inputgroup .p-inputtext:enabled:focus,
+:host ::ng-deep .offer-inputgroup .p-inputnumber-input:enabled:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.18);
+}
+
+:host ::ng-deep .offers-table .p-datatable-wrapper {
+  border: 1px solid #dbe2ea;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+:host ::ng-deep .offers-table .p-datatable-thead > tr > th {
+  background: #f8fafc;
+  border-bottom: 1px solid #dbe2ea;
+}
+
+:host ::ng-deep .offers-table .p-datatable-tbody > tr > td {
+  border-bottom: 1px solid #edf2f7;
+}
+
+:host ::ng-deep .offers-table .p-paginator {
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+  border-radius: 0 0 1rem 1rem;
+}
+
+:host ::ng-deep .offer-dialog .p-dialog-header {
+  padding-bottom: 0.5rem;
+}
+
+:host ::ng-deep .offer-dialog .p-dialog-content {
+  padding-top: 0;
+}
+
+:host-context(.app-dark) .offers-description,
+:host-context(.app-dark) .quantity-cell small {
+  color: #cbd5e1;
+}
+
+:host-context(.app-dark) ::ng-deep .offers-search-group .p-inputgroup-addon,
+:host-context(.app-dark) ::ng-deep .offer-inputgroup .p-inputgroup-addon {
+  border-color: rgba(148, 163, 184, 0.16);
+  background: rgba(30, 41, 59, 0.92);
+  color: #cbd5e1;
+}
+
+:host-context(.app-dark) ::ng-deep .offers-search-group .p-inputtext,
+:host-context(.app-dark) ::ng-deep .offer-inputgroup .p-inputtext,
+:host-context(.app-dark) ::ng-deep .offer-inputgroup .p-inputnumber-input {
+  border-color: rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.92);
+  color: #e2e8f0;
+}
+
+:host-context(.app-dark) ::ng-deep .offers-table .p-datatable-wrapper,
+:host-context(.app-dark) ::ng-deep .offers-table .p-datatable-tbody > tr > td {
+  border-color: rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e2e8f0;
+}
+
+:host-context(.app-dark) ::ng-deep .offers-table .p-datatable-thead > tr > th {
+  background: rgba(30, 41, 59, 0.92);
+  border-bottom-color: rgba(148, 163, 184, 0.16);
+  color: #e2e8f0;
+}
+
+:host-context(.app-dark) ::ng-deep .offers-table .p-paginator {
+  border-top-color: rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.92);
+  color: #e2e8f0;
+}
+
+@media (max-width: 768px) {
+  .offers-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .offers-toolbar {
+    justify-content: flex-start;
+  }
+
+  .offers-caption {
+    justify-content: stretch;
+  }
+
+  .offers-search-group {
+    min-width: 100%;
+  }
+}

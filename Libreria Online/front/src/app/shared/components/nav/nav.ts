@@ -86,7 +86,7 @@ export class Nav implements OnInit, OnChanges {
       this.navItems = [
         { label: 'Inicio', icon: 'home', link: '/proveedor', active: this.activeItem === 'Inicio' },
         { label: 'Peticiones', icon: 'assignment', active: this.activeItem === 'Peticiones' },
-        { label: 'Ofertas', icon: 'sell', active: this.activeItem === 'Ofertas' },
+        { label: 'Ofertas', icon: 'sell', link: '/proveedor/ofertas', active: this.activeItem === 'Ofertas' },
         { label: 'Estadísticas', icon: 'monitoring', active: this.activeItem === 'Estadísticas' },
         { label: 'Ventas', icon: 'shopping_cart', active: this.activeItem === 'Ventas' },
         {

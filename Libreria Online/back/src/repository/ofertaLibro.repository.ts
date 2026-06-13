@@ -1,5 +1,5 @@
 import { prisma } from '../prisma.js';
-import { OfertaLibro, EstadoOferta } from '../models/ofertaLibro.model';
+import { EstadoOferta } from '../models/ofertaLibro.model.js';
 
 export class OfertaLibroRepository {
     
