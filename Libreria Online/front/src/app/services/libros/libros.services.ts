@@ -34,6 +34,14 @@ export class LibrosService {
     );
   }
 
+  buscarLibroPorIsbn(isbn: string): Observable<Libro> {
+    return this.http.get<{ message: string, data: LibroRest }>(`${this.apiUrl}/isbn/${encodeURIComponent(isbn)}`).pipe(
+      map((res) => {
+        return LibroMapper.mapRestLibrotoLibroFrontU(res.data);
+      })
+    );
+  }
+
   crearLibro(libro: Omit<Libro, 'id'>): Observable<Libro> {
     return this.http.post<any>(this.apiUrl, libro).pipe(
       map((res) => {

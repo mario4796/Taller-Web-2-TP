@@ -19,6 +19,12 @@ export class LibroRepository {
             return libro;
             }
 
+        async findLibroByIsbn(isbn: string) {
+            return await prisma.libros.findUnique({
+                where: { isbn }
+            });
+        }
+
         async createLibro(data: { nombre: string; isbn: string; precio: number; autor: string;  stock: number }){
             return await prisma.libros.create({ data });
         }
