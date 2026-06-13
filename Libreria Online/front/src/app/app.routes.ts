@@ -7,6 +7,7 @@ import { Login } from './layouts/login/login';
 import { ProveedorRecomendacion } from './modules/proveedor/pages/proveedor-recomendacion/proveedor-recomendacion';
 import { ProveedorOfertas } from './modules/proveedor/pages/proveedor-ofertas/proveedor-ofertas';
 import { Admin } from './modules/admin/admin';
+import { VerOfertas } from './modules/admin/pages/ver-ofertas/ver-ofertas';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,15 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: Admin
+  },
+  {
+    path: 'admin',
+    children: [
+      {
+        path: 'ofertas',
+        component: VerOfertas
+      }
+    ]
   }
 
 ];

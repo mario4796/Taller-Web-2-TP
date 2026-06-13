@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { Libro } from '../../modules/libros/interfaces/libro.interface';
+import { Libro } from '../../../libros/interfaces/libro.interface';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { LibrosService } from '../../services/libros/libros.services';
+import { LibrosService } from '../../../../services/libros/libros.services';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of } from 'rxjs';
 

@@ -74,9 +74,10 @@ export class Nav implements OnInit, OnChanges {
   switch (this.role) {
     case 'admin':
       this.navItems = [
-        { label: 'Inicio', icon: 'home', active: this.activeItem === 'Inicio' },
+        { label: 'Inicio', icon: 'home',link: '/admin', active: this.activeItem === 'Inicio' },
         { label: 'Usuarios', icon: 'people', active: this.activeItem === 'Usuarios' },
         { label: 'Libros', icon: 'book', active: this.activeItem === 'Libros' },
+        { label: 'Ofertas', icon: 'sell', link: '/admin/ofertas', active: this.activeItem === 'Ofertas' },
         { label: 'Stock', icon: 'inventory', active: this.activeItem === 'Stock' },
         { label: 'Reportes', icon: 'description', active: this.activeItem === 'Reportes' }
       ];

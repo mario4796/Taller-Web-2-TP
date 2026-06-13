@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { VerLibrosAdmin } from "../../layouts/ver-libros-admin/ver-libros-admin";
+import { VerLibrosAdmin } from "./pages/ver-libros-admin/ver-libros-admin";
 import { Nav } from '../../shared/components/nav/nav';
 
 @Component({
