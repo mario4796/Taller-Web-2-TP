@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models.js'
-export type * from './prismaNamespace.js'
+export type * from '../models.ts'
+export type * from './prismaNamespace.ts'
 
 export const Decimal = runtime.Decimal
 
@@ -55,7 +55,8 @@ export const ModelName = {
   Compradores: 'Compradores',
   Libros: 'Libros',
   Proveedores: 'Proveedores',
-  Usuarios: 'Usuarios'
+  Usuarios: 'Usuarios',
+  OfertaLibro: 'OfertaLibro'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -119,6 +120,22 @@ export const UsuariosScalarFieldEnum = {
 } as const
 
 export type UsuariosScalarFieldEnum = (typeof UsuariosScalarFieldEnum)[keyof typeof UsuariosScalarFieldEnum]
+
+
+export const OfertaLibroScalarFieldEnum = {
+  id: 'id',
+  isbn: 'isbn',
+  nombre: 'nombre',
+  autor: 'autor',
+  precioProveedor: 'precioProveedor',
+  cantidadProveedor: 'cantidadProveedor',
+  cantidadAdmin: 'cantidadAdmin',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  libroId: 'libroId'
+} as const
+
+export type OfertaLibroScalarFieldEnum = (typeof OfertaLibroScalarFieldEnum)[keyof typeof OfertaLibroScalarFieldEnum]
 
 
 export const SortOrder = {
