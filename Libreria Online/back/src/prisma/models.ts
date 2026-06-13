@@ -8,9 +8,11 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Administradores.js'
-export type * from './models/Compradores.js'
-export type * from './models/Libros.js'
-export type * from './models/Proveedores.js'
-export type * from './models/Usuarios.js'
-export type * from './commonInputTypes.js'
+export type * from './models/Administradores.ts'
+export type * from './models/Compradores.ts'
+export type * from './models/Libros.ts'
+export type * from './models/Proveedores.ts'
+export type * from './models/Usuarios.ts'
+export type * from './models/Carritos.ts'
+export type * from './models/DetallesCarrito.ts'
+export type * from './commonInputTypes.ts'

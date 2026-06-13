@@ -16,10 +16,10 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "../models.js"
-import { type PrismaClient } from "./class.js"
+import type * as Prisma from "../models.ts"
+import { type PrismaClient } from "./class.ts"
 
-export type * from '../models.js'
+export type * from '../models.ts'
 
 export type DMMF = typeof runtime.DMMF
 
@@ -388,7 +388,9 @@ export const ModelName = {
   Compradores: 'Compradores',
   Libros: 'Libros',
   Proveedores: 'Proveedores',
-  Usuarios: 'Usuarios'
+  Usuarios: 'Usuarios',
+  Carritos: 'Carritos',
+  DetallesCarrito: 'DetallesCarrito'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -404,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "administradores" | "compradores" | "libros" | "proveedores" | "usuarios"
+    modelProps: "administradores" | "compradores" | "libros" | "proveedores" | "usuarios" | "carritos" | "detallesCarrito"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -778,6 +780,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Carritos: {
+      payload: Prisma.$CarritosPayload<ExtArgs>
+      fields: Prisma.CarritosFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CarritosFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CarritosFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>
+        }
+        findFirst: {
+          args: Prisma.CarritosFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CarritosFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>
+        }
+        findMany: {
+          args: Prisma.CarritosFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>[]
+        }
+        create: {
+          args: Prisma.CarritosCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>
+        }
+        createMany: {
+          args: Prisma.CarritosCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CarritosCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>[]
+        }
+        delete: {
+          args: Prisma.CarritosDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>
+        }
+        update: {
+          args: Prisma.CarritosUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>
+        }
+        deleteMany: {
+          args: Prisma.CarritosDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CarritosUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CarritosUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>[]
+        }
+        upsert: {
+          args: Prisma.CarritosUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>
+        }
+        aggregate: {
+          args: Prisma.CarritosAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCarritos>
+        }
+        groupBy: {
+          args: Prisma.CarritosGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CarritosGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CarritosCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CarritosCountAggregateOutputType> | number
+        }
+      }
+    }
+    DetallesCarrito: {
+      payload: Prisma.$DetallesCarritoPayload<ExtArgs>
+      fields: Prisma.DetallesCarritoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DetallesCarritoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DetallesCarritoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>
+        }
+        findFirst: {
+          args: Prisma.DetallesCarritoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DetallesCarritoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>
+        }
+        findMany: {
+          args: Prisma.DetallesCarritoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>[]
+        }
+        create: {
+          args: Prisma.DetallesCarritoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>
+        }
+        createMany: {
+          args: Prisma.DetallesCarritoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DetallesCarritoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>[]
+        }
+        delete: {
+          args: Prisma.DetallesCarritoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>
+        }
+        update: {
+          args: Prisma.DetallesCarritoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>
+        }
+        deleteMany: {
+          args: Prisma.DetallesCarritoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DetallesCarritoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DetallesCarritoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>[]
+        }
+        upsert: {
+          args: Prisma.DetallesCarritoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>
+        }
+        aggregate: {
+          args: Prisma.DetallesCarritoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDetallesCarrito>
+        }
+        groupBy: {
+          args: Prisma.DetallesCarritoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DetallesCarritoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DetallesCarritoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DetallesCarritoCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -862,6 +1012,26 @@ export const UsuariosScalarFieldEnum = {
 } as const
 
 export type UsuariosScalarFieldEnum = (typeof UsuariosScalarFieldEnum)[keyof typeof UsuariosScalarFieldEnum]
+
+
+export const CarritosScalarFieldEnum = {
+  id: 'id',
+  comprador_id: 'comprador_id',
+  precio_total: 'precio_total'
+} as const
+
+export type CarritosScalarFieldEnum = (typeof CarritosScalarFieldEnum)[keyof typeof CarritosScalarFieldEnum]
+
+
+export const DetallesCarritoScalarFieldEnum = {
+  id: 'id',
+  carrito_id: 'carrito_id',
+  libro_id: 'libro_id',
+  cantidad: 'cantidad',
+  precio: 'precio'
+} as const
+
+export type DetallesCarritoScalarFieldEnum = (typeof DetallesCarritoScalarFieldEnum)[keyof typeof DetallesCarritoScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1064,6 +1234,8 @@ export type GlobalOmitConfig = {
   libros?: Prisma.LibrosOmit
   proveedores?: Prisma.ProveedoresOmit
   usuarios?: Prisma.UsuariosOmit
+  carritos?: Prisma.CarritosOmit
+  detallesCarrito?: Prisma.DetallesCarritoOmit
 }
 
 /* Types for Logging */

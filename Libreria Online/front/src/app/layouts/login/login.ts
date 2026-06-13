@@ -4,7 +4,8 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
-import { UsuarioService } from '../../services/usuario-service';
+import { UsuarioService } from '../../api/services/usuario/usuario-service';
+
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
@@ -30,21 +31,26 @@ export class Login {
     password: ['', [Validators.required]]
   })
   submit(){
-    if (this.form.invalid){
-      //para mostrar al usuario porque el form es invalido
-      this.form.markAllAsTouched();
-      return;
-    }
-    const { email, password } = this.form.value;
-    const usuarioLogueado = this.usuarioService.login(email, password);
-    if (usuarioLogueado){
-      alert(`¡Bienvenido de nuevo, ${usuarioLogueado.nombre}! Acceso concedido.`);
-      this.router.navigate(['']);
-    }else {
-      alert('Error: Email o contraseña incorrectos.');
-    }
-
-  
+  if (this.form.invalid){
+    this.form.markAllAsTouched();
+    return;
   }
+  const datos = {
+    email: this.form.get('email')?.value,
+    contrasena: this.form.get('password')?.value 
+  };
+
+  this.usuarioService.login(datos).subscribe({
+    next: (respuesta) => {
+
+      localStorage.setItem('usuario', JSON.stringify(respuesta));
+      
+      this.router.navigate(['']);
+    },
+    error: (err) => {
+      console.error("Credenciales incorrectas", err);
+    }
+  });
+}
  
 }

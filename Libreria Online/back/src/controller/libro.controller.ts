@@ -5,6 +5,7 @@ export class LibroController {
     constructor() {
         // Constructor vacío
     }
+
     
     public getLibros = async (req: Request, res: Response ) => {
         try {
@@ -18,4 +19,6 @@ export class LibroController {
 
             }
     }
+
+    
 }
