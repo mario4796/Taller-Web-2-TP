@@ -1,14 +1,11 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
-import { Nav } from '../nav/nav';
+import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
-import { Avatar } from 'primeng/avatar';
-import { InputGroup } from 'primeng/inputgroup';
-import { InputGroupAddon } from 'primeng/inputgroupaddon';
-import { InputText } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-home',
-  imports: [Nav, Button, Avatar, InputGroup, InputGroupAddon, InputText],
+  standalone: true,
+  imports: [Button, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -19,4 +16,6 @@ export class Home {
   @Input() description: string = '';
   @Input() buttonText: string = '';
   @Input() buttonLink: string = '';
+  @Input() buttonRoute: string = '';
+  @Input() role: string = '';
 }
