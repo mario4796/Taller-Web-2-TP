@@ -30,17 +30,17 @@ export class VerLibrosAdmin {
   public libros = toSignal(
     this.librosService.listLibros().pipe(
       map(listaDeLibros =>{
-        this.cargando = false
+        
         return listaDeLibros.sort((a,b) => a.stock - b.stock);
       }),
       catchError(err => {
         console.error(err);
         this.errorError = "No se pudo cargar los libros";
-        this.cargando = false;
+        
         return of([]);
       })
     ),
-    {initialValue: [] as Libro[]}
+    { initialValue: undefined }
   );
   getSeverity(stock: number): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | undefined{
     if (stock === 0) return 'danger';

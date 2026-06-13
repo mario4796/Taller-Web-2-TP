@@ -1,58 +1,75 @@
-<div class="card" style="width: 95vw; margin: 20px auto; font-family: var(--font-family);">
+<div class="page-content">
   
-  <div style="margin-bottom: 20px;">
-    <h2 style="margin: 0; color: var(--text-color); font-size: 1.75rem;">Control de Inventario</h2>
-    <p style="margin: 5px 0 0 0; color: var(--text-color-secondary); font-size: 0.875rem;">
+  <div style="margin-bottom: 24px;">
+    <h2 style="margin: 0; color: var(--text-color); font-size: 1.75rem; font-weight: 700; letter-spacing: -1px;">
+      Control de Inventario
+    </h2>
+    <p class="description" style="margin: 5px 0 0 0; font-size: 0.875rem;">
       Estructura nativa en barras (Ordenado por menor stock).
     </p>
   </div>
 
-  @if (cargando) {
-    <div style="text-align: center; padding: 40px; color: var(--text-color-secondary);">
-      Cargando datos del inventario...
+  @if (libros() === undefined) {
+    <div class="empty-preview" style="min-height: 200px;">
+      <div class="empty-icon">
+        <i class="pi pi-spin pi-spinner" style="font-size: 28px;"></i>
+      </div>
+      <p style="margin-top: 14px;">Cargando datos del inventario...</p>
     </div>
   }
 
   @if (errorError) {
-    <div style="color: var(--red-500); padding: 15px; border-radius: 6px; background-color: var(--red-50);">
+    <div style="color: var(--red-500, #ef4444); padding: 15px; border-radius: 16px; background-color: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); font-weight: 500; font-size: 0.9rem;">
+      <i class="pi pi-exclamation-triangle" style="margin-right: 8px;"></i>
       {{ errorError }}
     </div>
   }
 
-  @if (!cargando && !errorError) {
+  @if (libros() !== undefined && !errorError) {
     <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
       
       @for (item of libros(); track item.id) {
-        <div class="libro-row" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--surface-d); border-radius: 8px; padding: 12px 20px; background-color: var(--surface-card);">
+        <div class="libro-row" style="display: flex; align-items: center; justify-content: space-between; padding: 14px 24px;">
           
           <div style="display: flex; align-items: center; gap: 20px; flex: 1;">
-            // aca iria imagen pedida por api de tercero 
             
-            <div style="display: flex; flex-direction: column; gap: 5px;">
-              <span style="font-weight: 600; font-size: 1.1rem; color: var(--text-color);">
+            <div style="width: 50px; height: 70px; background: color-mix(in srgb, var(--primary-color, #7c3aed) 8%, transparent); border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(124, 58, 237, 0.12);">
+              <img 
+                [src]="'https://covers.openlibrary.org/b/isbn/' + item.isbn + '-M.jpg?default=false'" 
+                [alt]="item.nombre"
+                style="width: 100%; height: 100%; object-fit: cover;"
+                onerror="this.src='https://placehold.co/50x70/e4e4e7/a1a1aa?text=No+Cover'"/>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <span style="font-weight: 700; font-size: 1.1rem; color: var(--text-color); letter-spacing: -0.5px;">
                 {{ item.nombre }}
               </span>
-              <span style="font-size: 0.85rem; color: var(--text-color-secondary);">
-                Autor: <strong style="color: var(--text-color);">{{ item.autor }}</strong> | ISBN: <strong>{{ item.isbn }}</strong>
+              <span class="description" style="margin: 0; font-size: 0.85rem;">
+                Autor: <strong style="color: var(--text-color); font-weight: 600;">{{ item.autor }}</strong> | ISBN: <strong>{{ item.isbn }}</strong>
               </span>
             </div>
           </div>
 
           <div style="text-align: right; display: flex; flex-direction: column; gap: 4px; align-items: flex-end; min-width: 120px;">
-            <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-color-secondary); font-weight: 700;">
+            <span class="eyebrow" style="margin: 0; font-size: 11px; font-weight: 700;">
               Stock
             </span>
             <p-tag 
               [value]="item.stock + ' un.'" 
               [severity]="getSeverity(item.stock)"
-              [style]="{'font-size': '0.95rem', 'padding': '6px 12px'}">
+              [style]="{'font-size': '0.85rem', 'padding': '4px 12px', 'border-radius': '8px', 'font-weight': '600'}">
             </p-tag>
           </div>
 
         </div>
       } @empty {
-        <div style="text-align: center; padding: 20px; color: var(--text-color-secondary);">
-          No se encontraron libros en el sistema.
+        <div class="empty-preview">
+          <div class="empty-icon">
+            <span class="material-symbols-rounded">folder_open</span>
+          </div>
+          <h2>Panel Vacío</h2>
+          <p>No se encontraron libros registrados en el sistema actualmente.</p>
         </div>
       }
 
