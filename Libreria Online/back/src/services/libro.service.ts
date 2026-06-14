@@ -16,6 +16,10 @@ export class LibroService {
             return await this.libroRepository.findLibroById(id);
         }
 
+        async obtenerLibroPorIsbn(isbn: string) {
+            return await this.libroRepository.findLibroByIsbn(isbn);
+        }
+
         async crearLibro(libro: Libro) {
             const {nombre , isbn , precio , autor ,  stock } = libro;
 

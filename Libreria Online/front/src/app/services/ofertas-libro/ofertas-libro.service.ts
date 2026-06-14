@@ -4,10 +4,8 @@ import { map, Observable } from 'rxjs';
 
 import { environment } from '../../../environmets/environmet.development';
 import { NuevaOfertaLibro, OfertaLibro } from '../../modules/proveedor/interfaces/oferta-libro.interface';
-
-interface OfertaLibroRest extends Omit<OfertaLibro, 'precioProveedor'> {
-  precioProveedor: number | string;
-}
+import { OfertaLibroRest } from './mapping/oferta-libro.interface.rest';
+import { OfertaLibroMapper } from './mapping/oferta-libro.mapper';
 
 @Injectable({
   providedIn: 'root',
@@ -18,13 +16,13 @@ export class OfertasLibroService {
 
   listOfertas(): Observable<OfertaLibro[]> {
     return this.http.get<{ message: string; data: OfertaLibroRest[] }>(this.apiUrl).pipe(
-      map((res) => res.data.map((oferta) => this.mapOferta(oferta)))
+      map((res) => OfertaLibroMapper.mapRestOfertaArrayToOfertaArrayFront(res.data))
     );
   }
 
   crearOferta(oferta: NuevaOfertaLibro): Observable<OfertaLibro> {
     return this.http.post<{ message: string; data: OfertaLibroRest }>(this.apiUrl, oferta).pipe(
-      map((res) => this.mapOferta(res.data))
+      map((res) => OfertaLibroMapper.mapRestOfertaToOfertaFront(res.data))
     );
   }
 
@@ -33,19 +31,12 @@ export class OfertasLibroService {
       .put<{ message: string; data: OfertaLibroRest }>(`${this.apiUrl}/proveedor/contraofertar/${id}`, {
         nuevaCantidad,
       })
-      .pipe(map((res) => this.mapOferta(res.data)));
+      .pipe(map((res) => OfertaLibroMapper.mapRestOfertaToOfertaFront(res.data)));
   }
 
   aceptarOferta(id: number): Observable<OfertaLibro> {
     return this.http
       .put<{ message: string; data: OfertaLibroRest }>(`${this.apiUrl}/aceptar/${id}`, {})
-      .pipe(map((res) => this.mapOferta(res.data)));
-  }
-
-  private mapOferta(oferta: OfertaLibroRest): OfertaLibro {
-    return {
-      ...oferta,
-      precioProveedor: Number(oferta.precioProveedor),
-    };
+      .pipe(map((res) => OfertaLibroMapper.mapRestOfertaToOfertaFront(res.data)));
   }
 }

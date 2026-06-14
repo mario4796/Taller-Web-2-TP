@@ -17,5 +17,6 @@ export class Home {
   @Input() buttonText: string = '';
   @Input() buttonLink: string = '';
   @Input() buttonRoute: string = '';
+  @Input() buttonLinkRoute: string = '';
   @Input() role: string = '';
 }

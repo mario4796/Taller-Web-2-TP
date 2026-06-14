@@ -1,74 +1,183 @@
-<app-nav [userName]="userName" [role]="role" [activeItem]="'Recomendar libro'"></app-nav>
+<app-nav [userName]="userName" [role]="role" [activeItem]="activeItem"></app-nav>
+
 <p-toast position="top-right"></p-toast>
 
-<section class="books-page">
-	<header class="books-header">
-		<div>
-			<p class="books-eyebrow">Recomendación de libros</p>
-			<h2>Revisa los libros disponibles antes de recomendar</h2>
-		</div>
+<section class="recommendations-page">
+  <header class="recommendations-header">
+    <div>
+      <p class="recommendations-eyebrow">Recomendacion de libros</p>
+      <h2>Libros recomendados al administrador</h2>
+      <p class="recommendations-description">Carga recomendaciones y revisa el estado de los libros que propusiste.</p>
+    </div>
 
-		<div class="books-toolbar">
-			<app-agregar-libro (libroCreado)="obtenerLibros()"></app-agregar-libro>
-		</div>
-	</header>
+    <div class="recommendations-toolbar">
+      <p-button label="Nueva recomendacion" icon="pi pi-plus" severity="help" (click)="abrirNuevaRecomendacion()"></p-button>
+    </div>
+  </header>
 
-	<div class="card">
-		<p-table
-			#tablaLibros
-			[value]="libros"
-			[globalFilterFields]="['nombre', 'autor', 'isbn']"
-			[loading]="cargando"
-			[tableStyle]="{ 'min-width': '56rem' }"
-			styleClass="p-datatable-striped books-table"
-			[paginator]="true"
-			[rows]="5"
-			[rowsPerPageOptions]="[5, 10, 20]">
+  <div class="card">
+    <p-table
+      #tablaRecomendaciones
+      [value]="recomendaciones"
+      [globalFilterFields]="['nombre', 'autor', 'isbn', 'estado']"
+      [loading]="cargando"
+      [tableStyle]="{ 'min-width': '72rem' }"
+      styleClass="p-datatable-striped recommendations-table"
+      [paginator]="true"
+      [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 20]">
 
-			<ng-template pTemplate="caption">
-				<div class="books-caption">
-					<p-inputgroup class="books-search-group">
-						<p-inputgroup-addon>
-							<i class="pi pi-search"></i>
-						</p-inputgroup-addon>
-						<p-floatlabel variant="in">
-							<input
-								pInputText
-								id="book-search"
-								type="text"
-								[(ngModel)]="searchValue"
-								(ngModelChange)="buscarLibros($event)" />
-							<label for="book-search">Buscar libro</label>
-						</p-floatlabel>
-					</p-inputgroup>
-				</div>
-			</ng-template>
+      <ng-template pTemplate="caption">
+        <div class="recommendations-caption">
+          <p-inputgroup class="recommendations-search-group">
+            <p-inputgroup-addon>
+              <i class="pi pi-search"></i>
+            </p-inputgroup-addon>
+            <p-floatlabel variant="in">
+              <input
+                pInputText
+                id="recommendation-search"
+                type="text"
+                [(ngModel)]="searchValue"
+                (ngModelChange)="buscarRecomendaciones($event)" />
+              <label for="recommendation-search">Buscar recomendacion</label>
+            </p-floatlabel>
+          </p-inputgroup>
+        </div>
+      </ng-template>
 
-			<ng-template pTemplate="header">
-				<tr>
-					<th>Título</th>
-					<th>Autor</th>
-					<th>ISBN</th>
-					<th>Precio</th>
-				</tr>
-			</ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Portada</th>
+          <th>Titulo</th>
+          <th>Autor</th>
+          <th>ISBN</th>
+          <th>Precio proveedor</th>
+          <th>Cantidad</th>
+          <th>Estado</th>
+        </tr>
+      </ng-template>
 
-			<ng-template pTemplate="body" let-libro>
-				<tr>
-					<td><strong>{{ libro.nombre }}</strong></td>
-					<td>{{ libro.autor }}</td>
-					<td>{{ libro.isbn }}</td>
-					<td>{{ libro.precio | currency:'USD':'symbol':'1.2-2':'es-AR' }}</td>
-				</tr>
-			</ng-template>
+      <ng-template pTemplate="body" let-recomendacion>
+        <tr>
+          <td>
+            <div class="cover-cell">
+              <img
+                [src]="portadaUrl(recomendacion.isbn)"
+                [alt]="'Portada de ' + recomendacion.nombre"
+                (error)="ocultarPortada($event)" />
+            </div>
+          </td>
+          <td><strong>{{ recomendacion.nombre }}</strong></td>
+          <td>{{ recomendacion.autor }}</td>
+          <td>{{ recomendacion.isbn }}</td>
+          <td>{{ recomendacion.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</td>
+          <td>
+            <div class="quantity-cell">
+              <span>{{ cantidadActual(recomendacion) }} uds.</span>
+              @if (recomendacion.cantidadAdmin && recomendacion.estado === 'ESPERANDO_PROVEEDOR') {
+                <small>Admin propuso {{ recomendacion.cantidadAdmin }}</small>
+              }
+            </div>
+          </td>
+          <td>
+            <p-tag [value]="estadoLabel(recomendacion.estado)" [severity]="estadoSeverity(recomendacion.estado)"></p-tag>
+          </td>
+        </tr>
+      </ng-template>
 
-			<ng-template pTemplate="emptymessage">
-				<tr>
-					<td colspan="6" style="text-align: center; padding: 2rem;">
-						No hay libros cargados en la base de datos todavía.
-					</td>
-				</tr>
-			</ng-template>
-		</p-table>
-	</div>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7" style="text-align: center; padding: 2rem;">
+            No hay libros recomendados todavia.
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </section>
+
+<p-dialog header="Nueva recomendacion" [modal]="true" [(visible)]="nuevaRecomendacionVisible" [style]="{ width: '38rem' }" styleClass="recommendation-dialog">
+  <span class="dialog-helper">Primero buscá el ISBN. Si existe en la libreria, se completa desde la base de datos; si no, se consulta OpenLibrary.</span>
+
+  <form [formGroup]="recomendacionForm" class="recommendation-form">
+    <p-inputgroup class="recommendation-inputgroup isbn-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-barcode"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <input pInputText id="isbn" formControlName="isbn" autocomplete="off" />
+        <label for="isbn">ISBN</label>
+      </p-floatlabel>
+      <p-button
+        icon="pi pi-search"
+        type="button"
+        [loading]="buscandoIsbn"
+        [disabled]="buscandoIsbn"
+        severity="secondary"
+        pTooltip="Buscar ISBN"
+        tooltipPosition="top"
+        (click)="buscarPorIsbn()">
+      </p-button>
+    </p-inputgroup>
+    @if (isbn && isbn.invalid && isbn.touched) {
+      <small class="error-message">ISBN requerido (10-20 caracteres, numeros, X y guiones)</small>
+    }
+    @if (!isbnVerificado && isbn && isbn.valid && isbn.touched) {
+      <small class="warning-message">Tenes que buscar el ISBN antes de guardar.</small>
+    }
+
+    @if (portadaPreview) {
+      <div class="cover-preview">
+        <img [src]="portadaPreview" alt="Portada encontrada" (error)="ocultarPortada($event)" />
+      </div>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-book"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <input pInputText id="nombre" formControlName="nombre" autocomplete="off" />
+        <label for="nombre">Titulo del libro</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (nombre && nombre.invalid && nombre.touched) {
+      <small class="error-message">Titulo requerido</small>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-user"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <input pInputText id="autor" formControlName="autor" autocomplete="off" />
+        <label for="autor">Autor</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (autor && autor.invalid && autor.touched) {
+      <small class="error-message">Autor requerido (minimo 3 caracteres)</small>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-dollar"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <p-inputnumber inputId="precioProveedor" formControlName="precioProveedor" mode="currency" currency="ARS" locale="es-AR"></p-inputnumber>
+        <label for="precioProveedor">Precio proveedor</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (precioProveedor && precioProveedor.invalid && precioProveedor.touched) {
+      <small class="error-message">Precio requerido (mayor a 0)</small>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-box"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <p-inputnumber inputId="cantidadProveedor" formControlName="cantidadProveedor" [useGrouping]="false"></p-inputnumber>
+        <label for="cantidadProveedor">Cantidad recomendada</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (cantidadProveedor && cantidadProveedor.invalid && cantidadProveedor.touched) {
+      <small class="error-message">Cantidad requerida (mayor a 0)</small>
+    }
+  </form>
+
+  <div class="dialog-actions">
+    <p-button label="Cancelar" severity="danger" [text]="true" (click)="cerrarNuevaRecomendacion()"></p-button>
+    <p-button label="Guardar" type="button" [outlined]="true" severity="secondary" (click)="guardarRecomendacion()" [loading]="guardando" [disabled]="recomendacionForm.invalid || !isbnVerificado || guardando"></p-button>
+  </div>
+</p-dialog>

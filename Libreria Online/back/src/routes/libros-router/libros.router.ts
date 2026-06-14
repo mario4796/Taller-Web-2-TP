@@ -8,6 +8,8 @@ const libroController = new LibroController();
 
 librosRouter.get('/', libroController.getLibros.bind(libroController));
 
+librosRouter.get('/isbn/:isbn', libroController.getLibroPorIsbn.bind(libroController));
+
 librosRouter.get('/:id', libroController.getLibroPorId.bind(libroController));
 
 librosRouter.post('/', libroController.createLibro.bind(libroController));
