@@ -18,4 +18,5 @@ export class ProveedorHome {
   buttonText: string = 'Ver libros';
   buttonRoute: string = '/proveedor/libros';
   buttonLink: string = 'Recomendar un libro';
+  buttonLinkRoute: string = '/proveedor/proveedor-recomendacion';
 }
