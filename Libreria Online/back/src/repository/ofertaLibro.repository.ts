@@ -28,6 +28,7 @@ export class OfertaLibroRepository {
     async actualizarOferta(id: number, data: { 
     cantidadProveedor?: number; 
     cantidadAdmin?: number; 
+    precioProveedor?: number;
     estado?: EstadoOferta; 
     }) {
     return await prisma.ofertaLibro.update({

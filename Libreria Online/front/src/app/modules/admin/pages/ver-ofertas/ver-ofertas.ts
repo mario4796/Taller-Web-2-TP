@@ -77,6 +77,7 @@ export class VerOfertas {
 
   contraofertaForm = this.fb.group({
     nuevaCantidad: [null as number | null, [Validators.required, Validators.min(1)]],
+    nuevoPrecio: [null as number | null, [Validators.min(1)]],
   });
 
   // --- CONSTRUCTOR (El nuevo OnInit de Angular) ---
@@ -144,7 +145,8 @@ export class VerOfertas {
   abrirContraoferta(oferta: OfertaLibro): void {
     this.ofertaSeleccionada.set(oferta);
     this.contraofertaForm.reset({
-      nuevaCantidad: oferta.cantidadProveedor,
+      nuevaCantidad: oferta.cantidadAdmin ?? oferta.cantidadProveedor,
+      nuevoPrecio: oferta.precioProveedor,
     });
     this.contraofertaVisible.set(true);
   }
@@ -165,9 +167,10 @@ export class VerOfertas {
 
     this.respondiendo.set(true);
     const nuevaCantidad = this.contraofertaForm.value.nuevaCantidad!;
+    const nuevoPrecio = this.contraofertaForm.value.nuevoPrecio ?? undefined;
 
-    // aca hay que hacun un .contraofertarAdmin
-    this.ofertasService.contraofertarProveedor(ofertaActual.id, nuevaCantidad).subscribe({
+    // llama al endpoint correcto: admin contraofertar
+    this.ofertasService.contraofertarAdmin(ofertaActual.id, nuevaCantidad, nuevoPrecio).subscribe({
       next: () => {
         this.respondiendo.set(false);
         this.cerrarContraoferta();
@@ -192,6 +195,19 @@ export class VerOfertas {
       error: (error) => {
         console.error('Error al aceptar la oferta', error);
         this.toastService.error('No se pudo aceptar la oferta.');
+      },
+    });
+  }
+
+  rechazarOferta(oferta: OfertaLibro): void {
+    this.ofertasService.rechazarOferta(oferta.id).subscribe({
+      next: () => {
+        this.toastService.error('Oferta rechazada y eliminada');
+        this.obtenerOfertas();
+      },
+      error: (error) => {
+        console.error('Error al rechazar la oferta', error);
+        this.toastService.error('No se pudo rechazar la oferta.');
       },
     });
   }
@@ -233,4 +249,5 @@ export class VerOfertas {
   get precioProveedor() { return this.ofertaForm.get('precioProveedor'); }
   get cantidadProveedor() { return this.ofertaForm.get('cantidadProveedor'); }
   get nuevaCantidad() { return this.contraofertaForm.get('nuevaCantidad'); }
+  get nuevoPrecio() { return this.contraofertaForm.get('nuevoPrecio'); }
 }

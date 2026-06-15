@@ -55,6 +55,7 @@
           <th>Precio proveedor</th>
           <th>Cantidad</th>
           <th>Estado</th>
+          <th style="text-align: center;">Acciones</th>
         </tr>
       </ng-template>
 
@@ -83,12 +84,40 @@
           <td>
             <p-tag [value]="estadoLabel(recomendacion.estado)" [severity]="estadoSeverity(recomendacion.estado)"></p-tag>
           </td>
+          <td style="text-align: center;">
+            @if (puedeResponder(recomendacion)) {
+              <p-button
+                icon="pi pi-check"
+                [rounded]="true"
+                [text]="true"
+                severity="success"
+                title="Aceptar propuesta del admin y enviar al administrador"
+                (click)="aceptarContraoferta(recomendacion)">
+              </p-button>
+              <p-button
+                icon="pi pi-reply"
+                [rounded]="true"
+                [text]="true"
+                severity="info"
+                title="Modificar y enviar una nueva contraoferta"
+                (click)="abrirContraoferta(recomendacion)">
+              </p-button>
+              <p-button
+                icon="pi pi-times"
+                [rounded]="true"
+                [text]="true"
+                severity="danger"
+                title="Rechazar contraoferta y eliminar oferta"
+                (click)="rechazarOferta(recomendacion)">
+              </p-button>
+            }
+          </td>
         </tr>
       </ng-template>
 
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="7" style="text-align: center; padding: 2rem;">
+          <td colspan="8" style="text-align: center; padding: 2rem;">
             No hay libros recomendados todavia.
           </td>
         </tr>
@@ -179,5 +208,33 @@
   <div class="dialog-actions">
     <p-button label="Cancelar" severity="danger" [text]="true" (click)="cerrarNuevaRecomendacion()"></p-button>
     <p-button label="Guardar" type="button" [outlined]="true" severity="secondary" (click)="guardarRecomendacion()" [loading]="guardando" [disabled]="recomendacionForm.invalid || !isbnVerificado || guardando"></p-button>
+  </div>
+</p-dialog>
+
+<p-dialog header="Responder contraoferta" [modal]="true" [(visible)]="contraofertaVisible" [style]="{ width: '30rem' }" styleClass="recommendation-dialog">
+  @if (ofertaSeleccionada) {
+    <div class="informacion-oferta">
+      <p><strong>Libro:</strong> {{ ofertaSeleccionada.nombre }}</p>
+      <p><strong>Precio propuesto por admin:</strong> {{ ofertaSeleccionada.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</p>
+      <p><strong>Cantidad propuesta por admin:</strong> {{ ofertaSeleccionada.cantidadAdmin ?? ofertaSeleccionada.cantidadProveedor }} uds.</p>
+    </div>
+  }
+
+  <form [formGroup]="contraofertaForm" class="recommendation-form">
+    <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-box"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <p-inputnumber inputId="nuevaCantidad" formControlName="nuevaCantidad" [useGrouping]="false"></p-inputnumber>
+        <label for="nuevaCantidad">Nueva cantidad</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (nuevaCantidad && nuevaCantidad.invalid && nuevaCantidad.touched) {
+      <small class="error-message">La cantidad debe ser mayor a 0</small>
+    }
+  </form>
+
+  <div class="dialog-actions">
+    <p-button label="Cancelar" severity="danger" [text]="true" (click)="cerrarContraoferta()"></p-button>
+    <p-button label="Enviar" [outlined]="true" severity="secondary" (click)="enviarContraoferta()" [loading]="respondiendo" [disabled]="contraofertaForm.invalid || respondiendo"></p-button>
   </div>
 </p-dialog>

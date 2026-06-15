@@ -26,6 +26,15 @@ export class OfertasLibroService {
     );
   }
 
+  contraofertarAdmin(id: number, nuevaCantidad: number, nuevoPrecio?: number): Observable<OfertaLibro> {
+    return this.http
+      .put<{ message: string; data: OfertaLibroRest }>(`${this.apiUrl}/admin/contraofertar/${id}`, {
+        nuevaCantidad,
+        ...(nuevoPrecio !== undefined ? { nuevoPrecio } : {}),
+      })
+      .pipe(map((res) => OfertaLibroMapper.mapRestOfertaToOfertaFront(res.data)));
+  }
+
   contraofertarProveedor(id: number, nuevaCantidad: number): Observable<OfertaLibro> {
     return this.http
       .put<{ message: string; data: OfertaLibroRest }>(`${this.apiUrl}/proveedor/contraofertar/${id}`, {
@@ -38,5 +47,9 @@ export class OfertasLibroService {
     return this.http
       .put<{ message: string; data: OfertaLibroRest }>(`${this.apiUrl}/aceptar/${id}`, {})
       .pipe(map((res) => OfertaLibroMapper.mapRestOfertaToOfertaFront(res.data)));
+  }
+
+  rechazarOferta(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

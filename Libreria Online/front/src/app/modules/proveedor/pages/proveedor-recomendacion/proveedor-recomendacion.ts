@@ -66,14 +66,18 @@ export class ProveedorRecomendacion implements OnInit {
   recomendaciones: OfertaLibro[] = [];
   cargando = true;
   guardando = false;
+  respondiendo = false;
   buscandoIsbn = false;
   searchValue = '';
   nuevaRecomendacionVisible = false;
+  contraofertaVisible = false;
+  ofertaSeleccionada?: OfertaLibro;
   isbnVerificado = false;
   isbnVerificadoValor = '';
   portadaPreview?: string;
 
   recomendacionForm!: FormGroup;
+  contraofertaForm!: FormGroup;
 
   @ViewChild('tablaRecomendaciones') tablaRecomendaciones?: Table;
 
@@ -192,6 +196,75 @@ export class ProveedorRecomendacion implements OnInit {
     });
   }
 
+  abrirContraoferta(recomendacion: OfertaLibro): void {
+    this.ofertaSeleccionada = recomendacion;
+    this.contraofertaForm.reset({
+      nuevaCantidad: recomendacion.cantidadAdmin ?? recomendacion.cantidadProveedor,
+    });
+    this.contraofertaVisible = true;
+  }
+
+  cerrarContraoferta(): void {
+    this.contraofertaVisible = false;
+    this.ofertaSeleccionada = undefined;
+    this.contraofertaForm.reset();
+  }
+
+  enviarContraoferta(): void {
+    if (!this.ofertaSeleccionada || this.contraofertaForm.invalid) {
+      this.contraofertaForm.markAllAsTouched();
+      return;
+    }
+
+    this.respondiendo = true;
+    const nuevaCantidad = this.contraofertaForm.value.nuevaCantidad;
+
+    this.ofertasService.contraofertarProveedor(this.ofertaSeleccionada.id, nuevaCantidad).subscribe({
+      next: () => {
+        this.respondiendo = false;
+        this.cerrarContraoferta();
+        this.toastService.updated('Contraoferta enviada al administrador');
+        this.obtenerRecomendaciones();
+      },
+      error: (error) => {
+        console.error('Error al enviar contraoferta', error);
+        this.respondiendo = false;
+        this.toastService.error('No se pudo enviar la contraoferta.');
+      },
+    });
+  }
+
+  aceptarContraoferta(recomendacion: OfertaLibro): void {
+    const cantidadAceptada = recomendacion.cantidadAdmin ?? recomendacion.cantidadProveedor;
+    this.ofertasService.contraofertarProveedor(recomendacion.id, cantidadAceptada).subscribe({
+      next: () => {
+        this.toastService.updated('Contraoferta aceptada y enviada al administrador');
+        this.obtenerRecomendaciones();
+      },
+      error: (error) => {
+        console.error('Error al aceptar la contraoferta', error);
+        this.toastService.error('No se pudo aceptar la contraoferta.');
+      },
+    });
+  }
+
+  rechazarOferta(recomendacion: OfertaLibro): void {
+    this.ofertasService.rechazarOferta(recomendacion.id).subscribe({
+      next: () => {
+        this.toastService.error('Oferta rechazada y eliminada');
+        this.obtenerRecomendaciones();
+      },
+      error: (error) => {
+        console.error('Error al rechazar la oferta', error);
+        this.toastService.error('No se pudo rechazar la oferta.');
+      },
+    });
+  }
+
+  puedeResponder(recomendacion: OfertaLibro): boolean {
+    return recomendacion.estado === 'ESPERANDO_PROVEEDOR';
+  }
+
   portadaUrl(isbn: string): string {
     return `https://covers.openlibrary.org/b/isbn/${encodeURIComponent(isbn)}-S.jpg?default=false`;
   }
@@ -301,6 +374,10 @@ export class ProveedorRecomendacion implements OnInit {
       cantidadProveedor: [null, [Validators.required, Validators.min(1)]],
       libroId: [null],
     });
+
+    this.contraofertaForm = this.fb.group({
+      nuevaCantidad: [null, [Validators.required, Validators.min(1)]],
+    });
   }
 
   get isbn() { return this.recomendacionForm.get('isbn'); }
@@ -308,4 +385,5 @@ export class ProveedorRecomendacion implements OnInit {
   get autor() { return this.recomendacionForm.get('autor'); }
   get precioProveedor() { return this.recomendacionForm.get('precioProveedor'); }
   get cantidadProveedor() { return this.recomendacionForm.get('cantidadProveedor'); }
+  get nuevaCantidad() { return this.contraofertaForm.get('nuevaCantidad'); }
 }

@@ -42,4 +42,11 @@ export class LibroRepository {
                 where: { id }
             });
         }
+
+        async incrementarStock(id: number, cantidad: number) {
+            return await prisma.libros.update({
+                where: { id },
+                data: { stock: { increment: cantidad } }
+            });
+        }
 }

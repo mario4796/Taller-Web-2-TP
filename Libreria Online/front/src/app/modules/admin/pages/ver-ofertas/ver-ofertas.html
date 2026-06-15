@@ -78,7 +78,7 @@
               [rounded]="true"
               [text]="true"
               severity="success"
-              title="Aceptar contraoferta"
+              title="Aceptar oferta"
               [disabled]="!puedeResponder(oferta)"
               (click)="aceptarOferta(oferta)">
             </p-button>
@@ -87,9 +87,17 @@
               [rounded]="true"
               [text]="true"
               severity="info"
-              title="Responder contraoferta"
+              title="Hacer contraoferta"
               [disabled]="!puedeResponder(oferta)"
               (click)="abrirContraoferta(oferta)">
+            </p-button>
+            <p-button
+              icon="pi pi-times"
+              [rounded]="true"
+              [text]="true"
+              severity="danger"
+              title="Rechazar oferta y eliminarla"
+              (click)="rechazarOferta(oferta)">
             </p-button>
           </td>
         </tr>
@@ -112,6 +120,7 @@
     <div class="informacion-oferta">
       <p><strong>Autor:</strong> {{ ofertaSeleccionada()?.autor }}</p>
       <p><strong>ISBN:</strong> {{ ofertaSeleccionada()?.isbn }}</p>
+      <p><strong>Precio actual:</strong> {{ ofertaSeleccionada()?.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</p>
       <p><strong>Cantidad actual:</strong> {{ cantidadActual(ofertaSeleccionada()!) }}</p>
     </div>
   }
@@ -126,6 +135,17 @@
     </p-inputgroup>
     @if (nuevaCantidad && nuevaCantidad.invalid && nuevaCantidad.touched) {
       <small class="error-message">La cantidad debe ser mayor a 0</small>
+    }
+
+    <p-inputgroup class="offer-inputgroup">
+      <p-floatlabel variant="in">
+        <p-inputnumber inputId="nuevoPrecio" formControlName="nuevoPrecio" mode="currency" currency="ARS" locale="es-AR"></p-inputnumber>
+        <label for="nuevoPrecio">Nuevo precio (opcional)</label>
+      </p-floatlabel>
+      <p-inputgroup-addon><i class="pi pi-dollar"></i></p-inputgroup-addon>
+    </p-inputgroup>
+    @if (nuevoPrecio && nuevoPrecio.invalid && nuevoPrecio.touched) {
+      <small class="error-message">El precio debe ser mayor a 0</small>
     }
   </form>
 
