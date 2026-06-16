@@ -1,6 +1,8 @@
 import type { OfertaLibroRepository } from '../repository/ofertaLibro.repository.js';
-import { OfertaLibro, EstadoOferta } from '../models/ofertaLibro.model.js';
+import { EstadoOferta, CategoriaLibro } from '../prisma/enums';
 import { LibroService } from './libro.service.js';
+import { OfertaLibro } from '../prisma/client.js';
+
 
 
 export class OfertaLibroService {
@@ -20,9 +22,9 @@ export class OfertaLibroService {
     }
 
    async crearOferta(oferta: OfertaLibro) {
-        const { isbn, nombre, autor, precioProveedor, cantidadProveedor, libroId } = oferta;
+        const { isbn, nombre, autor, precioProveedor, cantidadProveedor, libroId, categoria, sinopsis } = oferta;
 
-        if (!isbn || !nombre || !autor || !precioProveedor || !cantidadProveedor) {
+        if (!isbn || !nombre || !autor || !precioProveedor || !cantidadProveedor || categoria) {
             throw new Error('Faltan campos obligatorios para crear la oferta');
         }
 
@@ -30,9 +32,11 @@ export class OfertaLibroService {
             isbn, 
             nombre, 
             autor, 
-            precioProveedor, 
+            precioProveedor: Number(oferta.precioProveedor),
             cantidadProveedor, 
-            libroId 
+            libroId,
+            categoria,
+            sinopsis
         });
     }
 
@@ -85,7 +89,9 @@ export class OfertaLibroService {
                 nombre: oferta.nombre,
                 autor: oferta.autor,
                 precio: oferta.precioProveedor.toNumber(),
-                stock: cantidadFinal
+                stock: cantidadFinal,
+                categoria:oferta.categoria,
+                sinopsis: oferta.sinopsis || "",
             });
         }
 

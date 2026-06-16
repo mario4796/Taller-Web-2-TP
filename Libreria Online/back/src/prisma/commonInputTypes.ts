@@ -93,6 +93,13 @@ export type StringNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringNullableFilter<$PrismaModel> | string | null
 }
 
+export type EnumCategoriaLibroFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategoriaLibro | Prisma.EnumCategoriaLibroFieldRefInput<$PrismaModel>
+  in?: $Enums.CategoriaLibro[] | Prisma.ListEnumCategoriaLibroFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CategoriaLibro[] | Prisma.ListEnumCategoriaLibroFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCategoriaLibroFilter<$PrismaModel> | $Enums.CategoriaLibro
+}
+
 export type SortOrderInput = {
   sort: Prisma.SortOrder
   nulls?: Prisma.NullsOrder
@@ -164,6 +171,16 @@ export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedStringNullableFilter<$PrismaModel>
   _max?: Prisma.NestedStringNullableFilter<$PrismaModel>
+}
+
+export type EnumCategoriaLibroWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategoriaLibro | Prisma.EnumCategoriaLibroFieldRefInput<$PrismaModel>
+  in?: $Enums.CategoriaLibro[] | Prisma.ListEnumCategoriaLibroFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CategoriaLibro[] | Prisma.ListEnumCategoriaLibroFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCategoriaLibroWithAggregatesFilter<$PrismaModel> | $Enums.CategoriaLibro
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCategoriaLibroFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCategoriaLibroFilter<$PrismaModel>
 }
 
 export type EnumEstadoOfertaFilter<$PrismaModel = never> = {
@@ -296,6 +313,13 @@ export type NestedStringNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringNullableFilter<$PrismaModel> | string | null
 }
 
+export type NestedEnumCategoriaLibroFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategoriaLibro | Prisma.EnumCategoriaLibroFieldRefInput<$PrismaModel>
+  in?: $Enums.CategoriaLibro[] | Prisma.ListEnumCategoriaLibroFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CategoriaLibro[] | Prisma.ListEnumCategoriaLibroFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCategoriaLibroFilter<$PrismaModel> | $Enums.CategoriaLibro
+}
+
 export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -371,6 +395,16 @@ export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedStringNullableFilter<$PrismaModel>
   _max?: Prisma.NestedStringNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumCategoriaLibroWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategoriaLibro | Prisma.EnumCategoriaLibroFieldRefInput<$PrismaModel>
+  in?: $Enums.CategoriaLibro[] | Prisma.ListEnumCategoriaLibroFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CategoriaLibro[] | Prisma.ListEnumCategoriaLibroFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCategoriaLibroWithAggregatesFilter<$PrismaModel> | $Enums.CategoriaLibro
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCategoriaLibroFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCategoriaLibroFilter<$PrismaModel>
 }
 
 export type NestedEnumEstadoOfertaFilter<$PrismaModel = never> = {

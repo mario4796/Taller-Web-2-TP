@@ -80,13 +80,13 @@ export class LibroController {
 
     public editarLibro = async (req: Request, res: Response) => {
         const id: number = Number(req.params.id);
-        const { nombre, autor, isbn, precio }:Libro = req.body;
+        const { nombre, autor, isbn, precio, categoria, sinopsis }:Libro = req.body;
 
         if (isNaN(id)) {
             return res.status(400).json({ error: 'ID inválido. Debe ser un número.' });
         }
         try {
-            const libroActualizado = await libroService.actualizarLibro(id, { nombre, autor, isbn, precio });
+            const libroActualizado = await libroService.actualizarLibro(id, { nombre, autor, isbn, precio, categoria, sinopsis });
             res.status(200).json({ message: 'Libro actualizado correctamente', data: libroActualizado });
         } catch (error) {
             res.status(500).json({ error: 'Error al actualizar el libro', errorDetails: error });
