@@ -16,6 +16,7 @@ import { LibrosService } from '../../../../services/libros/libros.services';
 import { Libro } from '../../../libros/interfaces/libro.interface';
 import { ToastService } from '../../../../services/toast.service';
 import { AgregarLibro } from '../../components/agregar-libro/agregar-libro';
+import { obtenerOfertas} from '../../services/ofertas/ofertas.service';
 
 
 @Component({
