@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-import { environment } from '../../../environmets/environmet.development';
+import { environment } from '../../../environments/environment.development';
 import { NuevaOfertaLibro, OfertaLibro } from '../../modules/proveedor/interfaces/oferta-libro.interface';
 import { OfertaLibroRest } from './mapping/oferta-libro.interface.rest';
 import { OfertaLibroMapper } from './mapping/oferta-libro.mapper';

@@ -15,7 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 
 import { Nav } from '../../../../shared/components/nav/nav';
-import { ToastService } from '../../../../services/toast.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 import { OfertasLibroService } from '../../../../services/ofertas-libro/ofertas-libro.service';
 import { OfertaLibro, EstadoOferta } from '../../../proveedor/interfaces/oferta-libro.interface';
 @Component({

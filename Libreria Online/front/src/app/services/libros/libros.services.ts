@@ -5,7 +5,7 @@ import { map, Observable } from 'rxjs';
 import { Libro } from '../../modules/libros/interfaces/libro.interface';
 import { LibroRest } from './mapping/libro.interface.rest';
 import { LibroMapper } from './mapping/libro.mapper';
-import { environment } from '../../../environmets/environmet.development';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',

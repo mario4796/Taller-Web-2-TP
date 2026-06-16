@@ -4,7 +4,7 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
-import { UsuarioService } from '../../services/usuario-service';
+import { UsuarioService } from '../../services/usuarios/usuario-service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
@@ -44,7 +44,7 @@ export class Login {
       alert('Error: Email o contraseña incorrectos.');
     }
 
-  
+
   }
- 
+
 }

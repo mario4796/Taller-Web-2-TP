@@ -5,7 +5,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
 import {ButtonModule} from 'primeng/button';
 import {CardModule} from 'primeng/card';
-import {UsuarioService} from '../../services/usuario-service';
+import {UsuarioService} from '../../services/usuarios/usuario-service';
 import {Router} from '@angular/router'
 
 
@@ -24,7 +24,7 @@ import {Router} from '@angular/router'
 })
 
 export class Register  {
-  
+
   strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/
   private fb = inject(FormBuilder);
   private usuarioService = inject(UsuarioService);
@@ -41,7 +41,7 @@ export class Register  {
    },{
       validators: (control) => this.matchPasswords(control)
     });
-  
+
 
   submit(){
     if (this.form.invalid){
@@ -56,14 +56,14 @@ export class Register  {
       return;
     }
 
-    
+
 
     this.usuarioService.agregarUsuario(usuario);
 
     console.log('Usuario registrado');
     this.router.navigate(['']);
     }
-  
+
   private matchPasswords(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
     const confirmPassword = control.get ('confirmPassword')?.value;

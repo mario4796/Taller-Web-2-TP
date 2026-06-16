@@ -15,7 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { LibrosService } from '../../../../services/libros/libros.services';
 import { OfertasLibroService } from '../../../../services/ofertas-libro/ofertas-libro.service';
 import { OfertaLibro } from '../../../proveedor/interfaces/oferta-libro.interface';
-import { ToastService } from '../../../../services/toast.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of } from 'rxjs';
 

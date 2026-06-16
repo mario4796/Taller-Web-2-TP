@@ -19,7 +19,7 @@ import { ActualizarLibro } from '../../components/actualizar-libro/actualizar-li
 import { EliminarLibro } from '../../components/eliminar-libro/eliminar-libro';
 import { LibrosService } from '../../../../services/libros/libros.services';
 import { Libro } from '../../../libros/interfaces/libro.interface';
-import { ToastService } from '../../../../services/toast.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-libros',

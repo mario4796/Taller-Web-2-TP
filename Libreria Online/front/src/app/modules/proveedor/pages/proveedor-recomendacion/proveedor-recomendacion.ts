@@ -18,7 +18,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { catchError, of } from 'rxjs';
 
 import { Nav } from '../../../../shared/components/nav/nav';
-import { ToastService } from '../../../../services/toast.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 import { OfertasLibroService } from '../../../../services/ofertas-libro/ofertas-libro.service';
 import { LibrosService } from '../../../../services/libros/libros.services';
 import { EstadoOferta, OfertaLibro } from '../../interfaces/oferta-libro.interface';
