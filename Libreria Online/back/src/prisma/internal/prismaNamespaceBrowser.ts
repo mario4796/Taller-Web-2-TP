@@ -96,7 +96,9 @@ export const LibrosScalarFieldEnum = {
   autor: 'autor',
   precio: 'precio',
   stock: 'stock',
-  estado: 'estado'
+  estado: 'estado',
+  sinopsis: 'sinopsis',
+  categoria: 'categoria'
 } as const
 
 export type LibrosScalarFieldEnum = (typeof LibrosScalarFieldEnum)[keyof typeof LibrosScalarFieldEnum]
@@ -132,6 +134,8 @@ export const OfertaLibroScalarFieldEnum = {
   cantidadAdmin: 'cantidadAdmin',
   estado: 'estado',
   createdAt: 'createdAt',
+  sinopsis: 'sinopsis',
+  categoria: 'categoria',
   libroId: 'libroId'
 } as const
 

@@ -1,5 +1,6 @@
 import { prisma } from '../prisma.js';
 import { Libro } from '../models/libro.model.js';
+import { CategoriaLibro } from '../prisma/enums.js';
 
 
 export class LibroRepository {
@@ -25,11 +26,11 @@ export class LibroRepository {
             });
         }
 
-        async createLibro(data: { nombre: string; isbn: string; precio: number; autor: string;  stock: number }){
+        async createLibro(data: { nombre: string; isbn: string; precio: number; autor: string;  stock: number, categoria: CategoriaLibro, sinopsis: string }){
             return await prisma.libros.create({ data });
         }
 
-        async updateLibro(id: number, data:  { nombre: string; isbn: string; precio: number; autor: string;}) {
+        async updateLibro(id: number, data:  { nombre: string; isbn: string; precio: number; autor: string; categoria: CategoriaLibro, sinopsis: string }) {
 
             return await prisma.libros.update({
                 where: { id },

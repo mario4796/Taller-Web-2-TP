@@ -913,7 +913,9 @@ export const LibrosScalarFieldEnum = {
   autor: 'autor',
   precio: 'precio',
   stock: 'stock',
-  estado: 'estado'
+  estado: 'estado',
+  sinopsis: 'sinopsis',
+  categoria: 'categoria'
 } as const
 
 export type LibrosScalarFieldEnum = (typeof LibrosScalarFieldEnum)[keyof typeof LibrosScalarFieldEnum]
@@ -949,6 +951,8 @@ export const OfertaLibroScalarFieldEnum = {
   cantidadAdmin: 'cantidadAdmin',
   estado: 'estado',
   createdAt: 'createdAt',
+  sinopsis: 'sinopsis',
+  categoria: 'categoria',
   libroId: 'libroId'
 } as const
 
@@ -1024,6 +1028,20 @@ export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'Decimal[]'
  */
 export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CategoriaLibro'
+ */
+export type EnumCategoriaLibroFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoriaLibro'>
+    
+
+
+/**
+ * Reference to a field of type 'CategoriaLibro[]'
+ */
+export type ListEnumCategoriaLibroFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoriaLibro[]'>
     
 
 
