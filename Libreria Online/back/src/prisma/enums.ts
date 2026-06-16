@@ -17,3 +17,15 @@ export const EstadoOferta = {
 } as const
 
 export type EstadoOferta = (typeof EstadoOferta)[keyof typeof EstadoOferta]
+
+
+export const CategoriaLibro = {
+  FICCION: 'FICCION',
+  FANTASIA: 'FANTASIA',
+  TERROR: 'TERROR',
+  HISTORIA: 'HISTORIA',
+  INFANTIL: 'INFANTIL',
+  GENERAL: 'GENERAL'
+} as const
+
+export type CategoriaLibro = (typeof CategoriaLibro)[keyof typeof CategoriaLibro]

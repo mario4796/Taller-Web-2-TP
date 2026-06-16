@@ -46,6 +46,8 @@ export type LibrosMinAggregateOutputType = {
   precio: runtime.Decimal | null
   stock: number | null
   estado: string | null
+  sinopsis: string | null
+  categoria: $Enums.CategoriaLibro | null
 }
 
 export type LibrosMaxAggregateOutputType = {
@@ -56,6 +58,8 @@ export type LibrosMaxAggregateOutputType = {
   precio: runtime.Decimal | null
   stock: number | null
   estado: string | null
+  sinopsis: string | null
+  categoria: $Enums.CategoriaLibro | null
 }
 
 export type LibrosCountAggregateOutputType = {
@@ -66,6 +70,8 @@ export type LibrosCountAggregateOutputType = {
   precio: number
   stock: number
   estado: number
+  sinopsis: number
+  categoria: number
   _all: number
 }
 
@@ -90,6 +96,8 @@ export type LibrosMinAggregateInputType = {
   precio?: true
   stock?: true
   estado?: true
+  sinopsis?: true
+  categoria?: true
 }
 
 export type LibrosMaxAggregateInputType = {
@@ -100,6 +108,8 @@ export type LibrosMaxAggregateInputType = {
   precio?: true
   stock?: true
   estado?: true
+  sinopsis?: true
+  categoria?: true
 }
 
 export type LibrosCountAggregateInputType = {
@@ -110,6 +120,8 @@ export type LibrosCountAggregateInputType = {
   precio?: true
   stock?: true
   estado?: true
+  sinopsis?: true
+  categoria?: true
   _all?: true
 }
 
@@ -207,6 +219,8 @@ export type LibrosGroupByOutputType = {
   precio: runtime.Decimal
   stock: number | null
   estado: string | null
+  sinopsis: string | null
+  categoria: $Enums.CategoriaLibro
   _count: LibrosCountAggregateOutputType | null
   _avg: LibrosAvgAggregateOutputType | null
   _sum: LibrosSumAggregateOutputType | null
@@ -240,6 +254,8 @@ export type LibrosWhereInput = {
   precio?: Prisma.DecimalFilter<"Libros"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.IntNullableFilter<"Libros"> | number | null
   estado?: Prisma.StringNullableFilter<"Libros"> | string | null
+  sinopsis?: Prisma.StringNullableFilter<"Libros"> | string | null
+  categoria?: Prisma.EnumCategoriaLibroFilter<"Libros"> | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroListRelationFilter
 }
 
@@ -251,6 +267,8 @@ export type LibrosOrderByWithRelationInput = {
   precio?: Prisma.SortOrder
   stock?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrderInput | Prisma.SortOrder
+  sinopsis?: Prisma.SortOrderInput | Prisma.SortOrder
+  categoria?: Prisma.SortOrder
   ofertas?: Prisma.OfertaLibroOrderByRelationAggregateInput
 }
 
@@ -265,6 +283,8 @@ export type LibrosWhereUniqueInput = Prisma.AtLeast<{
   precio?: Prisma.DecimalFilter<"Libros"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.IntNullableFilter<"Libros"> | number | null
   estado?: Prisma.StringNullableFilter<"Libros"> | string | null
+  sinopsis?: Prisma.StringNullableFilter<"Libros"> | string | null
+  categoria?: Prisma.EnumCategoriaLibroFilter<"Libros"> | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroListRelationFilter
 }, "id" | "isbn">
 
@@ -276,6 +296,8 @@ export type LibrosOrderByWithAggregationInput = {
   precio?: Prisma.SortOrder
   stock?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrderInput | Prisma.SortOrder
+  sinopsis?: Prisma.SortOrderInput | Prisma.SortOrder
+  categoria?: Prisma.SortOrder
   _count?: Prisma.LibrosCountOrderByAggregateInput
   _avg?: Prisma.LibrosAvgOrderByAggregateInput
   _max?: Prisma.LibrosMaxOrderByAggregateInput
@@ -294,6 +316,8 @@ export type LibrosScalarWhereWithAggregatesInput = {
   precio?: Prisma.DecimalWithAggregatesFilter<"Libros"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.IntNullableWithAggregatesFilter<"Libros"> | number | null
   estado?: Prisma.StringNullableWithAggregatesFilter<"Libros"> | string | null
+  sinopsis?: Prisma.StringNullableWithAggregatesFilter<"Libros"> | string | null
+  categoria?: Prisma.EnumCategoriaLibroWithAggregatesFilter<"Libros"> | $Enums.CategoriaLibro
 }
 
 export type LibrosCreateInput = {
@@ -303,6 +327,8 @@ export type LibrosCreateInput = {
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: number | null
   estado?: string | null
+  sinopsis?: string | null
+  categoria?: $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroCreateNestedManyWithoutLibroInput
 }
 
@@ -314,6 +340,8 @@ export type LibrosUncheckedCreateInput = {
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: number | null
   estado?: string | null
+  sinopsis?: string | null
+  categoria?: $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUncheckedCreateNestedManyWithoutLibroInput
 }
 
@@ -324,6 +352,8 @@ export type LibrosUpdateInput = {
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUpdateManyWithoutLibroNestedInput
 }
 
@@ -335,6 +365,8 @@ export type LibrosUncheckedUpdateInput = {
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUncheckedUpdateManyWithoutLibroNestedInput
 }
 
@@ -346,6 +378,8 @@ export type LibrosCreateManyInput = {
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: number | null
   estado?: string | null
+  sinopsis?: string | null
+  categoria?: $Enums.CategoriaLibro
 }
 
 export type LibrosUpdateManyMutationInput = {
@@ -355,6 +389,8 @@ export type LibrosUpdateManyMutationInput = {
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
 }
 
 export type LibrosUncheckedUpdateManyInput = {
@@ -365,6 +401,8 @@ export type LibrosUncheckedUpdateManyInput = {
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
 }
 
 export type LibrosCountOrderByAggregateInput = {
@@ -375,6 +413,8 @@ export type LibrosCountOrderByAggregateInput = {
   precio?: Prisma.SortOrder
   stock?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  sinopsis?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
 }
 
 export type LibrosAvgOrderByAggregateInput = {
@@ -391,6 +431,8 @@ export type LibrosMaxOrderByAggregateInput = {
   precio?: Prisma.SortOrder
   stock?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  sinopsis?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
 }
 
 export type LibrosMinOrderByAggregateInput = {
@@ -401,6 +443,8 @@ export type LibrosMinOrderByAggregateInput = {
   precio?: Prisma.SortOrder
   stock?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  sinopsis?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
 }
 
 export type LibrosSumOrderByAggregateInput = {
@@ -438,6 +482,10 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type EnumCategoriaLibroFieldUpdateOperationsInput = {
+  set?: $Enums.CategoriaLibro
+}
+
 export type LibrosCreateNestedOneWithoutOfertasInput = {
   create?: Prisma.XOR<Prisma.LibrosCreateWithoutOfertasInput, Prisma.LibrosUncheckedCreateWithoutOfertasInput>
   connectOrCreate?: Prisma.LibrosCreateOrConnectWithoutOfertasInput
@@ -461,6 +509,8 @@ export type LibrosCreateWithoutOfertasInput = {
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: number | null
   estado?: string | null
+  sinopsis?: string | null
+  categoria?: $Enums.CategoriaLibro
 }
 
 export type LibrosUncheckedCreateWithoutOfertasInput = {
@@ -471,6 +521,8 @@ export type LibrosUncheckedCreateWithoutOfertasInput = {
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: number | null
   estado?: string | null
+  sinopsis?: string | null
+  categoria?: $Enums.CategoriaLibro
 }
 
 export type LibrosCreateOrConnectWithoutOfertasInput = {
@@ -496,6 +548,8 @@ export type LibrosUpdateWithoutOfertasInput = {
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
 }
 
 export type LibrosUncheckedUpdateWithoutOfertasInput = {
@@ -506,6 +560,8 @@ export type LibrosUncheckedUpdateWithoutOfertasInput = {
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
 }
 
 
@@ -547,6 +603,8 @@ export type LibrosSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   precio?: boolean
   stock?: boolean
   estado?: boolean
+  sinopsis?: boolean
+  categoria?: boolean
   ofertas?: boolean | Prisma.Libros$ofertasArgs<ExtArgs>
   _count?: boolean | Prisma.LibrosCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["libros"]>
@@ -559,6 +617,8 @@ export type LibrosSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   precio?: boolean
   stock?: boolean
   estado?: boolean
+  sinopsis?: boolean
+  categoria?: boolean
 }, ExtArgs["result"]["libros"]>
 
 export type LibrosSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -569,6 +629,8 @@ export type LibrosSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   precio?: boolean
   stock?: boolean
   estado?: boolean
+  sinopsis?: boolean
+  categoria?: boolean
 }, ExtArgs["result"]["libros"]>
 
 export type LibrosSelectScalar = {
@@ -579,9 +641,11 @@ export type LibrosSelectScalar = {
   precio?: boolean
   stock?: boolean
   estado?: boolean
+  sinopsis?: boolean
+  categoria?: boolean
 }
 
-export type LibrosOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isbn" | "nombre" | "autor" | "precio" | "stock" | "estado", ExtArgs["result"]["libros"]>
+export type LibrosOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isbn" | "nombre" | "autor" | "precio" | "stock" | "estado" | "sinopsis" | "categoria", ExtArgs["result"]["libros"]>
 export type LibrosInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ofertas?: boolean | Prisma.Libros$ofertasArgs<ExtArgs>
   _count?: boolean | Prisma.LibrosCountOutputTypeDefaultArgs<ExtArgs>
@@ -602,6 +666,8 @@ export type $LibrosPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     precio: runtime.Decimal
     stock: number | null
     estado: string | null
+    sinopsis: string | null
+    categoria: $Enums.CategoriaLibro
   }, ExtArgs["result"]["libros"]>
   composites: {}
 }
@@ -1033,6 +1099,8 @@ export interface LibrosFieldRefs {
   readonly precio: Prisma.FieldRef<"Libros", 'Decimal'>
   readonly stock: Prisma.FieldRef<"Libros", 'Int'>
   readonly estado: Prisma.FieldRef<"Libros", 'String'>
+  readonly sinopsis: Prisma.FieldRef<"Libros", 'String'>
+  readonly categoria: Prisma.FieldRef<"Libros", 'CategoriaLibro'>
 }
     
 

@@ -25,6 +25,8 @@ model Libros {
   precio  Decimal       @db.Decimal(10, 2)
   stock   Int?          @default(0)
   estado  String?       @default("DISPONIBLE") @db.VarChar(50)
+  sinopsis String?
+  categoria   CategoriaLibro @default(GENERAL)
   ofertas OfertaLibro[] 
 }
 
@@ -62,10 +64,22 @@ model OfertaLibro {
   cantidadAdmin      Int?
   estado           EstadoOferta @default(ESPERANDO_ADMIN)
   createdAt        DateTime     @default(now())
+
+  sinopsis String?
+  categoria   CategoriaLibro @default(GENERAL)
   
-  // proveedorId      Int
+  //proveedorId      Int
   //Proveedor        Proveedores  @relation(fields: [proveedorId], references: [usuario_id])
 
   libroId          Int?
   Libro            Libros?      @relation(fields: [libroId], references: [id])
+}
+
+enum CategoriaLibro {
+  FICCION
+  FANTASIA
+  TERROR
+  HISTORIA
+  INFANTIL
+  GENERAL
 }
