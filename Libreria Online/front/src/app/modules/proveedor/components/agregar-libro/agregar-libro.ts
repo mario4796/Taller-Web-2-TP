@@ -7,20 +7,37 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { LibrosService } from '../../../../services/libros/libros.services';
+import { SelectModule } from 'primeng/select';
+import { TextareaModule } from 'primeng/textarea';
+import { LibrosService } from '../../../../api/services/libros/libros.services';
+import { CATEGORIAS_LIBRO } from '../../../../shared/interfaces/libro.interface';
 import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-agregar-libro',
   standalone: true,
-  imports: [Button, ReactiveFormsModule, InputText, DialogModule, InputGroupModule, InputGroupAddonModule, FloatLabelModule, InputNumberModule],
+  imports: [
+    Button,
+    ReactiveFormsModule,
+    InputText,
+    DialogModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    FloatLabelModule,
+    InputNumberModule,
+    SelectModule,
+    TextareaModule,
+  ],
   templateUrl: './agregar-libro.html',
   styleUrl: './agregar-libro.css',
 })
 export class AgregarLibro implements OnInit {
   bookForm!: FormGroup;
-  visible: boolean = false;
-  isLoading: boolean = false;
+  visible = false;
+  isLoading = false;
+  categorias = CATEGORIAS_LIBRO;
+  sinopsisMaxLength = 700;
+
   @Output() libroCreado = new EventEmitter<void>();
 
   private fb = inject(FormBuilder);
@@ -33,10 +50,12 @@ export class AgregarLibro implements OnInit {
 
   private initializeForm() {
     this.bookForm = this.fb.group({
-      // Agregamos el nombre y pasamos todo al español para que matchee con el backend
+      // Agregamos el nombre y pasamos todo al espa\u00f1ol para que matchee con el backend
       nombre: ['', [Validators.required, Validators.minLength(2)]],
       isbn: ['', [Validators.required, Validators.pattern(/^[0-9-]{10,20}$/)]],
       autor: ['', [Validators.required, Validators.minLength(3)]],
+      categoria: [null, [Validators.required]],
+      sinopsis: ['', [Validators.maxLength(this.sinopsisMaxLength)]],
       precio: [null, [Validators.required, Validators.min(0)]],
       stock: [null, [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)]],
     });
@@ -52,43 +71,44 @@ export class AgregarLibro implements OnInit {
   }
 
   guardarLibro() {
+    if (this.bookForm.invalid) {
+      console.error('ERROR: El formulario es inv\u00e1lido. Deteniendo ejecuci\u00f3n.');
+      this.bookForm.markAllAsTouched();
+      return;
+    }
 
+    console.log('2. Formulario v\u00e1lido. Preparando env\u00edo al backend...');
+    this.isLoading = true;
+    const formData = this.bookForm.getRawValue();
 
-  if (this.bookForm.invalid) {
-    console.error('❌ ERROR: El formulario es inválido. Deteniendo ejecución.');
-    return;
+    console.log('Datos exactos que viajan al servicio:', formData);
+
+    this.librosService.crearLibro(formData).subscribe({
+      next: (response) => {
+        console.log('3. EXITO: El backend respondi\u00f3 que todo sali\u00f3 bien', response);
+        this.closeDialog();
+        this.isLoading = false;
+        this.toastService.created('Libro');
+        this.libroCreado.emit();
+      },
+      error: (error: any) => {
+        console.error('3. ERROR DEL BACKEND:', error);
+        this.isLoading = false;
+        this.toastService.error('No se pudo crear el libro.');
+      }
+    });
   }
 
-  console.log('✅ 2. Formulario válido. Preparando envío al backend...');
-  this.isLoading = true;
-  const formData = this.bookForm.value;
-
-  console.log('Datos exactos que viajan al servicio:', formData);
-
-  this.librosService.crearLibro(formData).subscribe({
-    next: (response) => {
-      console.log('🟢 3. ÉXITO: El backend respondió que todo salió bien', response);
-      this.closeDialog();
-      this.isLoading = false;
-        this.toastService.created('Libro');
-      this.libroCreado.emit();
-    },
-    error: (error: any) => {
-      console.error('🔴 3. ERROR DEL BACKEND:', error);
-      this.isLoading = false;
-        this.toastService.error('No se pudo crear el libro.');
-    }
-  });
-}
-
   private resetForm() {
-    this.bookForm.reset();
+    this.bookForm.reset({ categoria: null });
   }
 
   // Getters actualizados
   get nombre() { return this.bookForm.get('nombre'); }
   get isbn() { return this.bookForm.get('isbn'); }
   get autor() { return this.bookForm.get('autor'); }
+  get categoria() { return this.bookForm.get('categoria'); }
+  get sinopsis() { return this.bookForm.get('sinopsis'); }
   get precio() { return this.bookForm.get('precio'); }
   get stock() { return this.bookForm.get('stock'); }
 }

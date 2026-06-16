@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-import { environment } from '../../../environments/environment.development';
-import { NuevaOfertaLibro, OfertaLibro } from '../../modules/proveedor/interfaces/oferta-libro.interface';
-import { OfertaLibroRest } from './mapping/oferta-libro.interface.rest';
-import { OfertaLibroMapper } from './mapping/oferta-libro.mapper';
+import { environment } from '../../../../environments/environment';
+import { NuevaOfertaLibro, OfertaLibro } from '../../../shared/interfaces/oferta-libro.interface';
+import { OfertaLibroRest } from '../../mapper/ofertas-libro/oferta-libro.interface.rest';
+import { OfertaLibroMapper } from '../../mapper/ofertas-libro/oferta-libro.mapper';
 
 @Injectable({
   providedIn: 'root',

@@ -2,8 +2,8 @@ import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { Button } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 
-import { LibrosService } from '../../../../services/libros/libros.services';
-import { Libro } from '../../../libros/interfaces/libro.interface';
+import { LibrosService } from '../../../../api/services/libros/libros.services';
+import { Libro } from '../../../../shared/interfaces/libro.interface';
 import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({

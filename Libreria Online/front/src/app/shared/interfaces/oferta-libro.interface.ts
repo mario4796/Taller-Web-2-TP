@@ -1,3 +1,5 @@
+import { CategoriaLibro } from './libro.interface';
+
 export type EstadoOferta =
   | 'ESPERANDO_ADMIN'
   | 'ESPERANDO_PROVEEDOR'
@@ -15,6 +17,8 @@ export interface OfertaLibro {
   estado: EstadoOferta;
   createdAt?: string;
   libroId?: number | null;
+  sinopsis?: string | null;
+  categoria: CategoriaLibro;
 }
 
 export type NuevaOfertaLibro = Omit<OfertaLibro, 'id' | 'estado' | 'createdAt' | 'cantidadAdmin'>;

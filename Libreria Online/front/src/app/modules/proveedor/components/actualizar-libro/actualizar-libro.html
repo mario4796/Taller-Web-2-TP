@@ -5,7 +5,7 @@
 		<p-inputgroup class="book-inputgroup">
 			<p-floatlabel variant="in">
 				<input pInputText id="nombre-update" formControlName="nombre" autocomplete="off" />
-				<label for="nombre-update">Título del Libro</label>
+				<label for="nombre-update">T&iacute;tulo del libro</label>
 			</p-floatlabel>
 			<p-inputgroup-addon>
 				<i class="pi pi-book"></i>
@@ -13,7 +13,7 @@
 		</p-inputgroup>
 
 		@if (nombre && nombre.invalid && nombre.touched) {
-			<small class="error-message">Título requerido</small>
+			<small class="error-message">T&iacute;tulo requerido</small>
 		}
 
 		<p-inputgroup class="book-inputgroup">
@@ -27,7 +27,7 @@
 		</p-inputgroup>
 
 		@if (isbn && isbn.invalid && isbn.touched) {
-			<small class="error-message">ISBN requerido (10-20 caracteres, números y guiones)</small>
+			<small class="error-message">ISBN requerido (10-20 caracteres, n&uacute;meros y guiones)</small>
 		}
 
 		<p-inputgroup class="book-inputgroup">
@@ -41,7 +41,42 @@
 		</p-inputgroup>
 
 		@if (autor && autor.invalid && autor.touched) {
-			<small class="error-message">Autor requerido (mínimo 3 caracteres)</small>
+			<small class="error-message">Autor requerido (m&iacute;nimo 3 caracteres)</small>
+		}
+
+		<p-inputgroup class="book-inputgroup">
+			<p-floatlabel variant="in">
+				<p-select
+					inputId="categoria-update"
+					formControlName="categoria"
+					[options]="categorias"
+					appendTo="body">
+				</p-select>
+				<label for="categoria-update">Categor&iacute;a</label>
+			</p-floatlabel>
+			<p-inputgroup-addon>
+				<i class="pi pi-tag"></i>
+			</p-inputgroup-addon>
+		</p-inputgroup>
+
+		@if (categoria && categoria.invalid && categoria.touched) {
+			<small class="error-message">Categor&iacute;a requerida</small>
+		}
+
+		<p-floatlabel variant="in">
+			<textarea
+				pTextarea
+				id="sinopsis-update"
+				formControlName="sinopsis"
+				rows="4"
+				[maxlength]="sinopsisMaxLength"
+				style="width: 100%; resize: vertical;">
+			</textarea>
+			<label for="sinopsis-update">Sinopsis</label>
+		</p-floatlabel>
+
+		@if (sinopsis && sinopsis.invalid && sinopsis.touched) {
+			<small class="error-message">La sinopsis no puede superar {{ sinopsisMaxLength }} caracteres</small>
 		}
 
 		<p-inputgroup class="book-inputgroup">

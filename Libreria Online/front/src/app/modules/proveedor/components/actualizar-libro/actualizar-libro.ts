@@ -7,15 +7,28 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputText } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
+import { TextareaModule } from 'primeng/textarea';
 
-import { LibrosService } from '../../../../services/libros/libros.services';
-import { Libro } from '../../../libros/interfaces/libro.interface';
+import { LibrosService } from '../../../../api/services/libros/libros.services';
+import { CATEGORIAS_LIBRO, Libro } from '../../../../shared/interfaces/libro.interface';
 import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-actualizar-libro',
   standalone: true,
-  imports: [Button, ReactiveFormsModule, InputText, DialogModule, InputGroupModule, InputGroupAddonModule, FloatLabelModule, InputNumberModule],
+  imports: [
+    Button,
+    ReactiveFormsModule,
+    InputText,
+    DialogModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    FloatLabelModule,
+    InputNumberModule,
+    SelectModule,
+    TextareaModule,
+  ],
   templateUrl: './actualizar-libro.html',
   styleUrl: './actualizar-libro.css',
 })
@@ -23,6 +36,8 @@ export class ActualizarLibro {
   visible = false;
   isLoading = false;
   libroSeleccionado: Libro | null = null;
+  categorias = CATEGORIAS_LIBRO;
+  sinopsisMaxLength = 700;
 
   @Output() libroActualizado = new EventEmitter<void>();
 
@@ -34,6 +49,8 @@ export class ActualizarLibro {
     nombre: ['', [Validators.required, Validators.minLength(2)]],
     isbn: ['', [Validators.required, Validators.pattern(/^[0-9-]{10,20}$/)]],
     autor: ['', [Validators.required, Validators.minLength(3)]],
+    categoria: ['GENERAL', [Validators.required]],
+    sinopsis: ['', [Validators.maxLength(this.sinopsisMaxLength)]],
     precio: [null, [Validators.required, Validators.min(0)]],
   });
 
@@ -43,6 +60,8 @@ export class ActualizarLibro {
       nombre: libro.nombre,
       isbn: libro.isbn,
       autor: libro.autor,
+      categoria: libro.categoria,
+      sinopsis: libro.sinopsis ?? '',
       precio: libro.precio,
     });
     this.visible = true;
@@ -51,11 +70,12 @@ export class ActualizarLibro {
   closeDialog(): void {
     this.visible = false;
     this.libroSeleccionado = null;
-    this.bookForm.reset();
+    this.bookForm.reset({ categoria: 'GENERAL' });
   }
 
   guardarLibro(): void {
     if (this.bookForm.invalid || !this.libroSeleccionado) {
+      this.bookForm.markAllAsTouched();
       return;
     }
 
@@ -66,6 +86,8 @@ export class ActualizarLibro {
       nombre: String(libro.nombre ?? ''),
       isbn: String(libro.isbn ?? ''),
       autor: String(libro.autor ?? ''),
+      categoria: libro.categoria ?? 'GENERAL',
+      sinopsis: String(libro.sinopsis ?? ''),
       precio: Number(libro.precio ?? 0),
     }).subscribe({
       next: () => {
@@ -85,5 +107,7 @@ export class ActualizarLibro {
   get nombre() { return this.bookForm.get('nombre'); }
   get isbn() { return this.bookForm.get('isbn'); }
   get autor() { return this.bookForm.get('autor'); }
+  get categoria() { return this.bookForm.get('categoria'); }
+  get sinopsis() { return this.bookForm.get('sinopsis'); }
   get precio() { return this.bookForm.get('precio'); }
 }

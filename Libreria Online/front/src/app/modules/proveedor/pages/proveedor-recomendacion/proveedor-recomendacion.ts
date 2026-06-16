@@ -1,160 +1,133 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { Table, TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
-import { TooltipModule } from 'primeng/tooltip';
 import { catchError, of } from 'rxjs';
 
+import { IsbnLookupService, OpenLibraryBook } from '../../../../api/services/isbn-lookup/isbn-lookup.service';
+import { LibrosService } from '../../../../api/services/libros/libros.services';
+import { OfertasLibroService } from '../../../../api/services/ofertas-libro/ofertas-libro.service';
 import { Nav } from '../../../../shared/components/nav/nav';
+import { CategoriaLibro, Libro } from '../../../../shared/interfaces/libro.interface';
+import { NuevaOfertaLibro, OfertaLibro } from '../../../../shared/interfaces/oferta-libro.interface';
 import { ToastService } from '../../../../shared/services/toast.service';
-import { OfertasLibroService } from '../../../../services/ofertas-libro/ofertas-libro.service';
-import { LibrosService } from '../../../../services/libros/libros.services';
-import { EstadoOferta, OfertaLibro } from '../../interfaces/oferta-libro.interface';
-import { Libro } from '../../../libros/interfaces/libro.interface';
-
-interface OpenLibraryBook {
-  title?: string;
-  subtitle?: string;
-  authors?: Array<{ name?: string }>;
-  cover?: {
-    small?: string;
-    medium?: string;
-    large?: string;
-  };
-}
+import { ContraofertaProveedorDialog } from '../../components/contraoferta-proveedor-dialog/contraoferta-proveedor-dialog';
+import { RecomendacionFormDialog } from '../../components/recomendacion-form-dialog/recomendacion-form-dialog';
+import { RecomendacionesTable } from '../../components/recomendaciones-table/recomendaciones-table';
 
 @Component({
   selector: 'app-proveedor-recomendacion',
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
     ReactiveFormsModule,
     Nav,
-    TableModule,
     ButtonModule,
-    DialogModule,
-    FloatLabelModule,
-    InputGroupModule,
-    InputGroupAddonModule,
-    InputNumberModule,
-    InputTextModule,
-    TagModule,
     ToastModule,
-    TooltipModule,
+    RecomendacionesTable,
+    RecomendacionFormDialog,
+    ContraofertaProveedorDialog,
   ],
   templateUrl: './proveedor-recomendacion.html',
   styleUrl: './proveedor-recomendacion.css',
 })
 export class ProveedorRecomendacion implements OnInit {
-  userName = 'Maria Rodriguez';
-  role = 'proveedor';
-  activeItem = 'Recomendar libro';
+  readonly userName = 'Maria Rodriguez';
+  readonly role = 'proveedor';
+  readonly activeItem = 'Recomendar libro';
 
-  recomendaciones: OfertaLibro[] = [];
-  cargando = true;
-  guardando = false;
-  respondiendo = false;
-  buscandoIsbn = false;
-  searchValue = '';
-  nuevaRecomendacionVisible = false;
-  contraofertaVisible = false;
-  ofertaSeleccionada?: OfertaLibro;
-  isbnVerificado = false;
-  isbnVerificadoValor = '';
-  portadaPreview?: string;
-
-  recomendacionForm!: FormGroup;
-  contraofertaForm!: FormGroup;
-
-  @ViewChild('tablaRecomendaciones') tablaRecomendaciones?: Table;
+  recomendaciones = signal<OfertaLibro[]>([]);
+  cargando = signal(true);
+  guardando = signal(false);
+  respondiendo = signal(false);
+  buscandoIsbn = signal(false);
+  nuevaRecomendacionVisible = signal(false);
+  contraofertaVisible = signal(false);
+  ofertaSeleccionada = signal<OfertaLibro | undefined>(undefined);
+  isbnVerificado = signal(false);
+  isbnVerificadoValor = signal('');
+  portadaPreview = signal<string | undefined>(undefined);
 
   private fb = inject(FormBuilder);
-  private http = inject(HttpClient);
   private ofertasService = inject(OfertasLibroService);
   private librosService = inject(LibrosService);
+  private isbnLookup = inject(IsbnLookupService);
   private toastService = inject(ToastService);
   private messageService = inject(MessageService);
-  private cdr = inject(ChangeDetectorRef);
+
+  readonly recomendacionForm = this.fb.group({
+    isbn: ['', [Validators.required, Validators.pattern(/^[0-9Xx-]{10,20}$/)]],
+    nombre: ['', [Validators.required, Validators.minLength(2)]],
+    autor: ['', [Validators.required, Validators.minLength(3)]],
+    categoria: [null as CategoriaLibro | null, [Validators.required]],
+    sinopsis: ['', [Validators.maxLength(700)]],
+    precioProveedor: [null as number | null, [Validators.required, Validators.min(1)]],
+    cantidadProveedor: [null as number | null, [Validators.required, Validators.min(1)]],
+    libroId: [null as number | null],
+  });
+
+  readonly contraofertaForm = this.fb.group({
+    nuevaCantidad: [null as number | null, [Validators.required, Validators.min(1)]],
+  });
 
   ngOnInit(): void {
-    this.initializeForms();
     this.obtenerRecomendaciones();
 
     this.recomendacionForm.get('isbn')?.valueChanges.subscribe(() => {
-      this.isbnVerificado = false;
-      this.isbnVerificadoValor = '';
-      this.portadaPreview = undefined;
+      this.isbnVerificado.set(false);
+      this.isbnVerificadoValor.set('');
+      this.portadaPreview.set(undefined);
       this.recomendacionForm.patchValue({ libroId: null }, { emitEvent: false });
     });
   }
 
   obtenerRecomendaciones(): void {
-    this.cargando = true;
+    this.cargando.set(true);
 
     this.ofertasService.listOfertas().subscribe({
       next: (data) => {
-        this.recomendaciones = data;
-        this.cargando = false;
-        this.cdr.detectChanges();
+        this.recomendaciones.set(data);
+        this.cargando.set(false);
       },
       error: (error) => {
         console.error('Error al traer las recomendaciones', error);
-        this.cargando = false;
+        this.cargando.set(false);
         this.toastService.error('No se pudieron cargar los libros recomendados.');
-        this.cdr.detectChanges();
       },
     });
   }
 
-  buscarRecomendaciones(valor: string): void {
-    this.searchValue = valor;
-    this.tablaRecomendaciones?.filterGlobal(valor, 'contains');
-  }
-
   abrirNuevaRecomendacion(): void {
-    this.nuevaRecomendacionVisible = true;
+    this.nuevaRecomendacionVisible.set(true);
   }
 
   cerrarNuevaRecomendacion(): void {
-    this.nuevaRecomendacionVisible = false;
-    this.recomendacionForm.reset();
-    this.isbnVerificado = false;
-    this.isbnVerificadoValor = '';
-    this.portadaPreview = undefined;
+    this.nuevaRecomendacionVisible.set(false);
+    this.recomendacionForm.reset({ categoria: null });
+    this.isbnVerificado.set(false);
+    this.isbnVerificadoValor.set('');
+    this.portadaPreview.set(undefined);
   }
 
   buscarPorIsbn(): void {
     const isbn = this.normalizarIsbn(this.recomendacionForm.value.isbn);
 
     this.recomendacionForm.patchValue({ isbn }, { emitEvent: false });
-    this.isbn?.markAsTouched();
+    this.recomendacionForm.get('isbn')?.markAsTouched();
 
-    if (!isbn || this.isbn?.invalid) {
-      this.toastService.error('Ingresá un ISBN válido antes de buscar.');
+    if (!isbn || this.recomendacionForm.get('isbn')?.invalid) {
+      this.toastService.error('Ingres\u00e1 un ISBN v\u00e1lido antes de buscar.');
       return;
     }
 
-    this.buscandoIsbn = true;
+    this.buscandoIsbn.set(true);
 
     this.librosService.buscarLibroPorIsbn(isbn).pipe(
       catchError(() => of(null))
     ).subscribe((libro) => {
       if (libro) {
         this.completarDesdeLibro(libro);
-        this.buscandoIsbn = false;
+        this.buscandoIsbn.set(false);
         this.messageService.add({
           severity: 'success',
           summary: 'Libro encontrado',
@@ -169,9 +142,9 @@ export class ProveedorRecomendacion implements OnInit {
   }
 
   guardarRecomendacion(): void {
-    if (!this.isbnVerificado || this.isbnVerificadoValor !== this.normalizarIsbn(this.recomendacionForm.value.isbn)) {
-      this.toastService.error('Buscá el ISBN antes de guardar la recomendación.');
-      this.isbn?.markAsTouched();
+    if (!this.isbnVerificado() || this.isbnVerificadoValor() !== this.normalizarIsbn(this.recomendacionForm.value.isbn)) {
+      this.toastService.error('Busc\u00e1 el ISBN antes de guardar la recomendaci\u00f3n.');
+      this.recomendacionForm.get('isbn')?.markAsTouched();
       return;
     }
 
@@ -180,55 +153,57 @@ export class ProveedorRecomendacion implements OnInit {
       return;
     }
 
-    this.guardando = true;
-    this.ofertasService.crearOferta(this.recomendacionForm.value).subscribe({
+    this.guardando.set(true);
+    this.ofertasService.crearOferta(this.getNuevaOfertaPayload()).subscribe({
       next: () => {
-        this.guardando = false;
+        this.guardando.set(false);
         this.cerrarNuevaRecomendacion();
-        this.toastService.created('Recomendación');
+        this.toastService.created('Recomendaci\u00f3n');
         this.obtenerRecomendaciones();
       },
       error: (error) => {
         console.error('Error al crear la recomendacion', error);
-        this.guardando = false;
-        this.toastService.error('No se pudo guardar la recomendación.');
+        this.guardando.set(false);
+        this.toastService.error('No se pudo guardar la recomendaci\u00f3n.');
       },
     });
   }
 
   abrirContraoferta(recomendacion: OfertaLibro): void {
-    this.ofertaSeleccionada = recomendacion;
+    this.ofertaSeleccionada.set(recomendacion);
     this.contraofertaForm.reset({
       nuevaCantidad: recomendacion.cantidadAdmin ?? recomendacion.cantidadProveedor,
     });
-    this.contraofertaVisible = true;
+    this.contraofertaVisible.set(true);
   }
 
   cerrarContraoferta(): void {
-    this.contraofertaVisible = false;
-    this.ofertaSeleccionada = undefined;
+    this.contraofertaVisible.set(false);
+    this.ofertaSeleccionada.set(undefined);
     this.contraofertaForm.reset();
   }
 
   enviarContraoferta(): void {
-    if (!this.ofertaSeleccionada || this.contraofertaForm.invalid) {
+    const ofertaActual = this.ofertaSeleccionada();
+
+    if (!ofertaActual || this.contraofertaForm.invalid) {
       this.contraofertaForm.markAllAsTouched();
       return;
     }
 
-    this.respondiendo = true;
-    const nuevaCantidad = this.contraofertaForm.value.nuevaCantidad;
+    this.respondiendo.set(true);
+    const nuevaCantidad = this.contraofertaForm.value.nuevaCantidad!;
 
-    this.ofertasService.contraofertarProveedor(this.ofertaSeleccionada.id, nuevaCantidad).subscribe({
+    this.ofertasService.contraofertarProveedor(ofertaActual.id, nuevaCantidad).subscribe({
       next: () => {
-        this.respondiendo = false;
+        this.respondiendo.set(false);
         this.cerrarContraoferta();
         this.toastService.updated('Contraoferta enviada al administrador');
         this.obtenerRecomendaciones();
       },
       error: (error) => {
         console.error('Error al enviar contraoferta', error);
-        this.respondiendo = false;
+        this.respondiendo.set(false);
         this.toastService.error('No se pudo enviar la contraoferta.');
       },
     });
@@ -261,92 +236,50 @@ export class ProveedorRecomendacion implements OnInit {
     });
   }
 
-  puedeResponder(recomendacion: OfertaLibro): boolean {
-    return recomendacion.estado === 'ESPERANDO_PROVEEDOR';
-  }
-
-  portadaUrl(isbn: string): string {
-    return `https://covers.openlibrary.org/b/isbn/${encodeURIComponent(isbn)}-S.jpg?default=false`;
-  }
-
-  ocultarPortada(event: Event): void {
-    (event.target as HTMLImageElement).style.display = 'none';
-  }
-
-  estadoLabel(estado: EstadoOferta): string {
-    const labels: Record<EstadoOferta, string> = {
-      ESPERANDO_ADMIN: 'Esperando admin',
-      ESPERANDO_PROVEEDOR: 'Esperando proveedor',
-      ACEPTADA: 'Aceptada',
-      RECHAZADA: 'Rechazada',
-    };
-
-    return labels[estado];
-  }
-
-  estadoSeverity(estado: EstadoOferta): 'success' | 'info' | 'warn' | 'danger' {
-    const severities: Record<EstadoOferta, 'success' | 'info' | 'warn' | 'danger'> = {
-      ESPERANDO_ADMIN: 'info',
-      ESPERANDO_PROVEEDOR: 'warn',
-      ACEPTADA: 'success',
-      RECHAZADA: 'danger',
-    };
-
-    return severities[estado];
-  }
-
-  cantidadActual(recomendacion: OfertaLibro): number {
-    return recomendacion.estado === 'ESPERANDO_PROVEEDOR' && recomendacion.cantidadAdmin
-      ? recomendacion.cantidadAdmin
-      : recomendacion.cantidadProveedor;
-  }
-
   private buscarEnOpenLibrary(isbn: string): void {
-    const url = `https://openlibrary.org/api/books?bibkeys=ISBN:${encodeURIComponent(isbn)}&jscmd=data&format=json`;
-
-    this.http.get<Record<string, OpenLibraryBook>>(url).subscribe({
-      next: (respuesta) => {
-        const libro = respuesta[`ISBN:${isbn}`];
-        this.buscandoIsbn = false;
+    this.isbnLookup.buscarEnOpenLibrary(isbn).subscribe({
+      next: (libro) => {
+        this.buscandoIsbn.set(false);
 
         if (!libro) {
-          this.isbnVerificado = true;
-          this.isbnVerificadoValor = isbn;
+          this.marcarIsbnVerificado(isbn);
           this.messageService.add({
             severity: 'warn',
             summary: 'Sin datos externos',
-            detail: 'No se encontró en la base de datos ni en OpenLibrary. Podés completar título y autor manualmente.',
+            detail: 'No se encontr\u00f3 en la base de datos ni en OpenLibrary. Pod\u00e9s completar t\u00edtulo y autor manualmente.',
             life: 4500,
           });
           return;
         }
 
-        const titulo = [libro.title, libro.subtitle].filter(Boolean).join(': ');
-        const autor = libro.authors?.map((item) => item.name).filter(Boolean).join(', ') ?? '';
-
-        this.recomendacionForm.patchValue({
-          nombre: titulo,
-          autor,
-          libroId: null,
-        });
-        this.portadaPreview = libro.cover?.medium ?? libro.cover?.small ?? libro.cover?.large;
-        this.isbnVerificado = true;
-        this.isbnVerificadoValor = isbn;
-
-        this.messageService.add({
-          severity: 'info',
-          summary: 'OpenLibrary',
-          detail: 'No estaba en la base de datos. Se completaron los datos encontrados en la API.',
-          life: 4000,
-        });
+        this.completarDesdeOpenLibrary(libro, isbn);
       },
       error: (error) => {
         console.error('Error al consultar OpenLibrary', error);
-        this.buscandoIsbn = false;
-        this.isbnVerificado = true;
-        this.isbnVerificadoValor = isbn;
-        this.toastService.error('No se pudo consultar OpenLibrary. Completá título y autor manualmente.');
+        this.buscandoIsbn.set(false);
+        this.marcarIsbnVerificado(isbn);
+        this.toastService.error('No se pudo consultar OpenLibrary. Complet\u00e1 t\u00edtulo y autor manualmente.');
       },
+    });
+  }
+
+  private completarDesdeOpenLibrary(libro: OpenLibraryBook, isbn: string): void {
+    const titulo = [libro.title, libro.subtitle].filter(Boolean).join(': ');
+    const autor = libro.authors?.map((item) => item.name).filter(Boolean).join(', ') ?? '';
+
+    this.recomendacionForm.patchValue({
+      nombre: titulo,
+      autor,
+      libroId: null,
+    });
+    this.portadaPreview.set(libro.cover?.medium ?? libro.cover?.small ?? libro.cover?.large);
+    this.marcarIsbnVerificado(isbn);
+
+    this.messageService.add({
+      severity: 'info',
+      summary: 'OpenLibrary',
+      detail: 'No estaba en la base de datos. Se completaron los datos encontrados en la API.',
+      life: 4000,
     });
   }
 
@@ -354,36 +287,35 @@ export class ProveedorRecomendacion implements OnInit {
     this.recomendacionForm.patchValue({
       nombre: libro.nombre,
       autor: libro.autor,
+      categoria: libro.categoria,
+      sinopsis: libro.sinopsis ?? '',
       libroId: libro.id,
     });
-    this.portadaPreview = this.portadaUrl(libro.isbn);
-    this.isbnVerificado = true;
-    this.isbnVerificadoValor = this.normalizarIsbn(libro.isbn);
+    this.portadaPreview.set(this.isbnLookup.portadaUrl(libro.isbn));
+    this.marcarIsbnVerificado(this.normalizarIsbn(libro.isbn));
+  }
+
+  private marcarIsbnVerificado(isbn: string): void {
+    this.isbnVerificado.set(true);
+    this.isbnVerificadoValor.set(isbn);
   }
 
   private normalizarIsbn(isbn: string | null | undefined): string {
     return String(isbn ?? '').trim().replace(/\s+/g, '');
   }
 
-  private initializeForms(): void {
-    this.recomendacionForm = this.fb.group({
-      isbn: ['', [Validators.required, Validators.pattern(/^[0-9Xx-]{10,20}$/)]],
-      nombre: ['', [Validators.required, Validators.minLength(2)]],
-      autor: ['', [Validators.required, Validators.minLength(3)]],
-      precioProveedor: [null, [Validators.required, Validators.min(1)]],
-      cantidadProveedor: [null, [Validators.required, Validators.min(1)]],
-      libroId: [null],
-    });
+  private getNuevaOfertaPayload(): NuevaOfertaLibro {
+    const form = this.recomendacionForm.getRawValue();
 
-    this.contraofertaForm = this.fb.group({
-      nuevaCantidad: [null, [Validators.required, Validators.min(1)]],
-    });
+    return {
+      isbn: String(form.isbn ?? ''),
+      nombre: String(form.nombre ?? ''),
+      autor: String(form.autor ?? ''),
+      categoria: form.categoria as CategoriaLibro,
+      sinopsis: form.sinopsis ?? '',
+      precioProveedor: Number(form.precioProveedor ?? 0),
+      cantidadProveedor: Number(form.cantidadProveedor ?? 0),
+      libroId: form.libroId ?? null,
+    };
   }
-
-  get isbn() { return this.recomendacionForm.get('isbn'); }
-  get nombre() { return this.recomendacionForm.get('nombre'); }
-  get autor() { return this.recomendacionForm.get('autor'); }
-  get precioProveedor() { return this.recomendacionForm.get('precioProveedor'); }
-  get cantidadProveedor() { return this.recomendacionForm.get('cantidadProveedor'); }
-  get nuevaCantidad() { return this.contraofertaForm.get('nuevaCantidad'); }
 }

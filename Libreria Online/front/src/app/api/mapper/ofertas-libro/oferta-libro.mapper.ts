@@ -1,4 +1,4 @@
-import { OfertaLibro } from "../../../modules/proveedor/interfaces/oferta-libro.interface";
+import { OfertaLibro } from "../../../shared/interfaces/oferta-libro.interface";
 import { OfertaLibroRest } from "./oferta-libro.interface.rest";
 
 export class OfertaLibroMapper {
@@ -6,6 +6,8 @@ export class OfertaLibroMapper {
     return {
       ...ofertaRest,
       precioProveedor: Number(ofertaRest.precioProveedor),
+      categoria: ofertaRest.categoria ?? 'GENERAL',
+      sinopsis: ofertaRest.sinopsis ?? '',
     };
   }
 
