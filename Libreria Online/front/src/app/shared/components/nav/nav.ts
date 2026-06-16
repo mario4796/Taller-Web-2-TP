@@ -4,9 +4,6 @@ import { RouterLink } from '@angular/router';
 
 import { Button } from 'primeng/button';
 import { Avatar } from 'primeng/avatar';
-import { InputGroup } from 'primeng/inputgroup';
-import { InputGroupAddon } from 'primeng/inputgroupaddon';
-import { InputText } from 'primeng/inputtext';
 
 interface NavItem {
   label: string;
@@ -17,7 +14,7 @@ interface NavItem {
 
 @Component({
   selector: 'app-nav',
-  imports: [CommonModule, Button, Avatar, InputGroup, InputGroupAddon, InputText, RouterLink],
+  imports: [CommonModule, Button, Avatar, RouterLink],
   templateUrl: './nav.html',
   styleUrl: './nav.css',
 })
@@ -74,9 +71,10 @@ export class Nav implements OnInit, OnChanges {
   switch (this.role) {
     case 'admin':
       this.navItems = [
-        { label: 'Inicio', icon: 'home', active: this.activeItem === 'Inicio' },
+        { label: 'Inicio', icon: 'home',link: '/admin', active: this.activeItem === 'Inicio' },
         { label: 'Usuarios', icon: 'people', active: this.activeItem === 'Usuarios' },
         { label: 'Libros', icon: 'book', active: this.activeItem === 'Libros' },
+        { label: 'Ofertas', icon: 'sell', link: '/admin/ofertas', active: this.activeItem === 'Ofertas' },
         { label: 'Stock', icon: 'inventory', active: this.activeItem === 'Stock' },
         { label: 'Reportes', icon: 'description', active: this.activeItem === 'Reportes' }
       ];
@@ -86,7 +84,6 @@ export class Nav implements OnInit, OnChanges {
       this.navItems = [
         { label: 'Inicio', icon: 'home', link: '/proveedor', active: this.activeItem === 'Inicio' },
         { label: 'Peticiones', icon: 'assignment', active: this.activeItem === 'Peticiones' },
-        { label: 'Ofertas', icon: 'sell', active: this.activeItem === 'Ofertas' },
         { label: 'Estadísticas', icon: 'monitoring', active: this.activeItem === 'Estadísticas' },
         { label: 'Ventas', icon: 'shopping_cart', active: this.activeItem === 'Ventas' },
         {

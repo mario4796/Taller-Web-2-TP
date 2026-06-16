@@ -21,6 +21,7 @@ export class LibrosService {
 
     return this.http.get<{ message: string, data: LibroRest[] }>(this.apiUrl).pipe(
       map((res) => {
+        console.log('✅ [GET] Datos mapeados con éxito:');
         return LibroMapper.mapRestLibroArrayToLibroArrayFront(res.data);
       })
     );
@@ -30,6 +31,14 @@ export class LibrosService {
     return this.http.get<LibroRest>(`${this.apiUrl}/${id}`).pipe(
       map((res) => {
         return LibroMapper.mapRestLibrotoLibroFrontU(res);
+      })
+    );
+  }
+
+  buscarLibroPorIsbn(isbn: string): Observable<Libro> {
+    return this.http.get<{ message: string, data: LibroRest }>(`${this.apiUrl}/isbn/${encodeURIComponent(isbn)}`).pipe(
+      map((res) => {
+        return LibroMapper.mapRestLibrotoLibroFrontU(res.data);
       })
     );
   }

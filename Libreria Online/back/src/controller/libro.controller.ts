@@ -44,6 +44,26 @@ export class LibroController {
         }   
     }
 
+    public getLibroPorIsbn = async (req: Request, res: Response) => {
+        try {
+            const isbn = String(req.params.isbn ?? '').trim();
+
+            if (!isbn) {
+                return res.status(400).json({ error: 'ISBN invalido.' });
+            }
+
+            const libro = await libroService.obtenerLibroPorIsbn(isbn);
+
+            if (!libro) {
+                return res.status(404).json({ error: 'Libro no encontrado' });
+            }
+
+            res.status(200).json({ message: 'Libro obtenido correctamente', data: libro });
+        } catch (error) {
+            res.status(500).json({ error: 'Error al obtener el libro por ISBN', errorDetails: error });
+        }
+    }
+
     public createLibro = async (req: Request, res: Response) => {
 
         try {  

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import librosRouter from "./libros-router/libros.router.js";
+import ofertaLibroRouter from "./ofertaLibro-router/ofertaLibro.router.js";
 
 export class AppRoutes {
 
@@ -7,6 +8,7 @@ export class AppRoutes {
         const router = Router();
 
         router.use("/api/libros", librosRouter)
+        router.use("/api/ofertas", ofertaLibroRouter)
 
         return router;
     }

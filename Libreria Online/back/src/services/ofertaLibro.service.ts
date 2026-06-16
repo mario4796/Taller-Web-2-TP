@@ -36,11 +36,13 @@ export class OfertaLibroService {
         });
     }
 
-    async contraofertaAdmin(id: number, nuevaCantidad: number) {
+    async contraofertaAdmin(id: number, nuevaCantidad: number, nuevoPrecio?: number) {
         if (nuevaCantidad <= 0) throw new Error('La cantidad debe ser mayor a 0');
+        if (nuevoPrecio !== undefined && nuevoPrecio <= 0) throw new Error('El precio debe ser mayor a 0');
 
         return await this.ofertaLibroRepository.actualizarOferta(id, {
             cantidadAdmin: nuevaCantidad,
+            ...(nuevoPrecio !== undefined ? { precioProveedor: nuevoPrecio } : {}),
             estado: EstadoOferta.ESPERANDO_PROVEEDOR 
         });
     }
@@ -72,16 +74,17 @@ export class OfertaLibroService {
         } else {
             throw new Error('La oferta ya fue cerrada o no se puede aceptar en este estado');
         }
-        if (oferta.libroId) {
-            //await this.libroService.sumarStock(oferta.libroId, cantidadFinal);
-            console.log(`Se sumaron ${cantidadFinal} unidades al stock del libro`);
+        const libroExistente = await this.libroService.obtenerLibroPorIsbn(oferta.isbn);
+
+        if (libroExistente) {
+            await this.libroService.sumarStock(libroExistente.id, cantidadFinal);
         } else {
-           await this.libroService.crearLibro({
+            await this.libroService.crearLibro({
                 id: 0,
                 isbn: oferta.isbn,
                 nombre: oferta.nombre,
                 autor: oferta.autor,
-                precio: oferta.precioProveedor.toNumber(), // O el cálculo que hagan para el precio de venta
+                precio: oferta.precioProveedor.toNumber(),
                 stock: cantidadFinal
             });
         }

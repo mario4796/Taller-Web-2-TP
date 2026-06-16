@@ -56,12 +56,12 @@ export class OfertaLibroController {
    public contraofertaAdmin = async (req: Request, res: Response) => {
         try {
             const id = Number(req.params.id); 
-            const { nuevaCantidad } = req.body;
+            const { nuevaCantidad, nuevoPrecio } = req.body;
 
             if (isNaN(id) || !nuevaCantidad) {
                 return res.status(400).json({ error: 'Faltan datos o el ID es inválido' });
             }
-            const ofertaActualizada = await ofertaLibroService.contraofertaAdmin(id, nuevaCantidad);
+            const ofertaActualizada = await ofertaLibroService.contraofertaAdmin(id, nuevaCantidad, nuevoPrecio);
             res.status(200).json({ message: 'Contraoferta enviada al proveedor', data: ofertaActualizada });
         } catch (error) {
             res.status(500).json({ error: 'Error al enviar la contraoferta', errorDetails: error });
