@@ -5,7 +5,7 @@
   </div>
 
   <div class="nav-links">
-    @for (item of navItems; track item.label) {
+    @for (item of navItems(); track item.label) {
     <button class="nav-link" [routerLink]="item.link" [class.active]="item.active" type="button">
       <span class="material-symbols-rounded">{{ item.icon }}</span>
       <span>{{ item.label }}</span>
@@ -35,13 +35,13 @@
       </span>
     </p-button>
 
-    @if (logueado) {
+    @if (logueado()) {
     <div class="user-menu">
       <p-avatar label="MR" shape="circle"></p-avatar>
 
       <div class="user-text">
-        <strong>{{ userName }}</strong>
-        @switch (role){
+        <strong>{{ userName() }}</strong>
+        @switch (role()){
         @case ('admin'){
         <span>Administrador</span>
         }
@@ -78,7 +78,7 @@
   <!-- mobile nav (dropdown) -->
   <div class="mobile-nav" [class.open]="mobileNavOpen()">
     <div class="mobile-nav-inner">
-      @for (item of navItems; track item.label) {
+      @for (item of navItems(); track item.label) {
       <button class="mobile-nav-item" [routerLink]="item.link" type="button" (click)="mobileNavOpen.set(false)">
         <span class="material-symbols-rounded">{{ item.icon }}</span>
         <span>{{ item.label }}</span>

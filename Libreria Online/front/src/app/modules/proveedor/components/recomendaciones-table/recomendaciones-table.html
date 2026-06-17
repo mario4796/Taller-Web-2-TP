@@ -1,7 +1,7 @@
 <p-table
   #tablaRecomendaciones
   [value]="recomendaciones()"
-  [globalFilterFields]="['nombre', 'autor', 'isbn', 'estado', 'categoria']"
+  [globalFilterFields]="['nombre', 'autor', 'isbn', 'estado', 'categoria', 'sinopsis']"
   [loading]="cargando()"
   [tableStyle]="{ 'min-width': '100%' }"
   styleClass="p-datatable-striped recommendations-table"
@@ -35,6 +35,7 @@
       <th>Autor</th>
       <th>ISBN</th>
       <th>Categoria</th>
+      <th>Sinopsis</th>
       <th>Precio proveedor</th>
       <th>Cantidad</th>
       <th>Estado</th>
@@ -56,12 +57,29 @@
       <td>{{ recomendacion.autor }}</td>
       <td>{{ recomendacion.isbn }}</td>
       <td>{{ recomendacion.categoria }}</td>
+      <td>
+        <p-button
+          icon="pi pi-align-left"
+          [rounded]="true"
+          [text]="true"
+          severity="secondary"
+          title="Ver sinopsis"
+          (click)="sinopsisPopover.toggle($event)">
+        </p-button>
+        <p-popover #sinopsisPopover>
+          <div class="synopsis-popover">
+            <strong>Sinopsis</strong>
+            <p>{{ sinopsisTexto(recomendacion) }}</p>
+          </div>
+        </p-popover>
+      </td>
       <td>{{ recomendacion.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</td>
       <td>
         <div class="quantity-cell">
-          <span>{{ cantidadActual(recomendacion) }} uds.</span>
+          <span>{{ recomendacion.cantidadProveedor }} uds.</span>
+          <br>
           @if (recomendacion.cantidadAdmin && recomendacion.estado === 'ESPERANDO_PROVEEDOR') {
-            <small>Admin propuso {{ recomendacion.cantidadAdmin }}</small>
+            <small color="warning">Admin propuso {{ recomendacion.cantidadAdmin }}</small>
           }
         </div>
       </td>
@@ -101,7 +119,7 @@
 
   <ng-template pTemplate="emptymessage">
     <tr>
-      <td colspan="9" style="text-align: center; padding: 2rem;">
+      <td colspan="10" style="text-align: center; padding: 2rem;">
         No hay libros recomendados todavia.
       </td>
     </tr>

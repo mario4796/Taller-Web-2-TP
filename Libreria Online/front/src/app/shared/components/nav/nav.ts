@@ -1,9 +1,9 @@
-import { Component, Input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit, computed, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { Button } from 'primeng/button';
 import { Avatar } from 'primeng/avatar';
+import { Button } from 'primeng/button';
 
 interface NavItem {
   label: string;
@@ -18,16 +18,16 @@ interface NavItem {
   templateUrl: './nav.html',
   styleUrl: './nav.css',
 })
-export class Nav implements OnInit, OnChanges {
-  @Input() logueado: boolean = true;
-  @Input() role: string = '';
-  @Input() userName: string = '';
-  @Input() activeItem: string = '';
+export class Nav implements OnInit {
+  logueado = input(true);
+  role = input('');
+  userName = input('');
+  activeItem = input('');
 
   isDark = signal(false);
   mobileNavOpen = signal(false);
 
-  navItems: NavItem[] = [];
+  navItems = computed(() => this.buildNavItems());
 
   ngOnInit(): void {
     const savedTheme = localStorage.getItem('theme');
@@ -35,15 +35,7 @@ export class Nav implements OnInit, OnChanges {
 
     this.isDark.set(shouldUseDark);
     document.documentElement.classList.toggle('app-dark', shouldUseDark);
-
-    this.setNavItems();
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
-  if (changes['logueado'] || changes['role'] || changes['activeItem']) {
-    this.setNavItems();
-  }
-}
 
   toggleTheme(): void {
     const newValue = !this.isDark();
@@ -58,52 +50,50 @@ export class Nav implements OnInit, OnChanges {
     this.mobileNavOpen.set(!this.mobileNavOpen());
   }
 
-  private setNavItems(): void {
-  if (!this.logueado) {
-    this.navItems = [
-      { label: 'Inicio', icon: 'home', active: this.activeItem === 'Inicio' },
-      { label: 'Categorías', icon: 'category', active: this.activeItem === 'Categorías' },
-      { label: 'Ofertas', icon: 'sell', active: this.activeItem === 'Ofertas' }
-    ];
-    return;
+  private buildNavItems(): NavItem[] {
+    const activeItem = this.activeItem();
+
+    if (!this.logueado()) {
+      return [
+        { label: 'Inicio', icon: 'home', active: activeItem === 'Inicio' },
+        { label: 'Categorías', icon: 'category', active: activeItem === 'Categorías' },
+        { label: 'Ofertas', icon: 'sell', active: activeItem === 'Ofertas' },
+      ];
+    }
+
+    switch (this.role()) {
+      case 'admin':
+        return [
+          { label: 'Inicio', icon: 'home', link: '/admin', active: activeItem === 'Inicio' },
+          { label: 'Usuarios', icon: 'people', active: activeItem === 'Usuarios' },
+          { label: 'Libros', icon: 'book', active: activeItem === 'Libros' },
+          { label: 'Ofertas', icon: 'sell', link: '/admin/ofertas', active: activeItem === 'Ofertas' },
+          { label: 'Stock', icon: 'inventory', active: activeItem === 'Stock' },
+          { label: 'Reportes', icon: 'description', active: activeItem === 'Reportes' },
+        ];
+
+      case 'proveedor':
+        return [
+          { label: 'Inicio', icon: 'home', link: '/proveedor', active: activeItem === 'Inicio' },
+          { label: 'Peticiones', icon: 'assignment', active: activeItem === 'Peticiones' },
+          { label: 'Estadísticas', icon: 'monitoring', active: activeItem === 'Estadísticas' },
+          { label: 'Ventas', icon: 'shopping_cart', active: activeItem === 'Ventas' },
+          {
+            label: 'Recomendar libro',
+            icon: 'auto_stories',
+            link: '/proveedor/proveedor-recomendacion',
+            active: activeItem === 'Recomendar libro',
+          },
+        ];
+
+      case 'comprador':
+      default:
+        return [
+          { label: 'Inicio', icon: 'home', active: activeItem === 'Inicio' },
+          { label: 'Categorías', icon: 'category', active: activeItem === 'Categorías' },
+          { label: 'Ofertas', icon: 'sell', active: activeItem === 'Ofertas' },
+          { label: 'Mis pedidos', icon: 'shopping_cart', active: activeItem === 'Mis pedidos' },
+        ];
+    }
   }
-
-  switch (this.role) {
-    case 'admin':
-      this.navItems = [
-        { label: 'Inicio', icon: 'home',link: '/admin', active: this.activeItem === 'Inicio' },
-        { label: 'Usuarios', icon: 'people', active: this.activeItem === 'Usuarios' },
-        { label: 'Libros', icon: 'book', active: this.activeItem === 'Libros' },
-        { label: 'Ofertas', icon: 'sell', link: '/admin/ofertas', active: this.activeItem === 'Ofertas' },
-        { label: 'Stock', icon: 'inventory', active: this.activeItem === 'Stock' },
-        { label: 'Reportes', icon: 'description', active: this.activeItem === 'Reportes' }
-      ];
-      break;
-
-    case 'proveedor':
-      this.navItems = [
-        { label: 'Inicio', icon: 'home', link: '/proveedor', active: this.activeItem === 'Inicio' },
-        { label: 'Peticiones', icon: 'assignment', active: this.activeItem === 'Peticiones' },
-        { label: 'Estadísticas', icon: 'monitoring', active: this.activeItem === 'Estadísticas' },
-        { label: 'Ventas', icon: 'shopping_cart', active: this.activeItem === 'Ventas' },
-        {
-          label: 'Recomendar libro',
-          icon: 'auto_stories',
-          link: '/proveedor/proveedor-recomendacion',
-          active: this.activeItem === 'Recomendar libro'
-        }
-      ];
-      break;
-
-    case 'comprador':
-    default:
-      this.navItems = [
-        { label: 'Inicio', icon: 'home', active: this.activeItem === 'Inicio' },
-        { label: 'Categorías', icon: 'category', active: this.activeItem === 'Categorías' },
-        { label: 'Ofertas', icon: 'sell', active: this.activeItem === 'Ofertas' },
-        { label: 'Mis pedidos', icon: 'shopping_cart', active: this.activeItem === 'Mis pedidos' }
-      ];
-      break;
-  }
-}
 }

@@ -6,6 +6,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
+import { PopoverModule } from 'primeng/popover';
 import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 
@@ -24,6 +25,7 @@ import { EstadoOferta, OfertaLibro } from '../../../../shared/interfaces/oferta-
     InputGroupModule,
     InputGroupAddonModule,
     InputTextModule,
+    PopoverModule,
     TagModule,
   ],
   templateUrl: './recomendaciones-table.html',
@@ -81,9 +83,7 @@ export class RecomendacionesTable {
     return severities[estado];
   }
 
-  cantidadActual(recomendacion: OfertaLibro): number {
-    return recomendacion.estado === 'ESPERANDO_PROVEEDOR' && recomendacion.cantidadAdmin
-      ? recomendacion.cantidadAdmin
-      : recomendacion.cantidadProveedor;
+  sinopsisTexto(recomendacion: OfertaLibro): string {
+    return recomendacion.sinopsis?.trim() || 'Sin sinopsis cargada.';
   }
 }

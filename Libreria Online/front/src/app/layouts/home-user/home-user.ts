@@ -1,24 +1,20 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, signal } from '@angular/core';
 import { Nav } from '../../shared/components/nav/nav';
 import { Home } from '../../shared/components/home/home';
 
 @Component({
   selector: 'app-home-user',
-  imports: [CommonModule, Nav, Home],
+  imports: [Nav, Home],
   templateUrl: './home-user.html',
   styleUrl: './home-user.css',
 })
 export class HomeUser {
-  //nav//
+  logueado = signal(false);
 
-  logueado = false;
-  //home//
-
-  imageBanner = 'img/libreria_banner_transparente.svg';
-  eyebrow = 'Bienvenido a la Librería Online';
-  title = 'Descubrí tu próximo libro favorito';
-  description = 'Explorá miles de titulos de todos los gégneros. leé. aprendé e inspirate.';
-  buttonText = 'Explorar libros';
-  buttonLink = 'Crear cuenta';
+  imageBanner = signal('img/libreria_banner_transparente.svg');
+  eyebrow = signal('Bienvenido a la Librería Online');
+  title = signal('Descubrí tu próximo libro favorito');
+  description = signal('Explorá miles de titulos de todos los géneros. leé. aprendé e inspirate.');
+  buttonText = signal('Explorar libros');
+  buttonLink = signal('Crear cuenta');
 }
