@@ -1,6 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 
-
 import { DataViewModule } from 'primeng/dataview';
 
 import { LibrosService } from '../../services/libros/libros.services';
@@ -9,29 +8,30 @@ import { Libro } from '../libros/interfaces/libro.interface';
 
 @Component({
   selector: 'app-estanteria',
-  standalone:true,
-  imports: [LibroEstanteria,DataViewModule],
+  standalone: true,
+  imports: [LibroEstanteria, DataViewModule],
   templateUrl: './estanteria.html',
   styleUrl: './estanteria.css',
 })
 export class Estanteria implements OnInit {
-
   libroService = inject(LibrosService);
-   libros = signal<Libro[]>([]);
+  libros = signal<Libro[]>([]);
+
   ngOnInit(): void {
-
     this.cargarLibros();
-    
   }
 
-  cargarLibros(){
+  cargarLibros() {
     this.libroService.listLibros().subscribe({
-      next: (data) => {console.log("Lo que recibí del servicio:", data); // <-- MIRÁ ESTO EN LA CONSOLA
-      this.libros.set(data);},
-      error: (err) => console.error(err)
-    })
+      next: (data) => {
+        console.log('DATA:', data);
+        this.libros.set(data);
+
+        console.log('SIGNAL:', this.libros());
+      },
+      error: (err) => {
+        console.error('❌ Error al cargar libros:', err);
+      },
+    });
   }
-
-
 }
-

@@ -81,3 +81,13 @@ export type Usuarios = Prisma.UsuariosModel
  * 
  */
 export type OfertaLibro = Prisma.OfertaLibroModel
+/**
+ * Model Carritos
+ * 
+ */
+export type Carritos = Prisma.CarritosModel
+/**
+ * Model DetallesCarrito
+ * 
+ */
+export type DetallesCarrito = Prisma.DetallesCarritoModel

@@ -1,13 +1,10 @@
-<div class="p-4" style="background-color: #0f111a; min-height: 100vh">
-  <h2 class="text-white mb-4">Catálogo de Libros</h2>
+<div class="library-header">
+  <h1>Biblioteca</h1>
+  <p>Explora nuestro catálogo de libros</p>
+</div>
 
-  <div style="display: flex; flex-wrap: wrap; gap: 20px">
-    @for (item of libros(); track item.id) {
-      <div style="width: 300px">
-        <app-libro-estanteria [libro]="item"></app-libro-estanteria>
-      </div>
-    } @empty {
-      <p style="color: white">Cargando libros...</p>
-    }
-  </div>
+<div class="books-grid">
+  @for (libro of libros(); track libro.id) {
+    <app-libro-estanteria [libro]="libro"></app-libro-estanteria>
+  }
 </div>
