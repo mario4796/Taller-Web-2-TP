@@ -4,47 +4,56 @@ import { ProveedorHome } from './modules/proveedor/pages/proveedor-home/proveedo
 import { Libros } from './modules/proveedor/pages/libros/libros';
 import { Register } from './layouts/register/register';
 import { Login } from './layouts/login/login';
+import { Carrito } from './modules/carrito/carrito';
+import { Usuario } from './modules/usuario/usuario-component/usuario';
 import { ProveedorRecomendacion } from './modules/proveedor/pages/proveedor-recomendacion/proveedor-recomendacion';
 import { Admin } from './modules/admin/admin';
 import { VerOfertas } from './modules/admin/pages/ver-ofertas/ver-ofertas';
+import { authGuard } from './services/Auth/auth-guard';
+import { Estanteria } from './modules/estanteria/estanteria';
 
 export const routes: Routes = [
   {
     path: '',
-    component: HomeUser
+    component: HomeUser,
   },
   {
     path: 'proveedor',
-    component: ProveedorHome
+    component: ProveedorHome,
+    canActivate: [authGuard],
+    data: { roles: ['PROVEEDOR'] },
   },
   {
     path: 'proveedor/libros',
-    component: Libros
+    component: Libros,
   },
   {
     path: 'proveedor/proveedor-recomendacion',
-    component: ProveedorRecomendacion
+    component: ProveedorRecomendacion,
   },
   {
     path: 'register',
-    component: Register
+    component: Register,
   },
   {
     path: 'login',
-    component: Login
+    component: Login,
   },
   {
     path: 'admin',
-    component: Admin
+    component: Admin,
   },
   {
     path: 'admin',
     children: [
       {
         path: 'ofertas',
-        component: VerOfertas
-      }
-    ]
-  }
-
+        component: VerOfertas,
+      },
+    ],
+  },
+  {
+    path: 'libros',
+    component: Estanteria,
+  },
 ];

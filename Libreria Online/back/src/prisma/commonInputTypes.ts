@@ -183,11 +183,9 @@ export type EnumCategoriaLibroWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumCategoriaLibroFilter<$PrismaModel>
 }
 
-export type EnumEstadoOfertaFilter<$PrismaModel = never> = {
-  equals?: $Enums.EstadoOferta | Prisma.EnumEstadoOfertaFieldRefInput<$PrismaModel>
-  in?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
-  notIn?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumEstadoOfertaFilter<$PrismaModel> | $Enums.EstadoOferta
+export type BoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
 export type DateTimeFilter<$PrismaModel = never> = {
@@ -201,14 +199,12 @@ export type DateTimeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeFilter<$PrismaModel> | Date | string
 }
 
-export type EnumEstadoOfertaWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.EstadoOferta | Prisma.EnumEstadoOfertaFieldRefInput<$PrismaModel>
-  in?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
-  notIn?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumEstadoOfertaWithAggregatesFilter<$PrismaModel> | $Enums.EstadoOferta
+export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
   _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumEstadoOfertaFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumEstadoOfertaFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -223,6 +219,23 @@ export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
+}
+
+export type EnumEstadoOfertaFilter<$PrismaModel = never> = {
+  equals?: $Enums.EstadoOferta | Prisma.EnumEstadoOfertaFieldRefInput<$PrismaModel>
+  in?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEstadoOfertaFilter<$PrismaModel> | $Enums.EstadoOferta
+}
+
+export type EnumEstadoOfertaWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EstadoOferta | Prisma.EnumEstadoOfertaFieldRefInput<$PrismaModel>
+  in?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEstadoOfertaWithAggregatesFilter<$PrismaModel> | $Enums.EstadoOferta
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEstadoOfertaFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEstadoOfertaFilter<$PrismaModel>
 }
 
 export type NestedIntFilter<$PrismaModel = never> = {
@@ -407,11 +420,9 @@ export type NestedEnumCategoriaLibroWithAggregatesFilter<$PrismaModel = never> =
   _max?: Prisma.NestedEnumCategoriaLibroFilter<$PrismaModel>
 }
 
-export type NestedEnumEstadoOfertaFilter<$PrismaModel = never> = {
-  equals?: $Enums.EstadoOferta | Prisma.EnumEstadoOfertaFieldRefInput<$PrismaModel>
-  in?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
-  notIn?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumEstadoOfertaFilter<$PrismaModel> | $Enums.EstadoOferta
+export type NestedBoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
 export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -425,14 +436,12 @@ export type NestedDateTimeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeFilter<$PrismaModel> | Date | string
 }
 
-export type NestedEnumEstadoOfertaWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.EstadoOferta | Prisma.EnumEstadoOfertaFieldRefInput<$PrismaModel>
-  in?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
-  notIn?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumEstadoOfertaWithAggregatesFilter<$PrismaModel> | $Enums.EstadoOferta
+export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
   _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumEstadoOfertaFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumEstadoOfertaFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -447,6 +456,23 @@ export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
+}
+
+export type NestedEnumEstadoOfertaFilter<$PrismaModel = never> = {
+  equals?: $Enums.EstadoOferta | Prisma.EnumEstadoOfertaFieldRefInput<$PrismaModel>
+  in?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEstadoOfertaFilter<$PrismaModel> | $Enums.EstadoOferta
+}
+
+export type NestedEnumEstadoOfertaWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EstadoOferta | Prisma.EnumEstadoOfertaFieldRefInput<$PrismaModel>
+  in?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EstadoOferta[] | Prisma.ListEnumEstadoOfertaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEstadoOfertaWithAggregatesFilter<$PrismaModel> | $Enums.EstadoOferta
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEstadoOfertaFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEstadoOfertaFilter<$PrismaModel>
 }
 
 

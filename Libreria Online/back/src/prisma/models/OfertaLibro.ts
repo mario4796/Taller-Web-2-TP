@@ -582,10 +582,6 @@ export type EnumEstadoOfertaFieldUpdateOperationsInput = {
   set?: $Enums.EstadoOferta
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type OfertaLibroCreateWithoutLibroInput = {
   isbn: string
   nombre: string
