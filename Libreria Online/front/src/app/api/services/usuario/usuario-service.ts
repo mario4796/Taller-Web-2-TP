@@ -12,27 +12,24 @@ import { environment } from '../../../../environmets/environmet.development';
   providedIn: 'root',
 })
 export class UsuarioService {
-    http = inject(HttpClient);
+  http = inject(HttpClient);
 
   listUsuarios(): Observable<UsuarioPrueba[]> {
-    console.log("entro al servicio");
-    
-  
+    console.log('entro al servicio');
+
     return this.http.get<UsuarioRest[]>(`${environment.API_URL}/usuarios`).pipe(
       map((res) => {
         return UsuarioMapper.mapRestUsuarioArrayToUsuarioArrayFront(res);
-      })
-    ); 
+      }),
+    );
   }
 
-  login(datos: {email:string, contrasena:string}): Observable<any>{
-    console.log("esto se ejecuto");
+  login(datos: { email: string; contrasena: string }): Observable<any> {
+    console.log('esto se ejecuto');
     return this.http.post(`${environment.API_URL}/usuarios/iniciarSesion`, datos);
+  }
 
-  } 
-
-
+  registrar(datos: any): Observable<any> {
+    return this.http.post(`${environment.API_URL}/usuarios/registrarse`, datos);
+  }
 }
-
-  
-    

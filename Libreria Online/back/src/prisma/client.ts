@@ -67,6 +67,11 @@ export type Proveedores = Prisma.ProveedoresModel
  */
 export type TiposUsuario = Prisma.TiposUsuarioModel
 /**
+ * Model ListaProveedor
+ * 
+ */
+export type ListaProveedor = Prisma.ListaProveedorModel
+/**
  * Model Usuarios
  * 
  */

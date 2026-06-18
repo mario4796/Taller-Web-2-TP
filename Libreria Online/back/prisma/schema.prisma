@@ -41,6 +41,15 @@ model TiposUsuario {
   usuarios Usuarios[]
 }
 
+model ListaProveedor {
+  id              Int      @id @default(autoincrement())
+  usuario_id      Int      @unique // Relación 1 a 1 con Usuario
+  es_proveedor    Boolean  @default(false)
+  fecha_solicitud DateTime @default(now())
+
+  Usuario Usuarios @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+}
+
 model Usuarios {
   id         Int    @id @default(autoincrement())
   email      String @unique @db.VarChar(255)
@@ -53,6 +62,7 @@ model Usuarios {
 
   TipoUsuario TiposUsuario @relation(fields: [tipo_usuario_id], references: [id])
 
+  ListaProveedor  ListaProveedor?
   Administradores Administradores?
   Compradores     Compradores?
   Proveedores     Proveedores?

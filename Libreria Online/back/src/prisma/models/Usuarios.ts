@@ -237,6 +237,7 @@ export type UsuariosWhereInput = {
   direccion?: Prisma.StringFilter<"Usuarios"> | string
   tipo_usuario_id?: Prisma.IntFilter<"Usuarios"> | number
   TipoUsuario?: Prisma.XOR<Prisma.TiposUsuarioScalarRelationFilter, Prisma.TiposUsuarioWhereInput>
+  ListaProveedor?: Prisma.XOR<Prisma.ListaProveedorNullableScalarRelationFilter, Prisma.ListaProveedorWhereInput> | null
   Administradores?: Prisma.XOR<Prisma.AdministradoresNullableScalarRelationFilter, Prisma.AdministradoresWhereInput> | null
   Compradores?: Prisma.XOR<Prisma.CompradoresNullableScalarRelationFilter, Prisma.CompradoresWhereInput> | null
   Proveedores?: Prisma.XOR<Prisma.ProveedoresNullableScalarRelationFilter, Prisma.ProveedoresWhereInput> | null
@@ -251,6 +252,7 @@ export type UsuariosOrderByWithRelationInput = {
   direccion?: Prisma.SortOrder
   tipo_usuario_id?: Prisma.SortOrder
   TipoUsuario?: Prisma.TiposUsuarioOrderByWithRelationInput
+  ListaProveedor?: Prisma.ListaProveedorOrderByWithRelationInput
   Administradores?: Prisma.AdministradoresOrderByWithRelationInput
   Compradores?: Prisma.CompradoresOrderByWithRelationInput
   Proveedores?: Prisma.ProveedoresOrderByWithRelationInput
@@ -268,6 +270,7 @@ export type UsuariosWhereUniqueInput = Prisma.AtLeast<{
   direccion?: Prisma.StringFilter<"Usuarios"> | string
   tipo_usuario_id?: Prisma.IntFilter<"Usuarios"> | number
   TipoUsuario?: Prisma.XOR<Prisma.TiposUsuarioScalarRelationFilter, Prisma.TiposUsuarioWhereInput>
+  ListaProveedor?: Prisma.XOR<Prisma.ListaProveedorNullableScalarRelationFilter, Prisma.ListaProveedorWhereInput> | null
   Administradores?: Prisma.XOR<Prisma.AdministradoresNullableScalarRelationFilter, Prisma.AdministradoresWhereInput> | null
   Compradores?: Prisma.XOR<Prisma.CompradoresNullableScalarRelationFilter, Prisma.CompradoresWhereInput> | null
   Proveedores?: Prisma.XOR<Prisma.ProveedoresNullableScalarRelationFilter, Prisma.ProveedoresWhereInput> | null
@@ -308,6 +311,7 @@ export type UsuariosCreateInput = {
   apellido: string
   direccion: string
   TipoUsuario: Prisma.TiposUsuarioCreateNestedOneWithoutUsuariosInput
+  ListaProveedor?: Prisma.ListaProveedorCreateNestedOneWithoutUsuarioInput
   Administradores?: Prisma.AdministradoresCreateNestedOneWithoutUsuariosInput
   Compradores?: Prisma.CompradoresCreateNestedOneWithoutUsuariosInput
   Proveedores?: Prisma.ProveedoresCreateNestedOneWithoutUsuariosInput
@@ -321,6 +325,7 @@ export type UsuariosUncheckedCreateInput = {
   apellido: string
   direccion: string
   tipo_usuario_id: number
+  ListaProveedor?: Prisma.ListaProveedorUncheckedCreateNestedOneWithoutUsuarioInput
   Administradores?: Prisma.AdministradoresUncheckedCreateNestedOneWithoutUsuariosInput
   Compradores?: Prisma.CompradoresUncheckedCreateNestedOneWithoutUsuariosInput
   Proveedores?: Prisma.ProveedoresUncheckedCreateNestedOneWithoutUsuariosInput
@@ -333,6 +338,7 @@ export type UsuariosUpdateInput = {
   apellido?: Prisma.StringFieldUpdateOperationsInput | string
   direccion?: Prisma.StringFieldUpdateOperationsInput | string
   TipoUsuario?: Prisma.TiposUsuarioUpdateOneRequiredWithoutUsuariosNestedInput
+  ListaProveedor?: Prisma.ListaProveedorUpdateOneWithoutUsuarioNestedInput
   Administradores?: Prisma.AdministradoresUpdateOneWithoutUsuariosNestedInput
   Compradores?: Prisma.CompradoresUpdateOneWithoutUsuariosNestedInput
   Proveedores?: Prisma.ProveedoresUpdateOneWithoutUsuariosNestedInput
@@ -346,6 +352,7 @@ export type UsuariosUncheckedUpdateInput = {
   apellido?: Prisma.StringFieldUpdateOperationsInput | string
   direccion?: Prisma.StringFieldUpdateOperationsInput | string
   tipo_usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
+  ListaProveedor?: Prisma.ListaProveedorUncheckedUpdateOneWithoutUsuarioNestedInput
   Administradores?: Prisma.AdministradoresUncheckedUpdateOneWithoutUsuariosNestedInput
   Compradores?: Prisma.CompradoresUncheckedUpdateOneWithoutUsuariosNestedInput
   Proveedores?: Prisma.ProveedoresUncheckedUpdateOneWithoutUsuariosNestedInput
@@ -518,6 +525,20 @@ export type UsuariosUncheckedUpdateManyWithoutTipoUsuarioNestedInput = {
   deleteMany?: Prisma.UsuariosScalarWhereInput | Prisma.UsuariosScalarWhereInput[]
 }
 
+export type UsuariosCreateNestedOneWithoutListaProveedorInput = {
+  create?: Prisma.XOR<Prisma.UsuariosCreateWithoutListaProveedorInput, Prisma.UsuariosUncheckedCreateWithoutListaProveedorInput>
+  connectOrCreate?: Prisma.UsuariosCreateOrConnectWithoutListaProveedorInput
+  connect?: Prisma.UsuariosWhereUniqueInput
+}
+
+export type UsuariosUpdateOneRequiredWithoutListaProveedorNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuariosCreateWithoutListaProveedorInput, Prisma.UsuariosUncheckedCreateWithoutListaProveedorInput>
+  connectOrCreate?: Prisma.UsuariosCreateOrConnectWithoutListaProveedorInput
+  upsert?: Prisma.UsuariosUpsertWithoutListaProveedorInput
+  connect?: Prisma.UsuariosWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuariosUpdateToOneWithWhereWithoutListaProveedorInput, Prisma.UsuariosUpdateWithoutListaProveedorInput>, Prisma.UsuariosUncheckedUpdateWithoutListaProveedorInput>
+}
+
 export type UsuariosCreateWithoutAdministradoresInput = {
   email: string
   contrasena: string
@@ -525,6 +546,7 @@ export type UsuariosCreateWithoutAdministradoresInput = {
   apellido: string
   direccion: string
   TipoUsuario: Prisma.TiposUsuarioCreateNestedOneWithoutUsuariosInput
+  ListaProveedor?: Prisma.ListaProveedorCreateNestedOneWithoutUsuarioInput
   Compradores?: Prisma.CompradoresCreateNestedOneWithoutUsuariosInput
   Proveedores?: Prisma.ProveedoresCreateNestedOneWithoutUsuariosInput
 }
@@ -537,6 +559,7 @@ export type UsuariosUncheckedCreateWithoutAdministradoresInput = {
   apellido: string
   direccion: string
   tipo_usuario_id: number
+  ListaProveedor?: Prisma.ListaProveedorUncheckedCreateNestedOneWithoutUsuarioInput
   Compradores?: Prisma.CompradoresUncheckedCreateNestedOneWithoutUsuariosInput
   Proveedores?: Prisma.ProveedoresUncheckedCreateNestedOneWithoutUsuariosInput
 }
@@ -564,6 +587,7 @@ export type UsuariosUpdateWithoutAdministradoresInput = {
   apellido?: Prisma.StringFieldUpdateOperationsInput | string
   direccion?: Prisma.StringFieldUpdateOperationsInput | string
   TipoUsuario?: Prisma.TiposUsuarioUpdateOneRequiredWithoutUsuariosNestedInput
+  ListaProveedor?: Prisma.ListaProveedorUpdateOneWithoutUsuarioNestedInput
   Compradores?: Prisma.CompradoresUpdateOneWithoutUsuariosNestedInput
   Proveedores?: Prisma.ProveedoresUpdateOneWithoutUsuariosNestedInput
 }
@@ -576,6 +600,7 @@ export type UsuariosUncheckedUpdateWithoutAdministradoresInput = {
   apellido?: Prisma.StringFieldUpdateOperationsInput | string
   direccion?: Prisma.StringFieldUpdateOperationsInput | string
   tipo_usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
+  ListaProveedor?: Prisma.ListaProveedorUncheckedUpdateOneWithoutUsuarioNestedInput
   Compradores?: Prisma.CompradoresUncheckedUpdateOneWithoutUsuariosNestedInput
   Proveedores?: Prisma.ProveedoresUncheckedUpdateOneWithoutUsuariosNestedInput
 }
@@ -587,6 +612,7 @@ export type UsuariosCreateWithoutCompradoresInput = {
   apellido: string
   direccion: string
   TipoUsuario: Prisma.TiposUsuarioCreateNestedOneWithoutUsuariosInput
+  ListaProveedor?: Prisma.ListaProveedorCreateNestedOneWithoutUsuarioInput
   Administradores?: Prisma.AdministradoresCreateNestedOneWithoutUsuariosInput
   Proveedores?: Prisma.ProveedoresCreateNestedOneWithoutUsuariosInput
 }
@@ -599,6 +625,7 @@ export type UsuariosUncheckedCreateWithoutCompradoresInput = {
   apellido: string
   direccion: string
   tipo_usuario_id: number
+  ListaProveedor?: Prisma.ListaProveedorUncheckedCreateNestedOneWithoutUsuarioInput
   Administradores?: Prisma.AdministradoresUncheckedCreateNestedOneWithoutUsuariosInput
   Proveedores?: Prisma.ProveedoresUncheckedCreateNestedOneWithoutUsuariosInput
 }
@@ -626,6 +653,7 @@ export type UsuariosUpdateWithoutCompradoresInput = {
   apellido?: Prisma.StringFieldUpdateOperationsInput | string
   direccion?: Prisma.StringFieldUpdateOperationsInput | string
   TipoUsuario?: Prisma.TiposUsuarioUpdateOneRequiredWithoutUsuariosNestedInput
+  ListaProveedor?: Prisma.ListaProveedorUpdateOneWithoutUsuarioNestedInput
   Administradores?: Prisma.AdministradoresUpdateOneWithoutUsuariosNestedInput
   Proveedores?: Prisma.ProveedoresUpdateOneWithoutUsuariosNestedInput
 }
@@ -638,6 +666,7 @@ export type UsuariosUncheckedUpdateWithoutCompradoresInput = {
   apellido?: Prisma.StringFieldUpdateOperationsInput | string
   direccion?: Prisma.StringFieldUpdateOperationsInput | string
   tipo_usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
+  ListaProveedor?: Prisma.ListaProveedorUncheckedUpdateOneWithoutUsuarioNestedInput
   Administradores?: Prisma.AdministradoresUncheckedUpdateOneWithoutUsuariosNestedInput
   Proveedores?: Prisma.ProveedoresUncheckedUpdateOneWithoutUsuariosNestedInput
 }
@@ -649,6 +678,7 @@ export type UsuariosCreateWithoutProveedoresInput = {
   apellido: string
   direccion: string
   TipoUsuario: Prisma.TiposUsuarioCreateNestedOneWithoutUsuariosInput
+  ListaProveedor?: Prisma.ListaProveedorCreateNestedOneWithoutUsuarioInput
   Administradores?: Prisma.AdministradoresCreateNestedOneWithoutUsuariosInput
   Compradores?: Prisma.CompradoresCreateNestedOneWithoutUsuariosInput
 }
@@ -661,6 +691,7 @@ export type UsuariosUncheckedCreateWithoutProveedoresInput = {
   apellido: string
   direccion: string
   tipo_usuario_id: number
+  ListaProveedor?: Prisma.ListaProveedorUncheckedCreateNestedOneWithoutUsuarioInput
   Administradores?: Prisma.AdministradoresUncheckedCreateNestedOneWithoutUsuariosInput
   Compradores?: Prisma.CompradoresUncheckedCreateNestedOneWithoutUsuariosInput
 }
@@ -688,6 +719,7 @@ export type UsuariosUpdateWithoutProveedoresInput = {
   apellido?: Prisma.StringFieldUpdateOperationsInput | string
   direccion?: Prisma.StringFieldUpdateOperationsInput | string
   TipoUsuario?: Prisma.TiposUsuarioUpdateOneRequiredWithoutUsuariosNestedInput
+  ListaProveedor?: Prisma.ListaProveedorUpdateOneWithoutUsuarioNestedInput
   Administradores?: Prisma.AdministradoresUpdateOneWithoutUsuariosNestedInput
   Compradores?: Prisma.CompradoresUpdateOneWithoutUsuariosNestedInput
 }
@@ -700,6 +732,7 @@ export type UsuariosUncheckedUpdateWithoutProveedoresInput = {
   apellido?: Prisma.StringFieldUpdateOperationsInput | string
   direccion?: Prisma.StringFieldUpdateOperationsInput | string
   tipo_usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
+  ListaProveedor?: Prisma.ListaProveedorUncheckedUpdateOneWithoutUsuarioNestedInput
   Administradores?: Prisma.AdministradoresUncheckedUpdateOneWithoutUsuariosNestedInput
   Compradores?: Prisma.CompradoresUncheckedUpdateOneWithoutUsuariosNestedInput
 }
@@ -710,6 +743,7 @@ export type UsuariosCreateWithoutTipoUsuarioInput = {
   nombre: string
   apellido: string
   direccion: string
+  ListaProveedor?: Prisma.ListaProveedorCreateNestedOneWithoutUsuarioInput
   Administradores?: Prisma.AdministradoresCreateNestedOneWithoutUsuariosInput
   Compradores?: Prisma.CompradoresCreateNestedOneWithoutUsuariosInput
   Proveedores?: Prisma.ProveedoresCreateNestedOneWithoutUsuariosInput
@@ -722,6 +756,7 @@ export type UsuariosUncheckedCreateWithoutTipoUsuarioInput = {
   nombre: string
   apellido: string
   direccion: string
+  ListaProveedor?: Prisma.ListaProveedorUncheckedCreateNestedOneWithoutUsuarioInput
   Administradores?: Prisma.AdministradoresUncheckedCreateNestedOneWithoutUsuariosInput
   Compradores?: Prisma.CompradoresUncheckedCreateNestedOneWithoutUsuariosInput
   Proveedores?: Prisma.ProveedoresUncheckedCreateNestedOneWithoutUsuariosInput
@@ -766,6 +801,72 @@ export type UsuariosScalarWhereInput = {
   tipo_usuario_id?: Prisma.IntFilter<"Usuarios"> | number
 }
 
+export type UsuariosCreateWithoutListaProveedorInput = {
+  email: string
+  contrasena: string
+  nombre: string
+  apellido: string
+  direccion: string
+  TipoUsuario: Prisma.TiposUsuarioCreateNestedOneWithoutUsuariosInput
+  Administradores?: Prisma.AdministradoresCreateNestedOneWithoutUsuariosInput
+  Compradores?: Prisma.CompradoresCreateNestedOneWithoutUsuariosInput
+  Proveedores?: Prisma.ProveedoresCreateNestedOneWithoutUsuariosInput
+}
+
+export type UsuariosUncheckedCreateWithoutListaProveedorInput = {
+  id?: number
+  email: string
+  contrasena: string
+  nombre: string
+  apellido: string
+  direccion: string
+  tipo_usuario_id: number
+  Administradores?: Prisma.AdministradoresUncheckedCreateNestedOneWithoutUsuariosInput
+  Compradores?: Prisma.CompradoresUncheckedCreateNestedOneWithoutUsuariosInput
+  Proveedores?: Prisma.ProveedoresUncheckedCreateNestedOneWithoutUsuariosInput
+}
+
+export type UsuariosCreateOrConnectWithoutListaProveedorInput = {
+  where: Prisma.UsuariosWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuariosCreateWithoutListaProveedorInput, Prisma.UsuariosUncheckedCreateWithoutListaProveedorInput>
+}
+
+export type UsuariosUpsertWithoutListaProveedorInput = {
+  update: Prisma.XOR<Prisma.UsuariosUpdateWithoutListaProveedorInput, Prisma.UsuariosUncheckedUpdateWithoutListaProveedorInput>
+  create: Prisma.XOR<Prisma.UsuariosCreateWithoutListaProveedorInput, Prisma.UsuariosUncheckedCreateWithoutListaProveedorInput>
+  where?: Prisma.UsuariosWhereInput
+}
+
+export type UsuariosUpdateToOneWithWhereWithoutListaProveedorInput = {
+  where?: Prisma.UsuariosWhereInput
+  data: Prisma.XOR<Prisma.UsuariosUpdateWithoutListaProveedorInput, Prisma.UsuariosUncheckedUpdateWithoutListaProveedorInput>
+}
+
+export type UsuariosUpdateWithoutListaProveedorInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellido?: Prisma.StringFieldUpdateOperationsInput | string
+  direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  TipoUsuario?: Prisma.TiposUsuarioUpdateOneRequiredWithoutUsuariosNestedInput
+  Administradores?: Prisma.AdministradoresUpdateOneWithoutUsuariosNestedInput
+  Compradores?: Prisma.CompradoresUpdateOneWithoutUsuariosNestedInput
+  Proveedores?: Prisma.ProveedoresUpdateOneWithoutUsuariosNestedInput
+}
+
+export type UsuariosUncheckedUpdateWithoutListaProveedorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellido?: Prisma.StringFieldUpdateOperationsInput | string
+  direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo_usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
+  Administradores?: Prisma.AdministradoresUncheckedUpdateOneWithoutUsuariosNestedInput
+  Compradores?: Prisma.CompradoresUncheckedUpdateOneWithoutUsuariosNestedInput
+  Proveedores?: Prisma.ProveedoresUncheckedUpdateOneWithoutUsuariosNestedInput
+}
+
 export type UsuariosCreateManyTipoUsuarioInput = {
   id?: number
   email: string
@@ -781,6 +882,7 @@ export type UsuariosUpdateWithoutTipoUsuarioInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   apellido?: Prisma.StringFieldUpdateOperationsInput | string
   direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  ListaProveedor?: Prisma.ListaProveedorUpdateOneWithoutUsuarioNestedInput
   Administradores?: Prisma.AdministradoresUpdateOneWithoutUsuariosNestedInput
   Compradores?: Prisma.CompradoresUpdateOneWithoutUsuariosNestedInput
   Proveedores?: Prisma.ProveedoresUpdateOneWithoutUsuariosNestedInput
@@ -793,6 +895,7 @@ export type UsuariosUncheckedUpdateWithoutTipoUsuarioInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   apellido?: Prisma.StringFieldUpdateOperationsInput | string
   direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  ListaProveedor?: Prisma.ListaProveedorUncheckedUpdateOneWithoutUsuarioNestedInput
   Administradores?: Prisma.AdministradoresUncheckedUpdateOneWithoutUsuariosNestedInput
   Compradores?: Prisma.CompradoresUncheckedUpdateOneWithoutUsuariosNestedInput
   Proveedores?: Prisma.ProveedoresUncheckedUpdateOneWithoutUsuariosNestedInput
@@ -818,6 +921,7 @@ export type UsuariosSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   direccion?: boolean
   tipo_usuario_id?: boolean
   TipoUsuario?: boolean | Prisma.TiposUsuarioDefaultArgs<ExtArgs>
+  ListaProveedor?: boolean | Prisma.Usuarios$ListaProveedorArgs<ExtArgs>
   Administradores?: boolean | Prisma.Usuarios$AdministradoresArgs<ExtArgs>
   Compradores?: boolean | Prisma.Usuarios$CompradoresArgs<ExtArgs>
   Proveedores?: boolean | Prisma.Usuarios$ProveedoresArgs<ExtArgs>
@@ -858,6 +962,7 @@ export type UsuariosSelectScalar = {
 export type UsuariosOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "contrasena" | "nombre" | "apellido" | "direccion" | "tipo_usuario_id", ExtArgs["result"]["usuarios"]>
 export type UsuariosInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   TipoUsuario?: boolean | Prisma.TiposUsuarioDefaultArgs<ExtArgs>
+  ListaProveedor?: boolean | Prisma.Usuarios$ListaProveedorArgs<ExtArgs>
   Administradores?: boolean | Prisma.Usuarios$AdministradoresArgs<ExtArgs>
   Compradores?: boolean | Prisma.Usuarios$CompradoresArgs<ExtArgs>
   Proveedores?: boolean | Prisma.Usuarios$ProveedoresArgs<ExtArgs>
@@ -873,6 +978,7 @@ export type $UsuariosPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   name: "Usuarios"
   objects: {
     TipoUsuario: Prisma.$TiposUsuarioPayload<ExtArgs>
+    ListaProveedor: Prisma.$ListaProveedorPayload<ExtArgs> | null
     Administradores: Prisma.$AdministradoresPayload<ExtArgs> | null
     Compradores: Prisma.$CompradoresPayload<ExtArgs> | null
     Proveedores: Prisma.$ProveedoresPayload<ExtArgs> | null
@@ -1280,6 +1386,7 @@ readonly fields: UsuariosFieldRefs;
 export interface Prisma__UsuariosClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   TipoUsuario<T extends Prisma.TiposUsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TiposUsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__TiposUsuarioClient<runtime.Types.Result.GetResult<Prisma.$TiposUsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  ListaProveedor<T extends Prisma.Usuarios$ListaProveedorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuarios$ListaProveedorArgs<ExtArgs>>): Prisma.Prisma__ListaProveedorClient<runtime.Types.Result.GetResult<Prisma.$ListaProveedorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   Administradores<T extends Prisma.Usuarios$AdministradoresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuarios$AdministradoresArgs<ExtArgs>>): Prisma.Prisma__AdministradoresClient<runtime.Types.Result.GetResult<Prisma.$AdministradoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   Compradores<T extends Prisma.Usuarios$CompradoresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuarios$CompradoresArgs<ExtArgs>>): Prisma.Prisma__CompradoresClient<runtime.Types.Result.GetResult<Prisma.$CompradoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   Proveedores<T extends Prisma.Usuarios$ProveedoresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuarios$ProveedoresArgs<ExtArgs>>): Prisma.Prisma__ProveedoresClient<runtime.Types.Result.GetResult<Prisma.$ProveedoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -1717,6 +1824,25 @@ export type UsuariosDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Usuarios to delete.
    */
   limit?: number
+}
+
+/**
+ * Usuarios.ListaProveedor
+ */
+export type Usuarios$ListaProveedorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListaProveedor
+   */
+  select?: Prisma.ListaProveedorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListaProveedor
+   */
+  omit?: Prisma.ListaProveedorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListaProveedorInclude<ExtArgs> | null
+  where?: Prisma.ListaProveedorWhereInput
 }
 
 /**

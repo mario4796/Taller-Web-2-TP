@@ -2,43 +2,194 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  background: #f5f6fa;
+
+  min-height: 100vh;
+
+  background:
+    radial-gradient(circle at top right, rgba(124, 58, 237, 0.15), transparent 35%), #050816;
 }
 
-/* Contenedor del error para obligarlo a bajar y darle espacio */
+/* ======================
+   CARD
+====================== */
+
+:host ::ng-deep .login-card {
+  width: 100%;
+  max-width: 450px;
+
+  border-radius: 24px;
+  overflow: hidden;
+
+  background: rgba(17, 24, 39, 0.88);
+
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(168, 85, 247, 0.25);
+
+  box-shadow:
+    0 0 30px rgba(124, 58, 237, 0.15),
+    0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Barra superior decorativa */
+
+:host ::ng-deep .login-card::before {
+  content: '';
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background: linear-gradient(90deg, #7c3aed, #a855f7, #c084fc);
+}
+
+/* Header */
+
+:host ::ng-deep .p-card-header {
+  color: white;
+
+  text-align: center;
+
+  font-size: 1.8rem;
+  font-weight: 700;
+
+  padding: 2rem 2rem 0;
+}
+
+:host ::ng-deep .p-card-body {
+  padding: 2rem;
+}
+
+/* ======================
+   FORM
+====================== */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ======================
+   INPUTS
+====================== */
+
+:host ::ng-deep .p-inputtext,
+:host ::ng-deep .p-password-input {
+  width: 100%;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  color: white;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  border-radius: 14px;
+
+  transition: all 0.25s ease;
+}
+
+/* Focus violeta */
+
+:host ::ng-deep .p-inputtext:focus,
+:host ::ng-deep .p-password-input:focus {
+  border-color: #a855f7;
+
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+}
+
+/* Labels */
+
+:host ::ng-deep .p-float-label label {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Password */
+
+:host ::ng-deep .p-password {
+  width: 100%;
+}
+
+:host ::ng-deep .p-password-input {
+  width: 100%;
+}
+
+/* ======================
+   BOTÓN
+====================== */
+
+:host ::ng-deep .login-btn {
+  width: 100%;
+
+  margin-top: 0.5rem;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+
+  font-weight: 600;
+
+  transition: all 0.25s ease;
+}
+
+:host ::ng-deep .login-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.35);
+}
+
+/* ======================
+   ERRORES
+====================== */
+
 .p-error-container {
-    display: block;
-    margin-top: 0.35rem;
-    animation: fadeIn 0.2s ease-in-out; /* Animación suave para que no aparezca de golpe */
+  margin-top: 0.5rem;
+  animation: fadeIn 0.2s ease-in-out;
 }
 
-/* Estilos específicos para el texto del error */
 .p-error {
-    color: #ef4444; /* Rojo estándar de PrimeNG (puedes usar #d32f2f si prefieres uno más oscuro) */
-    font-size: 0.875rem; /* Tamaño de fuente sutil, más chico que el label */
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    padding-bottom: 1em;
-    padding-top: 1em;
+  color: #ff7b7b;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
-/* Efecto opcional: Agrega un pequeño icono de advertencia antes del texto sin tocar el HTML */
 .p-error::before {
-    content: "⚠️"; 
-    margin-right: 0.35rem;
-    font-size: 0.75rem;
+  content: '⚠';
+  margin-right: 0.4rem;
 }
 
-/* Animación de entrada */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-3px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.login-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.login-icon i {
+  font-size: 3rem;
+  color: #a855f7;
 }

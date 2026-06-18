@@ -56,6 +56,7 @@ export const ModelName = {
   Libros: 'Libros',
   Proveedores: 'Proveedores',
   TiposUsuario: 'TiposUsuario',
+  ListaProveedor: 'ListaProveedor',
   Usuarios: 'Usuarios',
   Carritos: 'Carritos',
   DetallesCarrito: 'DetallesCarrito'
@@ -117,6 +118,16 @@ export const TiposUsuarioScalarFieldEnum = {
 } as const
 
 export type TiposUsuarioScalarFieldEnum = (typeof TiposUsuarioScalarFieldEnum)[keyof typeof TiposUsuarioScalarFieldEnum]
+
+
+export const ListaProveedorScalarFieldEnum = {
+  id: 'id',
+  usuario_id: 'usuario_id',
+  es_proveedor: 'es_proveedor',
+  fecha_solicitud: 'fecha_solicitud'
+} as const
+
+export type ListaProveedorScalarFieldEnum = (typeof ListaProveedorScalarFieldEnum)[keyof typeof ListaProveedorScalarFieldEnum]
 
 
 export const UsuariosScalarFieldEnum = {
