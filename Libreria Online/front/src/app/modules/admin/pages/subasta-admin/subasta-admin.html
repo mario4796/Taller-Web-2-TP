@@ -1,0 +1,95 @@
+<app-nav [userName]="userName" [role]="role" ></app-nav>
+
+<app-nueva-subasta-dialog 
+  (clickCrear)="mostrarFormulario.set(true)"
+  (alGuardar)="onNuevaSubastaRecibida($event)">
+</app-nueva-subasta-dialog>
+
+
+
+<p-table
+  #tablaSubastas
+  [value]="subastasMock()"
+  [globalFilterFields]="['nombre', 'autor', 'isbn', 'estado']"
+  [loading]="cargando()"
+  [tableStyle]="{ 'min-width': '74rem' }"
+  styleClass="p-datatable-striped offers-table"
+  [paginator]="true"
+  [rows]="5"
+  [rowsPerPageOptions]="[5, 10, 20]">
+
+
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Título</th>
+      <th>Autor</th>
+      <th>ISBN</th>
+      <th>Precio Inicial</th>
+      <th>Último Empuje</th>
+      <th>Estado</th>
+      <th style="text-align: center;">Acciones</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-subasta>
+    <tr>
+      <td><strong>{{ subasta.nombre }}</strong></td>
+      <td>{{ subasta.autor }}</td>
+      <td>{{ subasta.isbn }}</td>
+      <td>{{ subasta.precioInicial | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</td>
+      <td>
+        <div class="price-cell">
+          @if (subasta.subastas && subasta.subastas.length > 0) {
+            <span class="last-bid">{{ subasta.subastas[0].precioOfertado | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</span>
+            <small>Por: {{ subasta.subastas[0].creadoPor }}</small>
+          } @else {
+            <span class="text-muted">Sin pujas todavía</span>
+          }
+        </div>
+      </td>
+      <td>
+        <p-tag [value]="estadoLabel(subasta.estado)" [severity]="estadoSeverity(subasta.estado)"></p-tag>
+      </td>
+      <td style="text-align: center;">
+        <p-button
+          icon="pi pi-gavel"
+          [rounded]="true"
+          [text]="true"
+          severity="info"
+          title="Pujar"
+          [disabled]="!puedePujar(subasta)"
+          (click)="pujar.emit(subasta)">
+        </p-button>
+        <p-button
+          icon="pi pi-times"
+          [rounded]="true"
+          [text]="true"
+          severity="danger"
+          title="Cerrar Subasta"
+          (click)="cerrar.emit(subasta)">
+        </p-button>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="7" style="text-align: center; padding: 2rem;">
+        No hay subastas activas o pendientes todavía.
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog 
+  header="Crear Nueva Subasta" 
+  [visible]="mostrarFormulario()" 
+  (visibleChange)="mostrarFormulario.set($event)"
+  [modal]="true" 
+  [style]="{ width: '30rem' }" 
+  [draggable]="false" 
+  [resizable]="false">
+  
+
+</p-dialog>

@@ -1,0 +1,109 @@
+<div class="subastas-actions" style="margin-bottom: 1rem; display: flex; justify-content: flex-end;">
+  <p-button 
+    label="Crear Nueva Subasta" 
+    icon="pi pi-plus" 
+    severity="success" 
+    (click)="mostrarFormulario.set(true)"> </p-button>
+</div>
+
+<p-dialog 
+  header="Crear Nueva Subasta" 
+  [visible]="mostrarFormulario()" 
+  (visibleChange)="mostrarFormulario.set($event)"
+  [modal]="true" 
+  [style]="{ width: '30rem' }" 
+  [draggable]="false" 
+  [resizable]="false">
+  
+  <form #subastaForm="ngForm" class="offer-form" style="display: flex; flex-direction: column; gap: 1rem; padding-top: 1rem;">
+    
+    <p-inputgroup class="offer-inputgroup">
+      <p-floatlabel variant="in">
+        <input 
+          pInputText 
+          id="form-isbn" 
+          name="isbn" 
+          [(ngModel)]="nuevaSubasta.isbn" 
+          #isbnInput="ngModel"
+          required />
+        <label for="form-isbn">ISBN del Libro</label>
+      </p-floatlabel>
+      <p-inputgroup-addon><i class="pi pi-barcode"></i></p-inputgroup-addon>
+    </p-inputgroup>
+    @if (isbnInput.invalid && isbnInput.touched) {
+      <small class="error-message" style="color: var(--red-500); font-size: 0.85rem; margin-top: -0.5rem;">El ISBN es obligatorio</small>
+    }
+
+    <p-inputgroup class="offer-inputgroup">
+      <p-floatlabel variant="in">
+        <input 
+          pInputText 
+          id="form-nombre" 
+          name="nombre" 
+          [(ngModel)]="nuevaSubasta.nombre" 
+          #nombreInput="ngModel"
+          required />
+        <label for="form-nombre">Título del Libro</label>
+      </p-floatlabel>
+      <p-inputgroup-addon><i class="pi pi-book"></i></p-inputgroup-addon>
+    </p-inputgroup>
+    @if (nombreInput.invalid && nombreInput.touched) {
+      <small class="error-message" style="color: var(--red-500); font-size: 0.85rem; margin-top: -0.5rem;">El título es obligatorio</small>
+    }
+
+    <p-inputgroup class="offer-inputgroup">
+      <p-floatlabel variant="in">
+        <input 
+          pInputText 
+          id="form-autor" 
+          name="autor" 
+          [(ngModel)]="nuevaSubasta.autor" 
+          #autorInput="ngModel"
+          required />
+        <label for="form-autor">Autor</label>
+      </p-floatlabel>
+      <p-inputgroup-addon><i class="pi pi-user"></i></p-inputgroup-addon>
+    </p-inputgroup>
+    @if (autorInput.invalid && autorInput.touched) {
+      <small class="error-message" style="color: var(--red-500); font-size: 0.85rem; margin-top: -0.5rem;">El autor es obligatorio</small>
+    }
+
+    <p-inputgroup class="offer-inputgroup">
+      <p-floatlabel variant="in">
+        <p-inputnumber 
+          inputId="form-precio" 
+          name="precioInicial" 
+          [(ngModel)]="nuevaSubasta.precioInicial" 
+          #precioInput="ngModel"
+          mode="currency" 
+          currency="ARS" 
+          locale="es-AR" 
+          [min]="1"
+          required>
+        </p-inputnumber>
+        <label for="form-precio">Precio Inicial Base</label>
+      </p-floatlabel>
+      <p-inputgroup-addon><i class="pi pi-dollar"></i></p-inputgroup-addon>
+    </p-inputgroup>
+    @if (precioInput.invalid && precioInput.touched) {
+      <small class="error-message" style="color: var(--red-500); font-size: 0.85rem; margin-top: -0.5rem;">El precio debe ser mayor a 0</small>
+    }
+  </form>
+
+  <div class="dialog-actions" style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1.5rem;">
+    <p-button 
+      label="Cancelar" 
+      severity="danger" 
+      [text]="true" 
+      (click)="mostrarFormulario.set(false)">
+    </p-button>
+    <p-button 
+      label="Iniciar Subasta" 
+      [outlined]="true" 
+      severity="secondary" 
+      (click)="agregarSubastaLocalmente()" 
+      [disabled]="subastaForm.invalid">
+    </p-button>
+  </div>
+
+</p-dialog>
