@@ -55,11 +55,8 @@ export const ModelName = {
   Compradores: 'Compradores',
   Libros: 'Libros',
   Proveedores: 'Proveedores',
-  TiposUsuario: 'TiposUsuario',
-  ListaProveedor: 'ListaProveedor',
   Usuarios: 'Usuarios',
-  Carritos: 'Carritos',
-  DetallesCarrito: 'DetallesCarrito'
+  OfertaLibro: 'OfertaLibro'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -99,7 +96,9 @@ export const LibrosScalarFieldEnum = {
   autor: 'autor',
   precio: 'precio',
   stock: 'stock',
-  estado: 'estado'
+  estado: 'estado',
+  sinopsis: 'sinopsis',
+  categoria: 'categoria'
 } as const
 
 export type LibrosScalarFieldEnum = (typeof LibrosScalarFieldEnum)[keyof typeof LibrosScalarFieldEnum]
@@ -143,24 +142,22 @@ export const UsuariosScalarFieldEnum = {
 export type UsuariosScalarFieldEnum = (typeof UsuariosScalarFieldEnum)[keyof typeof UsuariosScalarFieldEnum]
 
 
-export const CarritosScalarFieldEnum = {
+export const OfertaLibroScalarFieldEnum = {
   id: 'id',
-  comprador_id: 'comprador_id',
-  precio_total: 'precio_total'
+  isbn: 'isbn',
+  nombre: 'nombre',
+  autor: 'autor',
+  precioProveedor: 'precioProveedor',
+  cantidadProveedor: 'cantidadProveedor',
+  cantidadAdmin: 'cantidadAdmin',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  sinopsis: 'sinopsis',
+  categoria: 'categoria',
+  libroId: 'libroId'
 } as const
 
-export type CarritosScalarFieldEnum = (typeof CarritosScalarFieldEnum)[keyof typeof CarritosScalarFieldEnum]
-
-
-export const DetallesCarritoScalarFieldEnum = {
-  id: 'id',
-  carrito_id: 'carrito_id',
-  libro_id: 'libro_id',
-  cantidad: 'cantidad',
-  precio: 'precio'
-} as const
-
-export type DetallesCarritoScalarFieldEnum = (typeof DetallesCarritoScalarFieldEnum)[keyof typeof DetallesCarritoScalarFieldEnum]
+export type OfertaLibroScalarFieldEnum = (typeof OfertaLibroScalarFieldEnum)[keyof typeof OfertaLibroScalarFieldEnum]
 
 
 export const SortOrder = {

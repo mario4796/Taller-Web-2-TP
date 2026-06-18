@@ -77,12 +77,7 @@ export type ListaProveedor = Prisma.ListaProveedorModel
  */
 export type Usuarios = Prisma.UsuariosModel
 /**
- * Model Carritos
+ * Model OfertaLibro
  * 
  */
-export type Carritos = Prisma.CarritosModel
-/**
- * Model DetallesCarrito
- * 
- */
-export type DetallesCarrito = Prisma.DetallesCarritoModel
+export type OfertaLibro = Prisma.OfertaLibroModel

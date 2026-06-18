@@ -1,5 +1,6 @@
 import type { LibroRepository } from '../repository/libro.repository.js';
 import { Libro } from '../models/libro.model.js';
+import { CategoriaLibro } from '../prisma/enums.js';
 
 
 export class LibroService {
@@ -16,19 +17,27 @@ export class LibroService {
             return await this.libroRepository.findLibroById(id);
         }
 
-        async crearLibro(libro: Libro) {
-            const {nombre , isbn , precio , autor ,  stock } = libro;
+        async obtenerLibroPorIsbn(isbn: string) {
+            return await this.libroRepository.findLibroByIsbn(isbn);
+        }
 
-            if (!nombre || !isbn || !autor || !precio || !stock) {
+        async crearLibro(libro: Libro) {
+            const {nombre , isbn , precio , autor ,  stock, categoria, sinopsis } = libro;
+
+            if (!nombre || !isbn || !autor || !precio || !stock || !categoria) {
                 throw new Error('Faltan campos obligatorios para crear el libro');
             }
 
-            return await this.libroRepository.createLibro({ nombre, isbn, precio, autor, stock });
+            return await this.libroRepository.createLibro({ nombre, isbn, precio, autor, stock, categoria, sinopsis });
         }
 
-        async actualizarLibro(id: number, data: { nombre: string, isbn: string, precio: number, autor: string }) {
+        async actualizarLibro(id: number, data: { nombre: string, isbn: string, precio: number, autor: string, categoria: CategoriaLibro, sinopsis: string}) {
 
             return await this.libroRepository.updateLibro(id, data);
+        }
+
+        async sumarStock(id: number, cantidad: number) {
+            return await this.libroRepository.incrementarStock(id, cantidad);
         }
 
         async eliminarLibro(id: number) {

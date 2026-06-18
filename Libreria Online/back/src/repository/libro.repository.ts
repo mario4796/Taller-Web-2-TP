@@ -1,5 +1,6 @@
 import { prisma } from '../prisma.js';
 import { Libro } from '../models/libro.model.js';
+import { CategoriaLibro } from '../prisma/enums.js';
 
 
 export class LibroRepository {
@@ -28,11 +29,17 @@ export class LibroRepository {
     return libro;
 }
 
-        async createLibro(data: { nombre: string; isbn: string; precio: number; autor: string;  stock: number }){
+        async findLibroByIsbn(isbn: string) {
+            return await prisma.libros.findUnique({
+                where: { isbn }
+            });
+        }
+
+        async createLibro(data: { nombre: string; isbn: string; precio: number; autor: string;  stock: number, categoria: CategoriaLibro, sinopsis: string }){
             return await prisma.libros.create({ data });
         }
 
-        async updateLibro(id: number, data:  { nombre: string; isbn: string; precio: number; autor: string;}) {
+        async updateLibro(id: number, data:  { nombre: string; isbn: string; precio: number; autor: string; categoria: CategoriaLibro, sinopsis: string }) {
 
             return await prisma.libros.update({
                 where: { id },
@@ -43,6 +50,13 @@ export class LibroRepository {
         async deleteLibro(id: number) {
             return await prisma.libros.delete({
                 where: { id }
+            });
+        }
+
+        async incrementarStock(id: number, cantidad: number) {
+            return await prisma.libros.update({
+                where: { id },
+                data: { stock: { increment: cantidad } }
             });
         }
 }

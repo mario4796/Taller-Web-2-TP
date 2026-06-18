@@ -97,10 +97,10 @@
   <div class="mobile-nav" [class.open]="mobileNavOpen()">
     <div class="mobile-nav-inner">
       @for (item of navItems; track item.label) {
-        <button class="mobile-nav-item" type="button" (click)="mobileNavOpen.set(false)">
-          <span class="material-symbols-rounded">{{ item.icon }}</span>
-          <span>{{ item.label }}</span>
-        </button>
+      <button class="mobile-nav-item" [routerLink]="item.link" type="button" (click)="mobileNavOpen.set(false)">
+        <span class="material-symbols-rounded">{{ item.icon }}</span>
+        <span>{{ item.label }}</span>
+      </button>
       }
     </div>
   </div>

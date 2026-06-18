@@ -19,14 +19,16 @@ model Compradores {
 }
 
 model Libros {
-  id               Int               @id @default(autoincrement())
-  isbn             String            @unique @db.VarChar(20)
-  nombre           String            @db.VarChar(255)
-  autor            String            @db.VarChar(255)
-  precio           Decimal           @db.Decimal(10, 2)
-  stock            Int?              @default(0)
-  estado           String?           @default("DISPONIBLE") @db.VarChar(50)
-  detallesCarritos DetallesCarrito[]
+  id      Int           @id @default(autoincrement())
+  isbn    String        @unique @db.VarChar(20)
+  nombre  String        @db.VarChar(255)
+  autor   String        @db.VarChar(255)
+  precio  Decimal       @db.Decimal(10, 2)
+  stock   Int?          @default(0)
+  estado  String?       @default("DISPONIBLE") @db.VarChar(50)
+  sinopsis String?
+  categoria   CategoriaLibro @default(GENERAL)
+  ofertas OfertaLibro[] 
 }
 
 model Proveedores {
@@ -67,23 +69,39 @@ model Usuarios {
   Compradores     Compradores?
   Proveedores     Proveedores?
 }
-
-model Carritos {
-  id           Int               @id @default(autoincrement())
-  comprador_id Int               @unique
-  precio_total Decimal           @default(0.00) @db.Decimal(10, 2)
-  Compradores  Compradores       @relation(fields: [comprador_id], references: [usuario_id], onDelete: Cascade)
-  detalles     DetallesCarrito[]
+enum EstadoOferta {
+  ESPERANDO_ADMIN       
+  ESPERANDO_PROVEEDOR   
+  ACEPTADA             
+  RECHAZADA             
 }
 
-model DetallesCarrito {
-  id         Int      @id @default(autoincrement())
-  carrito_id Int
-  libro_id   Int
-  cantidad   Int      @default(1)
-  precio     Decimal  @db.Decimal(10, 2)
-  Carrito    Carritos @relation(fields: [carrito_id], references: [id], onDelete: Cascade)
-  Libros     Libros   @relation(fields: [libro_id], references: [id], onDelete: Cascade)
+model OfertaLibro {
+  id               Int          @id @default(autoincrement())
+  isbn             String
+  nombre           String       
+  autor            String
+  precioProveedor  Decimal      @db.Decimal(10, 2)
+  cantidadProveedor  Int          
+  cantidadAdmin      Int?
+  estado           EstadoOferta @default(ESPERANDO_ADMIN)
+  createdAt        DateTime     @default(now())
 
-  @@unique([carrito_id, libro_id])
+  sinopsis String?
+  categoria   CategoriaLibro @default(GENERAL)
+  
+  //proveedorId      Int
+  //Proveedor        Proveedores  @relation(fields: [proveedorId], references: [usuario_id])
+
+  libroId          Int?
+  Libro            Libros?      @relation(fields: [libroId], references: [id])
+}
+
+enum CategoriaLibro {
+  FICCION
+  FANTASIA
+  TERROR
+  HISTORIA
+  INFANTIL
+  GENERAL
 }

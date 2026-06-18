@@ -7,8 +7,8 @@ import { Login } from './layouts/login/login';
 import { Carrito } from './modules/carrito/carrito';
 import { Usuario } from './modules/usuario/usuario-component/usuario';
 import { ProveedorRecomendacion } from './modules/proveedor/pages/proveedor-recomendacion/proveedor-recomendacion';
-import { Estanteria } from './modules/estanteria/estanteria';
-import { authGuard } from './services/Auth/auth-guard';
+import { Admin } from './modules/admin/admin';
+import { VerOfertas } from './modules/admin/pages/ver-ofertas/ver-ofertas';
 
 export const routes: Routes = [
   {
@@ -38,21 +38,17 @@ export const routes: Routes = [
     component: Login
   },
   {
-    path:'carrito',
-    component: Carrito
+    path: 'admin',
+    component: Admin
   },
   {
-    path: 'libros',
-    component: Estanteria
-  },
-{
-  path:'usuarios',
-  component: Usuario
-},
-{
-  path:'home',
-  component: HomeUser
-}
-
+    path: 'admin',
+    children: [
+      {
+        path: 'ofertas',
+        component: VerOfertas
+      }
+    ]
+  }
 
 ];

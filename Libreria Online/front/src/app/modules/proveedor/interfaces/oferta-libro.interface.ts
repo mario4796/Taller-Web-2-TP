@@ -1,0 +1,20 @@
+export type EstadoOferta =
+  | 'ESPERANDO_ADMIN'
+  | 'ESPERANDO_PROVEEDOR'
+  | 'ACEPTADA'
+  | 'RECHAZADA';
+
+export interface OfertaLibro {
+  id: number;
+  isbn: string;
+  nombre: string;
+  autor: string;
+  precioProveedor: number;
+  cantidadProveedor: number;
+  cantidadAdmin?: number | null;
+  estado: EstadoOferta;
+  createdAt?: string;
+  libroId?: number | null;
+}
+
+export type NuevaOfertaLibro = Omit<OfertaLibro, 'id' | 'estado' | 'createdAt' | 'cantidadAdmin'>;

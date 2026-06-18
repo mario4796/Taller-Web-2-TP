@@ -388,11 +388,8 @@ export const ModelName = {
   Compradores: 'Compradores',
   Libros: 'Libros',
   Proveedores: 'Proveedores',
-  TiposUsuario: 'TiposUsuario',
-  ListaProveedor: 'ListaProveedor',
   Usuarios: 'Usuarios',
-  Carritos: 'Carritos',
-  DetallesCarrito: 'DetallesCarrito'
+  OfertaLibro: 'OfertaLibro'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -408,7 +405,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "administradores" | "compradores" | "libros" | "proveedores" | "tiposUsuario" | "listaProveedor" | "usuarios" | "carritos" | "detallesCarrito"
+    modelProps: "administradores" | "compradores" | "libros" | "proveedores" | "usuarios" | "ofertaLibro"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -930,151 +927,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Carritos: {
-      payload: Prisma.$CarritosPayload<ExtArgs>
-      fields: Prisma.CarritosFieldRefs
+    OfertaLibro: {
+      payload: Prisma.$OfertaLibroPayload<ExtArgs>
+      fields: Prisma.OfertaLibroFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.CarritosFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload> | null
+          args: Prisma.OfertaLibroFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.CarritosFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>
+          args: Prisma.OfertaLibroFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>
         }
         findFirst: {
-          args: Prisma.CarritosFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload> | null
+          args: Prisma.OfertaLibroFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.CarritosFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>
+          args: Prisma.OfertaLibroFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>
         }
         findMany: {
-          args: Prisma.CarritosFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>[]
+          args: Prisma.OfertaLibroFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>[]
         }
         create: {
-          args: Prisma.CarritosCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>
+          args: Prisma.OfertaLibroCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>
         }
         createMany: {
-          args: Prisma.CarritosCreateManyArgs<ExtArgs>
+          args: Prisma.OfertaLibroCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.CarritosCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>[]
+          args: Prisma.OfertaLibroCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>[]
         }
         delete: {
-          args: Prisma.CarritosDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>
+          args: Prisma.OfertaLibroDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>
         }
         update: {
-          args: Prisma.CarritosUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>
+          args: Prisma.OfertaLibroUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>
         }
         deleteMany: {
-          args: Prisma.CarritosDeleteManyArgs<ExtArgs>
+          args: Prisma.OfertaLibroDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.CarritosUpdateManyArgs<ExtArgs>
+          args: Prisma.OfertaLibroUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.CarritosUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>[]
+          args: Prisma.OfertaLibroUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>[]
         }
         upsert: {
-          args: Prisma.CarritosUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CarritosPayload>
+          args: Prisma.OfertaLibroUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OfertaLibroPayload>
         }
         aggregate: {
-          args: Prisma.CarritosAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateCarritos>
+          args: Prisma.OfertaLibroAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOfertaLibro>
         }
         groupBy: {
-          args: Prisma.CarritosGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.CarritosGroupByOutputType>[]
+          args: Prisma.OfertaLibroGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OfertaLibroGroupByOutputType>[]
         }
         count: {
-          args: Prisma.CarritosCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.CarritosCountAggregateOutputType> | number
-        }
-      }
-    }
-    DetallesCarrito: {
-      payload: Prisma.$DetallesCarritoPayload<ExtArgs>
-      fields: Prisma.DetallesCarritoFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.DetallesCarritoFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.DetallesCarritoFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>
-        }
-        findFirst: {
-          args: Prisma.DetallesCarritoFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.DetallesCarritoFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>
-        }
-        findMany: {
-          args: Prisma.DetallesCarritoFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>[]
-        }
-        create: {
-          args: Prisma.DetallesCarritoCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>
-        }
-        createMany: {
-          args: Prisma.DetallesCarritoCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.DetallesCarritoCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>[]
-        }
-        delete: {
-          args: Prisma.DetallesCarritoDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>
-        }
-        update: {
-          args: Prisma.DetallesCarritoUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>
-        }
-        deleteMany: {
-          args: Prisma.DetallesCarritoDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.DetallesCarritoUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.DetallesCarritoUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>[]
-        }
-        upsert: {
-          args: Prisma.DetallesCarritoUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetallesCarritoPayload>
-        }
-        aggregate: {
-          args: Prisma.DetallesCarritoAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateDetallesCarrito>
-        }
-        groupBy: {
-          args: Prisma.DetallesCarritoGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DetallesCarritoGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.DetallesCarritoCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DetallesCarritoCountAggregateOutputType> | number
+          args: Prisma.OfertaLibroCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OfertaLibroCountAggregateOutputType> | number
         }
       }
     }
@@ -1138,7 +1061,9 @@ export const LibrosScalarFieldEnum = {
   autor: 'autor',
   precio: 'precio',
   stock: 'stock',
-  estado: 'estado'
+  estado: 'estado',
+  sinopsis: 'sinopsis',
+  categoria: 'categoria'
 } as const
 
 export type LibrosScalarFieldEnum = (typeof LibrosScalarFieldEnum)[keyof typeof LibrosScalarFieldEnum]
@@ -1182,24 +1107,22 @@ export const UsuariosScalarFieldEnum = {
 export type UsuariosScalarFieldEnum = (typeof UsuariosScalarFieldEnum)[keyof typeof UsuariosScalarFieldEnum]
 
 
-export const CarritosScalarFieldEnum = {
+export const OfertaLibroScalarFieldEnum = {
   id: 'id',
-  comprador_id: 'comprador_id',
-  precio_total: 'precio_total'
+  isbn: 'isbn',
+  nombre: 'nombre',
+  autor: 'autor',
+  precioProveedor: 'precioProveedor',
+  cantidadProveedor: 'cantidadProveedor',
+  cantidadAdmin: 'cantidadAdmin',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  sinopsis: 'sinopsis',
+  categoria: 'categoria',
+  libroId: 'libroId'
 } as const
 
-export type CarritosScalarFieldEnum = (typeof CarritosScalarFieldEnum)[keyof typeof CarritosScalarFieldEnum]
-
-
-export const DetallesCarritoScalarFieldEnum = {
-  id: 'id',
-  carrito_id: 'carrito_id',
-  libro_id: 'libro_id',
-  cantidad: 'cantidad',
-  precio: 'precio'
-} as const
-
-export type DetallesCarritoScalarFieldEnum = (typeof DetallesCarritoScalarFieldEnum)[keyof typeof DetallesCarritoScalarFieldEnum]
+export type OfertaLibroScalarFieldEnum = (typeof OfertaLibroScalarFieldEnum)[keyof typeof OfertaLibroScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1275,9 +1198,30 @@ export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMo
 
 
 /**
- * Reference to a field of type 'Boolean'
+ * Reference to a field of type 'CategoriaLibro'
  */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+export type EnumCategoriaLibroFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoriaLibro'>
+    
+
+
+/**
+ * Reference to a field of type 'CategoriaLibro[]'
+ */
+export type ListEnumCategoriaLibroFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoriaLibro[]'>
+    
+
+
+/**
+ * Reference to a field of type 'EstadoOferta'
+ */
+export type EnumEstadoOfertaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoOferta'>
+    
+
+
+/**
+ * Reference to a field of type 'EstadoOferta[]'
+ */
+export type ListEnumEstadoOfertaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoOferta[]'>
     
 
 
@@ -1425,8 +1369,7 @@ export type GlobalOmitConfig = {
   tiposUsuario?: Prisma.TiposUsuarioOmit
   listaProveedor?: Prisma.ListaProveedorOmit
   usuarios?: Prisma.UsuariosOmit
-  carritos?: Prisma.CarritosOmit
-  detallesCarrito?: Prisma.DetallesCarritoOmit
+  ofertaLibro?: Prisma.OfertaLibroOmit
 }
 
 /* Types for Logging */
