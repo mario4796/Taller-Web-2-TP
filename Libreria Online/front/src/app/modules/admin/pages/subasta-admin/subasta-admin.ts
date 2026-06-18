@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -11,6 +11,9 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { Nav } from '../../../../shared/components/nav/nav';
 import { NuevaSubastaDialog } from '../../components/nueva-subasta-dialog/nueva-subasta-dialog';
+import { Toast, ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-subasta-admin',
@@ -27,15 +30,22 @@ import { NuevaSubastaDialog } from '../../components/nueva-subasta-dialog/nueva-
     FloatLabelModule,
     Nav,
     NuevaSubastaDialog,
+    Toast,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './subasta-admin.html',
   styleUrl: './subasta-admin.css',
 })
 export class SubastaAdmin {
+  private messageService = inject(MessageService);
   userName = 'María Rodríguez';
   role = 'admin';
-  // 📥 Inputs usando la sintaxis nueva de Angular (Signals implicitas)
-  // subastas = input.required<any[]>();
+  
+  cargando = input<boolean>(false);
+  cerrar = output<any>();
+  mostrarFormulario = signal<boolean>(false);
+  searchValue = signal<string>('');
   subastas = input<any[]>([]);
   subastasMock = signal<any[]>([
   {
@@ -44,8 +54,9 @@ export class SubastaAdmin {
     autor: 'Antoine de Saint-Exupéry',
     isbn: '978-3-16-148410-0',
     precioInicial: 5500,
+    cantidad:5,
     estado: 'ACTIVA',
-    subastas: [{ precioOfertado: 6000, creadoPor: 'ADMIN' }]
+    subastas: [{ precioOfertado: 6000, creadoPor: 'PROVEEDOR' }]
   },
   {
     id: 2,
@@ -53,46 +64,20 @@ export class SubastaAdmin {
     autor: 'Julio Cortázar',
     isbn: '978-950-511-351-4',
     precioInicial: 12000,
+    cantidad:2,
     estado: 'PENDIENTE',
     subastas: []
   }
 ]);
  
-  cargando = input<boolean>(false);
-
-  // 📤 Outputs usando la nueva función output()
-  pujar = output<any>();
-  cerrar = output<any>();
-  //crearSubasta = output<NuevaSubastaDTO>();
-
-  // 🚦 Signals de estado interno (Controlan la UI)
-  mostrarFormulario = signal<boolean>(false);
-  searchValue = signal<string>('');
 
 
-  buscarSubastas(valor: string): void {
-    this.searchValue.set(valor);
-    // Nota: Si usás el filtro global nativo de p-table, 
-    // le pasás este valor por atrás mediante una referencia (#tablaSubastas) en tu HTML extendido.
-  }
-
-  /**
-   * Determina visualmente si el usuario logueado puede o no interactuar con la subasta
-   */
-  puedePujar(subasta: any): boolean {
-    // Tu lógica de negocio. Por ejemplo: sólo se puja si el estado es 'ACTIVA'
-    return subasta.estado === 'ACTIVA' || subasta.estado === 'PENDIENTE';
-  }
-
-  /**
-   * Retorna el texto amigable que va a mostrar la etiqueta de PrimeNG
-   */
+  // label de estado de la subasta
   estadoLabel(estado: string): string {
     const mapaEstados: Record<string, string> = {
       'PENDIENTE': 'Sin ofertas',
       'ACTIVA': 'En Curso',
       'CERRADA': 'Finalizada',
-      'ACEPTADA': 'Adjudicada'
     };
     return mapaEstados[estado] || estado;
   }
@@ -110,6 +95,7 @@ export class SubastaAdmin {
     }
   }
 
+// recibe nueva subasta del componente hijo nueva-subasta-dialog
  onNuevaSubastaRecibida(nuevaSubasta: any): void {
     const nuevaSubastaFormateada = {
       id: Math.floor(Math.random() * 1000),
@@ -123,5 +109,43 @@ export class SubastaAdmin {
 
     // Actualizamos la lista local mockeada
     this.subastasMock.update(lista => [nuevaSubastaFormateada, ...lista]);
+  }
+  cerrarSubasta(subasta: any): void {
+    //mensaje para mostrar como termino la subasta
+    // 1. Buscamos si tiene ofertas para armar el mensaje
+    const tienePujas = subasta.subastas && subasta.subastas.length > 0;
+    // se hacen los mensajes usando Toast y messageService
+    if (tienePujas) {
+      // Sí tuvo compradores (Se lleva la oferta más alta)
+      const ofertaMasAlta = subasta.subastas[0].precioOfertado;
+      const comprador = subasta.subastas[0].creadoPor;
+      
+      const precioFormateado = new Intl.NumberFormat('es-AR', { 
+        style: 'currency', 
+        currency: 'ARS' 
+      }).format(ofertaMasAlta);
+
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Subasta Finalizada',
+        detail: `La subasta de "${subasta.nombre}" finalizó con ${precioFormateado} y su comprador fue ${comprador}.`,
+        life: 4000
+      });
+
+    } else {
+      // No tuvo ofertas (Se muestra como cancelada)
+      this.messageService.add({
+        severity: 'warn', // Cambia el color del Toast a amarillo/naranja de advertencia
+        summary: 'Subasta Cancelada',
+        detail: `La subasta de "${subasta.nombre}" fue cancelada, no hubo compradores.`,
+        life: 4000
+      });
+    }
+
+    //se debe llamar a un servicio para guardar la subasta terminada, creo que se guardaria como una oferta finalizada
+    
+    this.subastasMock.update(listaActual => 
+      listaActual.filter(item => item.id !== subasta.id)
+    );
   }
 }

@@ -70,6 +70,7 @@ export class Nav implements OnInit {
           { label: 'Ofertas', icon: 'sell', link: '/admin/ofertas', active: activeItem === 'Ofertas' },
           { label: 'Stock', icon: 'inventory', active: activeItem === 'Stock' },
           { label: 'Reportes', icon: 'description', active: activeItem === 'Reportes' },
+          { label: 'Subastas', icon: 'description', link: '/admin/subastaAdmin', active: activeItem === 'Reportes' },
         ];
 
       case 'proveedor':
