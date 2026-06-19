@@ -1,6 +1,6 @@
 import { UsuarioRepository } from '../repository/usuario.repository.js';
 
-export class UsuarioService {
+export class UsuariosService {
   private usuarioRepository: UsuarioRepository;
 
   constructor(usuarioRepository: UsuarioRepository) {

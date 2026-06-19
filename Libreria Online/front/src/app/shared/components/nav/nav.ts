@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
 import { Avatar } from 'primeng/avatar';
 import { AuthService } from '../../../services/Auth/auth-service';
-
 interface NavItem {
   label: string;
   icon: string;

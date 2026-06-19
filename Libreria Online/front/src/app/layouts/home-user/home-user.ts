@@ -1,4 +1,3 @@
-import { signal } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Nav } from '../../shared/components/nav/nav';
@@ -6,7 +5,7 @@ import { Home } from '../../shared/components/home/home';
 
 @Component({
   selector: 'app-home-user',
-  imports: [Nav, Home],
+  imports: [CommonModule, Nav, Home],
   templateUrl: './home-user.html',
   styleUrl: './home-user.css',
 })

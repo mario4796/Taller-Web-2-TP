@@ -15,6 +15,7 @@ export const CATEGORIAS_LIBRO: CategoriaLibro[] = [
   'GENERAL',
 ];
 
+
 export interface Libro {
   id: number;
   nombre: string;
@@ -22,9 +23,11 @@ export interface Libro {
   autor: string;
   precio: number;
   stock: number;
-  sinopsis?: string | null;
-  categoria: CategoriaLibro;
+
+  sinopsis?: string;
+  categoria?: string;
 }
+
 
 export type NuevoLibro = Omit<Libro, 'id'>;
 export type LibroActualizacion = Omit<Libro, 'id' | 'stock'>;

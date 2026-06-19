@@ -2,7 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-import { Libro, LibroActualizacion, NuevoLibro } from '../../../shared/interfaces/libro.interface';
+//hay otra interfaz en shared/interfaces/libro.interface.ts que por ahora esta comentado.
+import { Libro } from '../../../shared/interfaces/libro.interface';
+
+
 import { LibroRest } from '../../mapper/libros/libro.interface.rest';
 import { LibroMapper } from '../../mapper/libros/libro.mapper';
 import { environment } from '../../../../environments/environment';
@@ -43,7 +46,7 @@ export class LibrosService {
     );
   }
 
-  crearLibro(libro: NuevoLibro): Observable<Libro> {
+  crearLibro(libro: Omit<Libro, 'id'>): Observable<Libro> {
     return this.http.post<any>(this.apiUrl, libro).pipe(
       map((res) => {
         return LibroMapper.mapRestLibrotoLibroFrontU(res.data);
@@ -52,7 +55,7 @@ export class LibrosService {
   }
 
 
-  updateLibro(id: number, libro: LibroActualizacion): Observable<Libro> {
+  updateLibro(id: number, libro: Omit<Libro, 'id' | 'stock'>): Observable<Libro> {
     return this.http.put<{ message: string, data: LibroRest }>(`${this.apiUrl}/${id}`, libro).pipe(
       map((res) => {
          return LibroMapper.mapRestLibrotoLibroFrontU(res.data);
