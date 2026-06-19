@@ -185,11 +185,13 @@ export type CompradoresWhereInput = {
   NOT?: Prisma.CompradoresWhereInput | Prisma.CompradoresWhereInput[]
   usuario_id?: Prisma.IntFilter<"Compradores"> | number
   Usuarios?: Prisma.XOR<Prisma.UsuariosScalarRelationFilter, Prisma.UsuariosWhereInput>
+  Carrito?: Prisma.XOR<Prisma.CarritosNullableScalarRelationFilter, Prisma.CarritosWhereInput> | null
 }
 
 export type CompradoresOrderByWithRelationInput = {
   usuario_id?: Prisma.SortOrder
   Usuarios?: Prisma.UsuariosOrderByWithRelationInput
+  Carrito?: Prisma.CarritosOrderByWithRelationInput
 }
 
 export type CompradoresWhereUniqueInput = Prisma.AtLeast<{
@@ -198,6 +200,7 @@ export type CompradoresWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.CompradoresWhereInput[]
   NOT?: Prisma.CompradoresWhereInput | Prisma.CompradoresWhereInput[]
   Usuarios?: Prisma.XOR<Prisma.UsuariosScalarRelationFilter, Prisma.UsuariosWhereInput>
+  Carrito?: Prisma.XOR<Prisma.CarritosNullableScalarRelationFilter, Prisma.CarritosWhereInput> | null
 }, "usuario_id">
 
 export type CompradoresOrderByWithAggregationInput = {
@@ -218,18 +221,22 @@ export type CompradoresScalarWhereWithAggregatesInput = {
 
 export type CompradoresCreateInput = {
   Usuarios: Prisma.UsuariosCreateNestedOneWithoutCompradoresInput
+  Carrito?: Prisma.CarritosCreateNestedOneWithoutCompradoresInput
 }
 
 export type CompradoresUncheckedCreateInput = {
   usuario_id: number
+  Carrito?: Prisma.CarritosUncheckedCreateNestedOneWithoutCompradoresInput
 }
 
 export type CompradoresUpdateInput = {
   Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutCompradoresNestedInput
+  Carrito?: Prisma.CarritosUpdateOneWithoutCompradoresNestedInput
 }
 
 export type CompradoresUncheckedUpdateInput = {
   usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
+  Carrito?: Prisma.CarritosUncheckedUpdateOneWithoutCompradoresNestedInput
 }
 
 export type CompradoresCreateManyInput = {
@@ -269,6 +276,11 @@ export type CompradoresNullableScalarRelationFilter = {
   isNot?: Prisma.CompradoresWhereInput | null
 }
 
+export type CompradoresScalarRelationFilter = {
+  is?: Prisma.CompradoresWhereInput
+  isNot?: Prisma.CompradoresWhereInput
+}
+
 export type CompradoresCreateNestedOneWithoutUsuariosInput = {
   create?: Prisma.XOR<Prisma.CompradoresCreateWithoutUsuariosInput, Prisma.CompradoresUncheckedCreateWithoutUsuariosInput>
   connectOrCreate?: Prisma.CompradoresCreateOrConnectWithoutUsuariosInput
@@ -301,12 +313,26 @@ export type CompradoresUncheckedUpdateOneWithoutUsuariosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompradoresUpdateToOneWithWhereWithoutUsuariosInput, Prisma.CompradoresUpdateWithoutUsuariosInput>, Prisma.CompradoresUncheckedUpdateWithoutUsuariosInput>
 }
 
-export type CompradoresCreateWithoutUsuariosInput = {
+export type CompradoresCreateNestedOneWithoutCarritoInput = {
+  create?: Prisma.XOR<Prisma.CompradoresCreateWithoutCarritoInput, Prisma.CompradoresUncheckedCreateWithoutCarritoInput>
+  connectOrCreate?: Prisma.CompradoresCreateOrConnectWithoutCarritoInput
+  connect?: Prisma.CompradoresWhereUniqueInput
+}
 
+export type CompradoresUpdateOneRequiredWithoutCarritoNestedInput = {
+  create?: Prisma.XOR<Prisma.CompradoresCreateWithoutCarritoInput, Prisma.CompradoresUncheckedCreateWithoutCarritoInput>
+  connectOrCreate?: Prisma.CompradoresCreateOrConnectWithoutCarritoInput
+  upsert?: Prisma.CompradoresUpsertWithoutCarritoInput
+  connect?: Prisma.CompradoresWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompradoresUpdateToOneWithWhereWithoutCarritoInput, Prisma.CompradoresUpdateWithoutCarritoInput>, Prisma.CompradoresUncheckedUpdateWithoutCarritoInput>
+}
+
+export type CompradoresCreateWithoutUsuariosInput = {
+  Carrito?: Prisma.CarritosCreateNestedOneWithoutCompradoresInput
 }
 
 export type CompradoresUncheckedCreateWithoutUsuariosInput = {
-
+  Carrito?: Prisma.CarritosUncheckedCreateNestedOneWithoutCompradoresInput
 }
 
 export type CompradoresCreateOrConnectWithoutUsuariosInput = {
@@ -326,11 +352,43 @@ export type CompradoresUpdateToOneWithWhereWithoutUsuariosInput = {
 }
 
 export type CompradoresUpdateWithoutUsuariosInput = {
-
+  Carrito?: Prisma.CarritosUpdateOneWithoutCompradoresNestedInput
 }
 
 export type CompradoresUncheckedUpdateWithoutUsuariosInput = {
+  Carrito?: Prisma.CarritosUncheckedUpdateOneWithoutCompradoresNestedInput
+}
 
+export type CompradoresCreateWithoutCarritoInput = {
+  Usuarios: Prisma.UsuariosCreateNestedOneWithoutCompradoresInput
+}
+
+export type CompradoresUncheckedCreateWithoutCarritoInput = {
+  usuario_id: number
+}
+
+export type CompradoresCreateOrConnectWithoutCarritoInput = {
+  where: Prisma.CompradoresWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompradoresCreateWithoutCarritoInput, Prisma.CompradoresUncheckedCreateWithoutCarritoInput>
+}
+
+export type CompradoresUpsertWithoutCarritoInput = {
+  update: Prisma.XOR<Prisma.CompradoresUpdateWithoutCarritoInput, Prisma.CompradoresUncheckedUpdateWithoutCarritoInput>
+  create: Prisma.XOR<Prisma.CompradoresCreateWithoutCarritoInput, Prisma.CompradoresUncheckedCreateWithoutCarritoInput>
+  where?: Prisma.CompradoresWhereInput
+}
+
+export type CompradoresUpdateToOneWithWhereWithoutCarritoInput = {
+  where?: Prisma.CompradoresWhereInput
+  data: Prisma.XOR<Prisma.CompradoresUpdateWithoutCarritoInput, Prisma.CompradoresUncheckedUpdateWithoutCarritoInput>
+}
+
+export type CompradoresUpdateWithoutCarritoInput = {
+  Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutCompradoresNestedInput
+}
+
+export type CompradoresUncheckedUpdateWithoutCarritoInput = {
+  usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -338,6 +396,7 @@ export type CompradoresUncheckedUpdateWithoutUsuariosInput = {
 export type CompradoresSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   usuario_id?: boolean
   Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
+  Carrito?: boolean | Prisma.Compradores$CarritoArgs<ExtArgs>
 }, ExtArgs["result"]["compradores"]>
 
 export type CompradoresSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -357,6 +416,7 @@ export type CompradoresSelectScalar = {
 export type CompradoresOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"usuario_id", ExtArgs["result"]["compradores"]>
 export type CompradoresInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
+  Carrito?: boolean | Prisma.Compradores$CarritoArgs<ExtArgs>
 }
 export type CompradoresIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
@@ -369,6 +429,7 @@ export type $CompradoresPayload<ExtArgs extends runtime.Types.Extensions.Interna
   name: "Compradores"
   objects: {
     Usuarios: Prisma.$UsuariosPayload<ExtArgs>
+    Carrito: Prisma.$CarritosPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     usuario_id: number
@@ -767,6 +828,7 @@ readonly fields: CompradoresFieldRefs;
 export interface Prisma__CompradoresClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   Usuarios<T extends Prisma.UsuariosDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuariosDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuariosClient<runtime.Types.Result.GetResult<Prisma.$UsuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Carrito<T extends Prisma.Compradores$CarritoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Compradores$CarritoArgs<ExtArgs>>): Prisma.Prisma__CarritosClient<runtime.Types.Result.GetResult<Prisma.$CarritosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1195,6 +1257,25 @@ export type CompradoresDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many Compradores to delete.
    */
   limit?: number
+}
+
+/**
+ * Compradores.Carrito
+ */
+export type Compradores$CarritoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Carritos
+   */
+  select?: Prisma.CarritosSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Carritos
+   */
+  omit?: Prisma.CarritosOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CarritosInclude<ExtArgs> | null
+  where?: Prisma.CarritosWhereInput
 }
 
 /**

@@ -2,11 +2,18 @@ import { Routes } from '@angular/router';
 import { HomeUser } from './layouts/home-user/home-user';
 import { Register } from './layouts/register/register';
 import { Login } from './layouts/login/login';
+import { Carrito } from './modules/carrito/carrito';
+import { Usuario } from './modules/usuario/usuario-component/usuario';
+import { ProveedorRecomendacion } from './modules/proveedor/pages/proveedor-recomendacion/proveedor-recomendacion';
+import { Admin } from './modules/admin/admin';
+import { VerOfertas } from './modules/admin/pages/ver-ofertas/ver-ofertas';
+import { authGuard } from './services/Auth/auth-guard';
+import { Estanteria } from './modules/estanteria/estanteria';
 
 export const routes: Routes = [
   {
     path: '',
-    component: HomeUser
+    component: HomeUser,
   },
   {
     path: 'proveedor',
@@ -15,11 +22,11 @@ export const routes: Routes = [
   },
   {
     path: 'register',
-    component: Register
+    component: Register,
   },
   {
     path: 'login',
-    component: Login
+    component: Login,
   },
   {
     path: 'admin',

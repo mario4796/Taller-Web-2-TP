@@ -1,0 +1,55 @@
+:host {
+  display: block;
+}
+
+.book-card {
+  background: #111827;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  height: 100%;
+}
+
+.book-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(139, 92, 246, 0.25);
+}
+
+.book-content {
+  padding: 1rem;
+}
+
+.book-content h3 {
+  color: white;
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.book-author {
+  color: #a78bfa;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.book-isbn {
+  color: #9ca3af;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.book-price {
+  color: #34d399;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+:host ::ng-deep .buy-btn {
+  width: 100%;
+}
+
+:host ::ng-deep .buy-btn .p-button {
+  width: 100%;
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  border: none;
+}

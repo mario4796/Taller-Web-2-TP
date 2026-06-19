@@ -5,11 +5,11 @@
   </div>
 
   <div class="nav-links">
-    @for (item of navItems(); track item.label) {
-    <button class="nav-link" [routerLink]="item.link" [class.active]="item.active" type="button">
-      <span class="material-symbols-rounded">{{ item.icon }}</span>
-      <span>{{ item.label }}</span>
-    </button>
+    @for (item of navItems; track item.label) {
+      <button class="nav-link" [routerLink]="item.link" [class.active]="item.active" type="button">
+        <span class="material-symbols-rounded">{{ item.icon }}</span>
+        <span>{{ item.label }}</span>
+      </button>
     }
   </div>
 
@@ -23,62 +23,80 @@
     </p-inputgroup> -->
 
     <!-- hamburger button visible on small screens -->
-    <p-button class="hamburger-button" [rounded]="true" [text]="true" styleClass="nav-icon-button"
-      (onClick)="toggleMobileNav()" aria-label="Abrir menú">
+    <p-button
+      class="hamburger-button"
+      [rounded]="true"
+      [text]="true"
+      styleClass="nav-icon-button"
+      (onClick)="toggleMobileNav()"
+      aria-label="Abrir menú"
+    >
       <span class="material-symbols-rounded">menu</span>
     </p-button>
 
-    <p-button [rounded]="true" [text]="true" styleClass="nav-icon-button" (onClick)="toggleTheme()"
-      [attr.aria-label]="isDark() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'">
+    <p-button
+      [rounded]="true"
+      [text]="true"
+      styleClass="nav-icon-button"
+      (onClick)="toggleTheme()"
+      [attr.aria-label]="isDark() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+    >
       <span class="material-symbols-rounded">
         {{ isDark() ? 'light_mode' : 'dark_mode' }}
       </span>
     </p-button>
 
-    @if (logueado()) {
-    <div class="user-menu">
-      <p-avatar label="MR" shape="circle"></p-avatar>
+    @if (logueado) {
+      <div class="user-menu">
+        <p-avatar label="MR" shape="circle"></p-avatar>
 
-      <div class="user-text">
-        <strong>{{ userName() }}</strong>
-        @switch (role()){
-        @case ('admin'){
-        <span>Administrador</span>
-        }
-        @case ('proveedor'){
-        <span>Proveedor</span>
-        }
-        @default{
-        <span>Comprador</span>
-        }
-        }
+        <div class="user-text">
+          <strong>{{ userName }}</strong>
+          @switch (role) {
+            @case ('admin') {
+              <span>Administrador</span>
+            }
+            @case ('proveedor') {
+              <span>Proveedor</span>
+            }
+            @default {
+              <span>Comprador</span>
+            }
+          }
+
+          <p-button
+            [rounded]="true"
+            [text]="true"
+            styleClass="logout-button"
+            (onClick)="logout()"
+            aria-label="Cerrar sesión"
+            routerLink="/home"
+          >
+            <span class="material-symbols-rounded"> logout </span>
+          </p-button>
+        </div>
+
+        <span class="material-symbols-rounded">expand_more</span>
       </div>
-
-      <span class="material-symbols-rounded">expand_more</span>
-    </div>
     } @else {
-    <div class="auth-buttons">
-      <p-button routerLink="/login" severity="secondary" styleClass="auth-prime-btn">
+      <div class="auth-buttons">
+        <p-button routerLink="/login" severity="secondary" styleClass="auth-prime-btn">
+          <span class="material-symbols-rounded">login</span>
+          <span>Iniciar sesión</span>
+        </p-button>
 
-        <span class="material-symbols-rounded">login</span>
-        <span>Iniciar sesión</span>
-
-      </p-button>
-
-      <p-button routerLink="/register" styleClass="auth-prime-btn">
-
-        <span class="material-symbols-rounded">person_add</span>
-        <span>Registrarme</span>
-
-      </p-button>
-    </div>
+        <p-button routerLink="/register" styleClass="auth-prime-btn">
+          <span class="material-symbols-rounded">person_add</span>
+          <span>Registrarme</span>
+        </p-button>
+      </div>
     }
   </div>
 
   <!-- mobile nav (dropdown) -->
   <div class="mobile-nav" [class.open]="mobileNavOpen()">
     <div class="mobile-nav-inner">
-      @for (item of navItems(); track item.label) {
+      @for (item of navItems; track item.label) {
       <button class="mobile-nav-item" [routerLink]="item.link" type="button" (click)="mobileNavOpen.set(false)">
         <span class="material-symbols-rounded">{{ item.icon }}</span>
         <span>{{ item.label }}</span>

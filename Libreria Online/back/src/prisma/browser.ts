@@ -38,6 +38,16 @@ export type Libros = Prisma.LibrosModel
  */
 export type Proveedores = Prisma.ProveedoresModel
 /**
+ * Model TiposUsuario
+ * 
+ */
+export type TiposUsuario = Prisma.TiposUsuarioModel
+/**
+ * Model ListaProveedor
+ * 
+ */
+export type ListaProveedor = Prisma.ListaProveedorModel
+/**
  * Model Usuarios
  * 
  */
@@ -47,3 +57,13 @@ export type Usuarios = Prisma.UsuariosModel
  * 
  */
 export type OfertaLibro = Prisma.OfertaLibroModel
+/**
+ * Model Carritos
+ * 
+ */
+export type Carritos = Prisma.CarritosModel
+/**
+ * Model DetallesCarrito
+ * 
+ */
+export type DetallesCarrito = Prisma.DetallesCarritoModel
