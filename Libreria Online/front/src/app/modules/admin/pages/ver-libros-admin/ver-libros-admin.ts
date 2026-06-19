@@ -18,6 +18,8 @@ import { OfertaLibro } from '../../../../shared/interfaces/oferta-libro.interfac
 import { ToastService } from '../../../../shared/services/toast.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of } from 'rxjs';
+import { PedirStockAdmin } from '../../components/pedir-stock-admin/pedir-stock-admin';
+import { ProveedoresService } from '../../../../api/services/usuarios/proveedores';
 
 interface ApiResponse {
   message: string;
@@ -39,18 +41,23 @@ interface ApiResponse {
     InputGroupModule,
     InputGroupAddonModule,
     ToastModule,
+    PedirStockAdmin,
   ],
   templateUrl: './ver-libros-admin.html',
   styleUrl: './ver-libros-admin.css',
 })
 export class VerLibrosAdmin {
   private librosService = inject(LibrosService);
+  private proveedoresService = inject(ProveedoresService);
   private ofertasService = inject(OfertasLibroService);
   private toastService = inject(ToastService);
   private fb = inject(FormBuilder);
+  
 
   public cargando = true;
   public errorError: string | null = null;
+  mostrarFormularioPedido = signal<boolean>(false);
+  libroSeleccionado = signal<any | null>(null);
 
   // Estado para la sección de ofertas pendientes
   ofertasPendientes = signal<OfertaLibro[]>([]);
@@ -58,6 +65,13 @@ export class VerLibrosAdmin {
   contraofertaVisible = signal(false);
   respondiendo = signal(false);
   ofertaSeleccionada = signal<OfertaLibro | undefined>(undefined);
+
+  //mock para pedir libros eligiendo proveedor
+  public proveedoresMock = [
+    { id: 10, nombre: 'Carlos', apellido: 'Editorial Planeta', email: 'planeta@libros.com', tipo_usuario: 'Proveedor' },
+    { id: 11, nombre: 'Ana', apellido: 'Distribuidora Ateneo', email: 'ateneo@libros.com', tipo_usuario: 'Proveedor' },
+    { id: 12, nombre: 'Juan', apellido: 'Ediciones Sur', email: 'sur@libros.com', tipo_usuario: 'Proveedor' }
+  ];
 
   contraofertaForm = this.fb.group({
     nuevaCantidad: [null as number | null, [Validators.required, Validators.min(1)]],
@@ -74,6 +88,17 @@ export class VerLibrosAdmin {
       })
     ),
     { initialValue: undefined }
+  );
+
+  public proveedores = toSignal(
+    this.proveedoresService.listProveedores().pipe(
+      catchError(err => {
+        console.error('Error al cargar proveedores desde el backend:', err);
+        this.toastService.error('No se pudieron cargar los proveedores reales.');
+        return of([]); 
+      })
+    ),
+    { initialValue: [] } 
   );
 
   constructor() {
@@ -163,5 +188,24 @@ export class VerLibrosAdmin {
     if (stock === 0) return 'danger';
     if (stock < 10) return 'warn';
     return 'success';
+  }
+
+  abrirPedidoStock(libro: any): void {
+  this.libroSeleccionado.set(libro);
+  this.mostrarFormularioPedido.set(true);
+ }
+  onPedidoConfirmado(evento: { cantidad: number; proveedor: any }): void {
+    const libroActual = this.libroSeleccionado();
+    if (!libroActual) return;
+
+    // 🚀 Como es local, le avisamos al Admin el éxito de la operación
+    this.toastService.updated(
+      `Pedido enviado a ${evento.proveedor.apellido}: Solicitadas ${evento.cantidad} un. de "${libroActual.nombre}"`
+    );
+
+    // Guardamos la simulación del ID del proveedor en el objeto por si vuelve a abrir el mismo libro
+    libroActual.proveedorId = evento.proveedor.id;
+
+    this.mostrarFormularioPedido.set(false);
   }
 }
