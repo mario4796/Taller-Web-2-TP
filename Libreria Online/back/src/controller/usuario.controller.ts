@@ -1,16 +1,14 @@
 import { type Request, type Response } from 'express';
-import { UsuariosService } from '../services/usuario.service.ts';
-import { UsuarioService } from '../service/usuario.service.ts';
+import { UsuarioService } from '../services/usuario.service.ts';
 import { UsuarioRepository } from '../repository/usuario.repository.ts';
 import { prisma } from "../prisma.js";
 import { EmpleadoRepository } from "../repository/empleado.repository.js";
-import { EmpleadoService } from "../service/empleado.service.js";
+import { EmpleadoService } from "../services/empleado.service.js";
 
 
 const empleadoRepository = new EmpleadoRepository();
 const usuarioRepository = new UsuarioRepository();
 const empleadoService = new EmpleadoService(empleadoRepository);
-const usuariosService = new UsuariosService(usuarioRepository);
 const usuarioService = new UsuarioService(usuarioRepository);
 
 //por ahora hay dos services usuario que hay que juntar
@@ -21,7 +19,7 @@ export class UsuarioController {
 
   public getProveedores = async (req: Request, res: Response) => {
     try {
-      const proveedores = await usuariosService.obtenerProveedores();
+      const proveedores = await usuarioService.obtenerProveedores();
       
       res.status(200).json({ 
         message: 'Proveedores obtenidos correctamente', 

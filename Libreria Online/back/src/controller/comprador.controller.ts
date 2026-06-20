@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express';
 import { prisma } from '../prisma.js';
 import { CompradorRepository } from '../repository/comprador.repository.js';
-import { CompradorService } from '../service/compradores.service.js';
+import { CompradorService } from '../services/compradores.service.js';
 import { CarritoRepository } from '../repository/carrito.repository.js';
 import { LibroRepository } from '../repository/libro.repository.js';
 
