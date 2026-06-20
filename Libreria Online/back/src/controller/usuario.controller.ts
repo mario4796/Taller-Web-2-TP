@@ -1,33 +1,13 @@
 import { type Request, type Response } from "express";
 import { prisma } from "../prisma.js";
-import { EmpleadoRepository } from "../repository/empleado.repository.js";
-import { EmpleadoService } from "../service/empleado.service.js";
-import { UsuarioService } from "../service/usuario.service.js";
-import { UsuarioRepository } from "../repository/usuario.repository.js";
+import { UsuarioService } from "../services/usuario.service.js";
 
-const empleadoRepository = new EmpleadoRepository();
+import { UsuarioRepository } from "../repository/usuario.repository.js";
 const usuarioRepository = new UsuarioRepository();
-const empleadoService = new EmpleadoService(empleadoRepository);
 const usuarioService = new UsuarioService(usuarioRepository);
 
 export class UsuarioController {
-  constructor() {
-    // Constructor vacío
-  }
-
-  public getEmpleados = async (req: Request, res: Response) => {
-    try {
-      const empleados = await empleadoService.obtenerEmpleados();
-
-      console.log(empleados);
-
-      res.status(200).json(empleados);
-    } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Error al obtener los empleados", error });
-    }
-  };
+  constructor() {}
 
   public iniciarSesion = async (req: Request, res: Response) => {
     try {

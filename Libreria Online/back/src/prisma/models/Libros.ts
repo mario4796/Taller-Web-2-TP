@@ -258,6 +258,7 @@ export type LibrosWhereInput = {
   categoria?: Prisma.EnumCategoriaLibroFilter<"Libros"> | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroListRelationFilter
   detallesCarritos?: Prisma.DetallesCarritoListRelationFilter
+  detalleTransaccions?: Prisma.DetalleTransaccionListRelationFilter
 }
 
 export type LibrosOrderByWithRelationInput = {
@@ -272,6 +273,7 @@ export type LibrosOrderByWithRelationInput = {
   categoria?: Prisma.SortOrder
   ofertas?: Prisma.OfertaLibroOrderByRelationAggregateInput
   detallesCarritos?: Prisma.DetallesCarritoOrderByRelationAggregateInput
+  detalleTransaccions?: Prisma.DetalleTransaccionOrderByRelationAggregateInput
 }
 
 export type LibrosWhereUniqueInput = Prisma.AtLeast<{
@@ -289,6 +291,7 @@ export type LibrosWhereUniqueInput = Prisma.AtLeast<{
   categoria?: Prisma.EnumCategoriaLibroFilter<"Libros"> | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroListRelationFilter
   detallesCarritos?: Prisma.DetallesCarritoListRelationFilter
+  detalleTransaccions?: Prisma.DetalleTransaccionListRelationFilter
 }, "id" | "isbn">
 
 export type LibrosOrderByWithAggregationInput = {
@@ -334,6 +337,7 @@ export type LibrosCreateInput = {
   categoria?: $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroCreateNestedManyWithoutLibroInput
   detallesCarritos?: Prisma.DetallesCarritoCreateNestedManyWithoutLibrosInput
+  detalleTransaccions?: Prisma.DetalleTransaccionCreateNestedManyWithoutLibroInput
 }
 
 export type LibrosUncheckedCreateInput = {
@@ -348,6 +352,7 @@ export type LibrosUncheckedCreateInput = {
   categoria?: $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUncheckedCreateNestedManyWithoutLibroInput
   detallesCarritos?: Prisma.DetallesCarritoUncheckedCreateNestedManyWithoutLibrosInput
+  detalleTransaccions?: Prisma.DetalleTransaccionUncheckedCreateNestedManyWithoutLibroInput
 }
 
 export type LibrosUpdateInput = {
@@ -361,6 +366,7 @@ export type LibrosUpdateInput = {
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUpdateManyWithoutLibroNestedInput
   detallesCarritos?: Prisma.DetallesCarritoUpdateManyWithoutLibrosNestedInput
+  detalleTransaccions?: Prisma.DetalleTransaccionUpdateManyWithoutLibroNestedInput
 }
 
 export type LibrosUncheckedUpdateInput = {
@@ -375,6 +381,7 @@ export type LibrosUncheckedUpdateInput = {
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUncheckedUpdateManyWithoutLibroNestedInput
   detallesCarritos?: Prisma.DetallesCarritoUncheckedUpdateManyWithoutLibrosNestedInput
+  detalleTransaccions?: Prisma.DetalleTransaccionUncheckedUpdateManyWithoutLibroNestedInput
 }
 
 export type LibrosCreateManyInput = {
@@ -470,10 +477,6 @@ export type LibrosScalarRelationFilter = {
   isNot?: Prisma.LibrosWhereInput
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
 export type DecimalFieldUpdateOperationsInput = {
   set?: runtime.Decimal | runtime.DecimalJsLike | number | string
   increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -488,10 +491,6 @@ export type NullableIntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
 }
 
 export type EnumCategoriaLibroFieldUpdateOperationsInput = {
@@ -528,6 +527,20 @@ export type LibrosUpdateOneRequiredWithoutDetallesCarritosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.LibrosUpdateToOneWithWhereWithoutDetallesCarritosInput, Prisma.LibrosUpdateWithoutDetallesCarritosInput>, Prisma.LibrosUncheckedUpdateWithoutDetallesCarritosInput>
 }
 
+export type LibrosCreateNestedOneWithoutDetalleTransaccionsInput = {
+  create?: Prisma.XOR<Prisma.LibrosCreateWithoutDetalleTransaccionsInput, Prisma.LibrosUncheckedCreateWithoutDetalleTransaccionsInput>
+  connectOrCreate?: Prisma.LibrosCreateOrConnectWithoutDetalleTransaccionsInput
+  connect?: Prisma.LibrosWhereUniqueInput
+}
+
+export type LibrosUpdateOneRequiredWithoutDetalleTransaccionsNestedInput = {
+  create?: Prisma.XOR<Prisma.LibrosCreateWithoutDetalleTransaccionsInput, Prisma.LibrosUncheckedCreateWithoutDetalleTransaccionsInput>
+  connectOrCreate?: Prisma.LibrosCreateOrConnectWithoutDetalleTransaccionsInput
+  upsert?: Prisma.LibrosUpsertWithoutDetalleTransaccionsInput
+  connect?: Prisma.LibrosWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LibrosUpdateToOneWithWhereWithoutDetalleTransaccionsInput, Prisma.LibrosUpdateWithoutDetalleTransaccionsInput>, Prisma.LibrosUncheckedUpdateWithoutDetalleTransaccionsInput>
+}
+
 export type LibrosCreateWithoutOfertasInput = {
   isbn: string
   nombre: string
@@ -538,6 +551,7 @@ export type LibrosCreateWithoutOfertasInput = {
   sinopsis?: string | null
   categoria?: $Enums.CategoriaLibro
   detallesCarritos?: Prisma.DetallesCarritoCreateNestedManyWithoutLibrosInput
+  detalleTransaccions?: Prisma.DetalleTransaccionCreateNestedManyWithoutLibroInput
 }
 
 export type LibrosUncheckedCreateWithoutOfertasInput = {
@@ -551,6 +565,7 @@ export type LibrosUncheckedCreateWithoutOfertasInput = {
   sinopsis?: string | null
   categoria?: $Enums.CategoriaLibro
   detallesCarritos?: Prisma.DetallesCarritoUncheckedCreateNestedManyWithoutLibrosInput
+  detalleTransaccions?: Prisma.DetalleTransaccionUncheckedCreateNestedManyWithoutLibroInput
 }
 
 export type LibrosCreateOrConnectWithoutOfertasInput = {
@@ -579,6 +594,7 @@ export type LibrosUpdateWithoutOfertasInput = {
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   detallesCarritos?: Prisma.DetallesCarritoUpdateManyWithoutLibrosNestedInput
+  detalleTransaccions?: Prisma.DetalleTransaccionUpdateManyWithoutLibroNestedInput
 }
 
 export type LibrosUncheckedUpdateWithoutOfertasInput = {
@@ -592,6 +608,7 @@ export type LibrosUncheckedUpdateWithoutOfertasInput = {
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   detallesCarritos?: Prisma.DetallesCarritoUncheckedUpdateManyWithoutLibrosNestedInput
+  detalleTransaccions?: Prisma.DetalleTransaccionUncheckedUpdateManyWithoutLibroNestedInput
 }
 
 export type LibrosCreateWithoutDetallesCarritosInput = {
@@ -604,6 +621,7 @@ export type LibrosCreateWithoutDetallesCarritosInput = {
   sinopsis?: string | null
   categoria?: $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroCreateNestedManyWithoutLibroInput
+  detalleTransaccions?: Prisma.DetalleTransaccionCreateNestedManyWithoutLibroInput
 }
 
 export type LibrosUncheckedCreateWithoutDetallesCarritosInput = {
@@ -617,6 +635,7 @@ export type LibrosUncheckedCreateWithoutDetallesCarritosInput = {
   sinopsis?: string | null
   categoria?: $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUncheckedCreateNestedManyWithoutLibroInput
+  detalleTransaccions?: Prisma.DetalleTransaccionUncheckedCreateNestedManyWithoutLibroInput
 }
 
 export type LibrosCreateOrConnectWithoutDetallesCarritosInput = {
@@ -645,6 +664,7 @@ export type LibrosUpdateWithoutDetallesCarritosInput = {
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUpdateManyWithoutLibroNestedInput
+  detalleTransaccions?: Prisma.DetalleTransaccionUpdateManyWithoutLibroNestedInput
 }
 
 export type LibrosUncheckedUpdateWithoutDetallesCarritosInput = {
@@ -658,6 +678,77 @@ export type LibrosUncheckedUpdateWithoutDetallesCarritosInput = {
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUncheckedUpdateManyWithoutLibroNestedInput
+  detalleTransaccions?: Prisma.DetalleTransaccionUncheckedUpdateManyWithoutLibroNestedInput
+}
+
+export type LibrosCreateWithoutDetalleTransaccionsInput = {
+  isbn: string
+  nombre: string
+  autor: string
+  precio: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number | null
+  estado?: string | null
+  sinopsis?: string | null
+  categoria?: $Enums.CategoriaLibro
+  ofertas?: Prisma.OfertaLibroCreateNestedManyWithoutLibroInput
+  detallesCarritos?: Prisma.DetallesCarritoCreateNestedManyWithoutLibrosInput
+}
+
+export type LibrosUncheckedCreateWithoutDetalleTransaccionsInput = {
+  id?: number
+  isbn: string
+  nombre: string
+  autor: string
+  precio: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number | null
+  estado?: string | null
+  sinopsis?: string | null
+  categoria?: $Enums.CategoriaLibro
+  ofertas?: Prisma.OfertaLibroUncheckedCreateNestedManyWithoutLibroInput
+  detallesCarritos?: Prisma.DetallesCarritoUncheckedCreateNestedManyWithoutLibrosInput
+}
+
+export type LibrosCreateOrConnectWithoutDetalleTransaccionsInput = {
+  where: Prisma.LibrosWhereUniqueInput
+  create: Prisma.XOR<Prisma.LibrosCreateWithoutDetalleTransaccionsInput, Prisma.LibrosUncheckedCreateWithoutDetalleTransaccionsInput>
+}
+
+export type LibrosUpsertWithoutDetalleTransaccionsInput = {
+  update: Prisma.XOR<Prisma.LibrosUpdateWithoutDetalleTransaccionsInput, Prisma.LibrosUncheckedUpdateWithoutDetalleTransaccionsInput>
+  create: Prisma.XOR<Prisma.LibrosCreateWithoutDetalleTransaccionsInput, Prisma.LibrosUncheckedCreateWithoutDetalleTransaccionsInput>
+  where?: Prisma.LibrosWhereInput
+}
+
+export type LibrosUpdateToOneWithWhereWithoutDetalleTransaccionsInput = {
+  where?: Prisma.LibrosWhereInput
+  data: Prisma.XOR<Prisma.LibrosUpdateWithoutDetalleTransaccionsInput, Prisma.LibrosUncheckedUpdateWithoutDetalleTransaccionsInput>
+}
+
+export type LibrosUpdateWithoutDetalleTransaccionsInput = {
+  isbn?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  autor?: Prisma.StringFieldUpdateOperationsInput | string
+  precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
+  ofertas?: Prisma.OfertaLibroUpdateManyWithoutLibroNestedInput
+  detallesCarritos?: Prisma.DetallesCarritoUpdateManyWithoutLibrosNestedInput
+}
+
+export type LibrosUncheckedUpdateWithoutDetalleTransaccionsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  isbn?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  autor?: Prisma.StringFieldUpdateOperationsInput | string
+  precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
+  ofertas?: Prisma.OfertaLibroUncheckedUpdateManyWithoutLibroNestedInput
+  detallesCarritos?: Prisma.DetallesCarritoUncheckedUpdateManyWithoutLibrosNestedInput
 }
 
 
@@ -668,11 +759,13 @@ export type LibrosUncheckedUpdateWithoutDetallesCarritosInput = {
 export type LibrosCountOutputType = {
   ofertas: number
   detallesCarritos: number
+  detalleTransaccions: number
 }
 
 export type LibrosCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ofertas?: boolean | LibrosCountOutputTypeCountOfertasArgs
   detallesCarritos?: boolean | LibrosCountOutputTypeCountDetallesCarritosArgs
+  detalleTransaccions?: boolean | LibrosCountOutputTypeCountDetalleTransaccionsArgs
 }
 
 /**
@@ -699,6 +792,13 @@ export type LibrosCountOutputTypeCountDetallesCarritosArgs<ExtArgs extends runti
   where?: Prisma.DetallesCarritoWhereInput
 }
 
+/**
+ * LibrosCountOutputType without action
+ */
+export type LibrosCountOutputTypeCountDetalleTransaccionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DetalleTransaccionWhereInput
+}
+
 
 export type LibrosSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -712,6 +812,7 @@ export type LibrosSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   categoria?: boolean
   ofertas?: boolean | Prisma.Libros$ofertasArgs<ExtArgs>
   detallesCarritos?: boolean | Prisma.Libros$detallesCarritosArgs<ExtArgs>
+  detalleTransaccions?: boolean | Prisma.Libros$detalleTransaccionsArgs<ExtArgs>
   _count?: boolean | Prisma.LibrosCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["libros"]>
 
@@ -755,6 +856,7 @@ export type LibrosOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type LibrosInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ofertas?: boolean | Prisma.Libros$ofertasArgs<ExtArgs>
   detallesCarritos?: boolean | Prisma.Libros$detallesCarritosArgs<ExtArgs>
+  detalleTransaccions?: boolean | Prisma.Libros$detalleTransaccionsArgs<ExtArgs>
   _count?: boolean | Prisma.LibrosCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type LibrosIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -765,6 +867,7 @@ export type $LibrosPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   objects: {
     ofertas: Prisma.$OfertaLibroPayload<ExtArgs>[]
     detallesCarritos: Prisma.$DetallesCarritoPayload<ExtArgs>[]
+    detalleTransaccions: Prisma.$DetalleTransaccionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1172,6 +1275,7 @@ export interface Prisma__LibrosClient<T, Null = never, ExtArgs extends runtime.T
   readonly [Symbol.toStringTag]: "PrismaPromise"
   ofertas<T extends Prisma.Libros$ofertasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Libros$ofertasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OfertaLibroPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   detallesCarritos<T extends Prisma.Libros$detallesCarritosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Libros$detallesCarritosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DetallesCarritoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  detalleTransaccions<T extends Prisma.Libros$detalleTransaccionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Libros$detalleTransaccionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DetalleTransaccionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1648,6 +1752,30 @@ export type Libros$detallesCarritosArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.DetallesCarritoScalarFieldEnum | Prisma.DetallesCarritoScalarFieldEnum[]
+}
+
+/**
+ * Libros.detalleTransaccions
+ */
+export type Libros$detalleTransaccionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DetalleTransaccion
+   */
+  select?: Prisma.DetalleTransaccionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DetalleTransaccion
+   */
+  omit?: Prisma.DetalleTransaccionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DetalleTransaccionInclude<ExtArgs> | null
+  where?: Prisma.DetalleTransaccionWhereInput
+  orderBy?: Prisma.DetalleTransaccionOrderByWithRelationInput | Prisma.DetalleTransaccionOrderByWithRelationInput[]
+  cursor?: Prisma.DetalleTransaccionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DetalleTransaccionScalarFieldEnum | Prisma.DetalleTransaccionScalarFieldEnum[]
 }
 
 /**

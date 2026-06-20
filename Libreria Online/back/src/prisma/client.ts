@@ -47,6 +47,11 @@ export { Prisma }
  */
 export type Administradores = Prisma.AdministradoresModel
 /**
+ * Model MetodosPago
+ * 
+ */
+export type MetodosPago = Prisma.MetodosPagoModel
+/**
  * Model Compradores
  * 
  */
@@ -91,3 +96,13 @@ export type Carritos = Prisma.CarritosModel
  * 
  */
 export type DetallesCarrito = Prisma.DetallesCarritoModel
+/**
+ * Model Transacciones
+ * 
+ */
+export type Transacciones = Prisma.TransaccionesModel
+/**
+ * Model DetalleTransaccion
+ * 
+ */
+export type DetalleTransaccion = Prisma.DetalleTransaccionModel
