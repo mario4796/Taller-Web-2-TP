@@ -46,6 +46,13 @@ export class CarritoRepository {
         },
       });
 
+      await tx.libros.update({
+        where: { id: libro.id },
+        data: {
+          stock: { decrement: cantidad },
+        },
+      });
+
       return detalle;
     });
   }

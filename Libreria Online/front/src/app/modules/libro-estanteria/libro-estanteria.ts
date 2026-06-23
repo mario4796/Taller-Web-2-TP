@@ -60,7 +60,7 @@ export class LibroEstanteria {
   onComprar = output<number>();
 
   emitirCompra() {
-    if (this.libro().stock > 0) {
+    if (this.libro().stock > 0 && localStorage.getItem('usuario') !== null) {
       this.onComprar.emit(this.libro().id);
     }
   }

@@ -40,6 +40,11 @@ export class AuthService {
     localStorage.removeItem('usuario');
   }
 
+  getUser() {
+    const usuario = localStorage.getItem('usuario') || '';
+    return JSON.parse(usuario).id;
+  }
+
   private roleMap: Record<number, string> = {
     1: 'ADMIN',
     2: 'PROVEEDOR',

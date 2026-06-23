@@ -164,13 +164,13 @@ model Transacciones {
   metodo_pago_id  Int
   monto_total     Decimal       @db.Decimal(10, 2)
   fecha_pago      DateTime      @default(now())
-  estado          String        @default("COMPLETADO") // Ej: "COMPLETADO", "PENDIENTE", "FALLIDO"
+  estado          String        @default("COMPLETADO") 
 
-  // Relaciones
+
   Comprador       Compradores   @relation(fields: [comprador_id], references: [usuario_id])
   MetodoPago      MetodosPago   @relation(fields: [metodo_pago_id], references: [id])
   
-  // Opcional: Detalle histórico (si quieres guardar qué libros se compraron)
+ 
   detalles        DetalleTransaccion[]
 }
 

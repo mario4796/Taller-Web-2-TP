@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CompradorService } from '../../../api/services/comprador/comprador-service';
 import { LibroCarrito } from '../libro-carrito/libro-carrito';
 import { ButtonModule } from 'primeng/button';
+import { AuthService } from '../../../services/Auth/auth-service';
 
 @Component({
   selector: 'app-carrito-component',
@@ -16,6 +17,7 @@ export class CarritoComponent implements OnInit {
   carrito = signal<Carrito | null>(null);
   compradorService = inject(CompradorService);
   router = inject(Router);
+  auth = inject(AuthService);
 
   ngOnInit(): void {
     this.cargarCarrito();
@@ -23,7 +25,7 @@ export class CarritoComponent implements OnInit {
   }
 
   cargarCarrito() {
-    this.compradorService.getCarritoUsuario(1).subscribe({
+    this.compradorService.getCarritoUsuario(this.auth.getUser()).subscribe({
       next: (res: Carrito) => {
         console.log(res);
         this.carrito.set(res);
@@ -38,7 +40,7 @@ export class CarritoComponent implements OnInit {
 
     this.compradorService
       .procesarPago({
-        comprador_id: 1,
+        comprador_id: this.auth.getUser(),
         metodo_pago_id: 1,
       })
       .subscribe({
@@ -58,7 +60,7 @@ export class CarritoComponent implements OnInit {
   manejarBorrado(libro_id: number) {
     this.compradorService
       .borrarProducto({
-        comprador_id: 1,
+        comprador_id: this.auth.getUser(),
         libro_id: libro_id,
       })
       .subscribe({

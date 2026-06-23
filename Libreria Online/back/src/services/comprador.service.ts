@@ -74,8 +74,6 @@ export class CompradorService {
         tx,
       );
 
-      this.validarStock(carrito);
-
       const transaccion = await this.transaccionRepository.crear(
         compradorId,
         metodoPagoId,
