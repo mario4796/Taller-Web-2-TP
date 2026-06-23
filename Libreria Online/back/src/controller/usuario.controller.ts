@@ -1,54 +1,15 @@
-import { type Request, type Response } from 'express';
-import { UsuarioService } from '../services/usuario.service.ts';
-import { UsuarioRepository } from '../repository/usuario.repository.ts';
+import { type Request, type Response } from "express";
+import { UsuarioRepository } from "../repository/usuario.repository.ts";
 import { prisma } from "../prisma.js";
-import { EmpleadoRepository } from "../repository/empleado.repository.js";
-import { EmpleadoService } from "../services/empleado.service.js";
+import { UsuarioService } from "../services/usuario.service.js";
 
-
-const empleadoRepository = new EmpleadoRepository();
 const usuarioRepository = new UsuarioRepository();
-const empleadoService = new EmpleadoService(empleadoRepository);
 const usuarioService = new UsuarioService(usuarioRepository);
 
 //por ahora hay dos services usuario que hay que juntar
 
 export class UsuarioController {
-  constructor() {
-  }
-
-  public getProveedores = async (req: Request, res: Response) => {
-    try {
-      const proveedores = await usuarioService.obtenerProveedores();
-      
-      res.status(200).json({ 
-        message: 'Proveedores obtenidos correctamente', 
-        data: proveedores 
-      });
-    } 
-    catch (error) {
-      console.error('Error en getProveedores:', error);
-      res.status(500).json({ 
-        error: 'Error al obtener los proveedores', 
-        errorDetails: error 
-      });
-    }
-  };
-
-
-  public getEmpleados = async (req: Request, res: Response) => {
-    try {
-      const empleados = await empleadoService.obtenerEmpleados();
-
-      console.log(empleados);
-
-      res.status(200).json(empleados);
-    } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Error al obtener los empleados", error });
-    }
-  };
+  constructor() {}
 
   public iniciarSesion = async (req: Request, res: Response) => {
     try {

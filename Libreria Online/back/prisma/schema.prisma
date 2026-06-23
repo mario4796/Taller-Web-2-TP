@@ -23,14 +23,15 @@ model MetodosPago {
   comprador_id    Int
   tipo            TipoMetodoPago
 
-  nombre_provider String         @db.VarChar(100) // Ej: "Visa", "MercadoPago", "Mastercard"
-  token_externo   String?        @db.VarChar(255) // Para guardar el ID de referencia de MercadoPago
+  nombre_provider String         @db.VarChar(100) 
+  token_externo   String?        @db.VarChar(255) 
   es_predeterminado Boolean      @default(false)
 
 
   Comprador       Compradores    @relation(fields: [comprador_id], references: [usuario_id], onDelete: Cascade)
 
   @@index([comprador_id])
+  transacciones Transacciones[]
 }
 
 
@@ -41,6 +42,8 @@ model Compradores {
   
 
   metodosPago MetodosPago[] 
+
+  transacciones Transacciones[]
 }
 
 model Libros {
@@ -56,6 +59,8 @@ model Libros {
   ofertas OfertaLibro[] 
 
   detallesCarritos DetallesCarrito[]
+
+  detalleTransaccions DetalleTransaccion[]
 }
 
 model Proveedores {
@@ -153,3 +158,29 @@ model DetallesCarrito {
   @@unique([carrito_id, libro_id])
 }
 
+model Transacciones {
+  id              Int           @id @default(autoincrement())
+  comprador_id    Int
+  metodo_pago_id  Int
+  monto_total     Decimal       @db.Decimal(10, 2)
+  fecha_pago      DateTime      @default(now())
+  estado          String        @default("COMPLETADO") 
+
+
+  Comprador       Compradores   @relation(fields: [comprador_id], references: [usuario_id])
+  MetodoPago      MetodosPago   @relation(fields: [metodo_pago_id], references: [id])
+  
+ 
+  detalles        DetalleTransaccion[]
+}
+
+model DetalleTransaccion {
+  id              Int           @id @default(autoincrement())
+  transaccion_id  Int
+  libro_id        Int
+  cantidad        Int
+  precio_unitario Decimal       @db.Decimal(10, 2)
+
+  Transaccion     Transacciones @relation(fields: [transaccion_id], references: [id])
+  Libro           Libros        @relation(fields: [libro_id], references: [id])
+}

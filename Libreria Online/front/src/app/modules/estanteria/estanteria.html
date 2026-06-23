@@ -5,6 +5,7 @@
 
 <div class="books-grid">
   @for (libro of libros(); track libro.id) {
-    <app-libro-estanteria [libro]="libro"></app-libro-estanteria>
+    <app-libro-estanteria [libro]="libro" (onComprar)="manejarCompra($event)">
+    </app-libro-estanteria>
   }
 </div>

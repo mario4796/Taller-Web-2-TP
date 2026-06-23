@@ -6,7 +6,7 @@ export class MetodoPagoRepository {
     tipo: "TARJETA" | "BILLETERA_VIRTUAL",
     nombreProvider: string,
   ) {
-    return await prisma.metodoPago.create({
+    return await prisma.metodosPago.create({
       data: {
         comprador_id: compradorId,
         tipo: tipo,
