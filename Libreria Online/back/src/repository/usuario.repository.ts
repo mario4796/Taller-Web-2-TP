@@ -1,19 +1,18 @@
-import { prisma } from '../prisma.js';
-import { Usuario } from '../models/usuario.model.js';
+import { prisma } from "../prisma.js";
+import { Usuario } from "../models/usuario.model.js";
 import { equal } from "node:assert";
 import { Prisma } from "../prisma/client";
 
 export class UsuarioRepository {
-    async obtenerProveedores(): Promise<any[]> {
-        
-        const proveedores = await prisma.usuarios.findMany({
-            where: {
-                tipo_usuario_id: 2
-            }
-        });
+  async obtenerProveedores(): Promise<any[]> {
+    const proveedores = await prisma.usuarios.findMany({
+      where: {
+        tipo_usuario_id: 2,
+      },
+    });
 
-        return proveedores;
-    }
+    return proveedores;
+  }
 
   async findAllUsuarios() {
     const usuarios = await prisma.usuarios.findMany();
@@ -50,6 +49,13 @@ export class UsuarioRepository {
         apellido: apellido,
         direccion: direccion,
         tipo_usuario_id: tipo_usuario,
+        Compradores: {
+          create: {
+            Carrito: {
+              create: {},
+            },
+          },
+        },
       },
     });
   }
