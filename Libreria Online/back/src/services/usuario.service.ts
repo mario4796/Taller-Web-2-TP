@@ -1,10 +1,18 @@
-import { dir } from "node:console";
-import type { EmpleadoRepository } from "../repository/empleado.repository.js";
-import { UsuarioRepository } from "../repository/usuario.repository.js";
+import { UsuarioRepository } from '../repository/usuario.repository.js';
 
 export class UsuarioService {
-  constructor(private usuarioRepository: UsuarioRepository) {}
+  
+  private usuarioRepository: UsuarioRepository;
 
+  constructor(usuarioRepository: UsuarioRepository) {
+    this.usuarioRepository = usuarioRepository;
+  }
+
+  public async obtenerProveedores() {
+   
+    return await this.usuarioRepository.obtenerProveedores();
+  }
+  
   async obtenerEmpleados() {
     return await this.usuarioRepository.findAllUsuarios();
   }

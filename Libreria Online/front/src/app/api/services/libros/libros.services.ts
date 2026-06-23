@@ -2,10 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-import { Libro } from '../../modules/libros/interfaces/libro.interface';
-import { LibroRest } from './mapping/libro.interface.rest';
-import { LibroMapper } from './mapping/libro.mapper';
-import { environment } from '../../../environmets/environmet.development';
+//hay otra interfaz en shared/interfaces/libro.interface.ts que por ahora esta comentado.
+import { Libro } from '../../../shared/interfaces/libro.interface';
+
+
+import { LibroRest } from '../../mapper/libros/libro.interface.rest';
+import { LibroMapper } from '../../mapper/libros/libro.mapper';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +17,7 @@ export class LibrosService {
 
   http = inject(HttpClient);
 
-  private apiUrl = `${environment.API_URL}/libros`;
+  private apiUrl = `${environment.API_URL}/api/libros`;
 
   listLibros(): Observable<Libro[]> {
     console.log("Pidiéndole los libros al backend...");

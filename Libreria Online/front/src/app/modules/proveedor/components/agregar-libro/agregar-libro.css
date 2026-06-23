@@ -21,8 +21,17 @@
   width: 100%;
 }
 
-.book-inputgroup :is(input, .p-inputnumber, .p-floatlabel) {
+.book-inputgroup :is(input, textarea, .p-inputnumber, .p-select, .p-floatlabel) {
   width: 100%;
+}
+
+.book-inputgroup textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.textarea-inputgroup {
+  align-items: stretch;
 }
 
 .dialog-actions {

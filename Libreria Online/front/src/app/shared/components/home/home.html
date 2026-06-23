@@ -1,32 +1,32 @@
 <main class="page-content">
-  <section class="welcome-section" [style.background-image]="'url(' + imageBanner + ')'">
+  <section class="welcome-section" [style.background-image]="'url(' + imageBanner() + ')'">
     <div>
-      <p class="eyebrow">{{ eyebrow }}</p>
-      <h1>{{ title }}</h1>
+      <p class="eyebrow">{{ eyebrow() }}</p>
+      <h1>{{ title() }}</h1>
       <p class="description">
-        {{ description }}
+        {{ description() }}
       </p>
     </div>
 
     <div class="welcome-actions">
-      @if (buttonRoute) {
+      @if (buttonRoute()) {
         <p-button
-          [routerLink]="buttonRoute"
-          label="{{buttonText}}"
+          [routerLink]="buttonRoute()"
+          label="{{buttonText()}}"
           icon="pi pi-arrow-right"
           iconPos="right"
           severity="help">
         </p-button>
       } @else {
         <p-button
-          label="{{buttonText}}"
+          label="{{buttonText()}}"
           icon="pi pi-arrow-right"
           iconPos="right"
           severity="help">
         </p-button>
       }
 
-      <p-button label="{{buttonLink}}" [routerLink]="buttonLinkRoute" icon="pi pi-plus" iconPos="left" severity="help" [outlined]="true"></p-button>
+      <p-button label="{{buttonLink()}}" [routerLink]="buttonLinkRoute()" icon="pi pi-plus" iconPos="left" severity="help" [outlined]="true"></p-button>
     </div>
   </section>
 

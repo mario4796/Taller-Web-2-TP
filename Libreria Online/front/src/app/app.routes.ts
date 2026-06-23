@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { HomeUser } from './layouts/home-user/home-user';
-import { ProveedorHome } from './modules/proveedor/pages/proveedor-home/proveedor-home';
-import { Libros } from './modules/proveedor/pages/libros/libros';
 import { Register } from './layouts/register/register';
 import { Login } from './layouts/login/login';
 import { ProveedorRecomendacion } from './modules/proveedor/pages/proveedor-recomendacion/proveedor-recomendacion';
@@ -18,17 +16,8 @@ export const routes: Routes = [
   },
   {
     path: 'proveedor',
-    component: ProveedorHome,
-    canActivate: [authGuard],
-    data: { roles: ['PROVEEDOR'] },
-  },
-  {
-    path: 'proveedor/libros',
-    component: Libros,
-  },
-  {
-    path: 'proveedor/proveedor-recomendacion',
-    component: ProveedorRecomendacion,
+    loadChildren: () =>
+      import('./modules/proveedor/proveedor.routes').then((m) => m.proveedorRoutes),
   },
   {
     path: 'register',
@@ -40,7 +29,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    component: Admin,
+    loadChildren: () => import('./modules/admin/admin.routes').then((m) => m.adminRoutes),
   },
   {
     path: 'admin',

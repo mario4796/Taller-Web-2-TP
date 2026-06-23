@@ -2,11 +2,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 
 import { DataViewModule } from 'primeng/dataview';
 
-import { LibrosService } from '../../services/libros/libros.services';
+import { LibrosService } from '../../api/services/libros/libros.services';
 import { LibroEstanteria } from '../libro-estanteria/libro-estanteria';
-import { Libro } from '../libros/interfaces/libro.interface';
 import { CompradorService } from '../../api/services/comprador/comprador-service';
 import { AuthService } from '../../services/Auth/auth-service';
+import { Libro } from '../../shared/interfaces/libro.interface';
 
 @Component({
   selector: 'app-estanteria',

@@ -1,5 +1,5 @@
 import { LibroRest } from './libro.interface.rest';
-import { Libro } from '../../../modules/libros/interfaces/libro.interface';
+import { Libro } from '../../../shared/interfaces/libro.interface';
 
 export class LibroMapper {
   static mapRestLibrotoLibroFrontU(libroRest: LibroRest): Libro {
@@ -8,7 +8,7 @@ export class LibroMapper {
       nombre: libroRest.nombre,
       isbn: libroRest.isbn,
       autor: libroRest.autor,
-      precio: libroRest.precio,
+      precio: Number(libroRest.precio),
       stock: libroRest.stock,
     };
   }

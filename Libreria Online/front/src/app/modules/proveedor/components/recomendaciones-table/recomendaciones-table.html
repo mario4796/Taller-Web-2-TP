@@ -1,0 +1,127 @@
+<p-table
+  #tablaRecomendaciones
+  [value]="recomendaciones()"
+  [globalFilterFields]="['nombre', 'autor', 'isbn', 'estado', 'categoria', 'sinopsis']"
+  [loading]="cargando()"
+  [tableStyle]="{ 'min-width': '100%' }"
+  styleClass="p-datatable-striped recommendations-table"
+  [paginator]="true"
+  [rows]="5"
+  [rowsPerPageOptions]="[5, 10, 20]">
+
+  <ng-template pTemplate="caption">
+    <div class="recommendations-caption">
+      <p-inputgroup class="recommendations-search-group">
+        <p-inputgroup-addon>
+          <i class="pi pi-search"></i>
+        </p-inputgroup-addon>
+        <p-floatlabel variant="in">
+          <input
+            pInputText
+            id="recommendation-search"
+            type="text"
+            [ngModel]="searchValue()"
+            (ngModelChange)="buscarRecomendaciones($event)" />
+          <label for="recommendation-search">Buscar recomendacion</label>
+        </p-floatlabel>
+      </p-inputgroup>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Portada</th>
+      <th>Titulo</th>
+      <th>Autor</th>
+      <th>ISBN</th>
+      <th>Categoria</th>
+      <th>Sinopsis</th>
+      <th>Precio proveedor</th>
+      <th>Cantidad</th>
+      <th>Estado</th>
+      <th style="text-align: center;">Acciones</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-recomendacion>
+    <tr>
+      <td>
+        <div class="cover-cell">
+          <img
+            [src]="portadaUrl(recomendacion.isbn)"
+            [alt]="'Portada de ' + recomendacion.nombre"
+            (error)="ocultarPortada($event)" />
+        </div>
+      </td>
+      <td><strong>{{ recomendacion.nombre }}</strong></td>
+      <td>{{ recomendacion.autor }}</td>
+      <td>{{ recomendacion.isbn }}</td>
+      <td>{{ recomendacion.categoria }}</td>
+      <td>
+        <p-button
+          icon="pi pi-align-left"
+          [rounded]="true"
+          [text]="true"
+          severity="secondary"
+          title="Ver sinopsis"
+          (click)="sinopsisPopover.toggle($event)">
+        </p-button>
+        <p-popover #sinopsisPopover>
+          <div class="synopsis-popover">
+            <strong>Sinopsis</strong>
+            <p>{{ sinopsisTexto(recomendacion) }}</p>
+          </div>
+        </p-popover>
+      </td>
+      <td>{{ recomendacion.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</td>
+      <td>
+        <div class="quantity-cell">
+          <span>{{ recomendacion.cantidadProveedor }} uds.</span>
+          <br>
+          @if (recomendacion.cantidadAdmin && recomendacion.estado === 'ESPERANDO_PROVEEDOR') {
+            <small color="warning">Admin propuso {{ recomendacion.cantidadAdmin }}</small>
+          }
+        </div>
+      </td>
+      <td>
+        <p-tag [value]="estadoLabel(recomendacion.estado)" [severity]="estadoSeverity(recomendacion.estado)"></p-tag>
+      </td>
+      <td style="text-align: center;">
+        @if (puedeResponder(recomendacion)) {
+          <p-button
+            icon="pi pi-check"
+            [rounded]="true"
+            [text]="true"
+            severity="success"
+            title="Aceptar propuesta del admin y enviar al administrador"
+            (click)="aceptar.emit(recomendacion)">
+          </p-button>
+          <p-button
+            icon="pi pi-reply"
+            [rounded]="true"
+            [text]="true"
+            severity="info"
+            title="Modificar y enviar una nueva contraoferta"
+            (click)="contraofertar.emit(recomendacion)">
+          </p-button>
+          <p-button
+            icon="pi pi-times"
+            [rounded]="true"
+            [text]="true"
+            severity="danger"
+            title="Rechazar contraoferta y eliminar oferta"
+            (click)="rechazar.emit(recomendacion)">
+          </p-button>
+        }
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="10" style="text-align: center; padding: 2rem;">
+        No hay libros recomendados todavia.
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

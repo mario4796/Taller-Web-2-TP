@@ -1,29 +1,28 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, inject, signal } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { catchError, of } from 'rxjs';
+
+import { LibrosService } from '../../../../api/services/libros/libros.services';
+import { OfertasLibroService } from '../../../../api/services/ofertas-libro/ofertas-libro.service';
+import { Nav } from '../../../../shared/components/nav/nav';
+
+import { EstadoOferta, NuevaOfertaLibro, OfertaLibro } from '../../../../shared/interfaces/oferta-libro.interface';
+import { ToastService } from '../../../../shared/services/toast.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { Table, TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { TableModule, Table } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
-import { catchError, of } from 'rxjs';
-
-import { Nav } from '../../../../shared/components/nav/nav';
-import { ToastService } from '../../../../services/toast.service';
-import { OfertasLibroService } from '../../../../services/ofertas-libro/ofertas-libro.service';
-import { LibrosService } from '../../../../services/libros/libros.services';
-import { EstadoOferta, OfertaLibro } from '../../interfaces/oferta-libro.interface';
-import { Libro } from '../../../libros/interfaces/libro.interface';
-
+import { Libro } from '../../../../shared/interfaces/libro.interface';
 interface OpenLibraryBook {
   title?: string;
   subtitle?: string;

@@ -7,3 +7,4 @@ export class Usuario {
   direccion!: string;
   tipo_usuario!: number;
 }
+//tipo usuario cambio de string a number

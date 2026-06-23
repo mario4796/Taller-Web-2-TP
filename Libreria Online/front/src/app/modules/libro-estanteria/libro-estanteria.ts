@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { Libro } from '../libros/interfaces/libro.interface';
+import { Libro } from '../../shared/interfaces/libro.interface';
 
 @Component({
   selector: 'app-libro-estanteria',

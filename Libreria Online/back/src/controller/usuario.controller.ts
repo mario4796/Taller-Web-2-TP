@@ -1,10 +1,12 @@
 import { type Request, type Response } from "express";
+import { UsuarioRepository } from "../repository/usuario.repository.ts";
 import { prisma } from "../prisma.js";
 import { UsuarioService } from "../services/usuario.service.js";
 
-import { UsuarioRepository } from "../repository/usuario.repository.js";
 const usuarioRepository = new UsuarioRepository();
 const usuarioService = new UsuarioService(usuarioRepository);
+
+//por ahora hay dos services usuario que hay que juntar
 
 export class UsuarioController {
   constructor() {}

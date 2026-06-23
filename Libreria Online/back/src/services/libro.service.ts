@@ -24,7 +24,7 @@ export class LibroService {
         async crearLibro(libro: Libro) {
             const {nombre , isbn , precio , autor ,  stock, categoria, sinopsis } = libro;
 
-            if (!nombre || !isbn || !autor || !precio || !stock || !categoria) {
+            if (!nombre || !isbn || !autor || precio == null || stock == null || !categoria) {
                 throw new Error('Faltan campos obligatorios para crear el libro');
             }
 

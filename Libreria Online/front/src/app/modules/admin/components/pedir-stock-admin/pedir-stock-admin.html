@@ -1,0 +1,57 @@
+<p-dialog 
+  [header]="'Solicitar Reposición: ' + (libro()?.nombre || '')" 
+  [visible]="visible()" 
+  (visibleChange)="visibleChange.emit($event)"
+  [modal]="true" 
+  [style]="{ width: '28rem' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="cerrar()">
+  
+  <div style="padding-top: 1rem; display: flex; flex-direction: column; gap: 1.5rem;">
+    <p style="margin: 0; font-size: 0.95rem; color: #6b7280;">
+      Seleccioná qué proveedor de la entidad <i>Usuarios</i> despachará las copias de este libro.
+    </p>
+
+    <p-inputgroup>
+      <p-floatlabel variant="in">
+        <p-select 
+          id="select-proveedor"
+          [options]="proveedores()" [(ngModel)]="proveedorSeleccionado" 
+          optionLabel="apellido" 
+          placeholder="Seleccioná un proveedor"
+          [style]="{'width': '100%'}"
+          appendTo="body"
+          required>
+        </p-select>
+        <label for="select-proveedor">Proveedor Mapeado (Usuario)</label>
+      </p-floatlabel>
+      <p-inputgroup-addon><i class="pi pi-truck"></i></p-inputgroup-addon>
+    </p-inputgroup>
+
+    <p-inputgroup>
+      <p-floatlabel variant="in">
+        <p-inputnumber 
+          inputId="cantidadStock" 
+          [(ngModel)]="cantidadInput"
+          [min]="1"
+          [useGrouping]="false"
+          required>
+        </p-inputnumber>
+        <label for="cantidadStock">Cantidad de unidades</label>
+      </p-floatlabel>
+      <p-inputgroup-addon><i class="pi pi-box"></i></p-inputgroup-addon>
+    </p-inputgroup>
+  </div>
+
+  <div class="dialog-actions" style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 2rem;">
+    <p-button label="Cancelar" severity="danger" [text]="true" (click)="cerrar()"></p-button>
+    <p-button 
+      label="Confirmar Pedido" 
+      [outlined]="true" 
+      severity="secondary" 
+      (click)="enviarPedido()" 
+      [disabled]="!cantidadInput() || cantidadInput()! <= 0 || !proveedorSeleccionado()">
+    </p-button>
+  </div>
+</p-dialog>
