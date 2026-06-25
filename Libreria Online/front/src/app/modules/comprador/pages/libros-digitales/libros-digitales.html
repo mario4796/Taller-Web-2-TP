@@ -1,0 +1,65 @@
+<app-nav [userName]="userName" [role]="role" activeItem="Libros Digitales"></app-nav>
+
+<p-toast position="top-right"></p-toast>
+
+<section class="digital-page">
+    <header class="digital-header">
+        <p class="digital-eyebrow">Mi biblioteca</p>
+        <h2>Libros Digitales</h2>
+        <p class="digital-description">Accedé a los libros digitales que adquiriste. Podés abrirlos directamente desde esta pantalla.</p>
+    </header>
+
+    <div class="card">
+        <p-table
+            [value]="librosAdquiridos"
+            [loading]="cargando"
+            [tableStyle]="{ 'min-width': '40rem' }"
+            styleClass="p-datatable-striped digital-table"
+            [paginator]="true"
+            [rows]="8"
+            [rowsPerPageOptions]="[8, 16, 32]">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>ISBN</th>
+                    <th>Fecha de adquisición</th>
+                    <th style="text-align: center;">Acciones</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-adquirido>
+                <tr>
+                    <td>
+                        <div class="libro-nombre">
+                            <i class="pi pi-file-pdf digital-icon"></i>
+                            <strong>{{ adquirido.Libros.nombre }}</strong>
+                        </div>
+                    </td>
+                    <td>{{ adquirido.Libros.autor }}</td>
+                    <td>{{ adquirido.Libros.isbn }}</td>
+                    <td>{{ adquirido.fecha_adquisicion | date:'dd/MM/yyyy' }}</td>
+                    <td style="text-align: center;">
+                        <p-button
+                            label="Leer PDF"
+                            icon="pi pi-external-link"
+                            [rounded]="true"
+                            severity="success"
+                            (click)="abrirPdf(adquirido.Libros.id)">
+                        </p-button>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 3rem;">
+                        <i class="pi pi-inbox" style="font-size: 2rem; color: #94a3b8; display: block; margin-bottom: 1rem;"></i>
+                        Todavía no adquiriste ningún libro digital.
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</section>

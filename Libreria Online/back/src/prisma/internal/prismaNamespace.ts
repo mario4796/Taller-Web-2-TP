@@ -16,10 +16,10 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "../models.js"
-import { type PrismaClient } from "./class.js"
+import type * as Prisma from "../models.ts"
+import { type PrismaClient } from "./class.ts"
 
-export type * from '../models.js'
+export type * from '../models.ts'
 
 export type DMMF = typeof runtime.DMMF
 
@@ -387,6 +387,7 @@ export const ModelName = {
   Administradores: 'Administradores',
   Compradores: 'Compradores',
   Libros: 'Libros',
+  LibroDigitalAdquirido: 'LibroDigitalAdquirido',
   Proveedores: 'Proveedores',
   Usuarios: 'Usuarios'
 } as const
@@ -404,7 +405,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "administradores" | "compradores" | "libros" | "proveedores" | "usuarios"
+    modelProps: "administradores" | "compradores" | "libros" | "libroDigitalAdquirido" | "proveedores" | "usuarios"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -630,6 +631,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LibroDigitalAdquirido: {
+      payload: Prisma.$LibroDigitalAdquiridoPayload<ExtArgs>
+      fields: Prisma.LibroDigitalAdquiridoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LibroDigitalAdquiridoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibroDigitalAdquiridoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LibroDigitalAdquiridoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibroDigitalAdquiridoPayload>
+        }
+        findFirst: {
+          args: Prisma.LibroDigitalAdquiridoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibroDigitalAdquiridoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LibroDigitalAdquiridoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibroDigitalAdquiridoPayload>
+        }
+        findMany: {
+          args: Prisma.LibroDigitalAdquiridoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibroDigitalAdquiridoPayload>[]
+        }
+        create: {
+          args: Prisma.LibroDigitalAdquiridoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibroDigitalAdquiridoPayload>
+        }
+        createMany: {
+          args: Prisma.LibroDigitalAdquiridoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LibroDigitalAdquiridoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibroDigitalAdquiridoPayload>[]
+        }
+        delete: {
+          args: Prisma.LibroDigitalAdquiridoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibroDigitalAdquiridoPayload>
+        }
+        update: {
+          args: Prisma.LibroDigitalAdquiridoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibroDigitalAdquiridoPayload>
+        }
+        deleteMany: {
+          args: Prisma.LibroDigitalAdquiridoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LibroDigitalAdquiridoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LibroDigitalAdquiridoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibroDigitalAdquiridoPayload>[]
+        }
+        upsert: {
+          args: Prisma.LibroDigitalAdquiridoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibroDigitalAdquiridoPayload>
+        }
+        aggregate: {
+          args: Prisma.LibroDigitalAdquiridoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLibroDigitalAdquirido>
+        }
+        groupBy: {
+          args: Prisma.LibroDigitalAdquiridoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LibroDigitalAdquiridoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LibroDigitalAdquiridoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LibroDigitalAdquiridoCountAggregateOutputType> | number
+        }
+      }
+    }
     Proveedores: {
       payload: Prisma.$ProveedoresPayload<ExtArgs>
       fields: Prisma.ProveedoresFieldRefs
@@ -838,10 +913,21 @@ export const LibrosScalarFieldEnum = {
   autor: 'autor',
   precio: 'precio',
   stock: 'stock',
-  estado: 'estado'
+  estado: 'estado',
+  archivoDigital: 'archivoDigital'
 } as const
 
 export type LibrosScalarFieldEnum = (typeof LibrosScalarFieldEnum)[keyof typeof LibrosScalarFieldEnum]
+
+
+export const LibroDigitalAdquiridoScalarFieldEnum = {
+  id: 'id',
+  comprador_id: 'comprador_id',
+  libro_id: 'libro_id',
+  fecha_adquisicion: 'fecha_adquisicion'
+} as const
+
+export type LibroDigitalAdquiridoScalarFieldEnum = (typeof LibroDigitalAdquiridoScalarFieldEnum)[keyof typeof LibroDigitalAdquiridoScalarFieldEnum]
 
 
 export const ProveedoresScalarFieldEnum = {
@@ -933,6 +1019,20 @@ export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'Decimal[]'
  */
 export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime'
+ */
+export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime[]'
+ */
+export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -1062,6 +1162,7 @@ export type GlobalOmitConfig = {
   administradores?: Prisma.AdministradoresOmit
   compradores?: Prisma.CompradoresOmit
   libros?: Prisma.LibrosOmit
+  libroDigitalAdquirido?: Prisma.LibroDigitalAdquiridoOmit
   proveedores?: Prisma.ProveedoresOmit
   usuarios?: Prisma.UsuariosOmit
 }

@@ -10,7 +10,8 @@ export class LibroMapper{
         isbn: libroRest.isbn,
         autor: libroRest.autor,
         precio: libroRest.precio,
-        stock: libroRest.stock
+        stock: libroRest.stock,
+        archivoDigital: libroRest.archivoDigital
       }
   }
 

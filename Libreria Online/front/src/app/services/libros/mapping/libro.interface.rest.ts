@@ -4,6 +4,6 @@ export interface LibroRest {
     isbn: string;
     autor: string;
     precio: number;
-    stock  : number;
-
+    stock: number;
+    archivoDigital?: string | null;
 }

@@ -17,13 +17,13 @@ export class LibroService {
         }
 
         async crearLibro(libro: Libro) {
-            const {nombre , isbn , precio , autor ,  stock } = libro;
+            const { nombre, isbn, precio, autor, stock, archivoDigital } = libro;
 
-            if (!nombre || !isbn || !autor || !precio || !stock) {
+            if (!nombre || !isbn || !autor) {
                 throw new Error('Faltan campos obligatorios para crear el libro');
             }
 
-            return await this.libroRepository.createLibro({ nombre, isbn, precio, autor, stock });
+            return await this.libroRepository.createLibro({ nombre, isbn, precio, autor, stock, archivoDigital });
         }
 
         async actualizarLibro(id: number, data: { nombre: string, isbn: string, precio: number, autor: string }) {

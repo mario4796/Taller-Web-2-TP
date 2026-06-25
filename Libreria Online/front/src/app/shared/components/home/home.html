@@ -30,12 +30,107 @@
     </div>
   </section>
 
-  <section class="empty-preview">
-    <div class="empty-icon">
-      <span class="material-symbols-rounded">dashboard_customize</span>
-    </div>
+  <section class="accesos-rapidos">
+    <h2 class="accesos-title">Acceso rápido</h2>
 
-    <h2>Contenido</h2>
-    <p>Selecciona una acción para continuar.</p>
+    <div class="accesos-grid">
+
+      @if (role === 'comprador') {
+        <a class="acceso-card" routerLink="/comprador/libros-digitales">
+          <div class="acceso-icon">
+            <span class="material-symbols-rounded">menu_book</span>
+          </div>
+          <div class="acceso-info">
+            <span class="acceso-label">Libros Digitales</span>
+            <span class="acceso-desc">Accedé a tus PDFs adquiridos</span>
+          </div>
+          <span class="material-symbols-rounded acceso-arrow">chevron_right</span>
+        </a>
+
+        <a class="acceso-card" routerLink="/">
+          <div class="acceso-icon">
+            <span class="material-symbols-rounded">shopping_cart</span>
+          </div>
+          <div class="acceso-info">
+            <span class="acceso-label">Mis Pedidos</span>
+            <span class="acceso-desc">Revisá el estado de tus compras</span>
+          </div>
+          <span class="material-symbols-rounded acceso-arrow">chevron_right</span>
+        </a>
+      }
+
+      @if (role === 'proveedor') {
+        <a class="acceso-card" routerLink="/proveedor/proveedor-recomendacion">
+          <div class="acceso-icon">
+            <span class="material-symbols-rounded">auto_stories</span>
+          </div>
+          <div class="acceso-info">
+            <span class="acceso-label">Recomendar Libro</span>
+            <span class="acceso-desc">Enviá una oferta al administrador</span>
+          </div>
+          <span class="material-symbols-rounded acceso-arrow">chevron_right</span>
+        </a>
+
+        <a class="acceso-card" routerLink="/proveedor/libros">
+          <div class="acceso-icon">
+            <span class="material-symbols-rounded">inventory_2</span>
+          </div>
+          <div class="acceso-info">
+            <span class="acceso-label">Mis Ofertas</span>
+            <span class="acceso-desc">Ver el estado de tus recomendaciones</span>
+          </div>
+          <span class="material-symbols-rounded acceso-arrow">chevron_right</span>
+        </a>
+      }
+
+      @if (role === 'admin') {
+        <a class="acceso-card" routerLink="/">
+          <div class="acceso-icon">
+            <span class="material-symbols-rounded">sell</span>
+          </div>
+          <div class="acceso-info">
+            <span class="acceso-label">Ofertas Pendientes</span>
+            <span class="acceso-desc">Revisá y negociá ofertas de proveedores</span>
+          </div>
+          <span class="material-symbols-rounded acceso-arrow">chevron_right</span>
+        </a>
+
+        <a class="acceso-card" routerLink="/proveedor/libros">
+          <div class="acceso-icon">
+            <span class="material-symbols-rounded">book</span>
+          </div>
+          <div class="acceso-info">
+            <span class="acceso-label">Gestión de Libros</span>
+            <span class="acceso-desc">Administrá el catálogo completo</span>
+          </div>
+          <span class="material-symbols-rounded acceso-arrow">chevron_right</span>
+        </a>
+      }
+
+      @if (!role) {
+        <a class="acceso-card" routerLink="/login">
+          <div class="acceso-icon">
+            <span class="material-symbols-rounded">login</span>
+          </div>
+          <div class="acceso-info">
+            <span class="acceso-label">Iniciar Sesión</span>
+            <span class="acceso-desc">Accedé a tu cuenta</span>
+          </div>
+          <span class="material-symbols-rounded acceso-arrow">chevron_right</span>
+        </a>
+
+        <a class="acceso-card" routerLink="/register">
+          <div class="acceso-icon">
+            <span class="material-symbols-rounded">person_add</span>
+          </div>
+          <div class="acceso-info">
+            <span class="acceso-label">Crear Cuenta</span>
+            <span class="acceso-desc">Registrate para comenzar</span>
+          </div>
+          <span class="material-symbols-rounded acceso-arrow">chevron_right</span>
+        </a>
+      }
+
+    </div>
   </section>
 </main>

@@ -5,6 +5,7 @@ import { Libros } from './modules/proveedor/pages/libros/libros';
 import { Register } from './layouts/register/register';
 import { Login } from './layouts/login/login';
 import { ProveedorRecomendacion } from './modules/proveedor/pages/proveedor-recomendacion/proveedor-recomendacion';
+import { LibrosDigitales } from './modules/comprador/pages/libros-digitales/libros-digitales';
 
 export const routes: Routes = [
   {
@@ -24,6 +25,10 @@ export const routes: Routes = [
     component: ProveedorRecomendacion
   },
   {
+    path: 'comprador/libros-digitales',
+    component: LibrosDigitales
+  },
+  {
     path: 'register',
     component: Register
   },
@@ -31,6 +36,4 @@ export const routes: Routes = [
     path: 'login',
     component: Login
   }
-
-
 ];

@@ -10,10 +10,8 @@ import { Home } from '../../shared/components/home/home';
   styleUrl: './home-user.css',
 })
 export class HomeUser {
-  //nav//
-
   logueado = false;
-  //home//
+  role = 'comprador';
 
   imageBanner = 'img/libreria_banner_transparente.svg';
   eyebrow = 'Bienvenido a la Librería Online';

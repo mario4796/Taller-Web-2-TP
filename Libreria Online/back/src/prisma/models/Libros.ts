@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.js"
-import type * as Prisma from "../internal/prismaNamespace.js"
+import type * as $Enums from "../enums.ts"
+import type * as Prisma from "../internal/prismaNamespace.ts"
 
 /**
  * Model Libros
@@ -46,6 +46,7 @@ export type LibrosMinAggregateOutputType = {
   precio: runtime.Decimal | null
   stock: number | null
   estado: string | null
+  archivoDigital: string | null
 }
 
 export type LibrosMaxAggregateOutputType = {
@@ -56,6 +57,7 @@ export type LibrosMaxAggregateOutputType = {
   precio: runtime.Decimal | null
   stock: number | null
   estado: string | null
+  archivoDigital: string | null
 }
 
 export type LibrosCountAggregateOutputType = {
@@ -66,6 +68,7 @@ export type LibrosCountAggregateOutputType = {
   precio: number
   stock: number
   estado: number
+  archivoDigital: number
   _all: number
 }
 
@@ -90,6 +93,7 @@ export type LibrosMinAggregateInputType = {
   precio?: true
   stock?: true
   estado?: true
+  archivoDigital?: true
 }
 
 export type LibrosMaxAggregateInputType = {
@@ -100,6 +104,7 @@ export type LibrosMaxAggregateInputType = {
   precio?: true
   stock?: true
   estado?: true
+  archivoDigital?: true
 }
 
 export type LibrosCountAggregateInputType = {
@@ -110,6 +115,7 @@ export type LibrosCountAggregateInputType = {
   precio?: true
   stock?: true
   estado?: true
+  archivoDigital?: true
   _all?: true
 }
 
@@ -207,6 +213,7 @@ export type LibrosGroupByOutputType = {
   precio: runtime.Decimal
   stock: number | null
   estado: string | null
+  archivoDigital: string | null
   _count: LibrosCountAggregateOutputType | null
   _avg: LibrosAvgAggregateOutputType | null
   _sum: LibrosSumAggregateOutputType | null
@@ -240,6 +247,8 @@ export type LibrosWhereInput = {
   precio?: Prisma.DecimalFilter<"Libros"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.IntNullableFilter<"Libros"> | number | null
   estado?: Prisma.StringNullableFilter<"Libros"> | string | null
+  archivoDigital?: Prisma.StringNullableFilter<"Libros"> | string | null
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoListRelationFilter
 }
 
 export type LibrosOrderByWithRelationInput = {
@@ -250,6 +259,8 @@ export type LibrosOrderByWithRelationInput = {
   precio?: Prisma.SortOrder
   stock?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivoDigital?: Prisma.SortOrderInput | Prisma.SortOrder
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoOrderByRelationAggregateInput
 }
 
 export type LibrosWhereUniqueInput = Prisma.AtLeast<{
@@ -263,6 +274,8 @@ export type LibrosWhereUniqueInput = Prisma.AtLeast<{
   precio?: Prisma.DecimalFilter<"Libros"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.IntNullableFilter<"Libros"> | number | null
   estado?: Prisma.StringNullableFilter<"Libros"> | string | null
+  archivoDigital?: Prisma.StringNullableFilter<"Libros"> | string | null
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoListRelationFilter
 }, "id" | "isbn">
 
 export type LibrosOrderByWithAggregationInput = {
@@ -273,6 +286,7 @@ export type LibrosOrderByWithAggregationInput = {
   precio?: Prisma.SortOrder
   stock?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivoDigital?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.LibrosCountOrderByAggregateInput
   _avg?: Prisma.LibrosAvgOrderByAggregateInput
   _max?: Prisma.LibrosMaxOrderByAggregateInput
@@ -291,6 +305,7 @@ export type LibrosScalarWhereWithAggregatesInput = {
   precio?: Prisma.DecimalWithAggregatesFilter<"Libros"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.IntNullableWithAggregatesFilter<"Libros"> | number | null
   estado?: Prisma.StringNullableWithAggregatesFilter<"Libros"> | string | null
+  archivoDigital?: Prisma.StringNullableWithAggregatesFilter<"Libros"> | string | null
 }
 
 export type LibrosCreateInput = {
@@ -300,6 +315,8 @@ export type LibrosCreateInput = {
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: number | null
   estado?: string | null
+  archivoDigital?: string | null
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoCreateNestedManyWithoutLibrosInput
 }
 
 export type LibrosUncheckedCreateInput = {
@@ -310,6 +327,8 @@ export type LibrosUncheckedCreateInput = {
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: number | null
   estado?: string | null
+  archivoDigital?: string | null
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedCreateNestedManyWithoutLibrosInput
 }
 
 export type LibrosUpdateInput = {
@@ -319,6 +338,8 @@ export type LibrosUpdateInput = {
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivoDigital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUpdateManyWithoutLibrosNestedInput
 }
 
 export type LibrosUncheckedUpdateInput = {
@@ -329,6 +350,8 @@ export type LibrosUncheckedUpdateInput = {
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivoDigital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedUpdateManyWithoutLibrosNestedInput
 }
 
 export type LibrosCreateManyInput = {
@@ -339,6 +362,7 @@ export type LibrosCreateManyInput = {
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: number | null
   estado?: string | null
+  archivoDigital?: string | null
 }
 
 export type LibrosUpdateManyMutationInput = {
@@ -348,6 +372,7 @@ export type LibrosUpdateManyMutationInput = {
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivoDigital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type LibrosUncheckedUpdateManyInput = {
@@ -358,6 +383,7 @@ export type LibrosUncheckedUpdateManyInput = {
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivoDigital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type LibrosCountOrderByAggregateInput = {
@@ -368,6 +394,7 @@ export type LibrosCountOrderByAggregateInput = {
   precio?: Prisma.SortOrder
   stock?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  archivoDigital?: Prisma.SortOrder
 }
 
 export type LibrosAvgOrderByAggregateInput = {
@@ -384,6 +411,7 @@ export type LibrosMaxOrderByAggregateInput = {
   precio?: Prisma.SortOrder
   stock?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  archivoDigital?: Prisma.SortOrder
 }
 
 export type LibrosMinOrderByAggregateInput = {
@@ -394,12 +422,18 @@ export type LibrosMinOrderByAggregateInput = {
   precio?: Prisma.SortOrder
   stock?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  archivoDigital?: Prisma.SortOrder
 }
 
 export type LibrosSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   precio?: Prisma.SortOrder
   stock?: Prisma.SortOrder
+}
+
+export type LibrosScalarRelationFilter = {
+  is?: Prisma.LibrosWhereInput
+  isNot?: Prisma.LibrosWhereInput
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -426,6 +460,107 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type LibrosCreateNestedOneWithoutLibrosDigitalesAdquiridosInput = {
+  create?: Prisma.XOR<Prisma.LibrosCreateWithoutLibrosDigitalesAdquiridosInput, Prisma.LibrosUncheckedCreateWithoutLibrosDigitalesAdquiridosInput>
+  connectOrCreate?: Prisma.LibrosCreateOrConnectWithoutLibrosDigitalesAdquiridosInput
+  connect?: Prisma.LibrosWhereUniqueInput
+}
+
+export type LibrosUpdateOneRequiredWithoutLibrosDigitalesAdquiridosNestedInput = {
+  create?: Prisma.XOR<Prisma.LibrosCreateWithoutLibrosDigitalesAdquiridosInput, Prisma.LibrosUncheckedCreateWithoutLibrosDigitalesAdquiridosInput>
+  connectOrCreate?: Prisma.LibrosCreateOrConnectWithoutLibrosDigitalesAdquiridosInput
+  upsert?: Prisma.LibrosUpsertWithoutLibrosDigitalesAdquiridosInput
+  connect?: Prisma.LibrosWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LibrosUpdateToOneWithWhereWithoutLibrosDigitalesAdquiridosInput, Prisma.LibrosUpdateWithoutLibrosDigitalesAdquiridosInput>, Prisma.LibrosUncheckedUpdateWithoutLibrosDigitalesAdquiridosInput>
+}
+
+export type LibrosCreateWithoutLibrosDigitalesAdquiridosInput = {
+  isbn: string
+  nombre: string
+  autor: string
+  precio: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number | null
+  estado?: string | null
+  archivoDigital?: string | null
+}
+
+export type LibrosUncheckedCreateWithoutLibrosDigitalesAdquiridosInput = {
+  id?: number
+  isbn: string
+  nombre: string
+  autor: string
+  precio: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number | null
+  estado?: string | null
+  archivoDigital?: string | null
+}
+
+export type LibrosCreateOrConnectWithoutLibrosDigitalesAdquiridosInput = {
+  where: Prisma.LibrosWhereUniqueInput
+  create: Prisma.XOR<Prisma.LibrosCreateWithoutLibrosDigitalesAdquiridosInput, Prisma.LibrosUncheckedCreateWithoutLibrosDigitalesAdquiridosInput>
+}
+
+export type LibrosUpsertWithoutLibrosDigitalesAdquiridosInput = {
+  update: Prisma.XOR<Prisma.LibrosUpdateWithoutLibrosDigitalesAdquiridosInput, Prisma.LibrosUncheckedUpdateWithoutLibrosDigitalesAdquiridosInput>
+  create: Prisma.XOR<Prisma.LibrosCreateWithoutLibrosDigitalesAdquiridosInput, Prisma.LibrosUncheckedCreateWithoutLibrosDigitalesAdquiridosInput>
+  where?: Prisma.LibrosWhereInput
+}
+
+export type LibrosUpdateToOneWithWhereWithoutLibrosDigitalesAdquiridosInput = {
+  where?: Prisma.LibrosWhereInput
+  data: Prisma.XOR<Prisma.LibrosUpdateWithoutLibrosDigitalesAdquiridosInput, Prisma.LibrosUncheckedUpdateWithoutLibrosDigitalesAdquiridosInput>
+}
+
+export type LibrosUpdateWithoutLibrosDigitalesAdquiridosInput = {
+  isbn?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  autor?: Prisma.StringFieldUpdateOperationsInput | string
+  precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivoDigital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type LibrosUncheckedUpdateWithoutLibrosDigitalesAdquiridosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  isbn?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  autor?: Prisma.StringFieldUpdateOperationsInput | string
+  precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivoDigital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+
+/**
+ * Count Type LibrosCountOutputType
+ */
+
+export type LibrosCountOutputType = {
+  LibrosDigitalesAdquiridos: number
+}
+
+export type LibrosCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  LibrosDigitalesAdquiridos?: boolean | LibrosCountOutputTypeCountLibrosDigitalesAdquiridosArgs
+}
+
+/**
+ * LibrosCountOutputType without action
+ */
+export type LibrosCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LibrosCountOutputType
+   */
+  select?: Prisma.LibrosCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * LibrosCountOutputType without action
+ */
+export type LibrosCountOutputTypeCountLibrosDigitalesAdquiridosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LibroDigitalAdquiridoWhereInput
+}
 
 
 export type LibrosSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -436,6 +571,9 @@ export type LibrosSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   precio?: boolean
   stock?: boolean
   estado?: boolean
+  archivoDigital?: boolean
+  LibrosDigitalesAdquiridos?: boolean | Prisma.Libros$LibrosDigitalesAdquiridosArgs<ExtArgs>
+  _count?: boolean | Prisma.LibrosCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["libros"]>
 
 export type LibrosSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -446,6 +584,7 @@ export type LibrosSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   precio?: boolean
   stock?: boolean
   estado?: boolean
+  archivoDigital?: boolean
 }, ExtArgs["result"]["libros"]>
 
 export type LibrosSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -456,6 +595,7 @@ export type LibrosSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   precio?: boolean
   stock?: boolean
   estado?: boolean
+  archivoDigital?: boolean
 }, ExtArgs["result"]["libros"]>
 
 export type LibrosSelectScalar = {
@@ -466,13 +606,22 @@ export type LibrosSelectScalar = {
   precio?: boolean
   stock?: boolean
   estado?: boolean
+  archivoDigital?: boolean
 }
 
-export type LibrosOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isbn" | "nombre" | "autor" | "precio" | "stock" | "estado", ExtArgs["result"]["libros"]>
+export type LibrosOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isbn" | "nombre" | "autor" | "precio" | "stock" | "estado" | "archivoDigital", ExtArgs["result"]["libros"]>
+export type LibrosInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  LibrosDigitalesAdquiridos?: boolean | Prisma.Libros$LibrosDigitalesAdquiridosArgs<ExtArgs>
+  _count?: boolean | Prisma.LibrosCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type LibrosIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type LibrosIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $LibrosPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Libros"
-  objects: {}
+  objects: {
+    LibrosDigitalesAdquiridos: Prisma.$LibroDigitalAdquiridoPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     isbn: string
@@ -481,6 +630,7 @@ export type $LibrosPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     precio: runtime.Decimal
     stock: number | null
     estado: string | null
+    archivoDigital: string | null
   }, ExtArgs["result"]["libros"]>
   composites: {}
 }
@@ -875,6 +1025,7 @@ readonly fields: LibrosFieldRefs;
  */
 export interface Prisma__LibrosClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  LibrosDigitalesAdquiridos<T extends Prisma.Libros$LibrosDigitalesAdquiridosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Libros$LibrosDigitalesAdquiridosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LibroDigitalAdquiridoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -911,6 +1062,7 @@ export interface LibrosFieldRefs {
   readonly precio: Prisma.FieldRef<"Libros", 'Decimal'>
   readonly stock: Prisma.FieldRef<"Libros", 'Int'>
   readonly estado: Prisma.FieldRef<"Libros", 'String'>
+  readonly archivoDigital: Prisma.FieldRef<"Libros", 'String'>
 }
     
 
@@ -927,6 +1079,10 @@ export type LibrosFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Libros
    */
   omit?: Prisma.LibrosOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LibrosInclude<ExtArgs> | null
   /**
    * Filter, which Libros to fetch.
    */
@@ -946,6 +1102,10 @@ export type LibrosFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.LibrosOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LibrosInclude<ExtArgs> | null
+  /**
    * Filter, which Libros to fetch.
    */
   where: Prisma.LibrosWhereUniqueInput
@@ -963,6 +1123,10 @@ export type LibrosFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Libros
    */
   omit?: Prisma.LibrosOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LibrosInclude<ExtArgs> | null
   /**
    * Filter, which Libros to fetch.
    */
@@ -1012,6 +1176,10 @@ export type LibrosFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.LibrosOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LibrosInclude<ExtArgs> | null
+  /**
    * Filter, which Libros to fetch.
    */
   where?: Prisma.LibrosWhereInput
@@ -1059,6 +1227,10 @@ export type LibrosFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Libros
    */
   omit?: Prisma.LibrosOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LibrosInclude<ExtArgs> | null
   /**
    * Filter, which Libros to fetch.
    */
@@ -1108,6 +1280,10 @@ export type LibrosCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.LibrosOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LibrosInclude<ExtArgs> | null
+  /**
    * The data needed to create a Libros.
    */
   data: Prisma.XOR<Prisma.LibrosCreateInput, Prisma.LibrosUncheckedCreateInput>
@@ -1155,6 +1331,10 @@ export type LibrosUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Libros
    */
   omit?: Prisma.LibrosOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LibrosInclude<ExtArgs> | null
   /**
    * The data needed to update a Libros.
    */
@@ -1222,6 +1402,10 @@ export type LibrosUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.LibrosOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LibrosInclude<ExtArgs> | null
+  /**
    * The filter to search for the Libros to update in case it exists.
    */
   where: Prisma.LibrosWhereUniqueInput
@@ -1248,6 +1432,10 @@ export type LibrosDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.LibrosOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LibrosInclude<ExtArgs> | null
+  /**
    * Filter which Libros to delete.
    */
   where: Prisma.LibrosWhereUniqueInput
@@ -1268,6 +1456,30 @@ export type LibrosDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * Libros.LibrosDigitalesAdquiridos
+ */
+export type Libros$LibrosDigitalesAdquiridosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LibroDigitalAdquirido
+   */
+  select?: Prisma.LibroDigitalAdquiridoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LibroDigitalAdquirido
+   */
+  omit?: Prisma.LibroDigitalAdquiridoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LibroDigitalAdquiridoInclude<ExtArgs> | null
+  where?: Prisma.LibroDigitalAdquiridoWhereInput
+  orderBy?: Prisma.LibroDigitalAdquiridoOrderByWithRelationInput | Prisma.LibroDigitalAdquiridoOrderByWithRelationInput[]
+  cursor?: Prisma.LibroDigitalAdquiridoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LibroDigitalAdquiridoScalarFieldEnum | Prisma.LibroDigitalAdquiridoScalarFieldEnum[]
+}
+
+/**
  * Libros without action
  */
 export type LibrosDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1279,4 +1491,8 @@ export type LibrosDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Libros
    */
   omit?: Prisma.LibrosOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LibrosInclude<ExtArgs> | null
 }

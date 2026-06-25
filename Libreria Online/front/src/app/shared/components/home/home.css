@@ -66,42 +66,89 @@
   flex-shrink: 0;
 }
 
-.empty-preview {
+.accesos-rapidos {
   margin-top: 28px;
-  min-height: 280px;
-  padding: 44px;
-  border: 1px dashed var(--surface-border);
-  border-radius: 24px;
-  background: color-mix(in srgb, var(--surface-card) 68%, transparent);
-  display: grid;
-  place-items: center;
-  text-align: center;
 }
 
-.empty-icon {
-  width: 76px;
-  height: 76px;
-  border-radius: 24px;
+.accesos-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 14px;
+  color: var(--text-color-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+}
+
+.accesos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.acceso-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 22px;
+  border-radius: 18px;
+  border: 1px solid var(--surface-border);
+  background: color-mix(in srgb, var(--surface-card) 80%, transparent);
+  text-decoration: none;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: box-shadow 0.18s, border-color 0.18s, background 0.18s;
+}
+
+.acceso-card:hover {
+  border-color: var(--primary-color);
+  background: color-mix(in srgb, var(--primary-color) 6%, var(--surface-card));
+  box-shadow: 0 6px 24px rgba(88, 28, 135, 0.10);
+}
+
+.acceso-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
   display: grid;
   place-items: center;
+  flex-shrink: 0;
   color: var(--primary-color);
-  background: color-mix(in srgb, var(--primary-color) 14%, transparent);
+  background: color-mix(in srgb, var(--primary-color) 12%, transparent);
 }
 
-.empty-icon .material-symbols-rounded {
-  font-size: 38px;
-}
-
-.empty-preview h2 {
-  margin: 20px 0 6px;
+.acceso-icon .material-symbols-rounded {
   font-size: 26px;
 }
 
-.empty-preview p {
-  max-width: 520px;
-  margin: 0;
+.acceso-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.acceso-label {
+  font-weight: 700;
+  font-size: 0.97rem;
+}
+
+.acceso-desc {
+  font-size: 0.82rem;
   color: var(--text-color-secondary);
-  line-height: 1.6;
+}
+
+.acceso-arrow {
+  font-size: 22px;
+  color: var(--text-color-secondary);
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.acceso-card:hover .acceso-arrow {
+  opacity: 1;
+  transform: translateX(3px);
 }
 
 @media (max-width: 1200px) {

@@ -19,7 +19,7 @@ export class LibroRepository {
             return libro;
             }
 
-        async createLibro(data: { nombre: string; isbn: string; precio: number; autor: string;  stock: number }){
+        async createLibro(data: { nombre: string; isbn: string; precio: number; autor: string; stock: number; archivoDigital?: string }){
             return await prisma.libros.create({ data });
         }
 

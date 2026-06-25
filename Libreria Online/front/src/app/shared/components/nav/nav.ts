@@ -104,7 +104,13 @@ export class Nav implements OnInit, OnChanges {
         { label: 'Inicio', icon: 'home', active: this.activeItem === 'Inicio' },
         { label: 'Categorías', icon: 'category', active: this.activeItem === 'Categorías' },
         { label: 'Ofertas', icon: 'sell', active: this.activeItem === 'Ofertas' },
-        { label: 'Mis pedidos', icon: 'shopping_cart', active: this.activeItem === 'Mis pedidos' }
+        { label: 'Mis pedidos', icon: 'shopping_cart', active: this.activeItem === 'Mis pedidos' },
+        {
+          label: 'Libros Digitales',
+          icon: 'menu_book',
+          link: '/comprador/libros-digitales',
+          active: this.activeItem === 'Libros Digitales'
+        }
       ];
       break;
   }
