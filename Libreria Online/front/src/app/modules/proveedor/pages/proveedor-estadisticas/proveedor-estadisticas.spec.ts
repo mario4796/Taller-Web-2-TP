@@ -6,15 +6,15 @@ import { MessageService } from 'primeng/api';
 import { of } from 'rxjs';
 
 import { OfertasLibroService } from '../../../../api/services/ofertas-libro/ofertas-libro.service';
-import { Estadisticas } from './estadisticas';
+import { ProveedorEstadisticas } from './proveedor-estadisticas';
 
-describe('Estadisticas', () => {
-  let component: Estadisticas;
-  let fixture: ComponentFixture<Estadisticas>;
+describe('ProveedorEstadisticas', () => {
+  let component: ProveedorEstadisticas;
+  let fixture: ComponentFixture<ProveedorEstadisticas>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Estadisticas],
+      imports: [ProveedorEstadisticas],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
@@ -29,7 +29,7 @@ describe('Estadisticas', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Estadisticas);
+    fixture = TestBed.createComponent(ProveedorEstadisticas);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

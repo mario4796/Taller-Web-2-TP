@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
-import { Estadisticas } from './pages/estadisticas/estadisticas';
 import { Libros } from './pages/libros/libros';
+import { ProveedorEstadisticas } from './pages/proveedor-estadisticas/proveedor-estadisticas';
 import { ProveedorRecomendacion } from './pages/proveedor-recomendacion/proveedor-recomendacion';
 
 export const proveedorRoutes: Routes = [
@@ -15,8 +15,13 @@ export const proveedorRoutes: Routes = [
     component: Libros,
   },
   {
+    path: 'proveedor-estadisticas',
+    component: ProveedorEstadisticas,
+  },
+  {
     path: 'estadisticas',
-    component: Estadisticas,
+    redirectTo: 'proveedor-estadisticas',
+    pathMatch: 'full',
   },
   {
     path: 'recomendaciones',

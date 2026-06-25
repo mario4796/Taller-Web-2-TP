@@ -38,6 +38,7 @@ export class RecomendacionFormDialog {
   buscandoIsbn = input(false);
   guardando = input(false);
   isbnVerificado = input(false);
+  datosLibroBloqueados = input(false);
   portadaPreview = input<string | undefined>();
 
   cerrar = output<void>();

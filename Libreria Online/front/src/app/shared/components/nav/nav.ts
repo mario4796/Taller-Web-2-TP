@@ -103,7 +103,7 @@ export class Nav implements OnInit, OnChanges {
           {
             label: 'Estadisticas',
             icon: 'monitoring',
-            link: '/proveedor/estadisticas',
+            link: '/proveedor/proveedor-estadisticas',
             active: this.activeItem === 'Estadisticas',
           },
           {
