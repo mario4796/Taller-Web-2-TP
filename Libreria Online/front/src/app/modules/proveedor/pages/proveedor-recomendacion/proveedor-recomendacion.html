@@ -183,6 +183,39 @@
     }
 
     <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-tag"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <p-select
+          inputId="categoria"
+          formControlName="categoria"
+          [options]="categorias"
+          appendTo="body">
+        </p-select>
+        <label for="categoria">Categoria</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (categoria && categoria.invalid && categoria.touched) {
+      <small class="error-message">Categoria requerida</small>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup textarea-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-align-left"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <textarea
+          pTextarea
+          id="sinopsis"
+          formControlName="sinopsis"
+          rows="4"
+          [maxlength]="sinopsisMaxLength">
+        </textarea>
+        <label for="sinopsis">Sinopsis</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (sinopsis && sinopsis.invalid && sinopsis.touched) {
+      <small class="error-message">La sinopsis no puede superar {{ sinopsisMaxLength }} caracteres</small>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup">
       <p-inputgroup-addon><i class="pi pi-dollar"></i></p-inputgroup-addon>
       <p-floatlabel variant="in">
         <p-inputnumber inputId="precioProveedor" formControlName="precioProveedor" mode="currency" currency="ARS" locale="es-AR"></p-inputnumber>

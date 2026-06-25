@@ -99,18 +99,14 @@ export class Nav implements OnInit, OnChanges {
             link: '/proveedor',
             active: this.activeItem === 'Mis Recomendaciones' || this.activeItem === 'Inicio',
           },
+          { label: 'Peticiones', icon: 'assignment', active: this.activeItem === 'Peticiones' },
           {
-            label: 'Peticiones',
-            icon: 'assignment',
-            link: '/proveedor/peticiones',
-            active: this.activeItem === 'Peticiones'
-          },
-          {
-            label: 'Estadísticas',
+            label: 'Estadisticas',
             icon: 'monitoring',
             link: '/proveedor/estadisticas',
-            active: this.activeItem === 'Estadísticas'
+            active: this.activeItem === 'Estadisticas',
           },
+          { label: 'Ventas', icon: 'shopping_cart', active: this.activeItem === 'Ventas' },
           {
             label: 'Ventas',
             icon: 'shopping_cart',

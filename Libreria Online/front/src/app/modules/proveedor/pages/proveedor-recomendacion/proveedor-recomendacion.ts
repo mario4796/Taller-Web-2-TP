@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { catchError, of } from 'rxjs';
 
+import { IsbnLookupService } from '../../../../api/services/isbn-lookup/isbn-lookup.service';
 import { LibrosService } from '../../../../api/services/libros/libros.services';
 import { OfertasLibroService } from '../../../../api/services/ofertas-libro/ofertas-libro.service';
 import { Nav } from '../../../../shared/components/nav/nav';
@@ -12,27 +13,18 @@ import { Nav } from '../../../../shared/components/nav/nav';
 import { EstadoOferta, NuevaOfertaLibro, OfertaLibro } from '../../../../shared/interfaces/oferta-libro.interface';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { DialogModule } from 'primeng/dialog';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
 import { TableModule, Table } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
+import { TextareaModule } from 'primeng/textarea';
 import { TooltipModule } from 'primeng/tooltip';
-import { Libro } from '../../../../shared/interfaces/libro.interface';
-interface OpenLibraryBook {
-  title?: string;
-  subtitle?: string;
-  authors?: Array<{ name?: string }>;
-  cover?: {
-    small?: string;
-    medium?: string;
-    large?: string;
-  };
-}
+import { CATEGORIAS_LIBRO, Libro } from '../../../../shared/interfaces/libro.interface';
 
 @Component({
   selector: 'app-proveedor-recomendacion',
@@ -50,7 +42,9 @@ interface OpenLibraryBook {
     InputGroupAddonModule,
     InputNumberModule,
     InputTextModule,
+    SelectModule,
     TagModule,
+    TextareaModule,
     ToastModule,
     TooltipModule,
   ],
@@ -74,6 +68,8 @@ export class ProveedorRecomendacion implements OnInit {
   isbnVerificado = false;
   isbnVerificadoValor = '';
   portadaPreview?: string;
+  categorias = CATEGORIAS_LIBRO;
+  sinopsisMaxLength = 700;
 
   recomendacionForm!: FormGroup;
   contraofertaForm!: FormGroup;
@@ -81,7 +77,7 @@ export class ProveedorRecomendacion implements OnInit {
   @ViewChild('tablaRecomendaciones') tablaRecomendaciones?: Table;
 
   private fb = inject(FormBuilder);
-  private http = inject(HttpClient);
+  private isbnLookupService = inject(IsbnLookupService);
   private ofertasService = inject(OfertasLibroService);
   private librosService = inject(LibrosService);
   private toastService = inject(ToastService);
@@ -129,7 +125,7 @@ export class ProveedorRecomendacion implements OnInit {
 
   cerrarNuevaRecomendacion(): void {
     this.nuevaRecomendacionVisible = false;
-    this.recomendacionForm.reset();
+    this.recomendacionForm.reset({ categoria: 'GENERAL' });
     this.isbnVerificado = false;
     this.isbnVerificadoValor = '';
     this.portadaPreview = undefined;
@@ -250,7 +246,7 @@ export class ProveedorRecomendacion implements OnInit {
   rechazarOferta(recomendacion: OfertaLibro): void {
     this.ofertasService.rechazarOferta(recomendacion.id).subscribe({
       next: () => {
-        this.toastService.error('Oferta rechazada y eliminada');
+        this.toastService.error('Oferta rechazada');
         this.obtenerRecomendaciones();
       },
       error: (error) => {
@@ -301,11 +297,8 @@ export class ProveedorRecomendacion implements OnInit {
   }
 
   private buscarEnOpenLibrary(isbn: string): void {
-    const url = `https://openlibrary.org/api/books?bibkeys=ISBN:${encodeURIComponent(isbn)}&jscmd=data&format=json`;
-
-    this.http.get<Record<string, OpenLibraryBook>>(url).subscribe({
-      next: (respuesta) => {
-        const libro = respuesta[`ISBN:${isbn}`];
+    this.isbnLookupService.buscarEnOpenLibrary(isbn).subscribe({
+      next: (libro) => {
         this.buscandoIsbn = false;
 
         if (!libro) {
@@ -322,10 +315,12 @@ export class ProveedorRecomendacion implements OnInit {
 
         const titulo = [libro.title, libro.subtitle].filter(Boolean).join(': ');
         const autor = libro.authors?.map((item) => item.name).filter(Boolean).join(', ') ?? '';
+        const sinopsis = libro.excerpts?.find((item) => item.text)?.text ?? '';
 
         this.recomendacionForm.patchValue({
           nombre: titulo,
           autor,
+          sinopsis,
           libroId: null,
         });
         this.portadaPreview = libro.cover?.medium ?? libro.cover?.small ?? libro.cover?.large;
@@ -353,6 +348,8 @@ export class ProveedorRecomendacion implements OnInit {
     this.recomendacionForm.patchValue({
       nombre: libro.nombre,
       autor: libro.autor,
+      categoria: libro.categoria ?? 'GENERAL',
+      sinopsis: libro.sinopsis ?? '',
       libroId: libro.id,
     });
     this.portadaPreview = this.portadaUrl(libro.isbn);
@@ -361,7 +358,7 @@ export class ProveedorRecomendacion implements OnInit {
   }
 
   private normalizarIsbn(isbn: string | null | undefined): string {
-    return String(isbn ?? '').trim().replace(/\s+/g, '');
+    return String(isbn ?? '').trim().replace(/[^0-9Xx]/g, '').toUpperCase();
   }
 
   private initializeForms(): void {
@@ -369,6 +366,8 @@ export class ProveedorRecomendacion implements OnInit {
       isbn: ['', [Validators.required, Validators.pattern(/^[0-9Xx-]{10,20}$/)]],
       nombre: ['', [Validators.required, Validators.minLength(2)]],
       autor: ['', [Validators.required, Validators.minLength(3)]],
+      categoria: ['GENERAL', [Validators.required]],
+      sinopsis: ['', [Validators.maxLength(this.sinopsisMaxLength)]],
       precioProveedor: [null, [Validators.required, Validators.min(1)]],
       cantidadProveedor: [null, [Validators.required, Validators.min(1)]],
       libroId: [null],
@@ -382,6 +381,8 @@ export class ProveedorRecomendacion implements OnInit {
   get isbn() { return this.recomendacionForm.get('isbn'); }
   get nombre() { return this.recomendacionForm.get('nombre'); }
   get autor() { return this.recomendacionForm.get('autor'); }
+  get categoria() { return this.recomendacionForm.get('categoria'); }
+  get sinopsis() { return this.recomendacionForm.get('sinopsis'); }
   get precioProveedor() { return this.recomendacionForm.get('precioProveedor'); }
   get cantidadProveedor() { return this.recomendacionForm.get('cantidadProveedor'); }
   get nuevaCantidad() { return this.contraofertaForm.get('nuevaCantidad'); }
