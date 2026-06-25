@@ -65,10 +65,15 @@ export class OfertaLibroController {
       res
         .status(201)
         .json({ message: "Oferta creada correctamente", data: oferta });
-    } catch (error) {
+    } catch (error: any) {
+      const validationMessages = [
+        "Faltan campos obligatorios para crear la oferta",
+        "El precio y la cantidad deben ser mayores a 0",
+      ];
+
       res
-        .status(500)
-        .json({ error: "Error al crear la oferta", errorDetails: error });
+        .status(validationMessages.includes(error.message) ? 400 : 500)
+        .json({ error: "Error al crear la oferta", errorDetails: error.message ?? error });
     }
   };
 
@@ -149,6 +154,27 @@ export class OfertaLibroController {
       res
         .status(500)
         .json({ error: "Error al aceptar la oferta", errorDetails: error });
+    }
+  };
+
+  public rechazarOferta = async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ error: "ID inválido" });
+      }
+
+      const ofertaRechazada = await ofertaLibroService.rechazarOferta(id);
+      res
+        .status(200)
+        .json({
+          message: "Oferta rechazada correctamente",
+          data: ofertaRechazada,
+        });
+    } catch (error: any) {
+      res
+        .status(error.message === "La oferta no existe" ? 404 : 500)
+        .json({ error: "Error al rechazar la oferta", errorDetails: error.message ?? error });
     }
   };
 

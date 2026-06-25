@@ -120,7 +120,7 @@ export class VerOfertas {
   rechazarOferta(oferta: OfertaLibro): void {
     this.ofertasService.rechazarOferta(oferta.id).subscribe({
       next: () => {
-        this.toastService.error('Oferta rechazada y eliminada');
+        this.toastService.error('Oferta rechazada');
         this.obtenerOfertas();
       },
       error: (error) => {

@@ -13,6 +13,7 @@ export interface OpenLibraryBook {
     medium?: string;
     large?: string;
   };
+  excerpts?: Array<{ text?: string }>;
 }
 
 @Injectable({
@@ -23,14 +24,19 @@ export class IsbnLookupService {
   private apiUrl = environment.OPEN_LIBRARY_API_URL;
 
   buscarEnOpenLibrary(isbn: string): Observable<OpenLibraryBook | null> {
-    const url = `${this.apiUrl}?bibkeys=ISBN:${encodeURIComponent(isbn)}&jscmd=data&format=json`;
+    const isbnNormalizado = this.normalizarIsbn(isbn);
+    const url = `${this.apiUrl}?bibkeys=ISBN:${encodeURIComponent(isbnNormalizado)}&jscmd=data&format=json`;
 
     return this.http.get<Record<string, OpenLibraryBook>>(url).pipe(
-      map((respuesta) => respuesta[`ISBN:${isbn}`] ?? null)
+      map((respuesta) => respuesta[`ISBN:${isbnNormalizado}`] ?? null)
     );
   }
 
   portadaUrl(isbn: string, size: 'S' | 'M' | 'L' = 'S'): string {
-    return `https://covers.openlibrary.org/b/isbn/${encodeURIComponent(isbn)}-${size}.jpg?default=false`;
+    return `https://covers.openlibrary.org/b/isbn/${encodeURIComponent(this.normalizarIsbn(isbn))}-${size}.jpg?default=false`;
+  }
+
+  private normalizarIsbn(isbn: string): string {
+    return isbn.trim().replace(/[^0-9Xx]/g, '').toUpperCase();
   }
 }

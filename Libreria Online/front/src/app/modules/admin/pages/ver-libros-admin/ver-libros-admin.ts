@@ -133,7 +133,7 @@ export class VerLibrosAdmin {
   rechazarOferta(oferta: OfertaLibro): void {
     this.ofertasService.rechazarOferta(oferta.id).subscribe({
       next: () => {
-        this.toastService.error('Oferta rechazada y eliminada');
+        this.toastService.error('Oferta rechazada');
         this.cargarOfertasPendientes();
       },
       error: () => {
