@@ -94,10 +94,10 @@ export class Nav implements OnInit, OnChanges {
       case 'proveedor':
         this.navItems = [
           {
-            label: 'Inicio',
-            icon: 'home',
+            label: 'Mis Recomendaciones',
+            icon: 'auto_stories',
             link: '/proveedor',
-            active: this.activeItem === 'Inicio',
+            active: this.activeItem === 'Mis Recomendaciones' || this.activeItem === 'Inicio',
           },
           { label: 'Peticiones', icon: 'assignment', active: this.activeItem === 'Peticiones' },
           {
@@ -106,13 +106,12 @@ export class Nav implements OnInit, OnChanges {
             link: '/proveedor/estadisticas',
             active: this.activeItem === 'Estadisticas',
           },
-          { label: 'Ventas', icon: 'shopping_cart', active: this.activeItem === 'Ventas' },
           {
-            label: 'Recomendar libro',
-            icon: 'auto_stories',
-            link: '/proveedor/proveedor-recomendacion',
-            active: this.activeItem === 'Recomendar libro',
-          },
+            label: 'Ventas',
+            icon: 'shopping_cart',
+            link: '/proveedor/ventas',
+            active: this.activeItem === 'Ventas'
+          }
         ];
         break;
 

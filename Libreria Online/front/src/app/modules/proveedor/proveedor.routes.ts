@@ -2,13 +2,13 @@ import { Routes } from '@angular/router';
 
 import { Estadisticas } from './pages/estadisticas/estadisticas';
 import { Libros } from './pages/libros/libros';
-import { ProveedorHome } from './pages/proveedor-home/proveedor-home';
 import { ProveedorRecomendacion } from './pages/proveedor-recomendacion/proveedor-recomendacion';
 
 export const proveedorRoutes: Routes = [
   {
     path: '',
-    component: ProveedorHome,
+    redirectTo: 'recomendaciones',
+    pathMatch: 'full',
   },
   {
     path: 'libros',
@@ -29,6 +29,6 @@ export const proveedorRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'recomendaciones',
   },
 ];
