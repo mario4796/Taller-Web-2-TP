@@ -15,9 +15,6 @@
 		</div>
 	</header>
 
-	<app-actualizar-libro #editarLibro (libroActualizado)="obtenerLibros()"></app-actualizar-libro>
-	<app-eliminar-libro #borrarLibro (libroEliminado)="obtenerLibros()"></app-eliminar-libro>
-
 	<div class="card">
 		<p-table
 			#tablaLibros
@@ -78,10 +75,6 @@
 								tooltipPosition="top">
 							</p-tag>
 						</div>
-					</td>
-					<td style="text-align: center;">
-						<p-button icon="pi pi-pencil" [rounded]="true" [text]="true" (click)="editarLibro.showDialog(libro)" severity="info" title="Editar"></p-button>
-						<p-button icon="pi pi-trash" [rounded]="true" [text]="true" (click)="borrarLibro.showDialog(libro)" severity="danger" title="Eliminar"></p-button>
 					</td>
 				</tr>
 			</ng-template>
