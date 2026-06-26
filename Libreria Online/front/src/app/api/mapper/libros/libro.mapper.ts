@@ -10,6 +10,9 @@ export class LibroMapper {
       autor: libroRest.autor,
       precio: Number(libroRest.precio),
       stock: libroRest.stock,
+      sinopsis: libroRest.sinopsis ?? '',
+      imagenUrl: libroRest.imagenUrl ?? null,
+      categoria: libroRest.categoria ?? 'GENERAL',
     };
   }
 

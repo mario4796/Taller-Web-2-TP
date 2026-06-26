@@ -20,6 +20,7 @@ describe('RecomendacionFormDialog', () => {
       autor: ['', Validators.required],
       categoria: [null, Validators.required],
       sinopsis: [''],
+      imagenUrl: [''],
       precioProveedor: [null, Validators.required],
       cantidadProveedor: [null, Validators.required],
       libroId: [null],

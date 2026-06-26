@@ -9,6 +9,11 @@ import { OfertasLibroService } from '../../../../api/services/ofertas-libro/ofer
 import { Nav } from '../../../../shared/components/nav/nav';
 import { EstadoOferta, OfertaLibro } from '../../../../shared/interfaces/oferta-libro.interface';
 import { ToastService } from '../../../../shared/services/toast.service';
+import {
+  cantidadVisibleOferta,
+  estadoOfertaLabel,
+  estadoOfertaSeverity,
+} from '../../../../shared/utils/oferta-estado.utils';
 
 interface KpiCard {
   label: string;
@@ -18,13 +23,13 @@ interface KpiCard {
 }
 
 @Component({
-  selector: 'app-estadisticas',
+  selector: 'app-proveedor-estadisticas',
   standalone: true,
   imports: [CommonModule, Nav, ChartModule, ProgressBarModule, TableModule, TagModule],
-  templateUrl: './estadisticas.html',
-  styleUrl: './estadisticas.css',
+  templateUrl: './proveedor-estadisticas.html',
+  styleUrl: './proveedor-estadisticas.css',
 })
-export class Estadisticas implements OnInit {
+export class ProveedorEstadisticas implements OnInit {
   userName = 'Maria Rodriguez';
   role = 'proveedor';
   activeItem = 'Estadisticas';
@@ -180,25 +185,11 @@ export class Estadisticas implements OnInit {
   }
 
   estadoLabel(estado: EstadoOferta): string {
-    const labels: Record<EstadoOferta, string> = {
-      ESPERANDO_ADMIN: 'Esperando admin',
-      ESPERANDO_PROVEEDOR: 'Esperando proveedor',
-      ACEPTADA: 'Aceptada',
-      RECHAZADA: 'Rechazada',
-    };
-
-    return labels[estado];
+    return estadoOfertaLabel(estado);
   }
 
   estadoSeverity(estado: EstadoOferta): 'success' | 'info' | 'warn' | 'danger' {
-    const severities: Record<EstadoOferta, 'success' | 'info' | 'warn' | 'danger'> = {
-      ESPERANDO_ADMIN: 'info',
-      ESPERANDO_PROVEEDOR: 'warn',
-      ACEPTADA: 'success',
-      RECHAZADA: 'danger',
-    };
-
-    return severities[estado];
+    return estadoOfertaSeverity(estado);
   }
 
   categoriaLabel(categoria: string): string {
@@ -215,9 +206,7 @@ export class Estadisticas implements OnInit {
   }
 
   cantidadActual(oferta: OfertaLibro): number {
-    return oferta.estado === 'ESPERANDO_PROVEEDOR' && oferta.cantidadAdmin
-      ? oferta.cantidadAdmin
-      : oferta.cantidadProveedor;
+    return cantidadVisibleOferta(oferta);
   }
 
   formatearMoneda(valor: number): string {

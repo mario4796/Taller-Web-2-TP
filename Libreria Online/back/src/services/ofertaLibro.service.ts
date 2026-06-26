@@ -22,7 +22,7 @@ export class OfertaLibroService {
     }
 
    async crearOferta(oferta: OfertaLibro) {
-        const { isbn, nombre, autor, precioProveedor, cantidadProveedor, libroId, categoria, sinopsis } = oferta;
+        const { isbn, nombre, autor, precioProveedor, cantidadProveedor, libroId, categoria, sinopsis, imagenUrl } = oferta;
 
         if (!isbn || !nombre || !autor || precioProveedor == null || cantidadProveedor == null || !categoria) {
             throw new Error('Faltan campos obligatorios para crear la oferta');
@@ -40,7 +40,8 @@ export class OfertaLibroService {
             cantidadProveedor, 
             libroId,
             categoria,
-            sinopsis
+            sinopsis,
+            imagenUrl
         });
     }
 
@@ -96,6 +97,7 @@ export class OfertaLibroService {
                 stock: cantidadFinal,
                 categoria:oferta.categoria,
                 sinopsis: oferta.sinopsis || "",
+                imagenUrl: oferta.imagenUrl,
             });
         }
 

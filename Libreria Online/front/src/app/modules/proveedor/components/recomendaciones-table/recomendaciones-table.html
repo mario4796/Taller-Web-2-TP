@@ -48,9 +48,9 @@
       <td>
         <div class="cover-cell">
           <img
-            [src]="portadaUrl(recomendacion.isbn)"
+            [src]="portadaUrl(recomendacion)"
             [alt]="'Portada de ' + recomendacion.nombre"
-            (error)="ocultarPortada($event)" />
+            (error)="usarPortadaFallback($event)" />
         </div>
       </td>
       <td><strong>{{ recomendacion.nombre }}</strong></td>
@@ -76,7 +76,7 @@
       <td>{{ recomendacion.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</td>
       <td>
         <div class="quantity-cell">
-          <span>{{ recomendacion.cantidadProveedor }} uds.</span>
+          <span>{{ cantidadVisible(recomendacion) }} uds.</span>
           <br>
           @if (recomendacion.cantidadAdmin && recomendacion.estado === 'ESPERANDO_PROVEEDOR') {
             <small color="warning">Admin propuso {{ recomendacion.cantidadAdmin }}</small>
@@ -109,7 +109,7 @@
             [rounded]="true"
             [text]="true"
             severity="danger"
-            title="Rechazar contraoferta y eliminar oferta"
+            title="Rechazar contraoferta"
             (click)="rechazar.emit(recomendacion)">
           </p-button>
         }

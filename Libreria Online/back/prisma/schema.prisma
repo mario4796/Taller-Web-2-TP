@@ -55,6 +55,7 @@ model Libros {
   stock   Int?          @default(0)
   estado  String?       @default("DISPONIBLE") @db.VarChar(50)
   sinopsis String?
+  imagenUrl String?
   categoria   CategoriaLibro @default(GENERAL)
   ofertas OfertaLibro[] 
 
@@ -120,6 +121,7 @@ model OfertaLibro {
   createdAt        DateTime     @default(now())
 
   sinopsis String?
+  imagenUrl String?
   categoria   CategoriaLibro @default(GENERAL)
   
   //proveedorId      Int

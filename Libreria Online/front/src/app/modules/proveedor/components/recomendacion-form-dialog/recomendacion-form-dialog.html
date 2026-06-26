@@ -1,11 +1,11 @@
 <p-dialog
-  header="Nueva recomendaci&oacute;n"
+  header="Nueva recomendación"
   [modal]="true"
   [visible]="visible()"
   (visibleChange)="$event ? null : cerrar.emit()"
   [style]="{ width: '34rem' }"
   styleClass="recommendation-dialog">
-  <span class="dialog-helper">Primero busc&aacute; el ISBN. Si existe en la librer&iacute;a, se completa desde la base de datos; si no, se consulta OpenLibrary.</span>
+  <span class="dialog-helper">Primero buscá el ISBN. Si existe en la librería, se completa desde la base de datos; si no, se consulta OpenLibrary.</span>
 
   <form [formGroup]="form()" class="recommendation-form">
     <p-inputgroup class="recommendation-inputgroup isbn-inputgroup">
@@ -25,39 +25,72 @@
         (click)="buscarIsbn.emit()">
       </p-button>
     </p-inputgroup>
+    @if (buscandoIsbn()) {
+      <p-progressbar
+        mode="indeterminate"
+        [showValue]="false"
+        styleClass="isbn-progress">
+      </p-progressbar>
+    }
     @if (isbn && isbn.invalid && isbn.touched) {
-      <small class="error-message">ISBN requerido (10-20 caracteres, n&uacute;meros, X y guiones)</small>
+      <small class="error-message">ISBN requerido (10-20 caracteres, números, X y guiones)</small>
     }
     @if (!isbnVerificado() && isbn && isbn.valid && isbn.touched) {
-      <small class="warning-message">Ten&eacute;s que buscar el ISBN antes de guardar.</small>
+      <small class="warning-message">Tenés que buscar el ISBN antes de guardar.</small>
     }
 
-    @if (portadaPreview()) {
+    @if (portadaActual()) {
       <div class="cover-preview">
-        <img [src]="portadaPreview()" alt="Portada encontrada" (error)="ocultarPortada($event)" />
+        <img [src]="portadaActual()" alt="Portada encontrada" (load)="mostrarPortada($event)" (error)="ocultarPortada($event)" />
       </div>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-image"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <input
+          pInputText
+          id="imagenUrl"
+          formControlName="imagenUrl"
+          autocomplete="off"
+          [readonly]="camposLibroBloqueados().imagenUrl" />
+        <label for="imagenUrl">URL de portada</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (imagenUrl && imagenUrl.invalid && imagenUrl.touched) {
+      <small class="error-message">La URL de portada no puede superar 500 caracteres</small>
     }
 
     <p-inputgroup class="recommendation-inputgroup">
       <p-inputgroup-addon><i class="pi pi-book"></i></p-inputgroup-addon>
       <p-floatlabel variant="in">
-        <input pInputText id="nombre" formControlName="nombre" autocomplete="off" />
-        <label for="nombre">T&iacute;tulo del libro</label>
+        <input
+          pInputText
+          id="nombre"
+          formControlName="nombre"
+          autocomplete="off"
+          [readonly]="camposLibroBloqueados().nombre" />
+        <label for="nombre">Título del libro</label>
       </p-floatlabel>
     </p-inputgroup>
     @if (nombre && nombre.invalid && nombre.touched) {
-      <small class="error-message">T&iacute;tulo requerido</small>
+      <small class="error-message">Título requerido</small>
     }
 
     <p-inputgroup class="recommendation-inputgroup">
       <p-inputgroup-addon><i class="pi pi-user"></i></p-inputgroup-addon>
       <p-floatlabel variant="in">
-        <input pInputText id="autor" formControlName="autor" autocomplete="off" />
+        <input
+          pInputText
+          id="autor"
+          formControlName="autor"
+          autocomplete="off"
+          [readonly]="camposLibroBloqueados().autor" />
         <label for="autor">Autor</label>
       </p-floatlabel>
     </p-inputgroup>
     @if (autor && autor.invalid && autor.touched) {
-      <small class="error-message">Autor requerido (m&iacute;nimo 3 caracteres)</small>
+      <small class="error-message">Autor requerido (mínimo 3 caracteres)</small>
     }
 
     <p-inputgroup class="recommendation-inputgroup">
@@ -69,11 +102,11 @@
           [options]="categorias"
           appendTo="body">
         </p-select>
-        <label for="categoria">Categor&iacute;a</label>
+        <label for="categoria">Categoría</label>
       </p-floatlabel>
     </p-inputgroup>
     @if (categoria && categoria.invalid && categoria.touched) {
-      <small class="error-message">Categor&iacute;a requerida</small>
+      <small class="error-message">Categoría requerida</small>
     }
 
     <p-inputgroup class="recommendation-inputgroup textarea-inputgroup">
@@ -84,7 +117,8 @@
           id="sinopsis"
           formControlName="sinopsis"
           rows="4"
-          [maxlength]="sinopsisMaxLength">
+          [maxlength]="sinopsisMaxLength"
+          [readonly]="camposLibroBloqueados().sinopsis">
         </textarea>
         <label for="sinopsis">Sinopsis</label>
       </p-floatlabel>

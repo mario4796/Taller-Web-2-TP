@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { Button } from 'primeng/button';
 import { Avatar } from 'primeng/avatar';
@@ -27,6 +27,7 @@ export class Nav implements OnInit, OnChanges {
   isDark = signal(false);
   mobileNavOpen = signal(false);
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   navItems: NavItem[] = [];
 
@@ -62,6 +63,7 @@ export class Nav implements OnInit, OnChanges {
 
   logout() {
     this.authService.logout();
+    this.router.navigate(['/']);
   }
 
   private setNavItems(): void {
@@ -103,7 +105,7 @@ export class Nav implements OnInit, OnChanges {
           {
             label: 'Estadisticas',
             icon: 'monitoring',
-            link: '/proveedor/estadisticas',
+            link: '/proveedor/proveedor-estadisticas',
             active: this.activeItem === 'Estadisticas',
           },
           {

@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Nav } from '../../shared/components/nav/nav';
 import { Home } from '../../shared/components/home/home';
+import { AuthService } from '../../services/Auth/auth-service';
 
 @Component({
   selector: 'app-home-user',
@@ -9,22 +10,10 @@ import { Home } from '../../shared/components/home/home';
   templateUrl: './home-user.html',
   styleUrl: './home-user.css',
 })
-export class HomeUser implements OnInit {
-  //nav//
-  logueado = false;
-  
-  ngOnInit(): void {
-    this.verificarLogin();
-  }
+export class HomeUser {
+  private authService = inject(AuthService);
 
-  verificarLogin(){
-    console.log(localStorage.getItem('usuario'));
-    if(localStorage.getItem('usuario') !=null){
-      this.logueado = true;
-    }
-  }
-
-  //home//
+  logueado = computed(() => this.authService.tipoUsuario() !== null);
 
   imageBanner = 'img/libreria_banner_transparente.svg';
   eyebrow = 'Bienvenido a la Librería Online';
