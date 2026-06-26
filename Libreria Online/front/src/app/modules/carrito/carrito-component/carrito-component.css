@@ -1,0 +1,83 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 2rem;
+  background:
+    radial-gradient(circle at top right, rgba(139, 92, 246, 0.15), transparent 35%), #050816;
+}
+
+.cart-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.cart-header h1 {
+  color: white;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.cart-header p {
+  color: #94a3b8;
+}
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: 2fr 380px;
+  gap: 2rem;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cart-summary {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 20px;
+  padding: 1.5rem;
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.cart-summary h2 {
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  color: #cbd5e1;
+  margin-bottom: 1rem;
+}
+
+.total {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #a78bfa;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 5rem;
+}
+
+.empty-cart i {
+  font-size: 4rem;
+  color: #8b5cf6;
+}
+
+.empty-cart h2 {
+  color: white;
+}
+
+.empty-cart p {
+  color: #94a3b8;
+}

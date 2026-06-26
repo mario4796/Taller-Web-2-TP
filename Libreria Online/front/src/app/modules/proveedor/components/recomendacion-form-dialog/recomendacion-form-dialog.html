@@ -1,0 +1,135 @@
+<p-dialog
+  header="Nueva recomendación"
+  [modal]="true"
+  [visible]="visible()"
+  (visibleChange)="$event ? null : cerrar.emit()"
+  [style]="{ width: '34rem' }"
+  styleClass="recommendation-dialog">
+  <span class="dialog-helper">Primero buscá el ISBN. Si existe en la librería, se completa desde la base de datos; si no, se consulta OpenLibrary.</span>
+
+  <form [formGroup]="form()" class="recommendation-form">
+    <p-inputgroup class="recommendation-inputgroup isbn-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-barcode"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <input pInputText id="isbn" formControlName="isbn" autocomplete="off" />
+        <label for="isbn">ISBN</label>
+      </p-floatlabel>
+      <p-button
+        icon="pi pi-search"
+        type="button"
+        [loading]="buscandoIsbn()"
+        [disabled]="buscandoIsbn()"
+        severity="secondary"
+        pTooltip="Buscar ISBN"
+        tooltipPosition="top"
+        (click)="buscarIsbn.emit()">
+      </p-button>
+    </p-inputgroup>
+    @if (isbn && isbn.invalid && isbn.touched) {
+      <small class="error-message">ISBN requerido (10-20 caracteres, números, X y guiones)</small>
+    }
+    @if (!isbnVerificado() && isbn && isbn.valid && isbn.touched) {
+      <small class="warning-message">Tenés que buscar el ISBN antes de guardar.</small>
+    }
+
+    @if (portadaPreview()) {
+      <div class="cover-preview">
+        <img [src]="portadaPreview()" alt="Portada encontrada" (error)="ocultarPortada($event)" />
+      </div>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-book"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <input
+          pInputText
+          id="nombre"
+          formControlName="nombre"
+          autocomplete="off"
+          [readonly]="datosLibroBloqueados()" />
+        <label for="nombre">Título del libro</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (nombre && nombre.invalid && nombre.touched) {
+      <small class="error-message">Título requerido</small>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-user"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <input
+          pInputText
+          id="autor"
+          formControlName="autor"
+          autocomplete="off"
+          [readonly]="datosLibroBloqueados()" />
+        <label for="autor">Autor</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (autor && autor.invalid && autor.touched) {
+      <small class="error-message">Autor requerido (mínimo 3 caracteres)</small>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-tag"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <p-select
+          inputId="categoria"
+          formControlName="categoria"
+          [options]="categorias"
+          [readonly]="datosLibroBloqueados()"
+          appendTo="body">
+        </p-select>
+        <label for="categoria">Categoría</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (categoria && categoria.invalid && categoria.touched) {
+      <small class="error-message">Categoría requerida</small>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup textarea-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-align-left"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <textarea
+          pTextarea
+          id="sinopsis"
+          formControlName="sinopsis"
+          rows="4"
+          [maxlength]="sinopsisMaxLength"
+          [readonly]="datosLibroBloqueados()">
+        </textarea>
+        <label for="sinopsis">Sinopsis</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (sinopsis && sinopsis.invalid && sinopsis.touched) {
+      <small class="error-message">La sinopsis no puede superar {{ sinopsisMaxLength }} caracteres</small>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-dollar"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <p-inputnumber inputId="precioProveedor" formControlName="precioProveedor" mode="currency" currency="ARS" locale="es-AR"></p-inputnumber>
+        <label for="precioProveedor">Precio proveedor</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (precioProveedor && precioProveedor.invalid && precioProveedor.touched) {
+      <small class="error-message">Precio requerido (mayor a 0)</small>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-box"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <p-inputnumber inputId="cantidadProveedor" formControlName="cantidadProveedor" [useGrouping]="false"></p-inputnumber>
+        <label for="cantidadProveedor">Cantidad recomendada</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (cantidadProveedor && cantidadProveedor.invalid && cantidadProveedor.touched) {
+      <small class="error-message">Cantidad requerida (mayor a 0)</small>
+    }
+  </form>
+
+  <div class="dialog-actions">
+    <p-button label="Cancelar" severity="danger" [text]="true" (click)="cerrar.emit()"></p-button>
+    <p-button label="Guardar" type="button" [outlined]="true" severity="secondary" (click)="guardar.emit()" [loading]="guardando()" [disabled]="form().invalid || !isbnVerificado() || guardando()"></p-button>
+  </div>
+</p-dialog>

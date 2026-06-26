@@ -1,0 +1,15 @@
+
+.synopsis-popover {
+  max-width: 28rem;
+}
+
+.synopsis-popover strong {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.synopsis-popover p {
+  margin: 0;
+  line-height: 1.5;
+  white-space: pre-line;
+}

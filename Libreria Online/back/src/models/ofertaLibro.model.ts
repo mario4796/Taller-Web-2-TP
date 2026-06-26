@@ -1,16 +1,16 @@
-import { EstadoOferta, CategoriaLibro } from '../prisma/enums';
+import { EstadoOferta, CategoriaLibro } from "../prisma/enums.js";
 
 export class OfertaLibro {
-    id!: number;
-    isbn!: string;
-    nombre!: string;
-    autor!: string;
-    precioProveedor!: number;
-    cantidadAdmin!: number;
-    cantidadProveedor!: number;
-    estado!: EstadoOferta;
-    createdAt!: Date;
-    libroId?: number | null; 
-    sinopsis!: string;
-    categoria!: CategoriaLibro;
+  id!: number;
+  isbn!: string;
+  nombre!: string;
+  autor!: string;
+  precioProveedor!: number;
+  cantidadAdmin!: number;
+  cantidadProveedor!: number;
+  estado!: EstadoOferta;
+  createdAt!: Date;
+  libroId?: number | null;
+  sinopsis!: string;
+  categoria!: CategoriaLibro;
 }

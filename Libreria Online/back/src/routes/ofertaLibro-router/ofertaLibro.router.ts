@@ -16,6 +16,8 @@ router.put('/proveedor/contraofertar/:id', controller.contraofertaProveedor);
 
 router.put('/aceptar/:id', controller.aceptarOferta);
 
+router.put('/rechazar/:id', controller.rechazarOferta);
+
 router.delete('/:id', controller.eliminarOferta);
 
 export default router;

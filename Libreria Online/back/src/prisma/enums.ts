@@ -9,6 +9,14 @@
 * 🟢 You can import this file directly.
 */
 
+export const TipoMetodoPago = {
+  TARJETA: 'TARJETA',
+  BILLETERA_VIRTUAL: 'BILLETERA_VIRTUAL'
+} as const
+
+export type TipoMetodoPago = (typeof TipoMetodoPago)[keyof typeof TipoMetodoPago]
+
+
 export const EstadoOferta = {
   ESPERANDO_ADMIN: 'ESPERANDO_ADMIN',
   ESPERANDO_PROVEEDOR: 'ESPERANDO_PROVEEDOR',

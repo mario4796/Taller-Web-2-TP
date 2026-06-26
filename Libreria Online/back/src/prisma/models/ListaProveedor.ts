@@ -337,10 +337,6 @@ export type ListaProveedorNullableScalarRelationFilter = {
   isNot?: Prisma.ListaProveedorWhereInput | null
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }

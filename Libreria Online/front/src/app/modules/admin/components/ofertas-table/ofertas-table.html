@@ -1,0 +1,100 @@
+<p-table
+  #tablaOfertas
+  [value]="ofertas()"
+  [globalFilterFields]="['nombre', 'autor', 'isbn', 'estado', 'categoria']"
+  [loading]="cargando()"
+  [tableStyle]="{ 'min-width': '74rem' }"
+  styleClass="p-datatable-striped offers-table"
+  [paginator]="true"
+  [rows]="5"
+  [rowsPerPageOptions]="[5, 10, 20]">
+
+  <ng-template pTemplate="caption">
+    <div class="offers-caption">
+      <p-inputgroup class="offers-search-group">
+        <p-inputgroup-addon>
+          <i class="pi pi-search"></i>
+        </p-inputgroup-addon>
+        <p-floatlabel variant="in">
+          <input
+            pInputText
+            id="offer-search"
+            type="text"
+            [ngModel]="searchValue()"
+            (ngModelChange)="buscarOfertas($event)" />
+          <label for="offer-search">Buscar oferta</label>
+        </p-floatlabel>
+      </p-inputgroup>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Titulo</th>
+      <th>Autor</th>
+      <th>ISBN</th>
+      <th>Categoria</th>
+      <th>Precio proveedor</th>
+      <th>Cantidad</th>
+      <th>Estado</th>
+      <th style="text-align: center;">Acciones</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-oferta>
+    <tr>
+      <td><strong>{{ oferta.nombre }}</strong></td>
+      <td>{{ oferta.autor }}</td>
+      <td>{{ oferta.isbn }}</td>
+      <td>{{ oferta.categoria }}</td>
+      <td>{{ oferta.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</td>
+      <td>
+        <div class="quantity-cell">
+          <span>{{ cantidadActual(oferta) }} uds.</span>
+          @if (oferta.cantidadProveedor && oferta.estado === 'ESPERANDO_ADMIN') {
+            <small>Proveedor propuso {{ oferta.cantidadProveedor }}</small>
+          }
+        </div>
+      </td>
+      <td>
+        <p-tag [value]="estadoLabel(oferta.estado)" [severity]="estadoSeverity(oferta.estado)"></p-tag>
+      </td>
+      <td style="text-align: center;">
+        <p-button
+          icon="pi pi-check"
+          [rounded]="true"
+          [text]="true"
+          severity="success"
+          title="Aceptar oferta"
+          [disabled]="!puedeResponder(oferta)"
+          (click)="aceptar.emit(oferta)">
+        </p-button>
+        <p-button
+          icon="pi pi-reply"
+          [rounded]="true"
+          [text]="true"
+          severity="info"
+          title="Hacer contraoferta"
+          [disabled]="!puedeResponder(oferta)"
+          (click)="contraofertar.emit(oferta)">
+        </p-button>
+        <p-button
+          icon="pi pi-times"
+          [rounded]="true"
+          [text]="true"
+          severity="danger"
+          title="Rechazar oferta y eliminarla"
+          (click)="rechazar.emit(oferta)">
+        </p-button>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8" style="text-align: center; padding: 2rem;">
+        No hay ofertas cargadas todavia.
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

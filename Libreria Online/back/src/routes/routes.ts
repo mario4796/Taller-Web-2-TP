@@ -10,7 +10,6 @@ export class AppRoutes {
 
     router.use("/api/libros", librosRouter);
     router.use("/api/ofertas", ofertaLibroRouter);
-
     router.use("/api/usuarios", usuarioRouter);
 
     router.use("/api/comprador", compradorRouter);

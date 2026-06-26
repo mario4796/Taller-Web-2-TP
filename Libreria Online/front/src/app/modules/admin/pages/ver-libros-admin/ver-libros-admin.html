@@ -60,6 +60,13 @@
               [severity]="getSeverity(item.stock)"
               [style]="{'font-size': '0.85rem', 'padding': '4px 12px', 'border-radius': '8px', 'font-weight': '600'}">
             </p-tag>
+            <p-button 
+              label="Pedir más" 
+              icon="pi pi-plus-circle" 
+              severity="primary" 
+              [outlined]="true"
+              (click)="abrirPedidoStock(item)">
+           </p-button>
           </div>
 
         </div>
@@ -75,6 +82,12 @@
 
     </div>
   }
+<app-pedir-stock-admin
+  [visible]="mostrarFormularioPedido()"
+  [libro]="libroSeleccionado()"
+  [proveedores]="proveedores()" (visibleChange)="mostrarFormularioPedido.set($event)"
+  (alGuardarPedido)="onPedidoConfirmado($event)">
+</app-pedir-stock-admin>
 
   <!-- ===================== OFERTAS PENDIENTES ===================== -->
   <div style="margin-top: 48px; margin-bottom: 24px;">

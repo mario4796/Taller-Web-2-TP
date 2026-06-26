@@ -1,16 +1,9 @@
 import { Routes } from '@angular/router';
 import { HomeUser } from './layouts/home-user/home-user';
-import { ProveedorHome } from './modules/proveedor/pages/proveedor-home/proveedor-home';
-import { Libros } from './modules/proveedor/pages/libros/libros';
 import { Register } from './layouts/register/register';
 import { Login } from './layouts/login/login';
-import { Carrito } from './modules/carrito/carrito';
-import { Usuario } from './modules/usuario/usuario-component/usuario';
-import { ProveedorRecomendacion } from './modules/proveedor/pages/proveedor-recomendacion/proveedor-recomendacion';
-import { Admin } from './modules/admin/admin';
-import { VerOfertas } from './modules/admin/pages/ver-ofertas/ver-ofertas';
-import { authGuard } from './services/Auth/auth-guard';
 import { Estanteria } from './modules/estanteria/estanteria';
+import { CarritoComponent } from './modules/carrito/carrito-component/carrito-component';
 
 export const routes: Routes = [
   {
@@ -19,17 +12,8 @@ export const routes: Routes = [
   },
   {
     path: 'proveedor',
-    component: ProveedorHome,
-    canActivate: [authGuard],
-    data: { roles: ['PROVEEDOR'] },
-  },
-  {
-    path: 'proveedor/libros',
-    component: Libros,
-  },
-  {
-    path: 'proveedor/proveedor-recomendacion',
-    component: ProveedorRecomendacion,
+    loadChildren: () =>
+      import('./modules/proveedor/proveedor.routes').then((m) => m.proveedorRoutes),
   },
   {
     path: 'register',
@@ -41,19 +25,14 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    component: Admin,
-  },
-  {
-    path: 'admin',
-    children: [
-      {
-        path: 'ofertas',
-        component: VerOfertas,
-      },
-    ],
+    loadChildren: () => import('./modules/admin/admin.routes').then((m) => m.adminRoutes),
   },
   {
     path: 'libros',
     component: Estanteria,
+  },
+  {
+    path: 'carrito',
+    component: CarritoComponent,
   },
 ];

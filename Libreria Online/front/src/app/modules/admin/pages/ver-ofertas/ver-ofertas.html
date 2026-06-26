@@ -9,148 +9,24 @@
       <h2>Oferta de libros dados por proveedores</h2>
       <p class="offers-description">responde ofertas pendientes y haz contraofertas.</p>
     </div>
-
   </header>
 
   <div class="card">
-    <p-table
-      #tablaOfertas
-      [value]="ofertas()"
-      [globalFilterFields]="['nombre', 'autor', 'isbn', 'estado']"
-      [loading]="cargando()"
-      [tableStyle]="{ 'min-width': '68rem' }"
-      styleClass="p-datatable-striped offers-table"
-      [paginator]="true"
-      [rows]="5"
-      [rowsPerPageOptions]="[5, 10, 20]">
-
-      <ng-template pTemplate="caption">
-        <div class="offers-caption">
-          <p-inputgroup class="offers-search-group">
-            <p-inputgroup-addon>
-              <i class="pi pi-search"></i>
-            </p-inputgroup-addon>
-            <p-floatlabel variant="in">
-              <input
-                pInputText
-                id="offer-search"
-                type="text"
-                [(ngModel)]="searchValue"
-                (ngModelChange)="buscarOfertas($event)" />
-              <label for="offer-search">Buscar oferta</label>
-            </p-floatlabel>
-          </p-inputgroup>
-        </div>
-      </ng-template>
-
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Titulo</th>
-          <th>Autor</th>
-          <th>ISBN</th>
-          <th>Precio proveedor</th>
-          <th>Cantidad</th>
-          <th>Estado</th>
-          <th style="text-align: center;">Acciones</th>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="body" let-oferta>
-        <tr>
-          <td><strong>{{ oferta.nombre }}</strong></td>
-          <td>{{ oferta.autor }}</td>
-          <td>{{ oferta.isbn }}</td>
-          <td>{{ oferta.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</td>
-          <td>
-            <div class="quantity-cell">
-              <span>{{ cantidadActual(oferta) }} uds.</span>
-              @if (oferta.cantidadProveedor && oferta.estado === 'ESPERANDO_ADMIN') {
-                <small>Proveedor propuso {{ oferta.cantidadProveedor }}</small>
-              }
-            </div>
-          </td>
-          <td>
-            <p-tag [value]="estadoLabel(oferta.estado)" [severity]="estadoSeverity(oferta.estado)"></p-tag>
-          </td>
-          <td style="text-align: center;">
-            <p-button
-              icon="pi pi-check"
-              [rounded]="true"
-              [text]="true"
-              severity="success"
-              title="Aceptar oferta"
-              [disabled]="!puedeResponder(oferta)"
-              (click)="aceptarOferta(oferta)">
-            </p-button>
-            <p-button
-              icon="pi pi-reply"
-              [rounded]="true"
-              [text]="true"
-              severity="info"
-              title="Hacer contraoferta"
-              [disabled]="!puedeResponder(oferta)"
-              (click)="abrirContraoferta(oferta)">
-            </p-button>
-            <p-button
-              icon="pi pi-times"
-              [rounded]="true"
-              [text]="true"
-              severity="danger"
-              title="Rechazar oferta y eliminarla"
-              (click)="rechazarOferta(oferta)">
-            </p-button>
-          </td>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td colspan="7" style="text-align: center; padding: 2rem;">
-            No hay ofertas cargadas todavia.
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
+    <app-ofertas-table
+      [ofertas]="ofertas()"
+      [cargando]="cargando()"
+      (aceptar)="aceptarOferta($event)"
+      (contraofertar)="abrirContraoferta($event)"
+      (rechazar)="rechazarOferta($event)">
+    </app-ofertas-table>
   </div>
 </section>
 
-
-<p-dialog header="Responder contraoferta" [modal]="true" [(visible)]="contraofertaVisible" [style]="{ width: '30rem' }" styleClass="offer-dialog">
-  @if (ofertaSeleccionada()) {
-    <div class="informacion-oferta">
-      <p><strong>Autor:</strong> {{ ofertaSeleccionada()?.autor }}</p>
-      <p><strong>ISBN:</strong> {{ ofertaSeleccionada()?.isbn }}</p>
-      <p><strong>Precio actual:</strong> {{ ofertaSeleccionada()?.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</p>
-      <p><strong>Cantidad actual:</strong> {{ cantidadActual(ofertaSeleccionada()!) }}</p>
-    </div>
-  }
-
-  <form [formGroup]="contraofertaForm" class="offer-form">
-    <p-inputgroup class="offer-inputgroup">
-      <p-floatlabel variant="in">
-        <p-inputnumber inputId="nuevaCantidad" formControlName="nuevaCantidad" [useGrouping]="false"></p-inputnumber>
-        <label for="nuevaCantidad">Nueva cantidad</label>
-      </p-floatlabel>
-      <p-inputgroup-addon><i class="pi pi-box"></i></p-inputgroup-addon>
-    </p-inputgroup>
-    @if (nuevaCantidad && nuevaCantidad.invalid && nuevaCantidad.touched) {
-      <small class="error-message">La cantidad debe ser mayor a 0</small>
-    }
-
-    <p-inputgroup class="offer-inputgroup">
-      <p-floatlabel variant="in">
-        <p-inputnumber inputId="nuevoPrecio" formControlName="nuevoPrecio" mode="currency" currency="ARS" locale="es-AR"></p-inputnumber>
-        <label for="nuevoPrecio">Nuevo precio (opcional)</label>
-      </p-floatlabel>
-      <p-inputgroup-addon><i class="pi pi-dollar"></i></p-inputgroup-addon>
-    </p-inputgroup>
-    @if (nuevoPrecio && nuevoPrecio.invalid && nuevoPrecio.touched) {
-      <small class="error-message">El precio debe ser mayor a 0</small>
-    }
-  </form>
-
-  <div class="dialog-actions">
-    <p-button label="Cancelar" severity="danger" [text]="true" (click)="cerrarContraoferta()"></p-button>
-    <p-button label="Enviar" [outlined]="true" severity="secondary" (click)="enviarContraoferta()" [loading]="respondiendo()" [disabled]="contraofertaForm.invalid || respondiendo()"></p-button>
-  </div>
-</p-dialog>
+<app-contraoferta-admin-dialog
+  [visible]="contraofertaVisible()"
+  [oferta]="ofertaSeleccionada()"
+  [form]="contraofertaForm"
+  [respondiendo]="respondiendo()"
+  (cerrar)="cerrarContraoferta()"
+  (enviar)="enviarContraoferta()">
+</app-contraoferta-admin-dialog>

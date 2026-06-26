@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
 
@@ -10,13 +10,13 @@ import { Button } from 'primeng/button';
   styleUrl: './home.css',
 })
 export class Home {
-  @Input() imageBanner: string = '';
-  @Input() eyebrow: string = '';
-  @Input() title: string = '';
-  @Input() description: string = '';
-  @Input() buttonText: string = '';
-  @Input() buttonLink: string = '';
-  @Input() buttonRoute: string = '';
-  @Input() buttonLinkRoute: string = '';
-  @Input() role: string = '';
+  imageBanner = input('');
+  eyebrow = input('');
+  title = input('');
+  description = input('');
+  buttonText = input('');
+  buttonLink = input('');
+  buttonRoute = input('');
+  buttonLinkRoute = input('');
+  role = input('');
 }

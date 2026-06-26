@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Administradores: 'Administradores',
+  MetodosPago: 'MetodosPago',
   Compradores: 'Compradores',
   Libros: 'Libros',
   Proveedores: 'Proveedores',
@@ -60,7 +61,9 @@ export const ModelName = {
   Usuarios: 'Usuarios',
   OfertaLibro: 'OfertaLibro',
   Carritos: 'Carritos',
-  DetallesCarrito: 'DetallesCarrito'
+  DetallesCarrito: 'DetallesCarrito',
+  Transacciones: 'Transacciones',
+  DetalleTransaccion: 'DetalleTransaccion'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -84,6 +87,18 @@ export const AdministradoresScalarFieldEnum = {
 } as const
 
 export type AdministradoresScalarFieldEnum = (typeof AdministradoresScalarFieldEnum)[keyof typeof AdministradoresScalarFieldEnum]
+
+
+export const MetodosPagoScalarFieldEnum = {
+  id: 'id',
+  comprador_id: 'comprador_id',
+  tipo: 'tipo',
+  nombre_provider: 'nombre_provider',
+  token_externo: 'token_externo',
+  es_predeterminado: 'es_predeterminado'
+} as const
+
+export type MetodosPagoScalarFieldEnum = (typeof MetodosPagoScalarFieldEnum)[keyof typeof MetodosPagoScalarFieldEnum]
 
 
 export const CompradoresScalarFieldEnum = {
@@ -182,6 +197,29 @@ export const DetallesCarritoScalarFieldEnum = {
 } as const
 
 export type DetallesCarritoScalarFieldEnum = (typeof DetallesCarritoScalarFieldEnum)[keyof typeof DetallesCarritoScalarFieldEnum]
+
+
+export const TransaccionesScalarFieldEnum = {
+  id: 'id',
+  comprador_id: 'comprador_id',
+  metodo_pago_id: 'metodo_pago_id',
+  monto_total: 'monto_total',
+  fecha_pago: 'fecha_pago',
+  estado: 'estado'
+} as const
+
+export type TransaccionesScalarFieldEnum = (typeof TransaccionesScalarFieldEnum)[keyof typeof TransaccionesScalarFieldEnum]
+
+
+export const DetalleTransaccionScalarFieldEnum = {
+  id: 'id',
+  transaccion_id: 'transaccion_id',
+  libro_id: 'libro_id',
+  cantidad: 'cantidad',
+  precio_unitario: 'precio_unitario'
+} as const
+
+export type DetalleTransaccionScalarFieldEnum = (typeof DetalleTransaccionScalarFieldEnum)[keyof typeof DetalleTransaccionScalarFieldEnum]
 
 
 export const SortOrder = {
