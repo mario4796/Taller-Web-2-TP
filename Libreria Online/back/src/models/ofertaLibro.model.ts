@@ -12,5 +12,6 @@ export class OfertaLibro {
   createdAt!: Date;
   libroId?: number | null;
   sinopsis!: string;
+  imagenUrl?: string | null;
   categoria!: CategoriaLibro;
 }

@@ -48,9 +48,9 @@
       <td>
         <div class="cover-cell">
           <img
-            [src]="portadaUrl(recomendacion.isbn)"
+            [src]="portadaUrl(recomendacion)"
             [alt]="'Portada de ' + recomendacion.nombre"
-            (error)="ocultarPortada($event)" />
+            (error)="usarPortadaFallback($event)" />
         </div>
       </td>
       <td><strong>{{ recomendacion.nombre }}</strong></td>

@@ -7,11 +7,19 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { TooltipModule } from 'primeng/tooltip';
 
 import { CATEGORIAS_LIBRO } from '../../../../shared/interfaces/libro.interface';
+
+interface CamposLibroBloqueados {
+  nombre: boolean;
+  autor: boolean;
+  sinopsis: boolean;
+  imagenUrl: boolean;
+}
 
 @Component({
   selector: 'app-recomendacion-form-dialog',
@@ -25,6 +33,7 @@ import { CATEGORIAS_LIBRO } from '../../../../shared/interfaces/libro.interface'
     InputGroupAddonModule,
     InputNumberModule,
     InputTextModule,
+    ProgressBarModule,
     SelectModule,
     TextareaModule,
     TooltipModule,
@@ -38,7 +47,12 @@ export class RecomendacionFormDialog {
   buscandoIsbn = input(false);
   guardando = input(false);
   isbnVerificado = input(false);
-  datosLibroBloqueados = input(false);
+  camposLibroBloqueados = input<CamposLibroBloqueados>({
+    nombre: false,
+    autor: false,
+    sinopsis: false,
+    imagenUrl: false,
+  });
   portadaPreview = input<string | undefined>();
 
   cerrar = output<void>();
@@ -52,6 +66,14 @@ export class RecomendacionFormDialog {
     (event.target as HTMLImageElement).style.display = 'none';
   }
 
+  mostrarPortada(event: Event): void {
+    (event.target as HTMLImageElement).style.display = 'block';
+  }
+
+  portadaActual(): string | undefined {
+    return this.imagenUrl?.value || this.portadaPreview();
+  }
+
   get isbn() { return this.form().get('isbn'); }
   get nombre() { return this.form().get('nombre'); }
   get autor() { return this.form().get('autor'); }
@@ -59,4 +81,5 @@ export class RecomendacionFormDialog {
   get cantidadProveedor() { return this.form().get('cantidadProveedor'); }
   get categoria() { return this.form().get('categoria'); }
   get sinopsis() { return this.form().get('sinopsis'); }
+  get imagenUrl() { return this.form().get('imagenUrl'); }
 }

@@ -25,6 +25,13 @@
         (click)="buscarIsbn.emit()">
       </p-button>
     </p-inputgroup>
+    @if (buscandoIsbn()) {
+      <p-progressbar
+        mode="indeterminate"
+        [showValue]="false"
+        styleClass="isbn-progress">
+      </p-progressbar>
+    }
     @if (isbn && isbn.invalid && isbn.touched) {
       <small class="error-message">ISBN requerido (10-20 caracteres, números, X y guiones)</small>
     }
@@ -32,10 +39,26 @@
       <small class="warning-message">Tenés que buscar el ISBN antes de guardar.</small>
     }
 
-    @if (portadaPreview()) {
+    @if (portadaActual()) {
       <div class="cover-preview">
-        <img [src]="portadaPreview()" alt="Portada encontrada" (error)="ocultarPortada($event)" />
+        <img [src]="portadaActual()" alt="Portada encontrada" (load)="mostrarPortada($event)" (error)="ocultarPortada($event)" />
       </div>
+    }
+
+    <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-image"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <input
+          pInputText
+          id="imagenUrl"
+          formControlName="imagenUrl"
+          autocomplete="off"
+          [readonly]="camposLibroBloqueados().imagenUrl" />
+        <label for="imagenUrl">URL de portada</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (imagenUrl && imagenUrl.invalid && imagenUrl.touched) {
+      <small class="error-message">La URL de portada no puede superar 500 caracteres</small>
     }
 
     <p-inputgroup class="recommendation-inputgroup">
@@ -46,7 +69,7 @@
           id="nombre"
           formControlName="nombre"
           autocomplete="off"
-          [readonly]="datosLibroBloqueados()" />
+          [readonly]="camposLibroBloqueados().nombre" />
         <label for="nombre">Título del libro</label>
       </p-floatlabel>
     </p-inputgroup>
@@ -62,7 +85,7 @@
           id="autor"
           formControlName="autor"
           autocomplete="off"
-          [readonly]="datosLibroBloqueados()" />
+          [readonly]="camposLibroBloqueados().autor" />
         <label for="autor">Autor</label>
       </p-floatlabel>
     </p-inputgroup>
@@ -77,7 +100,6 @@
           inputId="categoria"
           formControlName="categoria"
           [options]="categorias"
-          [readonly]="datosLibroBloqueados()"
           appendTo="body">
         </p-select>
         <label for="categoria">Categoría</label>
@@ -96,7 +118,7 @@
           formControlName="sinopsis"
           rows="4"
           [maxlength]="sinopsisMaxLength"
-          [readonly]="datosLibroBloqueados()">
+          [readonly]="camposLibroBloqueados().sinopsis">
         </textarea>
         <label for="sinopsis">Sinopsis</label>
       </p-floatlabel>

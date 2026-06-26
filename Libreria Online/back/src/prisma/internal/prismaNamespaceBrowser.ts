@@ -117,6 +117,7 @@ export const LibrosScalarFieldEnum = {
   stock: 'stock',
   estado: 'estado',
   sinopsis: 'sinopsis',
+  imagenUrl: 'imagenUrl',
   categoria: 'categoria'
 } as const
 
@@ -172,6 +173,7 @@ export const OfertaLibroScalarFieldEnum = {
   estado: 'estado',
   createdAt: 'createdAt',
   sinopsis: 'sinopsis',
+  imagenUrl: 'imagenUrl',
   categoria: 'categoria',
   libroId: 'libroId'
 } as const

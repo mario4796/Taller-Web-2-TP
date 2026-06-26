@@ -18,6 +18,7 @@ export interface OfertaLibro {
   createdAt?: string;
   libroId?: number | null;
   sinopsis?: string | null;
+  imagenUrl?: string | null;
   categoria: CategoriaLibro;
 }
 

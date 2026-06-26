@@ -25,6 +25,7 @@ export interface Libro {
   stock: number;
 
   sinopsis?: string;
+  imagenUrl?: string | null;
   categoria?: string;
 }
 

@@ -8,5 +8,6 @@ export interface LibroRest {
   precio: number | string;
   stock: number;
   sinopsis?: string | null;
+  imagenUrl?: string | null;
   categoria?: CategoriaLibro | null;
 }

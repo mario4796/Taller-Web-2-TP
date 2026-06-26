@@ -17,6 +17,20 @@ import { Libro } from '../../../../shared/interfaces/libro.interface';
 import { OfertaLibro } from '../../../../shared/interfaces/oferta-libro.interface';
 import { ToastService } from '../../../../shared/services/toast.service';
 
+interface CamposLibroBloqueados {
+  nombre: boolean;
+  autor: boolean;
+  sinopsis: boolean;
+  imagenUrl: boolean;
+}
+
+const CAMPOS_LIBRO_EDITABLES: CamposLibroBloqueados = {
+  nombre: false,
+  autor: false,
+  sinopsis: false,
+  imagenUrl: false,
+};
+
 @Component({
   selector: 'app-proveedor-recomendacion',
   standalone: true,
@@ -55,7 +69,7 @@ export class ProveedorRecomendacion implements OnInit {
   ofertaSeleccionada = signal<OfertaLibro | undefined>(undefined);
   isbnVerificado = signal(false);
   isbnVerificadoValor = signal('');
-  datosLibroBloqueados = signal(false);
+  camposLibroBloqueados = signal<CamposLibroBloqueados>({ ...CAMPOS_LIBRO_EDITABLES });
   portadaPreview = signal<string | undefined>(undefined);
 
   recomendacionForm: FormGroup = this.fb.group({
@@ -64,6 +78,7 @@ export class ProveedorRecomendacion implements OnInit {
     autor: ['', [Validators.required, Validators.minLength(3)]],
     categoria: ['GENERAL', [Validators.required]],
     sinopsis: ['', [Validators.maxLength(700)]],
+    imagenUrl: ['', [Validators.maxLength(500)]],
     precioProveedor: [null, [Validators.required, Validators.min(1)]],
     cantidadProveedor: [null, [Validators.required, Validators.min(1)]],
     libroId: [null],
@@ -79,9 +94,9 @@ export class ProveedorRecomendacion implements OnInit {
     this.recomendacionForm.get('isbn')?.valueChanges.subscribe(() => {
       this.isbnVerificado.set(false);
       this.isbnVerificadoValor.set('');
-      this.datosLibroBloqueados.set(false);
+      this.camposLibroBloqueados.set({ ...CAMPOS_LIBRO_EDITABLES });
       this.portadaPreview.set(undefined);
-      this.recomendacionForm.patchValue({ libroId: null }, { emitEvent: false });
+      this.recomendacionForm.patchValue({ libroId: null, imagenUrl: '' }, { emitEvent: false });
     });
   }
 
@@ -110,7 +125,7 @@ export class ProveedorRecomendacion implements OnInit {
     this.recomendacionForm.reset({ categoria: 'GENERAL' });
     this.isbnVerificado.set(false);
     this.isbnVerificadoValor.set('');
-    this.datosLibroBloqueados.set(false);
+    this.camposLibroBloqueados.set({ ...CAMPOS_LIBRO_EDITABLES });
     this.portadaPreview.set(undefined);
   }
 
@@ -159,7 +174,12 @@ export class ProveedorRecomendacion implements OnInit {
     }
 
     this.guardando.set(true);
-    this.ofertasService.crearOferta(this.recomendacionForm.value).subscribe({
+    const recomendacion = {
+      ...this.recomendacionForm.value,
+      imagenUrl: this.recomendacionForm.value.imagenUrl?.trim() || null,
+    };
+
+    this.ofertasService.crearOferta(recomendacion).subscribe({
       next: () => {
         this.guardando.set(false);
         this.cerrarNuevaRecomendacion();
@@ -249,7 +269,7 @@ export class ProveedorRecomendacion implements OnInit {
         if (!libro) {
           this.isbnVerificado.set(true);
           this.isbnVerificadoValor.set(isbn);
-          this.datosLibroBloqueados.set(false);
+          this.camposLibroBloqueados.set({ ...CAMPOS_LIBRO_EDITABLES });
           this.messageService.add({
             severity: 'warn',
             summary: 'Sin datos externos',
@@ -261,23 +281,32 @@ export class ProveedorRecomendacion implements OnInit {
 
         const titulo = [libro.title, libro.subtitle].filter(Boolean).join(': ');
         const autor = libro.authors?.map((item) => item.name).filter(Boolean).join(', ') ?? '';
-        const sinopsis = libro.excerpts?.find((item) => item.text)?.text ?? '';
+        const sinopsis = (libro.excerpts?.find((item) => item.text)?.text ?? '').slice(0, 700);
+        const imagenUrl = libro.cover?.medium ?? libro.cover?.small ?? libro.cover?.large ?? '';
 
         this.recomendacionForm.patchValue({
           nombre: titulo,
           autor,
           sinopsis,
+          imagenUrl,
           libroId: null,
         });
-        this.portadaPreview.set(libro.cover?.medium ?? libro.cover?.small ?? libro.cover?.large);
+        this.portadaPreview.set(imagenUrl || undefined);
         this.isbnVerificado.set(true);
         this.isbnVerificadoValor.set(isbn);
-        this.datosLibroBloqueados.set(true);
+        this.camposLibroBloqueados.set({
+          nombre: Boolean(titulo),
+          autor: Boolean(autor),
+          sinopsis: Boolean(sinopsis),
+          imagenUrl: Boolean(imagenUrl),
+        });
 
         this.messageService.add({
           severity: 'info',
           summary: 'OpenLibrary',
-          detail: 'No estaba en la base de datos. Se completaron los datos encontrados en la API.',
+          detail: titulo && autor && imagenUrl
+            ? 'No estaba en la base de datos. Se completaron los datos encontrados en la API.'
+            : 'OpenLibrary trajo datos parciales. Completa los campos faltantes manualmente.',
           life: 4000,
         });
       },
@@ -286,7 +315,7 @@ export class ProveedorRecomendacion implements OnInit {
         this.buscandoIsbn.set(false);
         this.isbnVerificado.set(true);
         this.isbnVerificadoValor.set(isbn);
-        this.datosLibroBloqueados.set(false);
+        this.camposLibroBloqueados.set({ ...CAMPOS_LIBRO_EDITABLES });
         this.toastService.error('No se pudo consultar OpenLibrary. Completa titulo y autor manualmente.');
       },
     });
@@ -298,12 +327,18 @@ export class ProveedorRecomendacion implements OnInit {
       autor: libro.autor,
       categoria: libro.categoria ?? 'GENERAL',
       sinopsis: libro.sinopsis ?? '',
+      imagenUrl: libro.imagenUrl ?? '',
       libroId: libro.id,
     });
-    this.portadaPreview.set(this.isbnLookupService.portadaUrl(libro.isbn));
+    this.portadaPreview.set(libro.imagenUrl ?? undefined);
     this.isbnVerificado.set(true);
     this.isbnVerificadoValor.set(this.normalizarIsbn(libro.isbn));
-    this.datosLibroBloqueados.set(true);
+    this.camposLibroBloqueados.set({
+      nombre: Boolean(libro.nombre),
+      autor: Boolean(libro.autor),
+      sinopsis: Boolean(libro.sinopsis),
+      imagenUrl: Boolean(libro.imagenUrl),
+    });
   }
 
   private normalizarIsbn(isbn: string | null | undefined): string {
