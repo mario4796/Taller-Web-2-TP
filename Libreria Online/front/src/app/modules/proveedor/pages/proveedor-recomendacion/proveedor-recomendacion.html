@@ -1,4 +1,4 @@
-<app-nav [userName]="userName" [role]="role" [activeItem]="activeItem"></app-nav>
+<app-nav></app-nav>
 
 <p-toast position="top-right"></p-toast>
 
@@ -7,11 +7,18 @@
     <div>
       <p class="recommendations-eyebrow">Recomendacion de libros</p>
       <h2>Libros recomendados al administrador</h2>
-      <p class="recommendations-description">Carga recomendaciones y revisa el estado de los libros que propusiste.</p>
+      <p class="recommendations-description">
+        Carga recomendaciones y revisa el estado de los libros que propusiste.
+      </p>
     </div>
 
     <div class="recommendations-toolbar">
-      <p-button label="Nueva recomendacion" icon="pi pi-plus" severity="help" (click)="abrirNuevaRecomendacion()"></p-button>
+      <p-button
+        label="Nueva recomendacion"
+        icon="pi pi-plus"
+        severity="help"
+        (click)="abrirNuevaRecomendacion()"
+      ></p-button>
     </div>
   </header>
 
@@ -21,7 +28,8 @@
       [cargando]="cargando()"
       (aceptar)="aceptarCantidadPropuestaPorAdmin($event)"
       (contraofertar)="abrirContraoferta($event)"
-      (rechazar)="rechazarOferta($event)">
+      (rechazar)="rechazarOferta($event)"
+    >
     </app-recomendaciones-table>
   </div>
 </section>
@@ -36,7 +44,8 @@
   [portadaPreview]="portadaPreview()"
   (cerrar)="cerrarNuevaRecomendacion()"
   (buscarIsbn)="buscarDatosDelLibroPorIsbn()"
-  (guardar)="guardarRecomendacion()">
+  (guardar)="guardarRecomendacion()"
+>
 </app-recomendacion-form-dialog>
 
 <app-contraoferta-proveedor-dialog
@@ -45,5 +54,6 @@
   [form]="contraofertaForm"
   [respondiendo]="respondiendo()"
   (cerrar)="cerrarContraoferta()"
-  (enviar)="enviarContraoferta()">
+  (enviar)="enviarContraoferta()"
+>
 </app-contraoferta-proveedor-dialog>
