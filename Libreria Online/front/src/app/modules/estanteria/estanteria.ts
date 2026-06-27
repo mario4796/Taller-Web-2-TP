@@ -7,11 +7,12 @@ import { LibroEstanteria } from '../libro-estanteria/libro-estanteria';
 import { CompradorService } from '../../api/services/comprador/comprador-service';
 import { AuthService } from '../../services/Auth/auth-service';
 import { Libro } from '../../shared/interfaces/libro.interface';
+import { Nav } from '../../shared/components/nav/nav';
 
 @Component({
   selector: 'app-estanteria',
   standalone: true,
-  imports: [LibroEstanteria, DataViewModule],
+  imports: [LibroEstanteria, DataViewModule, Nav],
   templateUrl: './estanteria.html',
   styleUrl: './estanteria.css',
 })

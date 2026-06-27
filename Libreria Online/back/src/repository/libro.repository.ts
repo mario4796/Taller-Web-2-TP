@@ -87,4 +87,15 @@ export class LibroRepository {
       });
     }
   }
+
+  async findAllLibrosConStock() {
+    const libros = await prisma.libros.findMany({
+      where: {
+        stock: { gt: 0 },
+      },
+      take: 10,
+    });
+
+    return libros;
+  }
 }

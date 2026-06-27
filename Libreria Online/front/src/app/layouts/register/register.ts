@@ -55,7 +55,7 @@ export class Register {
     }
 
     const { confirmPassword, password, ...otros } = this.form.value;
-    const usuarioPayload = { ...otros, contrasena: password, tipo_usuario: 1 };
+    const usuarioPayload = { ...otros, contrasena: password, tipo_usuario: 3 };
 
     this.usuarioService.registrar(usuarioPayload).subscribe({
       next: () => {

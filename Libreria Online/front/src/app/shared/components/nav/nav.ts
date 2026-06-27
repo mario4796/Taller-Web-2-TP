@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
 import { Avatar } from 'primeng/avatar';
 import { AuthService } from '../../../services/Auth/auth-service';
+import { Menu } from 'primeng/menu';
 interface NavItem {
   label: string;
   icon: string;
@@ -14,7 +15,7 @@ interface NavItem {
 
 @Component({
   selector: 'app-nav',
-  imports: [CommonModule, Button, Avatar, RouterLink],
+  imports: [CommonModule, Button, Avatar, RouterLink, Menu],
   templateUrl: './nav.html',
   styleUrl: './nav.css',
 })
@@ -31,6 +32,16 @@ export class Nav implements OnInit, OnChanges {
   navItems: NavItem[] = [];
 
   ngOnInit(): void {
+    this.authService.authState$.subscribe((isLoggedIn) => {
+      this.logueado = isLoggedIn;
+
+      // Recuperamos los datos más recientes del storage
+      this.userName = this.authService.getUsuario().nombre || '';
+      this.role = localStorage.getItem('role') || 'comprador';
+
+      // Recalculamos los ítems del menú según el estado
+      this.setNavItems();
+    });
     console.log(localStorage.getItem('role'));
     const savedTheme = localStorage.getItem('theme');
     const shouldUseDark = savedTheme === 'dark';
@@ -125,5 +136,31 @@ export class Nav implements OnInit, OnChanges {
         ];
         break;
     }
+  }
+
+  // Dentro de la clase Nav:
+  userMenuItems = [
+    { label: 'Perfil', icon: 'pi pi-user', routerLink: '/perfil' },
+    { label: 'Configuración', icon: 'pi pi-cog', routerLink: '/configuracion' },
+    { separator: true },
+    { label: 'Cerrar sesión', icon: 'pi pi-sign-out', command: () => this.logout() },
+  ];
+
+  get initials(): string {
+    if (!this.userName) return 'US';
+    return this.userName
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .substring(0, 2)
+      .toUpperCase();
+  }
+
+  get roleLabel(): string {
+    const roles: Record<string, string> = {
+      admin: 'Administrador',
+      proveedor: 'Proveedor',
+    };
+    return roles[this.role] || 'Comprador';
   }
 }
