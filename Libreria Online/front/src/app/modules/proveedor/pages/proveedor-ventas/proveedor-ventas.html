@@ -1,72 +1,83 @@
 <app-nav [userName]="userName" [role]="role" [activeItem]="activeItem"></app-nav>
 
-<section class="recommendations-page">
-  <header class="recommendations-header">
-    <span class="eyebrow">PANEL DEL PROVEEDOR</span>
-    <h2>Ventas</h2>
-    <p>Resumen de tus ofertas aceptadas y ganancias reales.</p>
-  </header>
+<main class="sales-page">
+  <section class="sales-header">
+    <div>
+      <p class="sales-eyebrow">Panel del proveedor</p>
+      <h2>Ofertas aceptadas</h2>
+      <p class="sales-description">Resumen de tus ofertas cerradas y ganancias reales.</p>
+    </div>
+  </section>
 
-  <div class="mario-grid">
-    <div class="mario-card">
-      <div class="icon-box">
+  <section class="sales-grid" aria-label="Indicadores principales">
+    <article class="sales-card">
+      <div class="card-icon">
         <i class="pi pi-box"></i>
       </div>
       <div class="card-text">
         <span class="card-title">Volumen entregado</span>
-        <span class="card-value">{{ totalLibrosEntregados() }}</span>
+        <strong class="card-value">{{ totalLibrosEntregados() }}</strong>
         <span class="card-subtitle">Unidades vendidas</span>
       </div>
-    </div>
+    </article>
 
-    <div class="mario-card">
-      <div class="icon-box">
+    <article class="sales-card">
+      <div class="card-icon">
         <i class="pi pi-wallet"></i>
       </div>
       <div class="card-text">
         <span class="card-title">Ganancia total</span>
-        <span class="card-value">{{ totalDineroGenerado() | currency:'ARS':'symbol-narrow':'1.2-2' }}</span>
-        <span class="card-subtitle">Acumulado histórico</span>
+        <strong class="card-value">{{ totalDineroGenerado() | currency:'ARS':'symbol-narrow':'1.2-2' }}</strong>
+        <span class="card-subtitle">Acumulado historico</span>
+      </div>
+    </article>
+  </section>
+
+  <section *ngIf="cargando()" class="status-panel">
+    <i class="pi pi-spin pi-spinner"></i>
+    <p>Cargando historial de ofertas...</p>
+  </section>
+
+  <section *ngIf="!cargando()" class="table-panel">
+    <div class="table-header">
+      <div>
+        <h3>Historial de ofertas cerradas</h3>
+        <p>Detalle rapido de los movimientos mas recientes.</p>
       </div>
     </div>
-  </div>
 
-  <div *ngIf="cargando()" style="padding: 2rem; text-align: center; color: #a1a1aa;">
-    <i class="pi pi-spin pi-spinner" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
-    <p>Cargando historial de ventas...</p>
-  </div>
-
-  <div *ngIf="!cargando()" class="mario-table-card">
-    <div class="table-header">
-      <h3>Historial de Ofertas Cerradas</h3>
-      <p>Detalle rápido de los movimientos más recientes.</p>
-    </div>
-
-    <div *ngIf="ofertasAceptadas().length === 0" style="padding: 2rem; text-align: center; color: #a1a1aa;">
+    <div *ngIf="ofertasAceptadas().length === 0" class="empty-state">
       No hay ofertas aceptadas actualmente en el sistema.
     </div>
 
-    <table *ngIf="ofertasAceptadas().length > 0" class="mario-table">
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>ISBN</th>
-          <th>Título</th>
-          <th>Precio Proveedor</th>
-          <th>Cantidad</th>
-          <th>Total Cobrado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let oferta of ofertasAceptadas()">
-          <td>{{ oferta.createdAt | date:'dd/MM/yyyy' }}</td>
-          <td>{{ oferta.isbn }}</td>
-          <td>{{ oferta.nombre }}</td>
-          <td>{{ oferta.precioProveedor | currency:'ARS' }}</td>
-          <td><strong>{{ cantidadActual(oferta) }}</strong></td>
-          <td class="text-green">{{ (oferta.precioProveedor * cantidadActual(oferta)) | currency:'ARS' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+    <div *ngIf="ofertasAceptadas().length > 0" class="table-wrapper">
+      <table class="sales-table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>ISBN</th>
+            <th>Titulo</th>
+            <th>Precio proveedor</th>
+            <th>Cantidad</th>
+            <th>Total cobrado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let oferta of ofertasAceptadas()">
+            <td>{{ oferta.createdAt | date:'dd/MM/yyyy' }}</td>
+            <td>{{ oferta.isbn }}</td>
+            <td>
+              <div class="book-cell">
+                <strong>{{ oferta.nombre }}</strong>
+                <span>{{ oferta.autor }}</span>
+              </div>
+            </td>
+            <td>{{ oferta.precioProveedor | currency:'ARS' }}</td>
+            <td><strong>{{ cantidadActual(oferta) }}</strong></td>
+            <td class="total-cell">{{ (oferta.precioProveedor * cantidadActual(oferta)) | currency:'ARS' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
