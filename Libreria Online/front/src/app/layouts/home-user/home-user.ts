@@ -22,6 +22,7 @@ export class HomeUser {
   private authService = inject(AuthService);
 
   logueado = computed(() => this.authService.tipoUsuario() !== null);
+  role = computed(() => this.authService.tipoUsuario()?.toLowerCase() || '');
 
   // Propiedades del banner
   imageBanner = 'img/libreria_banner_transparente.svg';

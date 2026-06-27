@@ -7,6 +7,7 @@ import { LibrosService } from '../../api/services/libros/libros.services';
 import { LibroEstanteria } from '../libro-estanteria/libro-estanteria';
 import { CompradorService } from '../../api/services/comprador/comprador-service';
 import { AuthService } from '../../services/Auth/auth-service';
+import { LibroDigitalService } from '../../services/libro-digital/libro-digital.service';
 import { Libro } from '../../shared/interfaces/libro.interface';
 import { Nav } from '../../shared/components/nav/nav';
 
@@ -21,6 +22,7 @@ import { Nav } from '../../shared/components/nav/nav';
 export class Estanteria implements OnInit {
   libroService = inject(LibrosService);
   compradorService = inject(CompradorService);
+  libroDigitalService = inject(LibroDigitalService);
   auth = inject(AuthService);
   messageService = inject(MessageService);
 
@@ -68,5 +70,35 @@ export class Estanteria implements OnInit {
     } else {
       console.log('Error usuario no encontrado');
     }
+  }
+
+  manejarCompraDigital(libroId: number) {
+    const compradorId = this.auth.getUser();
+    if (compradorId === null) {
+      console.log('Error usuario no encontrado');
+      return;
+    }
+
+    this.libroDigitalService.adquirirLibro(compradorId, libroId).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: '¡Libro digital adquirido!',
+          detail: 'Ya podés acceder a él desde "Mis libros digitales"',
+          life: 4000,
+        });
+      },
+      error: (err) => {
+        const yaAdquirido = err?.error?.message?.includes('ya adquirido') || err?.status === 409;
+        this.messageService.add({
+          severity: yaAdquirido ? 'warn' : 'error',
+          summary: yaAdquirido ? 'Ya lo tenés' : 'Error',
+          detail: yaAdquirido
+            ? 'Este libro digital ya está en tu biblioteca'
+            : 'No se pudo adquirir el libro digital',
+        });
+        console.error('Error al adquirir libro digital', err);
+      },
+    });
   }
 }

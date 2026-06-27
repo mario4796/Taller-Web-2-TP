@@ -38,6 +38,7 @@ model MetodosPago {
 model Compradores {
   usuario_id  Int           @id
   Usuarios    Usuarios      @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  LibrosDigitalesAdquiridos LibroDigitalAdquirido[]
   Carrito     Carritos?
   
 
@@ -47,21 +48,32 @@ model Compradores {
 }
 
 model Libros {
-  id      Int           @id @default(autoincrement())
-  isbn    String        @unique @db.VarChar(20)
-  nombre  String        @db.VarChar(255)
-  autor   String        @db.VarChar(255)
-  precio  Decimal       @db.Decimal(10, 2)
-  stock   Int?          @default(0)
-  estado  String?       @default("DISPONIBLE") @db.VarChar(50)
-  sinopsis String?
-  imagenUrl String?
-  categoria   CategoriaLibro @default(GENERAL)
-  ofertas OfertaLibro[] 
+  id                        Int                     @id @default(autoincrement())
+  isbn                      String                  @unique @db.VarChar(20)
+  nombre                    String                  @db.VarChar(255)
+  autor                     String                  @db.VarChar(255)
+  precio                    Decimal                 @db.Decimal(10, 2)
+  stock                     Int?                    @default(0)
+  estado                    String?                 @default("DISPONIBLE") @db.VarChar(50)
+  archivoDigital            String?                 @db.VarChar(500)
+  sinopsis                  String?
+  imagenUrl                 String?
+  categoria                 CategoriaLibro          @default(GENERAL)
+  LibrosDigitalesAdquiridos LibroDigitalAdquirido[]
+  ofertas                   OfertaLibro[]
+  detallesCarritos          DetallesCarrito[]
+  detalleTransaccions       DetalleTransaccion[]
+}
 
-  detallesCarritos DetallesCarrito[]
+model LibroDigitalAdquirido {
+  id                Int         @id @default(autoincrement())
+  comprador_id      Int
+  libro_id          Int
+  fecha_adquisicion DateTime    @default(now())
+  Compradores       Compradores @relation(fields: [comprador_id], references: [usuario_id], onDelete: Cascade, onUpdate: NoAction)
+  Libros            Libros      @relation(fields: [libro_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
-  detalleTransaccions DetalleTransaccion[]
+  @@unique([comprador_id, libro_id])
 }
 
 model Proveedores {

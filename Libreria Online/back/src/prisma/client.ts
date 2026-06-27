@@ -62,6 +62,11 @@ export type Compradores = Prisma.CompradoresModel
  */
 export type Libros = Prisma.LibrosModel
 /**
+ * Model LibroDigitalAdquirido
+ * 
+ */
+export type LibroDigitalAdquirido = Prisma.LibroDigitalAdquiridoModel
+/**
  * Model Proveedores
  * 
  */
