@@ -1,41 +1,66 @@
-<main class="page-content">
-  <section class="welcome-section" [style.background-image]="'url(' + imageBanner() + ')'">
-    <div>
-      <p class="eyebrow">{{ eyebrow() }}</p>
-      <h1>{{ title() }}</h1>
-      <p class="description">
-        {{ description() }}
-      </p>
+<div class="page-content">
+  <section class="welcome-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <span class="eyebrow">
+          {{ eyebrow() }}
+        </span>
+
+        <h1 class="hero-title">
+          {{ title() }}
+        </h1>
+
+        <p class="description">
+          {{ description() }}
+        </p>
+
+        <div class="welcome-actions">
+          <p-button
+            [label]="buttonText()"
+            [routerLink]="buttonRoute()"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+            severity="help"
+            styleClass="btn-primary-glow"
+          />
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <div class="image-glow"></div>
+        <img [src]="imageBanner()" alt="Banner" />
+      </div>
     </div>
 
-    <div class="welcome-actions">
-      @if (buttonRoute()) {
-        <p-button
-          [routerLink]="buttonRoute()"
-          label="{{buttonText()}}"
-          icon="pi pi-arrow-right"
-          iconPos="right"
-          severity="help">
-        </p-button>
-      } @else {
-        <p-button
-          label="{{buttonText()}}"
-          icon="pi pi-arrow-right"
-          iconPos="right"
-          severity="help">
-        </p-button>
-      }
+    <!-- stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <i class="pi pi-book"></i>
+        <h3>18K+</h3>
+        <span>Libros</span>
+      </div>
 
-      <p-button label="{{buttonLink()}}" [routerLink]="buttonLinkRoute()" icon="pi pi-plus" iconPos="left" severity="help" [outlined]="true"></p-button>
+      <div class="stat-card">
+        <i class="pi pi-users"></i>
+        <h3>5K+</h3>
+        <span>Usuarios</span>
+      </div>
+
+      <div class="stat-card">
+        <i class="pi pi-star"></i>
+        <h3>4.9</h3>
+        <span>Rating</span>
+      </div>
+
+      <div class="stat-card">
+        <i class="pi pi-tags"></i>
+        <h3>320+</h3>
+        <span>Categorías</span>
+      </div>
     </div>
   </section>
 
-  <section class="empty-preview">
-    <div class="empty-icon">
-      <span class="material-symbols-rounded">dashboard_customize</span>
-    </div>
-
-    <h2>Contenido</h2>
-    <p>Selecciona una acción para continuar.</p>
+  <section class="page-slot">
+    <ng-content></ng-content>
   </section>
-</main>
+</div>

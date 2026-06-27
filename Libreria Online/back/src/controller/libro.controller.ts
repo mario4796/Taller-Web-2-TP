@@ -45,12 +45,10 @@ export class LibroController {
         .status(200)
         .json({ message: "Libro obtenido correctamente", data: libro });
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          error: "Error al obtener el libro por ID",
-          errorDetails: error,
-        });
+      res.status(500).json({
+        error: "Error al obtener el libro por ID",
+        errorDetails: error,
+      });
     }
   };
 
@@ -72,12 +70,10 @@ export class LibroController {
         .status(200)
         .json({ message: "Libro obtenido correctamente", data: libro });
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          error: "Error al obtener el libro por ISBN",
-          errorDetails: error,
-        });
+      res.status(500).json({
+        error: "Error al obtener el libro por ISBN",
+        errorDetails: error,
+      });
     }
   };
 
@@ -116,12 +112,10 @@ export class LibroController {
         categoria,
         sinopsis,
       });
-      res
-        .status(200)
-        .json({
-          message: "Libro actualizado correctamente",
-          data: libroActualizado,
-        });
+      res.status(200).json({
+        message: "Libro actualizado correctamente",
+        data: libroActualizado,
+      });
     } catch (error) {
       res
         .status(500)
@@ -149,6 +143,20 @@ export class LibroController {
       res
         .status(500)
         .json({ error: "Error al eliminar el libro", errorDetails: error });
+    }
+  };
+
+  public getLibrosConStock = async (req: Request, res: Response) => {
+    try {
+      const libros = await libroService.obtenerLibros();
+      console.log(libros);
+      res
+        .status(200)
+        .json({ message: "Libros obtenidos correctamente", data: libros });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "Error al obtener los libros", errorDetails: error });
     }
   };
 }

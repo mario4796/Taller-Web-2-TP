@@ -424,3 +424,43 @@
   color: #ffffff;
   background: linear-gradient(135deg, #ef4444, #b91c1c);
 }
+
+/* Espaciado para botones de Auth */
+.auth-buttons {
+  display: flex;
+  gap: 1rem; /* Mayor separación */
+}
+
+/* Contenedor del usuario */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+.user-info:hover {
+  background: rgba(124, 58, 237, 0.05);
+}
+
+.user-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-text small {
+  font-size: 11px;
+  color: var(--text-color-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Ajuste responsive para ocultar texto en pantallas muy pequeñas */
+@media (max-width: 768px) {
+  .user-text {
+    display: none;
+  }
+}

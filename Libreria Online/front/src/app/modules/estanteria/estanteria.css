@@ -1,7 +1,6 @@
 :host {
   display: block;
   min-height: 100vh;
-  padding: 2rem;
   background: radial-gradient(circle at top, rgba(124, 58, 237, 0.15), transparent 40%), #050816;
 }
 
