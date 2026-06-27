@@ -50,7 +50,7 @@ const CAMPOS_LIBRO_EDITABLES: CamposLibroBloqueados = {
 export class ProveedorRecomendacion implements OnInit {
   userName = 'Maria Rodriguez';
   role = 'proveedor';
-  activeItem = 'Recomendar libro';
+  activeItem = 'Mis Recomendaciones';
 
   private fb = inject(FormBuilder);
   private isbnLookupService = inject(IsbnLookupService);
