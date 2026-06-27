@@ -1,6 +1,6 @@
 .recommendations-page {
   padding: 2rem;
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
@@ -106,7 +106,7 @@
   width: 100%;
 }
 
-.recommendation-inputgroup :is(input, .p-inputnumber, .p-floatlabel) {
+.recommendation-inputgroup :is(input, textarea, .p-inputnumber, .p-select, .p-floatlabel) {
   width: 100%;
 }
 
@@ -160,6 +160,8 @@
 
 :host ::ng-deep .recommendations-search-group .p-inputtext,
 :host ::ng-deep .recommendation-inputgroup .p-inputtext,
+:host ::ng-deep .recommendation-inputgroup .p-select,
+:host ::ng-deep .recommendation-inputgroup .p-textarea,
 :host ::ng-deep .recommendation-inputgroup .p-inputnumber-input {
   border-color: #dbe2ea;
   background: #fff;
@@ -174,6 +176,8 @@
 
 :host ::ng-deep .recommendations-search-group .p-inputtext:enabled:focus,
 :host ::ng-deep .recommendation-inputgroup .p-inputtext:enabled:focus,
+:host ::ng-deep .recommendation-inputgroup .p-select.p-focus,
+:host ::ng-deep .recommendation-inputgroup .p-textarea:enabled:focus,
 :host ::ng-deep .recommendation-inputgroup .p-inputnumber-input:enabled:focus {
   border-color: #8b5cf6;
   box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.18);
@@ -230,6 +234,8 @@
 
 :host-context(.app-dark) ::ng-deep .recommendations-search-group .p-inputtext,
 :host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-inputtext,
+:host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-select,
+:host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-textarea,
 :host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-inputnumber-input {
   border-color: rgba(148, 163, 184, 0.16);
   background: rgba(15, 23, 42, 0.92);

@@ -52,6 +52,9 @@ export type OfertaLibroMinAggregateOutputType = {
   cantidadAdmin: number | null
   estado: $Enums.EstadoOferta | null
   createdAt: Date | null
+  sinopsis: string | null
+  imagenUrl: string | null
+  categoria: $Enums.CategoriaLibro | null
   libroId: number | null
 }
 
@@ -65,6 +68,9 @@ export type OfertaLibroMaxAggregateOutputType = {
   cantidadAdmin: number | null
   estado: $Enums.EstadoOferta | null
   createdAt: Date | null
+  sinopsis: string | null
+  imagenUrl: string | null
+  categoria: $Enums.CategoriaLibro | null
   libroId: number | null
 }
 
@@ -78,6 +84,9 @@ export type OfertaLibroCountAggregateOutputType = {
   cantidadAdmin: number
   estado: number
   createdAt: number
+  sinopsis: number
+  imagenUrl: number
+  categoria: number
   libroId: number
   _all: number
 }
@@ -109,6 +118,9 @@ export type OfertaLibroMinAggregateInputType = {
   cantidadAdmin?: true
   estado?: true
   createdAt?: true
+  sinopsis?: true
+  imagenUrl?: true
+  categoria?: true
   libroId?: true
 }
 
@@ -122,6 +134,9 @@ export type OfertaLibroMaxAggregateInputType = {
   cantidadAdmin?: true
   estado?: true
   createdAt?: true
+  sinopsis?: true
+  imagenUrl?: true
+  categoria?: true
   libroId?: true
 }
 
@@ -135,6 +150,9 @@ export type OfertaLibroCountAggregateInputType = {
   cantidadAdmin?: true
   estado?: true
   createdAt?: true
+  sinopsis?: true
+  imagenUrl?: true
+  categoria?: true
   libroId?: true
   _all?: true
 }
@@ -235,6 +253,9 @@ export type OfertaLibroGroupByOutputType = {
   cantidadAdmin: number | null
   estado: $Enums.EstadoOferta
   createdAt: Date
+  sinopsis: string | null
+  imagenUrl: string | null
+  categoria: $Enums.CategoriaLibro
   libroId: number | null
   _count: OfertaLibroCountAggregateOutputType | null
   _avg: OfertaLibroAvgAggregateOutputType | null
@@ -271,6 +292,9 @@ export type OfertaLibroWhereInput = {
   cantidadAdmin?: Prisma.IntNullableFilter<"OfertaLibro"> | number | null
   estado?: Prisma.EnumEstadoOfertaFilter<"OfertaLibro"> | $Enums.EstadoOferta
   createdAt?: Prisma.DateTimeFilter<"OfertaLibro"> | Date | string
+  sinopsis?: Prisma.StringNullableFilter<"OfertaLibro"> | string | null
+  imagenUrl?: Prisma.StringNullableFilter<"OfertaLibro"> | string | null
+  categoria?: Prisma.EnumCategoriaLibroFilter<"OfertaLibro"> | $Enums.CategoriaLibro
   libroId?: Prisma.IntNullableFilter<"OfertaLibro"> | number | null
   Libro?: Prisma.XOR<Prisma.LibrosNullableScalarRelationFilter, Prisma.LibrosWhereInput> | null
 }
@@ -285,6 +309,9 @@ export type OfertaLibroOrderByWithRelationInput = {
   cantidadAdmin?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  sinopsis?: Prisma.SortOrderInput | Prisma.SortOrder
+  imagenUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  categoria?: Prisma.SortOrder
   libroId?: Prisma.SortOrderInput | Prisma.SortOrder
   Libro?: Prisma.LibrosOrderByWithRelationInput
 }
@@ -302,6 +329,9 @@ export type OfertaLibroWhereUniqueInput = Prisma.AtLeast<{
   cantidadAdmin?: Prisma.IntNullableFilter<"OfertaLibro"> | number | null
   estado?: Prisma.EnumEstadoOfertaFilter<"OfertaLibro"> | $Enums.EstadoOferta
   createdAt?: Prisma.DateTimeFilter<"OfertaLibro"> | Date | string
+  sinopsis?: Prisma.StringNullableFilter<"OfertaLibro"> | string | null
+  imagenUrl?: Prisma.StringNullableFilter<"OfertaLibro"> | string | null
+  categoria?: Prisma.EnumCategoriaLibroFilter<"OfertaLibro"> | $Enums.CategoriaLibro
   libroId?: Prisma.IntNullableFilter<"OfertaLibro"> | number | null
   Libro?: Prisma.XOR<Prisma.LibrosNullableScalarRelationFilter, Prisma.LibrosWhereInput> | null
 }, "id">
@@ -316,6 +346,9 @@ export type OfertaLibroOrderByWithAggregationInput = {
   cantidadAdmin?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  sinopsis?: Prisma.SortOrderInput | Prisma.SortOrder
+  imagenUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  categoria?: Prisma.SortOrder
   libroId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.OfertaLibroCountOrderByAggregateInput
   _avg?: Prisma.OfertaLibroAvgOrderByAggregateInput
@@ -337,6 +370,9 @@ export type OfertaLibroScalarWhereWithAggregatesInput = {
   cantidadAdmin?: Prisma.IntNullableWithAggregatesFilter<"OfertaLibro"> | number | null
   estado?: Prisma.EnumEstadoOfertaWithAggregatesFilter<"OfertaLibro"> | $Enums.EstadoOferta
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"OfertaLibro"> | Date | string
+  sinopsis?: Prisma.StringNullableWithAggregatesFilter<"OfertaLibro"> | string | null
+  imagenUrl?: Prisma.StringNullableWithAggregatesFilter<"OfertaLibro"> | string | null
+  categoria?: Prisma.EnumCategoriaLibroWithAggregatesFilter<"OfertaLibro"> | $Enums.CategoriaLibro
   libroId?: Prisma.IntNullableWithAggregatesFilter<"OfertaLibro"> | number | null
 }
 
@@ -349,6 +385,9 @@ export type OfertaLibroCreateInput = {
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
   createdAt?: Date | string
+  sinopsis?: string | null
+  imagenUrl?: string | null
+  categoria?: $Enums.CategoriaLibro
   Libro?: Prisma.LibrosCreateNestedOneWithoutOfertasInput
 }
 
@@ -362,6 +401,9 @@ export type OfertaLibroUncheckedCreateInput = {
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
   createdAt?: Date | string
+  sinopsis?: string | null
+  imagenUrl?: string | null
+  categoria?: $Enums.CategoriaLibro
   libroId?: number | null
 }
 
@@ -374,6 +416,9 @@ export type OfertaLibroUpdateInput = {
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   Libro?: Prisma.LibrosUpdateOneWithoutOfertasNestedInput
 }
 
@@ -387,6 +432,9 @@ export type OfertaLibroUncheckedUpdateInput = {
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   libroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -400,6 +448,9 @@ export type OfertaLibroCreateManyInput = {
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
   createdAt?: Date | string
+  sinopsis?: string | null
+  imagenUrl?: string | null
+  categoria?: $Enums.CategoriaLibro
   libroId?: number | null
 }
 
@@ -412,6 +463,9 @@ export type OfertaLibroUpdateManyMutationInput = {
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
 }
 
 export type OfertaLibroUncheckedUpdateManyInput = {
@@ -424,6 +478,9 @@ export type OfertaLibroUncheckedUpdateManyInput = {
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   libroId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -447,6 +504,9 @@ export type OfertaLibroCountOrderByAggregateInput = {
   cantidadAdmin?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  sinopsis?: Prisma.SortOrder
+  imagenUrl?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
   libroId?: Prisma.SortOrder
 }
 
@@ -468,6 +528,9 @@ export type OfertaLibroMaxOrderByAggregateInput = {
   cantidadAdmin?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  sinopsis?: Prisma.SortOrder
+  imagenUrl?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
   libroId?: Prisma.SortOrder
 }
 
@@ -481,6 +544,9 @@ export type OfertaLibroMinOrderByAggregateInput = {
   cantidadAdmin?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  sinopsis?: Prisma.SortOrder
+  imagenUrl?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
   libroId?: Prisma.SortOrder
 }
 
@@ -538,10 +604,6 @@ export type EnumEstadoOfertaFieldUpdateOperationsInput = {
   set?: $Enums.EstadoOferta
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type OfertaLibroCreateWithoutLibroInput = {
   isbn: string
   nombre: string
@@ -551,6 +613,9 @@ export type OfertaLibroCreateWithoutLibroInput = {
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
   createdAt?: Date | string
+  sinopsis?: string | null
+  imagenUrl?: string | null
+  categoria?: $Enums.CategoriaLibro
 }
 
 export type OfertaLibroUncheckedCreateWithoutLibroInput = {
@@ -563,6 +628,9 @@ export type OfertaLibroUncheckedCreateWithoutLibroInput = {
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
   createdAt?: Date | string
+  sinopsis?: string | null
+  imagenUrl?: string | null
+  categoria?: $Enums.CategoriaLibro
 }
 
 export type OfertaLibroCreateOrConnectWithoutLibroInput = {
@@ -604,6 +672,9 @@ export type OfertaLibroScalarWhereInput = {
   cantidadAdmin?: Prisma.IntNullableFilter<"OfertaLibro"> | number | null
   estado?: Prisma.EnumEstadoOfertaFilter<"OfertaLibro"> | $Enums.EstadoOferta
   createdAt?: Prisma.DateTimeFilter<"OfertaLibro"> | Date | string
+  sinopsis?: Prisma.StringNullableFilter<"OfertaLibro"> | string | null
+  imagenUrl?: Prisma.StringNullableFilter<"OfertaLibro"> | string | null
+  categoria?: Prisma.EnumCategoriaLibroFilter<"OfertaLibro"> | $Enums.CategoriaLibro
   libroId?: Prisma.IntNullableFilter<"OfertaLibro"> | number | null
 }
 
@@ -617,6 +688,9 @@ export type OfertaLibroCreateManyLibroInput = {
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
   createdAt?: Date | string
+  sinopsis?: string | null
+  imagenUrl?: string | null
+  categoria?: $Enums.CategoriaLibro
 }
 
 export type OfertaLibroUpdateWithoutLibroInput = {
@@ -628,6 +702,9 @@ export type OfertaLibroUpdateWithoutLibroInput = {
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
 }
 
 export type OfertaLibroUncheckedUpdateWithoutLibroInput = {
@@ -640,6 +717,9 @@ export type OfertaLibroUncheckedUpdateWithoutLibroInput = {
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
 }
 
 export type OfertaLibroUncheckedUpdateManyWithoutLibroInput = {
@@ -652,6 +732,9 @@ export type OfertaLibroUncheckedUpdateManyWithoutLibroInput = {
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
 }
 
 
@@ -666,6 +749,9 @@ export type OfertaLibroSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   cantidadAdmin?: boolean
   estado?: boolean
   createdAt?: boolean
+  sinopsis?: boolean
+  imagenUrl?: boolean
+  categoria?: boolean
   libroId?: boolean
   Libro?: boolean | Prisma.OfertaLibro$LibroArgs<ExtArgs>
 }, ExtArgs["result"]["ofertaLibro"]>
@@ -680,6 +766,9 @@ export type OfertaLibroSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   cantidadAdmin?: boolean
   estado?: boolean
   createdAt?: boolean
+  sinopsis?: boolean
+  imagenUrl?: boolean
+  categoria?: boolean
   libroId?: boolean
   Libro?: boolean | Prisma.OfertaLibro$LibroArgs<ExtArgs>
 }, ExtArgs["result"]["ofertaLibro"]>
@@ -694,6 +783,9 @@ export type OfertaLibroSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   cantidadAdmin?: boolean
   estado?: boolean
   createdAt?: boolean
+  sinopsis?: boolean
+  imagenUrl?: boolean
+  categoria?: boolean
   libroId?: boolean
   Libro?: boolean | Prisma.OfertaLibro$LibroArgs<ExtArgs>
 }, ExtArgs["result"]["ofertaLibro"]>
@@ -708,10 +800,13 @@ export type OfertaLibroSelectScalar = {
   cantidadAdmin?: boolean
   estado?: boolean
   createdAt?: boolean
+  sinopsis?: boolean
+  imagenUrl?: boolean
+  categoria?: boolean
   libroId?: boolean
 }
 
-export type OfertaLibroOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isbn" | "nombre" | "autor" | "precioProveedor" | "cantidadProveedor" | "cantidadAdmin" | "estado" | "createdAt" | "libroId", ExtArgs["result"]["ofertaLibro"]>
+export type OfertaLibroOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isbn" | "nombre" | "autor" | "precioProveedor" | "cantidadProveedor" | "cantidadAdmin" | "estado" | "createdAt" | "sinopsis" | "imagenUrl" | "categoria" | "libroId", ExtArgs["result"]["ofertaLibro"]>
 export type OfertaLibroInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Libro?: boolean | Prisma.OfertaLibro$LibroArgs<ExtArgs>
 }
@@ -737,6 +832,9 @@ export type $OfertaLibroPayload<ExtArgs extends runtime.Types.Extensions.Interna
     cantidadAdmin: number | null
     estado: $Enums.EstadoOferta
     createdAt: Date
+    sinopsis: string | null
+    imagenUrl: string | null
+    categoria: $Enums.CategoriaLibro
     libroId: number | null
   }, ExtArgs["result"]["ofertaLibro"]>
   composites: {}
@@ -1171,6 +1269,9 @@ export interface OfertaLibroFieldRefs {
   readonly cantidadAdmin: Prisma.FieldRef<"OfertaLibro", 'Int'>
   readonly estado: Prisma.FieldRef<"OfertaLibro", 'EstadoOferta'>
   readonly createdAt: Prisma.FieldRef<"OfertaLibro", 'DateTime'>
+  readonly sinopsis: Prisma.FieldRef<"OfertaLibro", 'String'>
+  readonly imagenUrl: Prisma.FieldRef<"OfertaLibro", 'String'>
+  readonly categoria: Prisma.FieldRef<"OfertaLibro", 'CategoriaLibro'>
   readonly libroId: Prisma.FieldRef<"OfertaLibro", 'Int'>
 }
     

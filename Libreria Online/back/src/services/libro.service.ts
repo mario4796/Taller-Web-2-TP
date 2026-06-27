@@ -1,5 +1,6 @@
 import type { LibroRepository } from '../repository/libro.repository.js';
 import { Libro } from '../models/libro.model.js';
+import { CategoriaLibro } from '../prisma/enums.js';
 
 
 export class LibroService {
@@ -21,16 +22,16 @@ export class LibroService {
         }
 
         async crearLibro(libro: Libro) {
-            const {nombre , isbn , precio , autor ,  stock } = libro;
+            const {nombre , isbn , precio , autor ,  stock, categoria, sinopsis, imagenUrl } = libro;
 
-            if (!nombre || !isbn || !autor || !precio || !stock) {
+            if (!nombre || !isbn || !autor || precio == null || stock == null || !categoria) {
                 throw new Error('Faltan campos obligatorios para crear el libro');
             }
 
-            return await this.libroRepository.createLibro({ nombre, isbn, precio, autor, stock });
+            return await this.libroRepository.createLibro({ nombre, isbn, precio, autor, stock, categoria, sinopsis, imagenUrl });
         }
 
-        async actualizarLibro(id: number, data: { nombre: string, isbn: string, precio: number, autor: string }) {
+        async actualizarLibro(id: number, data: { nombre: string, isbn: string, precio: number, autor: string, categoria: CategoriaLibro, sinopsis: string, imagenUrl?: string | null}) {
 
             return await this.libroRepository.updateLibro(id, data);
         }

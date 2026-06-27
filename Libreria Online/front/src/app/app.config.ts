@@ -20,6 +20,7 @@ export const appConfig: ApplicationConfig = {
           darkModeSelector: '.app-dark'
         }
       }
-    })
+    }),
+    provideHttpClient()
   ]
 };

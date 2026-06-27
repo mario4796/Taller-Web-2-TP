@@ -1,3 +1,5 @@
+import { CategoriaLibro } from '../prisma/enums.js';
+ 
 export class Libro {
     id!: number;
     nombre!: string;
@@ -5,4 +7,8 @@ export class Libro {
     autor!: string;
     precio!: number;
     stock!  : number;
+    sinopsis!: string;
+    imagenUrl?: string | null;
+    categoria!: CategoriaLibro;
 }
+

@@ -185,11 +185,17 @@ export type CompradoresWhereInput = {
   NOT?: Prisma.CompradoresWhereInput | Prisma.CompradoresWhereInput[]
   usuario_id?: Prisma.IntFilter<"Compradores"> | number
   Usuarios?: Prisma.XOR<Prisma.UsuariosScalarRelationFilter, Prisma.UsuariosWhereInput>
+  Carrito?: Prisma.XOR<Prisma.CarritosNullableScalarRelationFilter, Prisma.CarritosWhereInput> | null
+  metodosPago?: Prisma.MetodosPagoListRelationFilter
+  transacciones?: Prisma.TransaccionesListRelationFilter
 }
 
 export type CompradoresOrderByWithRelationInput = {
   usuario_id?: Prisma.SortOrder
   Usuarios?: Prisma.UsuariosOrderByWithRelationInput
+  Carrito?: Prisma.CarritosOrderByWithRelationInput
+  metodosPago?: Prisma.MetodosPagoOrderByRelationAggregateInput
+  transacciones?: Prisma.TransaccionesOrderByRelationAggregateInput
 }
 
 export type CompradoresWhereUniqueInput = Prisma.AtLeast<{
@@ -198,6 +204,9 @@ export type CompradoresWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.CompradoresWhereInput[]
   NOT?: Prisma.CompradoresWhereInput | Prisma.CompradoresWhereInput[]
   Usuarios?: Prisma.XOR<Prisma.UsuariosScalarRelationFilter, Prisma.UsuariosWhereInput>
+  Carrito?: Prisma.XOR<Prisma.CarritosNullableScalarRelationFilter, Prisma.CarritosWhereInput> | null
+  metodosPago?: Prisma.MetodosPagoListRelationFilter
+  transacciones?: Prisma.TransaccionesListRelationFilter
 }, "usuario_id">
 
 export type CompradoresOrderByWithAggregationInput = {
@@ -218,18 +227,30 @@ export type CompradoresScalarWhereWithAggregatesInput = {
 
 export type CompradoresCreateInput = {
   Usuarios: Prisma.UsuariosCreateNestedOneWithoutCompradoresInput
+  Carrito?: Prisma.CarritosCreateNestedOneWithoutCompradoresInput
+  metodosPago?: Prisma.MetodosPagoCreateNestedManyWithoutCompradorInput
+  transacciones?: Prisma.TransaccionesCreateNestedManyWithoutCompradorInput
 }
 
 export type CompradoresUncheckedCreateInput = {
   usuario_id: number
+  Carrito?: Prisma.CarritosUncheckedCreateNestedOneWithoutCompradoresInput
+  metodosPago?: Prisma.MetodosPagoUncheckedCreateNestedManyWithoutCompradorInput
+  transacciones?: Prisma.TransaccionesUncheckedCreateNestedManyWithoutCompradorInput
 }
 
 export type CompradoresUpdateInput = {
   Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutCompradoresNestedInput
+  Carrito?: Prisma.CarritosUpdateOneWithoutCompradoresNestedInput
+  metodosPago?: Prisma.MetodosPagoUpdateManyWithoutCompradorNestedInput
+  transacciones?: Prisma.TransaccionesUpdateManyWithoutCompradorNestedInput
 }
 
 export type CompradoresUncheckedUpdateInput = {
   usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
+  Carrito?: Prisma.CarritosUncheckedUpdateOneWithoutCompradoresNestedInput
+  metodosPago?: Prisma.MetodosPagoUncheckedUpdateManyWithoutCompradorNestedInput
+  transacciones?: Prisma.TransaccionesUncheckedUpdateManyWithoutCompradorNestedInput
 }
 
 export type CompradoresCreateManyInput = {
@@ -242,6 +263,11 @@ export type CompradoresUpdateManyMutationInput = {
 
 export type CompradoresUncheckedUpdateManyInput = {
   usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type CompradoresScalarRelationFilter = {
+  is?: Prisma.CompradoresWhereInput
+  isNot?: Prisma.CompradoresWhereInput
 }
 
 export type CompradoresCountOrderByAggregateInput = {
@@ -267,6 +293,20 @@ export type CompradoresSumOrderByAggregateInput = {
 export type CompradoresNullableScalarRelationFilter = {
   is?: Prisma.CompradoresWhereInput | null
   isNot?: Prisma.CompradoresWhereInput | null
+}
+
+export type CompradoresCreateNestedOneWithoutMetodosPagoInput = {
+  create?: Prisma.XOR<Prisma.CompradoresCreateWithoutMetodosPagoInput, Prisma.CompradoresUncheckedCreateWithoutMetodosPagoInput>
+  connectOrCreate?: Prisma.CompradoresCreateOrConnectWithoutMetodosPagoInput
+  connect?: Prisma.CompradoresWhereUniqueInput
+}
+
+export type CompradoresUpdateOneRequiredWithoutMetodosPagoNestedInput = {
+  create?: Prisma.XOR<Prisma.CompradoresCreateWithoutMetodosPagoInput, Prisma.CompradoresUncheckedCreateWithoutMetodosPagoInput>
+  connectOrCreate?: Prisma.CompradoresCreateOrConnectWithoutMetodosPagoInput
+  upsert?: Prisma.CompradoresUpsertWithoutMetodosPagoInput
+  connect?: Prisma.CompradoresWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompradoresUpdateToOneWithWhereWithoutMetodosPagoInput, Prisma.CompradoresUpdateWithoutMetodosPagoInput>, Prisma.CompradoresUncheckedUpdateWithoutMetodosPagoInput>
 }
 
 export type CompradoresCreateNestedOneWithoutUsuariosInput = {
@@ -301,12 +341,84 @@ export type CompradoresUncheckedUpdateOneWithoutUsuariosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompradoresUpdateToOneWithWhereWithoutUsuariosInput, Prisma.CompradoresUpdateWithoutUsuariosInput>, Prisma.CompradoresUncheckedUpdateWithoutUsuariosInput>
 }
 
-export type CompradoresCreateWithoutUsuariosInput = {
+export type CompradoresCreateNestedOneWithoutCarritoInput = {
+  create?: Prisma.XOR<Prisma.CompradoresCreateWithoutCarritoInput, Prisma.CompradoresUncheckedCreateWithoutCarritoInput>
+  connectOrCreate?: Prisma.CompradoresCreateOrConnectWithoutCarritoInput
+  connect?: Prisma.CompradoresWhereUniqueInput
+}
 
+export type CompradoresUpdateOneRequiredWithoutCarritoNestedInput = {
+  create?: Prisma.XOR<Prisma.CompradoresCreateWithoutCarritoInput, Prisma.CompradoresUncheckedCreateWithoutCarritoInput>
+  connectOrCreate?: Prisma.CompradoresCreateOrConnectWithoutCarritoInput
+  upsert?: Prisma.CompradoresUpsertWithoutCarritoInput
+  connect?: Prisma.CompradoresWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompradoresUpdateToOneWithWhereWithoutCarritoInput, Prisma.CompradoresUpdateWithoutCarritoInput>, Prisma.CompradoresUncheckedUpdateWithoutCarritoInput>
+}
+
+export type CompradoresCreateNestedOneWithoutTransaccionesInput = {
+  create?: Prisma.XOR<Prisma.CompradoresCreateWithoutTransaccionesInput, Prisma.CompradoresUncheckedCreateWithoutTransaccionesInput>
+  connectOrCreate?: Prisma.CompradoresCreateOrConnectWithoutTransaccionesInput
+  connect?: Prisma.CompradoresWhereUniqueInput
+}
+
+export type CompradoresUpdateOneRequiredWithoutTransaccionesNestedInput = {
+  create?: Prisma.XOR<Prisma.CompradoresCreateWithoutTransaccionesInput, Prisma.CompradoresUncheckedCreateWithoutTransaccionesInput>
+  connectOrCreate?: Prisma.CompradoresCreateOrConnectWithoutTransaccionesInput
+  upsert?: Prisma.CompradoresUpsertWithoutTransaccionesInput
+  connect?: Prisma.CompradoresWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompradoresUpdateToOneWithWhereWithoutTransaccionesInput, Prisma.CompradoresUpdateWithoutTransaccionesInput>, Prisma.CompradoresUncheckedUpdateWithoutTransaccionesInput>
+}
+
+export type CompradoresCreateWithoutMetodosPagoInput = {
+  Usuarios: Prisma.UsuariosCreateNestedOneWithoutCompradoresInput
+  Carrito?: Prisma.CarritosCreateNestedOneWithoutCompradoresInput
+  transacciones?: Prisma.TransaccionesCreateNestedManyWithoutCompradorInput
+}
+
+export type CompradoresUncheckedCreateWithoutMetodosPagoInput = {
+  usuario_id: number
+  Carrito?: Prisma.CarritosUncheckedCreateNestedOneWithoutCompradoresInput
+  transacciones?: Prisma.TransaccionesUncheckedCreateNestedManyWithoutCompradorInput
+}
+
+export type CompradoresCreateOrConnectWithoutMetodosPagoInput = {
+  where: Prisma.CompradoresWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompradoresCreateWithoutMetodosPagoInput, Prisma.CompradoresUncheckedCreateWithoutMetodosPagoInput>
+}
+
+export type CompradoresUpsertWithoutMetodosPagoInput = {
+  update: Prisma.XOR<Prisma.CompradoresUpdateWithoutMetodosPagoInput, Prisma.CompradoresUncheckedUpdateWithoutMetodosPagoInput>
+  create: Prisma.XOR<Prisma.CompradoresCreateWithoutMetodosPagoInput, Prisma.CompradoresUncheckedCreateWithoutMetodosPagoInput>
+  where?: Prisma.CompradoresWhereInput
+}
+
+export type CompradoresUpdateToOneWithWhereWithoutMetodosPagoInput = {
+  where?: Prisma.CompradoresWhereInput
+  data: Prisma.XOR<Prisma.CompradoresUpdateWithoutMetodosPagoInput, Prisma.CompradoresUncheckedUpdateWithoutMetodosPagoInput>
+}
+
+export type CompradoresUpdateWithoutMetodosPagoInput = {
+  Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutCompradoresNestedInput
+  Carrito?: Prisma.CarritosUpdateOneWithoutCompradoresNestedInput
+  transacciones?: Prisma.TransaccionesUpdateManyWithoutCompradorNestedInput
+}
+
+export type CompradoresUncheckedUpdateWithoutMetodosPagoInput = {
+  usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
+  Carrito?: Prisma.CarritosUncheckedUpdateOneWithoutCompradoresNestedInput
+  transacciones?: Prisma.TransaccionesUncheckedUpdateManyWithoutCompradorNestedInput
+}
+
+export type CompradoresCreateWithoutUsuariosInput = {
+  Carrito?: Prisma.CarritosCreateNestedOneWithoutCompradoresInput
+  metodosPago?: Prisma.MetodosPagoCreateNestedManyWithoutCompradorInput
+  transacciones?: Prisma.TransaccionesCreateNestedManyWithoutCompradorInput
 }
 
 export type CompradoresUncheckedCreateWithoutUsuariosInput = {
-
+  Carrito?: Prisma.CarritosUncheckedCreateNestedOneWithoutCompradoresInput
+  metodosPago?: Prisma.MetodosPagoUncheckedCreateNestedManyWithoutCompradorInput
+  transacciones?: Prisma.TransaccionesUncheckedCreateNestedManyWithoutCompradorInput
 }
 
 export type CompradoresCreateOrConnectWithoutUsuariosInput = {
@@ -326,18 +438,144 @@ export type CompradoresUpdateToOneWithWhereWithoutUsuariosInput = {
 }
 
 export type CompradoresUpdateWithoutUsuariosInput = {
-
+  Carrito?: Prisma.CarritosUpdateOneWithoutCompradoresNestedInput
+  metodosPago?: Prisma.MetodosPagoUpdateManyWithoutCompradorNestedInput
+  transacciones?: Prisma.TransaccionesUpdateManyWithoutCompradorNestedInput
 }
 
 export type CompradoresUncheckedUpdateWithoutUsuariosInput = {
-
+  Carrito?: Prisma.CarritosUncheckedUpdateOneWithoutCompradoresNestedInput
+  metodosPago?: Prisma.MetodosPagoUncheckedUpdateManyWithoutCompradorNestedInput
+  transacciones?: Prisma.TransaccionesUncheckedUpdateManyWithoutCompradorNestedInput
 }
 
+export type CompradoresCreateWithoutCarritoInput = {
+  Usuarios: Prisma.UsuariosCreateNestedOneWithoutCompradoresInput
+  metodosPago?: Prisma.MetodosPagoCreateNestedManyWithoutCompradorInput
+  transacciones?: Prisma.TransaccionesCreateNestedManyWithoutCompradorInput
+}
+
+export type CompradoresUncheckedCreateWithoutCarritoInput = {
+  usuario_id: number
+  metodosPago?: Prisma.MetodosPagoUncheckedCreateNestedManyWithoutCompradorInput
+  transacciones?: Prisma.TransaccionesUncheckedCreateNestedManyWithoutCompradorInput
+}
+
+export type CompradoresCreateOrConnectWithoutCarritoInput = {
+  where: Prisma.CompradoresWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompradoresCreateWithoutCarritoInput, Prisma.CompradoresUncheckedCreateWithoutCarritoInput>
+}
+
+export type CompradoresUpsertWithoutCarritoInput = {
+  update: Prisma.XOR<Prisma.CompradoresUpdateWithoutCarritoInput, Prisma.CompradoresUncheckedUpdateWithoutCarritoInput>
+  create: Prisma.XOR<Prisma.CompradoresCreateWithoutCarritoInput, Prisma.CompradoresUncheckedCreateWithoutCarritoInput>
+  where?: Prisma.CompradoresWhereInput
+}
+
+export type CompradoresUpdateToOneWithWhereWithoutCarritoInput = {
+  where?: Prisma.CompradoresWhereInput
+  data: Prisma.XOR<Prisma.CompradoresUpdateWithoutCarritoInput, Prisma.CompradoresUncheckedUpdateWithoutCarritoInput>
+}
+
+export type CompradoresUpdateWithoutCarritoInput = {
+  Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutCompradoresNestedInput
+  metodosPago?: Prisma.MetodosPagoUpdateManyWithoutCompradorNestedInput
+  transacciones?: Prisma.TransaccionesUpdateManyWithoutCompradorNestedInput
+}
+
+export type CompradoresUncheckedUpdateWithoutCarritoInput = {
+  usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
+  metodosPago?: Prisma.MetodosPagoUncheckedUpdateManyWithoutCompradorNestedInput
+  transacciones?: Prisma.TransaccionesUncheckedUpdateManyWithoutCompradorNestedInput
+}
+
+export type CompradoresCreateWithoutTransaccionesInput = {
+  Usuarios: Prisma.UsuariosCreateNestedOneWithoutCompradoresInput
+  Carrito?: Prisma.CarritosCreateNestedOneWithoutCompradoresInput
+  metodosPago?: Prisma.MetodosPagoCreateNestedManyWithoutCompradorInput
+}
+
+export type CompradoresUncheckedCreateWithoutTransaccionesInput = {
+  usuario_id: number
+  Carrito?: Prisma.CarritosUncheckedCreateNestedOneWithoutCompradoresInput
+  metodosPago?: Prisma.MetodosPagoUncheckedCreateNestedManyWithoutCompradorInput
+}
+
+export type CompradoresCreateOrConnectWithoutTransaccionesInput = {
+  where: Prisma.CompradoresWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompradoresCreateWithoutTransaccionesInput, Prisma.CompradoresUncheckedCreateWithoutTransaccionesInput>
+}
+
+export type CompradoresUpsertWithoutTransaccionesInput = {
+  update: Prisma.XOR<Prisma.CompradoresUpdateWithoutTransaccionesInput, Prisma.CompradoresUncheckedUpdateWithoutTransaccionesInput>
+  create: Prisma.XOR<Prisma.CompradoresCreateWithoutTransaccionesInput, Prisma.CompradoresUncheckedCreateWithoutTransaccionesInput>
+  where?: Prisma.CompradoresWhereInput
+}
+
+export type CompradoresUpdateToOneWithWhereWithoutTransaccionesInput = {
+  where?: Prisma.CompradoresWhereInput
+  data: Prisma.XOR<Prisma.CompradoresUpdateWithoutTransaccionesInput, Prisma.CompradoresUncheckedUpdateWithoutTransaccionesInput>
+}
+
+export type CompradoresUpdateWithoutTransaccionesInput = {
+  Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutCompradoresNestedInput
+  Carrito?: Prisma.CarritosUpdateOneWithoutCompradoresNestedInput
+  metodosPago?: Prisma.MetodosPagoUpdateManyWithoutCompradorNestedInput
+}
+
+export type CompradoresUncheckedUpdateWithoutTransaccionesInput = {
+  usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
+  Carrito?: Prisma.CarritosUncheckedUpdateOneWithoutCompradoresNestedInput
+  metodosPago?: Prisma.MetodosPagoUncheckedUpdateManyWithoutCompradorNestedInput
+}
+
+
+/**
+ * Count Type CompradoresCountOutputType
+ */
+
+export type CompradoresCountOutputType = {
+  metodosPago: number
+  transacciones: number
+}
+
+export type CompradoresCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  metodosPago?: boolean | CompradoresCountOutputTypeCountMetodosPagoArgs
+  transacciones?: boolean | CompradoresCountOutputTypeCountTransaccionesArgs
+}
+
+/**
+ * CompradoresCountOutputType without action
+ */
+export type CompradoresCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompradoresCountOutputType
+   */
+  select?: Prisma.CompradoresCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * CompradoresCountOutputType without action
+ */
+export type CompradoresCountOutputTypeCountMetodosPagoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MetodosPagoWhereInput
+}
+
+/**
+ * CompradoresCountOutputType without action
+ */
+export type CompradoresCountOutputTypeCountTransaccionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TransaccionesWhereInput
+}
 
 
 export type CompradoresSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   usuario_id?: boolean
   Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
+  Carrito?: boolean | Prisma.Compradores$CarritoArgs<ExtArgs>
+  metodosPago?: boolean | Prisma.Compradores$metodosPagoArgs<ExtArgs>
+  transacciones?: boolean | Prisma.Compradores$transaccionesArgs<ExtArgs>
+  _count?: boolean | Prisma.CompradoresCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["compradores"]>
 
 export type CompradoresSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -357,6 +595,10 @@ export type CompradoresSelectScalar = {
 export type CompradoresOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"usuario_id", ExtArgs["result"]["compradores"]>
 export type CompradoresInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
+  Carrito?: boolean | Prisma.Compradores$CarritoArgs<ExtArgs>
+  metodosPago?: boolean | Prisma.Compradores$metodosPagoArgs<ExtArgs>
+  transacciones?: boolean | Prisma.Compradores$transaccionesArgs<ExtArgs>
+  _count?: boolean | Prisma.CompradoresCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompradoresIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
@@ -369,6 +611,9 @@ export type $CompradoresPayload<ExtArgs extends runtime.Types.Extensions.Interna
   name: "Compradores"
   objects: {
     Usuarios: Prisma.$UsuariosPayload<ExtArgs>
+    Carrito: Prisma.$CarritosPayload<ExtArgs> | null
+    metodosPago: Prisma.$MetodosPagoPayload<ExtArgs>[]
+    transacciones: Prisma.$TransaccionesPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     usuario_id: number
@@ -767,6 +1012,9 @@ readonly fields: CompradoresFieldRefs;
 export interface Prisma__CompradoresClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   Usuarios<T extends Prisma.UsuariosDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuariosDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuariosClient<runtime.Types.Result.GetResult<Prisma.$UsuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Carrito<T extends Prisma.Compradores$CarritoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Compradores$CarritoArgs<ExtArgs>>): Prisma.Prisma__CarritosClient<runtime.Types.Result.GetResult<Prisma.$CarritosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  metodosPago<T extends Prisma.Compradores$metodosPagoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Compradores$metodosPagoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MetodosPagoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  transacciones<T extends Prisma.Compradores$transaccionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Compradores$transaccionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransaccionesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1195,6 +1443,73 @@ export type CompradoresDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many Compradores to delete.
    */
   limit?: number
+}
+
+/**
+ * Compradores.Carrito
+ */
+export type Compradores$CarritoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Carritos
+   */
+  select?: Prisma.CarritosSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Carritos
+   */
+  omit?: Prisma.CarritosOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CarritosInclude<ExtArgs> | null
+  where?: Prisma.CarritosWhereInput
+}
+
+/**
+ * Compradores.metodosPago
+ */
+export type Compradores$metodosPagoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MetodosPago
+   */
+  select?: Prisma.MetodosPagoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MetodosPago
+   */
+  omit?: Prisma.MetodosPagoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MetodosPagoInclude<ExtArgs> | null
+  where?: Prisma.MetodosPagoWhereInput
+  orderBy?: Prisma.MetodosPagoOrderByWithRelationInput | Prisma.MetodosPagoOrderByWithRelationInput[]
+  cursor?: Prisma.MetodosPagoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MetodosPagoScalarFieldEnum | Prisma.MetodosPagoScalarFieldEnum[]
+}
+
+/**
+ * Compradores.transacciones
+ */
+export type Compradores$transaccionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Transacciones
+   */
+  select?: Prisma.TransaccionesSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Transacciones
+   */
+  omit?: Prisma.TransaccionesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TransaccionesInclude<ExtArgs> | null
+  where?: Prisma.TransaccionesWhereInput
+  orderBy?: Prisma.TransaccionesOrderByWithRelationInput | Prisma.TransaccionesOrderByWithRelationInput[]
+  cursor?: Prisma.TransaccionesWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TransaccionesScalarFieldEnum | Prisma.TransaccionesScalarFieldEnum[]
 }
 
 /**

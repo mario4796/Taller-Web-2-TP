@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Nav } from '../../shared/components/nav/nav';
 import { Home } from '../../shared/components/home/home';
+import { AuthService } from '../../services/Auth/auth-service';
 
 @Component({
   selector: 'app-home-user',
@@ -10,10 +11,9 @@ import { Home } from '../../shared/components/home/home';
   styleUrl: './home-user.css',
 })
 export class HomeUser {
-  //nav//
+  private authService = inject(AuthService);
 
-  logueado = false;
-  //home//
+  logueado = computed(() => this.authService.tipoUsuario() !== null);
 
   imageBanner = 'img/libreria_banner_transparente.svg';
   eyebrow = 'Bienvenido a la Librería Online';

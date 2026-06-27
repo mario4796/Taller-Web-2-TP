@@ -1,0 +1,45 @@
+<p-dialog
+  header="Responder contraoferta"
+  [modal]="true"
+  [visible]="visible()"
+  (visibleChange)="$event ? null : cerrar.emit()"
+  [style]="{ width: '30rem' }"
+  styleClass="offer-dialog">
+  @if (oferta()) {
+    <div class="informacion-oferta">
+      <p><strong>Autor:</strong> {{ oferta()?.autor }}</p>
+      <p><strong>ISBN:</strong> {{ oferta()?.isbn }}</p>
+      <p><strong>Precio actual:</strong> {{ oferta()?.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</p>
+      <p><strong>Cantidad actual:</strong> {{ cantidadActual(oferta()!) }}</p>
+    </div>
+  }
+
+  <form [formGroup]="form()" class="offer-form">
+    <p-inputgroup class="offer-inputgroup">
+      <p-floatlabel variant="in">
+        <p-inputnumber inputId="nuevaCantidad" formControlName="nuevaCantidad" [useGrouping]="false"></p-inputnumber>
+        <label for="nuevaCantidad">Nueva cantidad</label>
+      </p-floatlabel>
+      <p-inputgroup-addon><i class="pi pi-box"></i></p-inputgroup-addon>
+    </p-inputgroup>
+    @if (nuevaCantidad && nuevaCantidad.invalid && nuevaCantidad.touched) {
+      <small class="error-message">La cantidad debe ser mayor a 0</small>
+    }
+
+    <p-inputgroup class="offer-inputgroup">
+      <p-floatlabel variant="in">
+        <p-inputnumber inputId="nuevoPrecio" formControlName="nuevoPrecio" mode="currency" currency="ARS" locale="es-AR"></p-inputnumber>
+        <label for="nuevoPrecio">Nuevo precio (opcional)</label>
+      </p-floatlabel>
+      <p-inputgroup-addon><i class="pi pi-dollar"></i></p-inputgroup-addon>
+    </p-inputgroup>
+    @if (nuevoPrecio && nuevoPrecio.invalid && nuevoPrecio.touched) {
+      <small class="error-message">El precio debe ser mayor a 0</small>
+    }
+  </form>
+
+  <div class="dialog-actions">
+    <p-button label="Cancelar" severity="danger" [text]="true" (click)="cerrar.emit()"></p-button>
+    <p-button label="Enviar" [outlined]="true" severity="secondary" (click)="enviar.emit()" [loading]="respondiendo()" [disabled]="form().invalid || respondiendo()"></p-button>
+  </div>
+</p-dialog>

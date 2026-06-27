@@ -1,20 +1,17 @@
-export enum EstadoOferta {
-    ESPERANDO_ADMIN = 'ESPERANDO_ADMIN',
-    ESPERANDO_PROVEEDOR = 'ESPERANDO_PROVEEDOR',
-    ACEPTADA = 'ACEPTADA',
-    RECHAZADA = 'RECHAZADA'
-}
-
+import { EstadoOferta, CategoriaLibro } from "../prisma/enums.js";
 
 export class OfertaLibro {
-    id!: number;
-    isbn!: string;
-    nombre!: string;
-    autor!: string;
-    precioProveedor!: number;
-    cantidadAdmin!: number;
-    cantidadProveedor!: number;
-    estado!: EstadoOferta;
-    createdAt!: Date;
-    libroId?: number | null; 
+  id!: number;
+  isbn!: string;
+  nombre!: string;
+  autor!: string;
+  precioProveedor!: number;
+  cantidadAdmin!: number;
+  cantidadProveedor!: number;
+  estado!: EstadoOferta;
+  createdAt!: Date;
+  libroId?: number | null;
+  sinopsis!: string;
+  imagenUrl?: string | null;
+  categoria!: CategoriaLibro;
 }
