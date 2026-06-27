@@ -1,4 +1,4 @@
-<app-nav [userName]="userName" [role]="role" [activeItem]="activeItem"></app-nav>
+<app-nav></app-nav>
 
 <main class="sales-page">
   <section class="sales-header">
@@ -27,7 +27,9 @@
       </div>
       <div class="card-text">
         <span class="card-title">Ganancia total</span>
-        <strong class="card-value">{{ totalDineroGenerado() | currency:'ARS':'symbol-narrow':'1.2-2' }}</strong>
+        <strong class="card-value">{{
+          totalDineroGenerado() | currency: 'ARS' : 'symbol-narrow' : '1.2-2'
+        }}</strong>
         <span class="card-subtitle">Acumulado historico</span>
       </div>
     </article>
@@ -64,7 +66,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let oferta of ofertasAceptadas()">
-            <td>{{ oferta.createdAt | date:'dd/MM/yyyy' }}</td>
+            <td>{{ oferta.createdAt | date: 'dd/MM/yyyy' }}</td>
             <td>{{ oferta.isbn }}</td>
             <td>
               <div class="book-cell">
@@ -72,9 +74,13 @@
                 <span>{{ oferta.autor }}</span>
               </div>
             </td>
-            <td>{{ oferta.precioProveedor | currency:'ARS' }}</td>
-            <td><strong>{{ cantidadActual(oferta) }}</strong></td>
-            <td class="total-cell">{{ (oferta.precioProveedor * cantidadActual(oferta)) | currency:'ARS' }}</td>
+            <td>{{ oferta.precioProveedor | currency: 'ARS' }}</td>
+            <td>
+              <strong>{{ cantidadActual(oferta) }}</strong>
+            </td>
+            <td class="total-cell">
+              {{ oferta.precioProveedor * cantidadActual(oferta) | currency: 'ARS' }}
+            </td>
           </tr>
         </tbody>
       </table>

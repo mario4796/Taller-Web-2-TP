@@ -1,4 +1,4 @@
-<app-nav [userName]="userName" [role]="role" [activeItem]="activeItem"></app-nav>
+<app-nav></app-nav>
 
 <main class="stats-page">
   <section class="stats-header">
@@ -101,7 +101,10 @@
           <td>{{ formatearMoneda(oferta.precioProveedor) }}</td>
           <td>{{ cantidadActual(oferta) }}</td>
           <td>
-            <p-tag [value]="estadoLabel(oferta.estado)" [severity]="estadoSeverity(oferta.estado)"></p-tag>
+            <p-tag
+              [value]="estadoLabel(oferta.estado)"
+              [severity]="estadoSeverity(oferta.estado)"
+            ></p-tag>
           </td>
           <td>{{ fechaCorta(oferta.createdAt) }}</td>
         </tr>
