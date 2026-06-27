@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { environment } from '../../../environmets/environmet.development';
+import { environment } from '../../../environments/environment';
 import { LibroDigitalAdquirido } from './libro-digital.interface';
 
 @Injectable({

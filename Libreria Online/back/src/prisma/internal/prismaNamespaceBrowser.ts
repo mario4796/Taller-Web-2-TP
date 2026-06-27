@@ -55,6 +55,7 @@ export const ModelName = {
   MetodosPago: 'MetodosPago',
   Compradores: 'Compradores',
   Libros: 'Libros',
+  LibroDigitalAdquirido: 'LibroDigitalAdquirido',
   Proveedores: 'Proveedores',
   TiposUsuario: 'TiposUsuario',
   ListaProveedor: 'ListaProveedor',
@@ -116,12 +117,23 @@ export const LibrosScalarFieldEnum = {
   precio: 'precio',
   stock: 'stock',
   estado: 'estado',
+  archivoDigital: 'archivoDigital',
   sinopsis: 'sinopsis',
   imagenUrl: 'imagenUrl',
   categoria: 'categoria'
 } as const
 
 export type LibrosScalarFieldEnum = (typeof LibrosScalarFieldEnum)[keyof typeof LibrosScalarFieldEnum]
+
+
+export const LibroDigitalAdquiridoScalarFieldEnum = {
+  id: 'id',
+  comprador_id: 'comprador_id',
+  libro_id: 'libro_id',
+  fecha_adquisicion: 'fecha_adquisicion'
+} as const
+
+export type LibroDigitalAdquiridoScalarFieldEnum = (typeof LibroDigitalAdquiridoScalarFieldEnum)[keyof typeof LibroDigitalAdquiridoScalarFieldEnum]
 
 
 export const ProveedoresScalarFieldEnum = {

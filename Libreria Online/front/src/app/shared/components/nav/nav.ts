@@ -72,6 +72,7 @@ export class Nav {
           { label: 'Categorías', icon: 'category', link: '/categorias' },
           { label: 'Ofertas', icon: 'sell', link: '/ofertas' },
           { label: 'Mis pedidos', icon: 'shopping_cart', link: '/carrito' },
+          { label: 'Mis libros digitales', icon: 'menu_book', link: '/comprador/libros-digitales' },
         ];
     }
   });

@@ -7,8 +7,9 @@ import { ToastModule } from 'primeng/toast';
 
 import { Nav } from '../../../../shared/components/nav/nav';
 import { LibroDigitalService } from '../../../../services/libro-digital/libro-digital.service';
-import { ToastService } from '../../../../services/toast.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 import { LibroDigitalAdquirido } from '../../../../services/libro-digital/libro-digital.interface';
+import { AuthService } from '../../../../services/Auth/auth-service';
 
 @Component({
     selector: 'app-libros-digitales',
@@ -25,10 +26,9 @@ export class LibrosDigitales implements OnInit {
     librosAdquiridos: LibroDigitalAdquirido[] = [];
     cargando = true;
 
-    private readonly COMPRADOR_ID_MOCK = 1;
-
     private libroDigitalService = inject(LibroDigitalService);
     private toastService = inject(ToastService);
+    private authService = inject(AuthService);
     private cdr = inject(ChangeDetectorRef);
 
     ngOnInit(): void {
@@ -38,13 +38,13 @@ export class LibrosDigitales implements OnInit {
     obtenerLibrosAdquiridos(): void {
         this.cargando = true;
 
-        this.libroDigitalService.getLibrosAdquiridos(this.COMPRADOR_ID_MOCK).subscribe({
+        this.libroDigitalService.getLibrosAdquiridos(this.authService.getUser()).subscribe({
             next: (data) => {
                 this.librosAdquiridos = data;
                 this.cargando = false;
                 this.cdr.detectChanges();
             },
-            error: () => {
+            error: (_err: unknown) => {
                 this.toastService.error('No se pudieron cargar los libros digitales.');
                 this.cargando = false;
                 this.cdr.detectChanges();
@@ -53,7 +53,7 @@ export class LibrosDigitales implements OnInit {
     }
 
     abrirPdf(libroId: number): void {
-        const url = this.libroDigitalService.getPdfUrl(libroId, this.COMPRADOR_ID_MOCK);
+        const url = this.libroDigitalService.getPdfUrl(libroId, this.authService.getUser());
         window.open(url, '_blank');
     }
 }
