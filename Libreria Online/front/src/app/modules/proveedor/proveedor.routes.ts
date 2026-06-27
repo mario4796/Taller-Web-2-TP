@@ -1,21 +1,32 @@
 import { Routes } from '@angular/router';
 
 import { Libros } from './pages/libros/libros';
-import { ProveedorHome } from './pages/proveedor-home/proveedor-home';
+import { ProveedorEstadisticas } from './pages/proveedor-estadisticas/proveedor-estadisticas';
 import { ProveedorRecomendacion } from './pages/proveedor-recomendacion/proveedor-recomendacion';
+import { ProveedorVentasComponent } from './pages/proveedor-ventas/proveedor-ventas';
 
 export const proveedorRoutes: Routes = [
   {
     path: '',
-    component: ProveedorHome,
+    redirectTo: 'recomendaciones',
+    pathMatch: 'full',
   },
   {
-    path: 'libros',
-    component: Libros,
+    path: 'proveedor-estadisticas',
+    component: ProveedorEstadisticas,
+  },
+  {
+    path: 'estadisticas',
+    redirectTo: 'proveedor-estadisticas',
+    pathMatch: 'full',
   },
   {
     path: 'recomendaciones',
     component: ProveedorRecomendacion,
+  },
+  {
+    path: 'ventas',
+    component: ProveedorVentasComponent,
   },
   {
     path: 'proveedor-recomendacion',
@@ -24,6 +35,6 @@ export const proveedorRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'recomendaciones',
   },
 ];

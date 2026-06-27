@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Nav } from '../../shared/components/nav/nav';
 import { Home } from '../../shared/components/home/home';
@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { Libro } from '../../shared/interfaces/libro.interface';
 import { LibrosService } from '../../api/services/libros/libros.services';
 import { Card } from 'primeng/card';
+import { AuthService } from '../../services/Auth/auth-service';
 
 @Component({
   selector: 'app-home-user',
@@ -15,10 +16,12 @@ import { Card } from 'primeng/card';
   templateUrl: './home-user.html',
   styleUrl: './home-user.css',
 })
-export class HomeUser implements OnInit {
-  logueado = false;
+export class HomeUser {
   libroService = inject(LibrosService);
   libros = signal<Libro[]>([]);
+  private authService = inject(AuthService);
+
+  logueado = computed(() => this.authService.tipoUsuario() !== null);
 
   // Propiedades del banner
   imageBanner = 'img/libreria_banner_transparente.svg';

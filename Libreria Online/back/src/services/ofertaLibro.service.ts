@@ -22,10 +22,14 @@ export class OfertaLibroService {
     }
 
    async crearOferta(oferta: OfertaLibro) {
-        const { isbn, nombre, autor, precioProveedor, cantidadProveedor, libroId, categoria, sinopsis } = oferta;
+        const { isbn, nombre, autor, precioProveedor, cantidadProveedor, libroId, categoria, sinopsis, imagenUrl } = oferta;
 
-        if (!isbn || !nombre || !autor || precioProveedor == null || !cantidadProveedor || !categoria) {
+        if (!isbn || !nombre || !autor || precioProveedor == null || cantidadProveedor == null || !categoria) {
             throw new Error('Faltan campos obligatorios para crear la oferta');
+        }
+
+        if (Number(precioProveedor) <= 0 || Number(cantidadProveedor) <= 0) {
+            throw new Error('El precio y la cantidad deben ser mayores a 0');
         }
 
         return await this.ofertaLibroRepository.crearOferta({ 
@@ -36,7 +40,8 @@ export class OfertaLibroService {
             cantidadProveedor, 
             libroId,
             categoria,
-            sinopsis
+            sinopsis,
+            imagenUrl
         });
     }
 
@@ -92,11 +97,24 @@ export class OfertaLibroService {
                 stock: cantidadFinal,
                 categoria:oferta.categoria,
                 sinopsis: oferta.sinopsis || "",
+                imagenUrl: oferta.imagenUrl,
             });
         }
 
         return await this.ofertaLibroRepository.actualizarOferta(id, {
             estado: EstadoOferta.ACEPTADA 
+        });
+    }
+
+    async rechazarOferta(id: number) {
+        const oferta = await this.ofertaLibroRepository.obtenerOfertaPorId(id);
+
+        if (!oferta) {
+            throw new Error('La oferta no existe');
+        }
+
+        return await this.ofertaLibroRepository.actualizarOferta(id, {
+            estado: EstadoOferta.RECHAZADA
         });
     }
 

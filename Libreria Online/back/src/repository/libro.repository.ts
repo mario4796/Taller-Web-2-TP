@@ -22,6 +22,9 @@ export class LibroRepository {
     libro.autor = data.autor;
     libro.precio = Number(data.precio); // Convertimos Decimal a number
     libro.stock = data.stock ?? 0; // Si es null, ponemos 0
+    libro.sinopsis = data.sinopsis ?? "";
+    libro.imagenUrl = data.imagenUrl;
+    libro.categoria = data.categoria;
 
     return libro;
   }
@@ -40,6 +43,7 @@ export class LibroRepository {
     stock: number;
     categoria: CategoriaLibro;
     sinopsis: string;
+    imagenUrl?: string | null;
   }) {
     return await prisma.libros.create({ data });
   }
@@ -53,6 +57,7 @@ export class LibroRepository {
       autor: string;
       categoria: CategoriaLibro;
       sinopsis: string;
+      imagenUrl?: string | null;
     },
   ) {
     return await prisma.libros.update({

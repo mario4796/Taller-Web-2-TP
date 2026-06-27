@@ -12,6 +12,12 @@ import { TagModule } from 'primeng/tag';
 
 import { IsbnLookupService } from '../../../../api/services/isbn-lookup/isbn-lookup.service';
 import { EstadoOferta, OfertaLibro } from '../../../../shared/interfaces/oferta-libro.interface';
+import {
+  cantidadVisibleOferta,
+  estadoOfertaLabel,
+  estadoOfertaSeverity,
+  puedeResponderOferta,
+} from '../../../../shared/utils/oferta-estado.utils';
 
 @Component({
   selector: 'app-recomendaciones-table',
@@ -32,6 +38,8 @@ import { EstadoOferta, OfertaLibro } from '../../../../shared/interfaces/oferta-
   styleUrl: './recomendaciones-table.css',
 })
 export class RecomendacionesTable {
+  readonly portadaFallback = '/img/portada/imagen-no-disponible-vertical.svg';
+
   recomendaciones = input.required<OfertaLibro[]>();
   cargando = input(false);
 
@@ -49,38 +57,31 @@ export class RecomendacionesTable {
     this.tablaRecomendaciones()?.filterGlobal(valor, 'contains');
   }
 
-  portadaUrl(isbn: string): string {
-    return this.isbnLookup.portadaUrl(isbn);
+  portadaUrl(recomendacion: OfertaLibro): string {
+    return recomendacion.imagenUrl?.trim() || this.isbnLookup.portadaUrl(recomendacion.isbn);
   }
 
-  ocultarPortada(event: Event): void {
-    (event.target as HTMLImageElement).style.display = 'none';
+  usarPortadaFallback(event: Event): void {
+    const imagen = event.target as HTMLImageElement;
+    if (!imagen.src.endsWith(this.portadaFallback)) {
+      imagen.src = this.portadaFallback;
+    }
   }
 
   puedeResponder(recomendacion: OfertaLibro): boolean {
-    return recomendacion.estado === 'ESPERANDO_PROVEEDOR';
+    return puedeResponderOferta(recomendacion);
   }
 
   estadoLabel(estado: EstadoOferta): string {
-    const labels: Record<EstadoOferta, string> = {
-      ESPERANDO_ADMIN: 'Esperando admin',
-      ESPERANDO_PROVEEDOR: 'Esperando proveedor',
-      ACEPTADA: 'Aceptada',
-      RECHAZADA: 'Rechazada',
-    };
-
-    return labels[estado];
+    return estadoOfertaLabel(estado);
   }
 
   estadoSeverity(estado: EstadoOferta): 'success' | 'info' | 'warn' | 'danger' {
-    const severities: Record<EstadoOferta, 'success' | 'info' | 'warn' | 'danger'> = {
-      ESPERANDO_ADMIN: 'info',
-      ESPERANDO_PROVEEDOR: 'warn',
-      ACEPTADA: 'success',
-      RECHAZADA: 'danger',
-    };
+    return estadoOfertaSeverity(estado);
+  }
 
-    return severities[estado];
+  cantidadVisible(recomendacion: OfertaLibro): number {
+    return cantidadVisibleOferta(recomendacion);
   }
 
   sinopsisTexto(recomendacion: OfertaLibro): string {

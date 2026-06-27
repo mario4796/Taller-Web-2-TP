@@ -47,14 +47,32 @@
     </p-button>
 
     @if (logueado) {
-      <div class="user-menu-wrapper">
-        <div class="user-info" (click)="menu.toggle($event)">
-          <p-avatar [label]="initials" shape="circle" styleClass="mr-2"></p-avatar>
-          <div class="user-text">
-            <strong>{{ userName }}</strong>
-            <small>{{ roleLabel }}</small>
-          </div>
-          <span class="material-symbols-rounded">expand_more</span>
+      <div class="user-menu">
+        <p-avatar label="MR" shape="circle"></p-avatar>
+
+        <div class="user-text">
+          <strong>{{ userName }}</strong>
+          @switch (role) {
+            @case ('admin') {
+              <span>Administrador</span>
+            }
+            @case ('proveedor') {
+              <span>Proveedor</span>
+            }
+            @default {
+              <span>Comprador</span>
+            }
+          }
+
+          <p-button
+            [rounded]="true"
+            [text]="true"
+            styleClass="logout-button"
+            (onClick)="logout()"
+            aria-label="Cerrar sesión"
+          >
+            <span class="material-symbols-rounded"> logout </span>
+          </p-button>
         </div>
 
         <p-menu #menu [model]="userMenuItems" [popup]="true" appendTo="body"></p-menu>

@@ -47,6 +47,8 @@ interface ApiResponse {
   styleUrl: './ver-libros-admin.css',
 })
 export class VerLibrosAdmin {
+  readonly portadaFallback = '/img/portada/imagen-no-disponible-vertical.svg';
+
   private librosService = inject(LibrosService);
   private proveedoresService = inject(ProveedoresService);
   private ofertasService = inject(OfertasLibroService);
@@ -133,7 +135,7 @@ export class VerLibrosAdmin {
   rechazarOferta(oferta: OfertaLibro): void {
     this.ofertasService.rechazarOferta(oferta.id).subscribe({
       next: () => {
-        this.toastService.error('Oferta rechazada y eliminada');
+        this.toastService.error('Oferta rechazada');
         this.cargarOfertasPendientes();
       },
       error: () => {
@@ -188,6 +190,17 @@ export class VerLibrosAdmin {
     if (stock === 0) return 'danger';
     if (stock < 10) return 'warn';
     return 'success';
+  }
+
+  portadaUrl(libro: Libro): string {
+    return libro.imagenUrl?.trim() || `https://covers.openlibrary.org/b/isbn/${encodeURIComponent(libro.isbn)}-M.jpg?default=false`;
+  }
+
+  usarPortadaFallback(event: Event): void {
+    const imagen = event.target as HTMLImageElement;
+    if (!imagen.src.endsWith(this.portadaFallback)) {
+      imagen.src = this.portadaFallback;
+    }
   }
 
   abrirPedidoStock(libro: any): void {

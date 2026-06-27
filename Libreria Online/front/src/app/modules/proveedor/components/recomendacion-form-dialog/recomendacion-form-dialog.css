@@ -29,6 +29,13 @@
   align-items: stretch;
 }
 
+.isbn-progress {
+  height: 0.35rem;
+  margin-top: -0.55rem;
+  border-radius: 0;
+  background: #eef2f7;
+}
+
 .cover-preview {
   display: flex;
   justify-content: center;
@@ -95,6 +102,10 @@
   border-radius: 0;
 }
 
+:host ::ng-deep .isbn-progress .p-progressbar-value {
+  background: #8b5cf6;
+}
+
 :host ::ng-deep .recommendation-inputgroup .p-inputtext:enabled:focus,
 :host ::ng-deep .recommendation-inputgroup .p-textarea:enabled:focus,
 :host ::ng-deep .recommendation-inputgroup .p-inputnumber-input:enabled:focus {
@@ -105,6 +116,10 @@
 :host-context(.app-dark) .cover-preview {
   border-color: rgba(148, 163, 184, 0.16);
   background: rgba(30, 41, 59, 0.92);
+}
+
+:host-context(.app-dark) .isbn-progress {
+  background: rgba(148, 163, 184, 0.16);
 }
 
 :host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-inputgroup-addon {

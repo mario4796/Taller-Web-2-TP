@@ -21,7 +21,16 @@ export class LibroService {
   }
 
   async crearLibro(libro: Libro) {
-    const { nombre, isbn, precio, autor, stock, categoria, sinopsis } = libro;
+    const {
+      nombre,
+      isbn,
+      precio,
+      autor,
+      stock,
+      categoria,
+      sinopsis,
+      imagenUrl,
+    } = libro;
 
     if (
       !nombre ||
@@ -42,6 +51,7 @@ export class LibroService {
       stock,
       categoria,
       sinopsis,
+      imagenUrl,
     });
   }
 
@@ -54,6 +64,7 @@ export class LibroService {
       autor: string;
       categoria: CategoriaLibro;
       sinopsis: string;
+      imagenUrl?: string | null;
     },
   ) {
     return await this.libroRepository.updateLibro(id, data);

@@ -49,7 +49,9 @@ export class OfertasLibroService {
       .pipe(map((res) => OfertaLibroMapper.mapRestOfertaToOfertaFront(res.data)));
   }
 
-  rechazarOferta(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  rechazarOferta(id: number): Observable<OfertaLibro> {
+    return this.http
+      .put<{ message: string; data: OfertaLibroRest }>(`${this.apiUrl}/rechazar/${id}`, {})
+      .pipe(map((res) => OfertaLibroMapper.mapRestOfertaToOfertaFront(res.data)));
   }
 }

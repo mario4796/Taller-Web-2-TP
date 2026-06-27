@@ -1,11 +1,12 @@
 import { Component, inject, Input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { Button } from 'primeng/button';
 import { Avatar } from 'primeng/avatar';
 import { AuthService } from '../../../services/Auth/auth-service';
 import { Menu } from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
 interface NavItem {
   label: string;
   icon: string;
@@ -28,8 +29,10 @@ export class Nav implements OnInit, OnChanges {
   isDark = signal(false);
   mobileNavOpen = signal(false);
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   navItems: NavItem[] = [];
+  userMenuItems: MenuItem[] | undefined;
 
   ngOnInit(): void {
     this.authService.authState$.subscribe((isLoggedIn) => {
@@ -73,6 +76,7 @@ export class Nav implements OnInit, OnChanges {
 
   logout() {
     this.authService.logout();
+    this.router.navigate(['/']);
   }
 
   private setNavItems(): void {
@@ -105,19 +109,23 @@ export class Nav implements OnInit, OnChanges {
       case 'proveedor':
         this.navItems = [
           {
-            label: 'Inicio',
-            icon: 'home',
+            label: 'Mis Recomendaciones',
+            icon: 'auto_stories',
             link: '/proveedor',
-            active: this.activeItem === 'Inicio',
+            active: this.activeItem === 'Mis Recomendaciones' || this.activeItem === 'Inicio',
           },
           { label: 'Peticiones', icon: 'assignment', active: this.activeItem === 'Peticiones' },
-          { label: 'Estadísticas', icon: 'monitoring', active: this.activeItem === 'Estadísticas' },
-          { label: 'Ventas', icon: 'shopping_cart', active: this.activeItem === 'Ventas' },
           {
-            label: 'Recomendar libro',
-            icon: 'auto_stories',
-            link: '/proveedor/proveedor-recomendacion',
-            active: this.activeItem === 'Recomendar libro',
+            label: 'Estadisticas',
+            icon: 'monitoring',
+            link: '/proveedor/proveedor-estadisticas',
+            active: this.activeItem === 'Estadisticas',
+          },
+          {
+            label: 'Ventas',
+            icon: 'shopping_cart',
+            link: '/proveedor/ventas',
+            active: this.activeItem === 'Ventas',
           },
         ];
         break;
@@ -136,31 +144,5 @@ export class Nav implements OnInit, OnChanges {
         ];
         break;
     }
-  }
-
-  // Dentro de la clase Nav:
-  userMenuItems = [
-    { label: 'Perfil', icon: 'pi pi-user', routerLink: '/perfil' },
-    { label: 'Configuración', icon: 'pi pi-cog', routerLink: '/configuracion' },
-    { separator: true },
-    { label: 'Cerrar sesión', icon: 'pi pi-sign-out', command: () => this.logout() },
-  ];
-
-  get initials(): string {
-    if (!this.userName) return 'US';
-    return this.userName
-      .split(' ')
-      .map((n) => n[0])
-      .join('')
-      .substring(0, 2)
-      .toUpperCase();
-  }
-
-  get roleLabel(): string {
-    const roles: Record<string, string> = {
-      admin: 'Administrador',
-      proveedor: 'Proveedor',
-    };
-    return roles[this.role] || 'Comprador';
   }
 }

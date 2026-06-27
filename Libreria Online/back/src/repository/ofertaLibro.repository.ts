@@ -3,7 +3,7 @@ import { CategoriaLibro, EstadoOferta } from '../prisma/enums.js';
 
 export class OfertaLibroRepository {
     
-    async crearOferta(data: {nombre: string; isbn: string; autor: string; precioProveedor: number; cantidadProveedor: number; libroId?: number | null, categoria: CategoriaLibro, sinopsis: string | null}) {
+    async crearOferta(data: {nombre: string; isbn: string; autor: string; precioProveedor: number; cantidadProveedor: number; libroId?: number | null, categoria: CategoriaLibro, sinopsis: string | null, imagenUrl?: string | null}) {
         return await prisma.ofertaLibro.create({ data });
     }
 

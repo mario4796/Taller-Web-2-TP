@@ -47,6 +47,7 @@ export type LibrosMinAggregateOutputType = {
   stock: number | null
   estado: string | null
   sinopsis: string | null
+  imagenUrl: string | null
   categoria: $Enums.CategoriaLibro | null
 }
 
@@ -59,6 +60,7 @@ export type LibrosMaxAggregateOutputType = {
   stock: number | null
   estado: string | null
   sinopsis: string | null
+  imagenUrl: string | null
   categoria: $Enums.CategoriaLibro | null
 }
 
@@ -71,6 +73,7 @@ export type LibrosCountAggregateOutputType = {
   stock: number
   estado: number
   sinopsis: number
+  imagenUrl: number
   categoria: number
   _all: number
 }
@@ -97,6 +100,7 @@ export type LibrosMinAggregateInputType = {
   stock?: true
   estado?: true
   sinopsis?: true
+  imagenUrl?: true
   categoria?: true
 }
 
@@ -109,6 +113,7 @@ export type LibrosMaxAggregateInputType = {
   stock?: true
   estado?: true
   sinopsis?: true
+  imagenUrl?: true
   categoria?: true
 }
 
@@ -121,6 +126,7 @@ export type LibrosCountAggregateInputType = {
   stock?: true
   estado?: true
   sinopsis?: true
+  imagenUrl?: true
   categoria?: true
   _all?: true
 }
@@ -220,6 +226,7 @@ export type LibrosGroupByOutputType = {
   stock: number | null
   estado: string | null
   sinopsis: string | null
+  imagenUrl: string | null
   categoria: $Enums.CategoriaLibro
   _count: LibrosCountAggregateOutputType | null
   _avg: LibrosAvgAggregateOutputType | null
@@ -255,6 +262,7 @@ export type LibrosWhereInput = {
   stock?: Prisma.IntNullableFilter<"Libros"> | number | null
   estado?: Prisma.StringNullableFilter<"Libros"> | string | null
   sinopsis?: Prisma.StringNullableFilter<"Libros"> | string | null
+  imagenUrl?: Prisma.StringNullableFilter<"Libros"> | string | null
   categoria?: Prisma.EnumCategoriaLibroFilter<"Libros"> | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroListRelationFilter
   detallesCarritos?: Prisma.DetallesCarritoListRelationFilter
@@ -270,6 +278,7 @@ export type LibrosOrderByWithRelationInput = {
   stock?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrderInput | Prisma.SortOrder
   sinopsis?: Prisma.SortOrderInput | Prisma.SortOrder
+  imagenUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   categoria?: Prisma.SortOrder
   ofertas?: Prisma.OfertaLibroOrderByRelationAggregateInput
   detallesCarritos?: Prisma.DetallesCarritoOrderByRelationAggregateInput
@@ -288,6 +297,7 @@ export type LibrosWhereUniqueInput = Prisma.AtLeast<{
   stock?: Prisma.IntNullableFilter<"Libros"> | number | null
   estado?: Prisma.StringNullableFilter<"Libros"> | string | null
   sinopsis?: Prisma.StringNullableFilter<"Libros"> | string | null
+  imagenUrl?: Prisma.StringNullableFilter<"Libros"> | string | null
   categoria?: Prisma.EnumCategoriaLibroFilter<"Libros"> | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroListRelationFilter
   detallesCarritos?: Prisma.DetallesCarritoListRelationFilter
@@ -303,6 +313,7 @@ export type LibrosOrderByWithAggregationInput = {
   stock?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrderInput | Prisma.SortOrder
   sinopsis?: Prisma.SortOrderInput | Prisma.SortOrder
+  imagenUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   categoria?: Prisma.SortOrder
   _count?: Prisma.LibrosCountOrderByAggregateInput
   _avg?: Prisma.LibrosAvgOrderByAggregateInput
@@ -323,6 +334,7 @@ export type LibrosScalarWhereWithAggregatesInput = {
   stock?: Prisma.IntNullableWithAggregatesFilter<"Libros"> | number | null
   estado?: Prisma.StringNullableWithAggregatesFilter<"Libros"> | string | null
   sinopsis?: Prisma.StringNullableWithAggregatesFilter<"Libros"> | string | null
+  imagenUrl?: Prisma.StringNullableWithAggregatesFilter<"Libros"> | string | null
   categoria?: Prisma.EnumCategoriaLibroWithAggregatesFilter<"Libros"> | $Enums.CategoriaLibro
 }
 
@@ -334,6 +346,7 @@ export type LibrosCreateInput = {
   stock?: number | null
   estado?: string | null
   sinopsis?: string | null
+  imagenUrl?: string | null
   categoria?: $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroCreateNestedManyWithoutLibroInput
   detallesCarritos?: Prisma.DetallesCarritoCreateNestedManyWithoutLibrosInput
@@ -349,6 +362,7 @@ export type LibrosUncheckedCreateInput = {
   stock?: number | null
   estado?: string | null
   sinopsis?: string | null
+  imagenUrl?: string | null
   categoria?: $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUncheckedCreateNestedManyWithoutLibroInput
   detallesCarritos?: Prisma.DetallesCarritoUncheckedCreateNestedManyWithoutLibrosInput
@@ -363,6 +377,7 @@ export type LibrosUpdateInput = {
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUpdateManyWithoutLibroNestedInput
   detallesCarritos?: Prisma.DetallesCarritoUpdateManyWithoutLibrosNestedInput
@@ -378,6 +393,7 @@ export type LibrosUncheckedUpdateInput = {
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUncheckedUpdateManyWithoutLibroNestedInput
   detallesCarritos?: Prisma.DetallesCarritoUncheckedUpdateManyWithoutLibrosNestedInput
@@ -393,6 +409,7 @@ export type LibrosCreateManyInput = {
   stock?: number | null
   estado?: string | null
   sinopsis?: string | null
+  imagenUrl?: string | null
   categoria?: $Enums.CategoriaLibro
 }
 
@@ -404,6 +421,7 @@ export type LibrosUpdateManyMutationInput = {
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
 }
 
@@ -416,6 +434,7 @@ export type LibrosUncheckedUpdateManyInput = {
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
 }
 
@@ -428,6 +447,7 @@ export type LibrosCountOrderByAggregateInput = {
   stock?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   sinopsis?: Prisma.SortOrder
+  imagenUrl?: Prisma.SortOrder
   categoria?: Prisma.SortOrder
 }
 
@@ -446,6 +466,7 @@ export type LibrosMaxOrderByAggregateInput = {
   stock?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   sinopsis?: Prisma.SortOrder
+  imagenUrl?: Prisma.SortOrder
   categoria?: Prisma.SortOrder
 }
 
@@ -458,6 +479,7 @@ export type LibrosMinOrderByAggregateInput = {
   stock?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   sinopsis?: Prisma.SortOrder
+  imagenUrl?: Prisma.SortOrder
   categoria?: Prisma.SortOrder
 }
 
@@ -549,6 +571,7 @@ export type LibrosCreateWithoutOfertasInput = {
   stock?: number | null
   estado?: string | null
   sinopsis?: string | null
+  imagenUrl?: string | null
   categoria?: $Enums.CategoriaLibro
   detallesCarritos?: Prisma.DetallesCarritoCreateNestedManyWithoutLibrosInput
   detalleTransaccions?: Prisma.DetalleTransaccionCreateNestedManyWithoutLibroInput
@@ -563,6 +586,7 @@ export type LibrosUncheckedCreateWithoutOfertasInput = {
   stock?: number | null
   estado?: string | null
   sinopsis?: string | null
+  imagenUrl?: string | null
   categoria?: $Enums.CategoriaLibro
   detallesCarritos?: Prisma.DetallesCarritoUncheckedCreateNestedManyWithoutLibrosInput
   detalleTransaccions?: Prisma.DetalleTransaccionUncheckedCreateNestedManyWithoutLibroInput
@@ -592,6 +616,7 @@ export type LibrosUpdateWithoutOfertasInput = {
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   detallesCarritos?: Prisma.DetallesCarritoUpdateManyWithoutLibrosNestedInput
   detalleTransaccions?: Prisma.DetalleTransaccionUpdateManyWithoutLibroNestedInput
@@ -606,6 +631,7 @@ export type LibrosUncheckedUpdateWithoutOfertasInput = {
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   detallesCarritos?: Prisma.DetallesCarritoUncheckedUpdateManyWithoutLibrosNestedInput
   detalleTransaccions?: Prisma.DetalleTransaccionUncheckedUpdateManyWithoutLibroNestedInput
@@ -619,6 +645,7 @@ export type LibrosCreateWithoutDetallesCarritosInput = {
   stock?: number | null
   estado?: string | null
   sinopsis?: string | null
+  imagenUrl?: string | null
   categoria?: $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroCreateNestedManyWithoutLibroInput
   detalleTransaccions?: Prisma.DetalleTransaccionCreateNestedManyWithoutLibroInput
@@ -633,6 +660,7 @@ export type LibrosUncheckedCreateWithoutDetallesCarritosInput = {
   stock?: number | null
   estado?: string | null
   sinopsis?: string | null
+  imagenUrl?: string | null
   categoria?: $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUncheckedCreateNestedManyWithoutLibroInput
   detalleTransaccions?: Prisma.DetalleTransaccionUncheckedCreateNestedManyWithoutLibroInput
@@ -662,6 +690,7 @@ export type LibrosUpdateWithoutDetallesCarritosInput = {
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUpdateManyWithoutLibroNestedInput
   detalleTransaccions?: Prisma.DetalleTransaccionUpdateManyWithoutLibroNestedInput
@@ -676,6 +705,7 @@ export type LibrosUncheckedUpdateWithoutDetallesCarritosInput = {
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUncheckedUpdateManyWithoutLibroNestedInput
   detalleTransaccions?: Prisma.DetalleTransaccionUncheckedUpdateManyWithoutLibroNestedInput
@@ -689,6 +719,7 @@ export type LibrosCreateWithoutDetalleTransaccionsInput = {
   stock?: number | null
   estado?: string | null
   sinopsis?: string | null
+  imagenUrl?: string | null
   categoria?: $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroCreateNestedManyWithoutLibroInput
   detallesCarritos?: Prisma.DetallesCarritoCreateNestedManyWithoutLibrosInput
@@ -703,6 +734,7 @@ export type LibrosUncheckedCreateWithoutDetalleTransaccionsInput = {
   stock?: number | null
   estado?: string | null
   sinopsis?: string | null
+  imagenUrl?: string | null
   categoria?: $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUncheckedCreateNestedManyWithoutLibroInput
   detallesCarritos?: Prisma.DetallesCarritoUncheckedCreateNestedManyWithoutLibrosInput
@@ -732,6 +764,7 @@ export type LibrosUpdateWithoutDetalleTransaccionsInput = {
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUpdateManyWithoutLibroNestedInput
   detallesCarritos?: Prisma.DetallesCarritoUpdateManyWithoutLibrosNestedInput
@@ -746,6 +779,7 @@ export type LibrosUncheckedUpdateWithoutDetalleTransaccionsInput = {
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   ofertas?: Prisma.OfertaLibroUncheckedUpdateManyWithoutLibroNestedInput
   detallesCarritos?: Prisma.DetallesCarritoUncheckedUpdateManyWithoutLibrosNestedInput
@@ -809,6 +843,7 @@ export type LibrosSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   stock?: boolean
   estado?: boolean
   sinopsis?: boolean
+  imagenUrl?: boolean
   categoria?: boolean
   ofertas?: boolean | Prisma.Libros$ofertasArgs<ExtArgs>
   detallesCarritos?: boolean | Prisma.Libros$detallesCarritosArgs<ExtArgs>
@@ -825,6 +860,7 @@ export type LibrosSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   stock?: boolean
   estado?: boolean
   sinopsis?: boolean
+  imagenUrl?: boolean
   categoria?: boolean
 }, ExtArgs["result"]["libros"]>
 
@@ -837,6 +873,7 @@ export type LibrosSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   stock?: boolean
   estado?: boolean
   sinopsis?: boolean
+  imagenUrl?: boolean
   categoria?: boolean
 }, ExtArgs["result"]["libros"]>
 
@@ -849,10 +886,11 @@ export type LibrosSelectScalar = {
   stock?: boolean
   estado?: boolean
   sinopsis?: boolean
+  imagenUrl?: boolean
   categoria?: boolean
 }
 
-export type LibrosOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isbn" | "nombre" | "autor" | "precio" | "stock" | "estado" | "sinopsis" | "categoria", ExtArgs["result"]["libros"]>
+export type LibrosOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isbn" | "nombre" | "autor" | "precio" | "stock" | "estado" | "sinopsis" | "imagenUrl" | "categoria", ExtArgs["result"]["libros"]>
 export type LibrosInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ofertas?: boolean | Prisma.Libros$ofertasArgs<ExtArgs>
   detallesCarritos?: boolean | Prisma.Libros$detallesCarritosArgs<ExtArgs>
@@ -878,6 +916,7 @@ export type $LibrosPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     stock: number | null
     estado: string | null
     sinopsis: string | null
+    imagenUrl: string | null
     categoria: $Enums.CategoriaLibro
   }, ExtArgs["result"]["libros"]>
   composites: {}
@@ -1313,6 +1352,7 @@ export interface LibrosFieldRefs {
   readonly stock: Prisma.FieldRef<"Libros", 'Int'>
   readonly estado: Prisma.FieldRef<"Libros", 'String'>
   readonly sinopsis: Prisma.FieldRef<"Libros", 'String'>
+  readonly imagenUrl: Prisma.FieldRef<"Libros", 'String'>
   readonly categoria: Prisma.FieldRef<"Libros", 'CategoriaLibro'>
 }
     

@@ -8,6 +8,7 @@ export class Libro {
     precio!: number;
     stock!  : number;
     sinopsis!: string;
+    imagenUrl?: string | null;
     categoria!: CategoriaLibro;
 }
 

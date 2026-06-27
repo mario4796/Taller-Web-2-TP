@@ -15,8 +15,6 @@ import { Table } from 'primeng/table';
 
 import { Nav } from '../../../../shared/components/nav/nav';
 import { AgregarLibro } from '../../components/agregar-libro/agregar-libro';
-import { ActualizarLibro } from '../../components/actualizar-libro/actualizar-libro';
-import { EliminarLibro } from '../../components/eliminar-libro/eliminar-libro';
 import { LibrosService } from '../../../../api/services/libros/libros.services';
 import { Libro } from '../../../../shared/interfaces/libro.interface';
 import { ToastService } from '../../../../shared/services/toast.service';
@@ -24,7 +22,7 @@ import { ToastService } from '../../../../shared/services/toast.service';
 @Component({
   selector: 'app-libros',
   standalone: true,
-  imports: [CommonModule, FormsModule, Nav, TableModule, ButtonModule, TagModule, InputGroupModule, InputGroupAddonModule, FloatLabelModule, InputTextModule, TooltipModule, ToastModule, AgregarLibro, ActualizarLibro, EliminarLibro],
+  imports: [CommonModule, FormsModule, Nav, TableModule, ButtonModule, TagModule, InputGroupModule, InputGroupAddonModule, FloatLabelModule, InputTextModule, TooltipModule, ToastModule, AgregarLibro],
   templateUrl: './libros.html',
   styleUrl: './libros.css',
 })
