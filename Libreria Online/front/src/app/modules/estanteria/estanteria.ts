@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-
 import { DataViewModule } from 'primeng/dataview';
+import { MessageService } from 'primeng/api'; // 1. Importa el servicio
+import { ToastModule } from 'primeng/toast'; // 2. Importa el módulo
 
 import { LibrosService } from '../../api/services/libros/libros.services';
 import { LibroEstanteria } from '../libro-estanteria/libro-estanteria';
@@ -12,7 +13,8 @@ import { Nav } from '../../shared/components/nav/nav';
 @Component({
   selector: 'app-estanteria',
   standalone: true,
-  imports: [LibroEstanteria, DataViewModule, Nav],
+  imports: [LibroEstanteria, DataViewModule, Nav, ToastModule],
+  providers: [MessageService],
   templateUrl: './estanteria.html',
   styleUrl: './estanteria.css',
 })
@@ -20,6 +22,8 @@ export class Estanteria implements OnInit {
   libroService = inject(LibrosService);
   compradorService = inject(CompradorService);
   auth = inject(AuthService);
+  messageService = inject(MessageService);
+
   libros = signal<Libro[]>([]);
 
   ngOnInit(): void {
@@ -28,15 +32,8 @@ export class Estanteria implements OnInit {
 
   cargarLibros() {
     this.libroService.listLibros().subscribe({
-      next: (data) => {
-        console.log('DATA:', data);
-        this.libros.set(data);
-
-        console.log('SIGNAL:', this.libros());
-      },
-      error: (err) => {
-        console.error('❌ Error al cargar libros:', err);
-      },
+      next: (data) => this.libros.set(data),
+      error: (err) => console.error('❌ Error al cargar libros:', err),
     });
   }
 
@@ -49,8 +46,24 @@ export class Estanteria implements OnInit {
           cantidad: 1,
         })
         .subscribe({
-          next: () => alert('Libro agregado al carrito'),
-          error: (err) => console.error('Error al comprar', err),
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: '¡Éxito!',
+              detail: 'Libro agregado al carrito',
+              life: 3000,
+            });
+
+            this.cargarLibros();
+          },
+          error: (err) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'No se pudo agregar el libro',
+            });
+            console.error('Error al comprar', err);
+          },
         });
     } else {
       console.log('Error usuario no encontrado');

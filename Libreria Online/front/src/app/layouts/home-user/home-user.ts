@@ -37,12 +37,10 @@ export class HomeUser {
     this.cargarLibrosDestacados();
   }
 
-  verificarLogin() {
-    this.logueado = !!localStorage.getItem('usuario');
-  }
+  verificarLogin() {}
 
   cargarLibrosDestacados() {
-    this.libroService.listLibros().subscribe({
+    this.libroService.listLibrosCarrusel().subscribe({
       next: (data) => {
         console.log('DATA:', data);
         this.libros.set(data);

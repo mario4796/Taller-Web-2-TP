@@ -4,6 +4,7 @@ import { Register } from './layouts/register/register';
 import { Login } from './layouts/login/login';
 import { Estanteria } from './modules/estanteria/estanteria';
 import { CarritoComponent } from './modules/carrito/carrito-component/carrito-component';
+import { authGuard } from './services/Auth/auth-guard';
 
 export const routes: Routes = [
   {
@@ -30,9 +31,13 @@ export const routes: Routes = [
   {
     path: 'libros',
     component: Estanteria,
+    canActivate: [authGuard],
+    data: { roles: ['COMPRADOR', 'ADMIN'] },
   },
   {
     path: 'carrito',
     component: CarritoComponent,
+    canActivate: [authGuard],
+    data: { roles: ['COMPRADOR'] },
   },
 ];

@@ -4,7 +4,11 @@ import { CategoriaLibro } from "../prisma/enums.js";
 
 export class LibroRepository {
   async findAllLibros() {
-    const libros = await prisma.libros.findMany({});
+    const libros = await prisma.libros.findMany({
+      orderBy: {
+        id: "asc",
+      },
+    });
 
     return libros;
   }

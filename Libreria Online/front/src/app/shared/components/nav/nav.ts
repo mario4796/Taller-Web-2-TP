@@ -1,77 +1,99 @@
-import { Component, inject, Input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
 import { Button } from 'primeng/button';
 import { Avatar } from 'primeng/avatar';
-import { AuthService } from '../../../services/Auth/auth-service';
 import { Menu } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
+import { AuthService } from '../../../services/Auth/auth-service';
+
 interface NavItem {
   label: string;
   icon: string;
-  active?: boolean;
   link?: string;
 }
 
 @Component({
   selector: 'app-nav',
+  standalone: true,
   imports: [CommonModule, Button, Avatar, RouterLink, Menu],
   templateUrl: './nav.html',
   styleUrl: './nav.css',
 })
-export class Nav implements OnInit, OnChanges {
-  @Input() logueado: boolean = true;
-  @Input() role: string = '';
-  @Input() userName: string = '';
-  @Input() activeItem: string = '';
-
-  isDark = signal(false);
-  mobileNavOpen = signal(false);
+export class Nav {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  navItems: NavItem[] = [];
-  userMenuItems: MenuItem[] | undefined;
+  isLogged = toSignal(this.authService.authState$, {
+    initialValue: !!localStorage.getItem('usuario'),
+  });
 
-  ngOnInit(): void {
-    this.authService.authState$.subscribe((isLoggedIn) => {
-      this.logueado = isLoggedIn;
+  role = this.authService.tipoUsuario;
+  isDark = signal(false);
+  mobileNavOpen = signal(false);
 
-      // Recuperamos los datos más recientes del storage
-      this.userName = this.authService.getUsuario().nombre || '';
-      this.role = localStorage.getItem('role') || 'comprador';
+  userName = computed(() => this.authService.getUsuario()?.nombre || '');
 
-      // Recalculamos los ítems del menú según el estado
-      this.setNavItems();
-    });
-    console.log(localStorage.getItem('role'));
+  navItems = computed<NavItem[]>(() => {
+    const logged = this.isLogged();
+    const role = this.role()?.toLowerCase() || '';
+
+    if (!logged) {
+      return [
+        { label: 'Inicio', icon: 'home', link: '/' },
+        { label: 'Categorías', icon: 'category', link: '/categorias' },
+        { label: 'Ofertas', icon: 'sell', link: '/ofertas' },
+      ];
+    }
+
+    switch (role) {
+      case 'admin':
+        return [
+          { label: 'Inicio', icon: 'home', link: '/admin' },
+          { label: 'Usuarios', icon: 'people', link: '/admin/usuarios' },
+          { label: 'Libros', icon: 'book', link: '/admin/libros' },
+          { label: 'Ofertas', icon: 'sell', link: '/admin/ofertas' },
+          { label: 'Stock', icon: 'inventory', link: '/admin/stock' },
+          { label: 'Reportes', icon: 'description', link: '/admin/reportes' },
+        ];
+      case 'proveedor':
+        return [
+          { label: 'Inicio', icon: 'home', link: '/proveedor' },
+          { label: 'Peticiones', icon: 'assignment', link: '/proveedor/peticiones' },
+          { label: 'Estadísticas', icon: 'monitoring', link: '/proveedor/estadisticas' },
+          { label: 'Ventas', icon: 'shopping_cart', link: '/proveedor/ventas' },
+          { label: 'Recomendar libro', icon: 'auto_stories', link: '/proveedor/recomendacion' },
+        ];
+      default:
+        return [
+          { label: 'Inicio', icon: 'home', link: '/' },
+          { label: 'Categorías', icon: 'category', link: '/categorias' },
+          { label: 'Ofertas', icon: 'sell', link: '/ofertas' },
+          { label: 'Mis pedidos', icon: 'shopping_cart', link: '/carrito' },
+        ];
+    }
+  });
+
+  userMenuItems: MenuItem[] = [
+    { label: 'Perfil', icon: 'pi pi-user', routerLink: '/perfil' },
+    { label: 'Configuración', icon: 'pi pi-cog', routerLink: '/configuracion' },
+    { separator: true },
+    { label: 'Cerrar sesión', icon: 'pi pi-sign-out', command: () => this.logout() },
+  ];
+
+  constructor() {
     const savedTheme = localStorage.getItem('theme');
     const shouldUseDark = savedTheme === 'dark';
-
     this.isDark.set(shouldUseDark);
     document.documentElement.classList.toggle('app-dark', shouldUseDark);
-
-    this.setNavItems();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['logueado'] || changes['role'] || changes['activeItem']) {
-      this.setNavItems();
-    }
   }
 
   toggleTheme(): void {
-    const newValue = !this.isDark();
-
-    this.isDark.set(newValue);
-    document.documentElement.classList.toggle('app-dark', newValue);
-
-    localStorage.setItem('theme', newValue ? 'dark' : 'light');
-  }
-
-  toggleMobileNav(): void {
-    this.mobileNavOpen.set(!this.mobileNavOpen());
+    this.isDark.update((v) => !v);
+    document.documentElement.classList.toggle('app-dark', this.isDark());
+    localStorage.setItem('theme', this.isDark() ? 'dark' : 'light');
   }
 
   logout() {
@@ -79,70 +101,12 @@ export class Nav implements OnInit, OnChanges {
     this.router.navigate(['/']);
   }
 
-  private setNavItems(): void {
-    if (!this.logueado) {
-      this.navItems = [
-        { label: 'Inicio', icon: 'home', active: this.activeItem === 'Inicio' },
-        { label: 'Categorías', icon: 'category', active: this.activeItem === 'Categorías' },
-        { label: 'Ofertas', icon: 'sell', active: this.activeItem === 'Ofertas' },
-      ];
-      return;
-    }
+  get initials(): string {
+    return this.userName() ? this.userName().substring(0, 2).toUpperCase() : 'US';
+  }
 
-    switch (this.role) {
-      case 'admin':
-        this.navItems = [
-          { label: 'Inicio', icon: 'home', link: '/admin', active: this.activeItem === 'Inicio' },
-          { label: 'Usuarios', icon: 'people', active: this.activeItem === 'Usuarios' },
-          { label: 'Libros', icon: 'book', active: this.activeItem === 'Libros' },
-          {
-            label: 'Ofertas',
-            icon: 'sell',
-            link: '/admin/ofertas',
-            active: this.activeItem === 'Ofertas',
-          },
-          { label: 'Stock', icon: 'inventory', active: this.activeItem === 'Stock' },
-          { label: 'Reportes', icon: 'description', active: this.activeItem === 'Reportes' },
-        ];
-        break;
-
-      case 'proveedor':
-        this.navItems = [
-          {
-            label: 'Mis Recomendaciones',
-            icon: 'auto_stories',
-            link: '/proveedor',
-            active: this.activeItem === 'Mis Recomendaciones' || this.activeItem === 'Inicio',
-          },
-          { label: 'Peticiones', icon: 'assignment', active: this.activeItem === 'Peticiones' },
-          {
-            label: 'Estadisticas',
-            icon: 'monitoring',
-            link: '/proveedor/proveedor-estadisticas',
-            active: this.activeItem === 'Estadisticas',
-          },
-          {
-            label: 'Ventas',
-            icon: 'shopping_cart',
-            link: '/proveedor/ventas',
-            active: this.activeItem === 'Ventas',
-          },
-        ];
-        break;
-
-      case 'comprador':
-      default:
-        this.navItems = [
-          { label: 'Inicio', icon: 'home', active: this.activeItem === 'Inicio' },
-          { label: 'Categorías', icon: 'category', active: this.activeItem === 'Categorías' },
-          { label: 'Ofertas', icon: 'sell', active: this.activeItem === 'Ofertas' },
-          {
-            label: 'Mis pedidos',
-            icon: 'shopping_cart',
-            active: this.activeItem === 'Mis pedidos',
-          },
-        ];
-        break;
-    }
+  get roleLabel(): string {
+    const roles: Record<string, string> = { admin: 'Administrador', proveedor: 'Proveedor' };
+    return roles[this.role()?.toLowerCase() || ''] || 'Comprador';
   }
 }
