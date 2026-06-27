@@ -1,0 +1,250 @@
+/* =========================
+   TARJETA LIBRO
+========================= */
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.book-card {
+  height: 100%;
+
+  border-radius: 22px;
+  overflow: hidden;
+
+  background: linear-gradient(180deg, rgba(30, 35, 48, 0.98), rgba(17, 24, 39, 0.98));
+
+  border: 1px solid rgba(139, 92, 246, 0.15);
+
+  transition: all 0.25s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-8px);
+
+  border-color: rgba(139, 92, 246, 0.4);
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.35),
+    0 0 25px rgba(139, 92, 246, 0.18);
+}
+
+/* =========================
+   PORTADA
+========================= */
+
+.book-cover {
+  height: 170px;
+
+  border-radius: 16px;
+
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 1.25rem;
+}
+
+.book-cover i {
+  font-size: 4rem;
+  color: white;
+}
+
+/* =========================
+   CONTENIDO
+========================= */
+
+.book-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* =========================
+   CATEGORIA
+========================= */
+
+.book-category {
+  align-self: flex-start;
+
+  padding: 0.35rem 0.9rem;
+
+  border-radius: 999px;
+
+  background: rgba(139, 92, 246, 0.18);
+  color: #c4b5fd;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+
+  margin-bottom: 1rem;
+}
+
+/* =========================
+   TITULO
+========================= */
+
+.book-title {
+  color: #ffffff;
+
+  font-size: 1.25rem;
+  font-weight: 700;
+
+  line-height: 1.35;
+
+  margin-bottom: 0.8rem;
+
+  min-height: 64px;
+}
+
+/* =========================
+   AUTOR
+========================= */
+
+.book-author {
+  color: #cbd5e1;
+
+  font-size: 0.95rem;
+
+  margin-bottom: 1rem;
+}
+
+/* =========================
+   SINOPSIS
+========================= */
+
+.book-sinopsis {
+  color: #94a3b8;
+
+  font-size: 0.9rem;
+  line-height: 1.5;
+
+  margin-bottom: 1rem;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+
+  min-height: 65px;
+}
+
+/* =========================
+   ISBN
+========================= */
+
+.book-isbn {
+  color: #64748b;
+
+  font-size: 0.8rem;
+
+  margin-bottom: 1.25rem;
+}
+
+/* =========================
+   FOOTER INFO
+========================= */
+
+.book-footer-info {
+  margin-top: auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 1rem;
+}
+
+/* =========================
+   PRECIO
+========================= */
+
+.book-price {
+  color: #34d399;
+
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+/* =========================
+   STOCK
+========================= */
+
+.book-stock {
+  color: #22c55e;
+
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.book-agotado {
+  color: #ef4444;
+
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+/* =========================
+   BOTON
+========================= */
+
+:host ::ng-deep .buy-btn {
+  width: 100%;
+}
+
+:host ::ng-deep .buy-btn .p-button {
+  width: 100%;
+
+  border-radius: 12px;
+
+  font-weight: 700;
+
+  background: linear-gradient(135deg, #10b981, #059669);
+
+  border: none;
+
+  transition: all 0.2s ease;
+}
+
+:host ::ng-deep .buy-btn .p-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
+}
+
+:host ::ng-deep .buy-btn .p-button:disabled {
+  background: #475569;
+  opacity: 0.7;
+}
+
+/* =========================
+   PRIME CARD
+========================= */
+
+:host ::ng-deep .p-card {
+  height: 100%;
+
+  border-radius: 22px;
+
+  background: transparent;
+  color: white;
+
+  box-shadow: none;
+}
+
+:host ::ng-deep .p-card-body {
+  height: 100%;
+}
+
+:host ::ng-deep .p-card-content {
+  height: 100%;
+}
+
+:host ::ng-deep .p-card-footer {
+  margin-top: auto;
+}

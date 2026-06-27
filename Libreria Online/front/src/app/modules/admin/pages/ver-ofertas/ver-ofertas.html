@@ -1,0 +1,34 @@
+<app-nav></app-nav>
+
+<p-toast position="top-right"></p-toast>
+
+<section class="offers-page">
+  <header class="offers-header">
+    <div>
+      <p class="offers-eyebrow">Gestion de ofertas</p>
+      <h2>Oferta de libros dados por proveedores</h2>
+      <p class="offers-description">responde ofertas pendientes y haz contraofertas.</p>
+    </div>
+  </header>
+
+  <div class="card">
+    <app-ofertas-table
+      [ofertas]="ofertas()"
+      [cargando]="cargando()"
+      (aceptar)="aceptarOferta($event)"
+      (contraofertar)="abrirContraoferta($event)"
+      (rechazar)="rechazarOferta($event)"
+    >
+    </app-ofertas-table>
+  </div>
+</section>
+
+<app-contraoferta-admin-dialog
+  [visible]="contraofertaVisible()"
+  [oferta]="ofertaSeleccionada()"
+  [form]="contraofertaForm"
+  [respondiendo]="respondiendo()"
+  (cerrar)="cerrarContraoferta()"
+  (enviar)="enviarContraoferta()"
+>
+</app-contraoferta-admin-dialog>

@@ -1,204 +1,281 @@
-.books-page {
-	padding: 2rem;
-	max-width: 1200px;
-	margin: 0 auto;
+.recommendations-page {
+  padding: 2rem;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
-.books-header {
-	display: flex;
-	justify-content: space-between;
-	gap: 1rem;
-	align-items: end;
-	margin-bottom: 1rem;
+.recommendations-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
 }
 
-.books-eyebrow {
-	text-transform: uppercase;
-	letter-spacing: 0.12em;
-	font-size: 0.78rem;
-	font-weight: 700;
-	color: #8b5cf6;
-	margin: 0 0 0.35rem;
+.recommendations-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #8b5cf6;
+  margin: 0 0 0.35rem;
 }
 
-.books-header h2 {
-	margin: 0;
-	font-size: 1.8rem;
+.recommendations-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
 }
 
-.books-description {
-	margin: 0.5rem 0 0;
-	color: #5b6472;
+.recommendations-description {
+  margin: 0.5rem 0 0;
+  color: #5b6472;
 }
 
-.books-toolbar {
-	display: flex;
-	justify-content: flex-end;
+.recommendations-toolbar {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .card {
-	border-radius: 1rem;
-	background: #fff;
-	box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
-	padding: 1rem;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  padding: 1rem;
 }
 
 :host-context(.app-dark) .card {
-	background: rgba(15, 23, 42, 0.9);
-	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
 }
 
-.books-caption {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	gap: 1rem;
-	padding: 0.5rem 0 1rem;
+.recommendations-caption {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0 1rem;
 }
 
-.books-search-group {
-	min-width: min(100%, 24rem);
+.recommendations-search-group {
+  min-width: min(100%, 24rem);
 }
 
-:host ::ng-deep .books-search-group .p-inputgroup-addon {
-	border-color: #dbe2ea;
-	background: #f8fafc;
-	color: #64748b;
-	border-radius: 0;
+.cover-cell {
+  width: 3.4rem;
+  min-height: 4.6rem;
+  display: grid;
+  place-items: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
 }
 
-:host ::ng-deep .books-search-group .p-inputtext {
-	border-color: #dbe2ea;
-	background: #fff;
-	color: #0f172a;
-	border-radius: 0;
-	box-shadow: none;
+.cover-cell img {
+  width: 2.8rem;
+  max-height: 4.2rem;
+  object-fit: cover;
+  display: block;
 }
 
-:host ::ng-deep .books-search-group .p-floatlabel label {
-	color: #64748b;
+.quantity-cell {
+  display: grid;
+  gap: 0.2rem;
 }
 
-:host ::ng-deep .books-search-group .p-inputtext:enabled:focus {
-	border-color: #8b5cf6;
-	box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.18);
+.quantity-cell span {
+  font-weight: 700;
 }
 
-:host-context(.app-dark) ::ng-deep .books-search-group .p-inputgroup-addon {
-	border-color: rgba(148, 163, 184, 0.16);
-	background: rgba(30, 41, 59, 0.92);
-	color: #cbd5e1;
+.quantity-cell small {
+  color: #64748b;
 }
 
-:host-context(.app-dark) ::ng-deep .books-search-group .p-inputtext {
-	border-color: rgba(148, 163, 184, 0.16);
-	background: rgba(15, 23, 42, 0.92);
-	color: #e2e8f0;
+.dialog-helper {
+  display: block;
+  text-align: left;
+  margin-bottom: 1.5rem;
+  color: var(--text-color-secondary);
+  line-height: 1.5;
 }
 
-:host-context(.app-dark) ::ng-deep .books-search-group .p-floatlabel label {
-	color: #cbd5e1;
+.recommendation-form {
+  display: grid;
+  gap: 1rem;
 }
 
-:host-context(.app-dark) ::ng-deep .books-search-group .p-inputtext::placeholder {
-	color: #94a3b8;
+.recommendation-inputgroup {
+  width: 100%;
 }
 
-:host-context(.app-dark) ::ng-deep .books-search-group .p-inputtext:enabled:focus {
-	border-color: #c084fc;
-	box-shadow: 0 0 0 1px rgba(192, 132, 252, 0.18);
+.recommendation-inputgroup :is(input, textarea, .p-inputnumber, .p-select, .p-floatlabel) {
+  width: 100%;
 }
 
-:host ::ng-deep .books-table .p-datatable-wrapper {
-	border: 1px solid #dbe2ea;
-	border-radius: 1rem;
-	overflow: hidden;
-	background: #fff;
+.isbn-inputgroup {
+  align-items: stretch;
 }
 
-:host-context(.app-dark) ::ng-deep .books-table .p-datatable-wrapper {
-	border-color: rgba(148, 163, 184, 0.16);
-	background: rgba(15, 23, 42, 0.9);
+.cover-preview {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
 }
 
-:host ::ng-deep .books-table .p-datatable-thead > tr > th {
-	background: #f8fafc;
-	border-bottom: 1px solid #dbe2ea;
+.cover-preview img {
+  width: 5rem;
+  max-height: 7rem;
+  object-fit: cover;
 }
 
-:host-context(.app-dark) ::ng-deep .books-table .p-datatable-thead > tr > th {
-	background: rgba(30, 41, 59, 0.92);
-	border-bottom-color: rgba(148, 163, 184, 0.16);
-	color: #e2e8f0;
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
-:host ::ng-deep .books-table .p-datatable-tbody > tr > td {
-	border-bottom: 1px solid #edf2f7;
+.error-message,
+.warning-message {
+  display: block;
+  font-size: 0.875rem;
+  margin-top: -0.65rem;
 }
 
-.stock-cell {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.65rem;
-	white-space: nowrap;
+.error-message {
+  color: #dc2626;
 }
 
-.stock-amount {
-	font-weight: 700;
-	color: inherit;
+.warning-message {
+  color: #b45309;
 }
 
-:host ::ng-deep .books-table .stock-tag .p-tag-value {
-	display: none;
+:host ::ng-deep .recommendations-search-group .p-inputgroup-addon,
+:host ::ng-deep .recommendation-inputgroup .p-inputgroup-addon {
+  border-color: #dbe2ea;
+  background: #f8fafc;
+  color: #64748b;
+  border-radius: 0;
 }
 
-:host ::ng-deep .books-table .stock-tag {
-	justify-content: center;
-	min-width: 2.25rem;
-	padding-inline: 0.5rem;
+:host ::ng-deep .recommendations-search-group .p-inputtext,
+:host ::ng-deep .recommendation-inputgroup .p-inputtext,
+:host ::ng-deep .recommendation-inputgroup .p-select,
+:host ::ng-deep .recommendation-inputgroup .p-textarea,
+:host ::ng-deep .recommendation-inputgroup .p-inputnumber-input {
+  border-color: #dbe2ea;
+  background: #fff;
+  color: #0f172a;
+  border-radius: 0;
+  box-shadow: none;
 }
 
-:host-context(.app-dark) ::ng-deep .books-table .p-datatable-tbody > tr > td {
-	border-bottom-color: rgba(148, 163, 184, 0.10);
-	background: rgba(15, 23, 42, 0.9);
-	color: #e2e8f0;
+:host ::ng-deep .recommendation-inputgroup .p-button {
+  border-radius: 0;
 }
 
-:host ::ng-deep .books-table .p-paginator {
-	border: 0;
-	border-top: 1px solid #e2e8f0;
-	border-radius: 0 0 1rem 1rem;
+:host ::ng-deep .recommendations-search-group .p-inputtext:enabled:focus,
+:host ::ng-deep .recommendation-inputgroup .p-inputtext:enabled:focus,
+:host ::ng-deep .recommendation-inputgroup .p-select.p-focus,
+:host ::ng-deep .recommendation-inputgroup .p-textarea:enabled:focus,
+:host ::ng-deep .recommendation-inputgroup .p-inputnumber-input:enabled:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.18);
 }
 
-:host-context(.app-dark) ::ng-deep .books-table .p-paginator {
-	border-top-color: rgba(148, 163, 184, 0.16);
-	background: rgba(15, 23, 42, 0.92);
-	color: #e2e8f0;
+:host ::ng-deep .recommendations-table .p-datatable-wrapper {
+  border: 1px solid #dbe2ea;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #fff;
 }
 
-:host-context(.app-dark) ::ng-deep .books-table .p-paginator .p-paginator-page,
-:host-context(.app-dark) ::ng-deep .books-table .p-paginator .p-paginator-first,
-:host-context(.app-dark) ::ng-deep .books-table .p-paginator .p-paginator-prev,
-:host-context(.app-dark) ::ng-deep .books-table .p-paginator .p-paginator-next,
-:host-context(.app-dark) ::ng-deep .books-table .p-paginator .p-paginator-last {
-	color: #e2e8f0;
+:host ::ng-deep .recommendations-table .p-datatable-thead > tr > th {
+  background: #f8fafc;
+  border-bottom: 1px solid #dbe2ea;
+}
+
+:host ::ng-deep .recommendations-table .p-datatable-tbody > tr > td {
+  border-bottom: 1px solid #edf2f7;
+  vertical-align: middle;
+}
+
+:host ::ng-deep .recommendations-table .p-paginator {
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+  border-radius: 0 0 1rem 1rem;
+}
+
+:host ::ng-deep .recommendation-dialog .p-dialog-header {
+  padding-bottom: 0.5rem;
+}
+
+:host ::ng-deep .recommendation-dialog .p-dialog-content {
+  padding-top: 0;
+}
+
+:host-context(.app-dark) .recommendations-description,
+:host-context(.app-dark) .quantity-cell small {
+  color: #cbd5e1;
+}
+
+:host-context(.app-dark) .cover-cell,
+:host-context(.app-dark) .cover-preview {
+  border-color: rgba(148, 163, 184, 0.16);
+  background: rgba(30, 41, 59, 0.92);
+}
+
+:host-context(.app-dark) ::ng-deep .recommendations-search-group .p-inputgroup-addon,
+:host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-inputgroup-addon {
+  border-color: rgba(148, 163, 184, 0.16);
+  background: rgba(30, 41, 59, 0.92);
+  color: #cbd5e1;
+}
+
+:host-context(.app-dark) ::ng-deep .recommendations-search-group .p-inputtext,
+:host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-inputtext,
+:host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-select,
+:host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-textarea,
+:host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-inputnumber-input {
+  border-color: rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.92);
+  color: #e2e8f0;
+}
+
+:host-context(.app-dark) ::ng-deep .recommendations-table .p-datatable-wrapper,
+:host-context(.app-dark) ::ng-deep .recommendations-table .p-datatable-tbody > tr > td {
+  border-color: rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e2e8f0;
+}
+
+:host-context(.app-dark) ::ng-deep .recommendations-table .p-datatable-thead > tr > th {
+  background: rgba(30, 41, 59, 0.92);
+  border-bottom-color: rgba(148, 163, 184, 0.16);
+  color: #e2e8f0;
+}
+
+:host-context(.app-dark) ::ng-deep .recommendations-table .p-paginator {
+  border-top-color: rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.92);
+  color: #e2e8f0;
 }
 
 @media (max-width: 768px) {
-	.books-header {
-		flex-direction: column;
-		align-items: stretch;
-	}
+  .recommendations-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-	.books-toolbar {
-		justify-content: flex-start;
-	}
+  .recommendations-toolbar {
+    justify-content: flex-start;
+  }
 
-	.books-caption {
-		justify-content: stretch;
-	}
+  .recommendations-caption {
+    justify-content: stretch;
+  }
 
-	.books-search-group {
-		min-width: 100%;
-	}
+  .recommendations-search-group {
+    min-width: 100%;
+  }
 }

@@ -1,0 +1,138 @@
+.dialog-helper {
+  display: block;
+  text-align: left;
+  margin-bottom: 1.5rem;
+  color: var(--text-color-secondary);
+  line-height: 1.5;
+}
+
+.recommendation-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.recommendation-inputgroup {
+  width: 100%;
+}
+
+.recommendation-inputgroup :is(input, textarea, .p-inputnumber, .p-select, .p-floatlabel) {
+  width: 100%;
+}
+
+.recommendation-inputgroup textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.isbn-inputgroup,
+.textarea-inputgroup {
+  align-items: stretch;
+}
+
+.isbn-progress {
+  height: 0.35rem;
+  margin-top: -0.55rem;
+  border-radius: 0;
+  background: #eef2f7;
+}
+
+.cover-preview {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.cover-preview img {
+  width: 5rem;
+  max-height: 7rem;
+  object-fit: cover;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.error-message,
+.warning-message {
+  display: block;
+  font-size: 0.875rem;
+  margin-top: -0.65rem;
+}
+
+.error-message {
+  color: #dc2626;
+}
+
+.warning-message {
+  color: #b45309;
+}
+
+:host ::ng-deep .recommendation-dialog .p-dialog-header {
+  padding-bottom: 0.5rem;
+}
+
+:host ::ng-deep .recommendation-dialog .p-dialog-content {
+  padding-top: 0;
+}
+
+:host ::ng-deep .recommendation-inputgroup .p-inputgroup-addon {
+  border-color: #dbe2ea;
+  background: #f8fafc;
+  color: #64748b;
+  border-radius: 0;
+}
+
+:host ::ng-deep .recommendation-inputgroup .p-inputtext,
+:host ::ng-deep .recommendation-inputgroup .p-textarea,
+:host ::ng-deep .recommendation-inputgroup .p-inputnumber-input,
+:host ::ng-deep .recommendation-inputgroup .p-select {
+  border-color: #dbe2ea;
+  background: #fff;
+  color: #0f172a;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+:host ::ng-deep .recommendation-inputgroup .p-button {
+  border-radius: 0;
+}
+
+:host ::ng-deep .isbn-progress .p-progressbar-value {
+  background: #8b5cf6;
+}
+
+:host ::ng-deep .recommendation-inputgroup .p-inputtext:enabled:focus,
+:host ::ng-deep .recommendation-inputgroup .p-textarea:enabled:focus,
+:host ::ng-deep .recommendation-inputgroup .p-inputnumber-input:enabled:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.18);
+}
+
+:host-context(.app-dark) .cover-preview {
+  border-color: rgba(148, 163, 184, 0.16);
+  background: rgba(30, 41, 59, 0.92);
+}
+
+:host-context(.app-dark) .isbn-progress {
+  background: rgba(148, 163, 184, 0.16);
+}
+
+:host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-inputgroup-addon {
+  border-color: rgba(148, 163, 184, 0.16);
+  background: rgba(30, 41, 59, 0.92);
+  color: #cbd5e1;
+}
+
+:host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-inputtext,
+:host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-textarea,
+:host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-inputnumber-input,
+:host-context(.app-dark) ::ng-deep .recommendation-inputgroup .p-select {
+  border-color: rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.92);
+  color: #e2e8f0;
+}

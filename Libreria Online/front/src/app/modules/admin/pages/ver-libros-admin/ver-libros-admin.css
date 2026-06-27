@@ -1,0 +1,157 @@
+/* ==========================================================================
+   TUS CLASES ORIGINALES (Se mantienen intactas)
+   ========================================================================== */
+.page-content {
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 54px 42px;
+}
+
+.welcome-section {
+  min-height: 260px;
+  padding: 44px;
+  border: 1px solid rgba(124, 58, 237, 0.18);
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(245, 240, 255, 0.94));
+  background-size: auto 100%;
+  background-position: center right;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  box-shadow: 0 22px 60px rgba(88, 28, 135, 0.10);
+}
+
+:host-context(.app-dark) .welcome-section {
+  border-color: rgba(168, 85, 247, 0.28);
+  background: linear-gradient(135deg, rgb(78, 53, 110), rgba(30, 20, 58, 0.88));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--primary-color);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 13px;
+}
+
+.welcome-section h1 {
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(34px, 4vw, 58px);
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+}
+
+.description {
+  max-width: 680px;
+  margin: 18px 0 18px;
+  color: var(--text-color-secondary);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.book-cover {
+  width: 50px;
+  height: 75px;
+  background: color-mix(in srgb, var(--primary-color, #7c3aed) 8%, transparent);
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 50px;
+}
+
+.book-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.empty-preview {
+  margin-top: 28px;
+  min-height: 280px;
+  padding: 44px;
+  border: 1px dashed var(--surface-border);
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--surface-card) 68%, transparent);
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.empty-icon {
+  width: 76px;
+  height: 76px;
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  color: var(--primary-color);
+  background: color-mix(in srgb, var(--primary-color) 14%, transparent);
+}
+
+.empty-icon .material-symbols-rounded {
+  font-size: 38px;
+}
+
+.empty-preview h2 {
+  margin: 20px 0 6px;
+  font-size: 26px;
+}
+
+.empty-preview p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--text-color-secondary);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   NUEVAS CLASES: ADAPTACIÓN DE FILAS PARA EL CONTROL DE INVENTARIO
+   ========================================================================== */
+.libro-row {
+  border: 1px solid rgba(124, 58, 237, 0.14);
+  border-radius: 20px; /* Bordes suaves alineados a tu diseño */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(250, 248, 255, 0.96));
+  box-shadow: 0 4px 20px rgba(88, 28, 135, 0.03);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.libro-row:hover {
+  transform: translateY(-2px);
+  border-color: rgba(124, 58, 237, 0.35);
+  box-shadow: 0 12px 30px rgba(88, 28, 135, 0.08);
+}
+
+/* 🌙 Soporte Nativo Integrado para Modo Oscuro en las Barras */
+:host-context(.app-dark) .libro-row {
+  border-color: rgba(168, 85, 247, 0.18);
+  background: linear-gradient(135deg, rgba(40, 30, 65, 0.7), rgba(24, 18, 43, 0.9));
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+:host-context(.app-dark) .libro-row:hover {
+  border-color: rgba(168, 85, 247, 0.45);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Media Queries de Adaptación de Pantalla */
+@media (max-width: 700px) {
+  .page-content {
+    padding: 32px 18px;
+  }
+  .libro-row {
+    padding: 16px !important;
+  }
+}

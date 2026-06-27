@@ -1,12 +1,58 @@
-<app-nav
-[logueado] = "logueado">
-</app-nav>
+<app-nav></app-nav>
 <app-home
   [eyebrow]="eyebrow"
   [title]="title"
   [description]="description"
   [buttonText]="buttonText"
   [buttonLink]="buttonLink"
+  [buttonRoute]="rutaExplorar"
   [imageBanner]="imageBanner"
-  [role]="role">
+>
+  <section class="books-section">
+    <div class="section-header">
+      <h2>🔥 Libros destacados</h2>
+      <p>Explorá los títulos más populares de la plataforma</p>
+    </div>
+
+    <p-carousel
+      [value]="libros()"
+      [numVisible]="4"
+      [numScroll]="1"
+      [circular]="true"
+      [responsiveOptions]="responsiveOptions"
+    >
+      <ng-template let-libro pTemplate="item">
+        <div class="book-card">
+          <!-- COVER -->
+          <div class="book-cover">
+            @if (libro.imagen) {
+              <img [src]="libro.imagen" [alt]="libro.nombre" />
+            } @else {
+              <div class="cover-placeholder">
+                <i class="pi pi-book"></i>
+              </div>
+            }
+
+            <div class="book-overlay">
+              <p-button icon="pi pi-eye" styleClass="p-button-rounded p-button-sm overlay-btn" />
+              <p-button icon="pi pi-shopping-cart" label="Comprar" styleClass="overlay-buy" />
+            </div>
+          </div>
+
+          <!-- INFO -->
+          <div class="book-info">
+            <span class="book-category">
+              {{ libro.categoria || 'GENERAL' }}
+            </span>
+            <h3 class="book-title">{{ libro.nombre }}</h3>
+            <p class="book-author">✍️ {{ libro.autor }}</p>
+            <div class="book-footer">
+              <span class="book-price"> ${{ libro.precio }} </span>
+              <i class="pi pi-heart book-like"></i>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </section>
 </app-home>

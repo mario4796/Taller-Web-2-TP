@@ -23,6 +23,11 @@ export * from './enums.ts';
  */
 export type Administradores = Prisma.AdministradoresModel
 /**
+ * Model MetodosPago
+ * 
+ */
+export type MetodosPago = Prisma.MetodosPagoModel
+/**
  * Model Compradores
  * 
  */
@@ -43,7 +48,42 @@ export type LibroDigitalAdquirido = Prisma.LibroDigitalAdquiridoModel
  */
 export type Proveedores = Prisma.ProveedoresModel
 /**
+ * Model TiposUsuario
+ * 
+ */
+export type TiposUsuario = Prisma.TiposUsuarioModel
+/**
+ * Model ListaProveedor
+ * 
+ */
+export type ListaProveedor = Prisma.ListaProveedorModel
+/**
  * Model Usuarios
  * 
  */
 export type Usuarios = Prisma.UsuariosModel
+/**
+ * Model OfertaLibro
+ * 
+ */
+export type OfertaLibro = Prisma.OfertaLibroModel
+/**
+ * Model Carritos
+ * 
+ */
+export type Carritos = Prisma.CarritosModel
+/**
+ * Model DetallesCarrito
+ * 
+ */
+export type DetallesCarrito = Prisma.DetallesCarritoModel
+/**
+ * Model Transacciones
+ * 
+ */
+export type Transacciones = Prisma.TransaccionesModel
+/**
+ * Model DetalleTransaccion
+ * 
+ */
+export type DetalleTransaccion = Prisma.DetalleTransaccionModel

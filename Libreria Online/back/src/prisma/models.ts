@@ -9,9 +9,17 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Administradores.ts'
+export type * from './models/MetodosPago.ts'
 export type * from './models/Compradores.ts'
 export type * from './models/Libros.ts'
 export type * from './models/LibroDigitalAdquirido.ts'
 export type * from './models/Proveedores.ts'
+export type * from './models/TiposUsuario.ts'
+export type * from './models/ListaProveedor.ts'
 export type * from './models/Usuarios.ts'
+export type * from './models/OfertaLibro.ts'
+export type * from './models/Carritos.ts'
+export type * from './models/DetallesCarrito.ts'
+export type * from './models/Transacciones.ts'
+export type * from './models/DetalleTransaccion.ts'
 export type * from './commonInputTypes.ts'

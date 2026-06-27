@@ -11,7 +11,10 @@ export class LibroMapper{
         autor: libroRest.autor,
         precio: libroRest.precio,
         stock: libroRest.stock,
-        archivoDigital: libroRest.archivoDigital
+        archivoDigital: libroRest.archivoDigital,
+        sinopsis: libroRest.sinopsis,
+        categoria: libroRest.categoria,
+        imagen: libroRest.imagen
       }
   }
 

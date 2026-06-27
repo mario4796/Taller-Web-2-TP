@@ -1,0 +1,13 @@
+<p-toast /> <app-nav></app-nav>
+
+<div class="library-header">
+  <h1>Biblioteca</h1>
+  <p>Explora nuestro catálogo de libros</p>
+</div>
+
+<div class="books-grid">
+  @for (libro of libros(); track libro.id) {
+    <app-libro-estanteria [libro]="libro" (onComprar)="manejarCompra($event)">
+    </app-libro-estanteria>
+  }
+</div>

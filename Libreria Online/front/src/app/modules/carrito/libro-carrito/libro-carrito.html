@@ -1,0 +1,35 @@
+<div class="cart-item">
+  <div class="book-cover">
+    <i class="pi pi-book"></i>
+  </div>
+
+  <div class="book-info">
+    <div class="book-category">
+      {{ detalle().Libros.categoria }}
+    </div>
+
+    <h3>
+      {{ detalle().Libros.nombre }}
+    </h3>
+
+    <p class="author">
+      {{ detalle().Libros.autor }}
+    </p>
+
+    <p class="isbn">ISBN: {{ detalle().Libros.isbn }}</p>
+
+    @if (detalle().Libros.sinopsis) {
+      <p class="sinopsis">
+        {{ detalle().Libros.sinopsis }}
+      </p>
+    }
+  </div>
+
+  <div class="book-actions">
+    <div class="quantity">x{{ detalle().cantidad }}</div>
+
+    <div class="price">${{ detalle().precio }}</div>
+
+    <p-button icon="pi pi-trash" severity="danger" [text]="true" (click)="borrar()"> </p-button>
+  </div>
+</div>

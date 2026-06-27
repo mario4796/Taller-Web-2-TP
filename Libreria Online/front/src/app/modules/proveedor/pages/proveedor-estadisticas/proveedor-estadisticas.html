@@ -1,0 +1,120 @@
+<app-nav></app-nav>
+
+<main class="stats-page">
+  <section class="stats-header">
+    <div>
+      <p class="stats-eyebrow">Panel del proveedor</p>
+      <h2>Estadisticas</h2>
+      <p class="stats-description">Resumen de ofertas, aceptacion y categorias.</p>
+    </div>
+
+    <button class="refresh-button" type="button" (click)="cargarOfertas()" [disabled]="cargando()">
+      <span class="material-symbols-rounded">refresh</span>
+      Actualizar
+    </button>
+  </section>
+
+  <section class="kpi-grid" aria-label="Indicadores principales">
+    @for (kpi of kpis(); track kpi.label) {
+      <article class="kpi-card">
+        <div class="kpi-icon">
+          <span class="material-symbols-rounded">{{ kpi.icon }}</span>
+        </div>
+        <div>
+          <p>{{ kpi.label }}</p>
+          <strong>{{ kpi.value }}</strong>
+          <span>{{ kpi.detail }}</span>
+        </div>
+      </article>
+    }
+  </section>
+
+  <section class="insight-grid">
+    <article class="chart-panel status-panel">
+      <div class="panel-heading">
+        <div>
+          <h3>Estado de ofertas</h3>
+          <p>Distribucion segun la respuesta actual.</p>
+        </div>
+        <strong>{{ tasaAceptacion() }}%</strong>
+      </div>
+
+      <div class="chart-box doughnut-box">
+        <p-chart type="doughnut" [data]="estadoChartData()" [options]="doughnutOptions"></p-chart>
+      </div>
+
+      <div class="acceptance-meter">
+        <span>Aceptacion</span>
+        <p-progressbar [value]="tasaAceptacion()" [showValue]="false"></p-progressbar>
+      </div>
+    </article>
+
+    <article class="chart-panel">
+      <div class="panel-heading">
+        <div>
+          <h3>Ofertas por categoria</h3>
+          <p>Temas que mas estas proponiendo.</p>
+        </div>
+      </div>
+
+      <div class="chart-box">
+        <p-chart type="bar" [data]="categoriaChartData()" [options]="chartOptions"></p-chart>
+      </div>
+    </article>
+  </section>
+
+  <section class="table-panel">
+    <div class="panel-heading">
+      <div>
+        <h3>Ultimas ofertas</h3>
+        <p>Detalle rapido de los movimientos mas recientes.</p>
+      </div>
+    </div>
+
+    <p-table
+      styleClass="stats-table"
+      [value]="ultimasOfertas()"
+      [loading]="cargando()"
+      [rows]="6"
+      [tableStyle]="{ 'min-width': '56rem' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Libro</th>
+          <th>Categoria</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Estado</th>
+          <th>Fecha</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-oferta>
+        <tr>
+          <td>
+            <div class="book-cell">
+              <strong>{{ oferta.nombre }}</strong>
+              <span>{{ oferta.autor }}</span>
+            </div>
+          </td>
+          <td>{{ categoriaLabel(oferta.categoria) }}</td>
+          <td>{{ formatearMoneda(oferta.precioProveedor) }}</td>
+          <td>{{ cantidadActual(oferta) }}</td>
+          <td>
+            <p-tag
+              [value]="estadoLabel(oferta.estado)"
+              [severity]="estadoSeverity(oferta.estado)"
+            ></p-tag>
+          </td>
+          <td>{{ fechaCorta(oferta.createdAt) }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6">Todavia no hay ofertas para mostrar.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </section>
+</main>

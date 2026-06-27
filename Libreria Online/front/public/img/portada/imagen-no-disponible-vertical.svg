@@ -1,0 +1,28 @@
+<svg width="300" height="450" viewBox="0 0 300 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Imagen no disponible">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f3f5f8"></stop>
+      <stop offset="100%" stop-color="#dfe4ec"></stop>
+    </linearGradient>
+
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.12"></feDropShadow>
+    </filter>
+  </defs>
+
+  <rect width="300" height="450" rx="18" fill="url(#bg)"></rect>
+
+  <g filter="url(#shadow)">
+    <!-- marco de imagen -->
+    <rect x="55" y="130" width="190" height="150" rx="18" fill="#ffffff" stroke="#aeb7c5" stroke-width="8"></rect>
+
+    <!-- sol -->
+    <circle cx="202" cy="172" r="16" fill="#aeb7c5"></circle>
+
+    <!-- montañas -->
+    <path d="M82 247L125 200L160 237L182 215L222 247Z" fill="#aeb7c5"></path>
+
+    <!-- tachado -->
+    <path d="M62 288L238 122" stroke="#7f8794" stroke-width="15" stroke-linecap="round"></path>
+  </g>
+</svg>

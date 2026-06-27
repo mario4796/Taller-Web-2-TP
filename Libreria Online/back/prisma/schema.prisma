@@ -12,20 +12,49 @@ model Administradores {
   Usuarios   Usuarios @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
+enum TipoMetodoPago {
+  TARJETA
+  BILLETERA_VIRTUAL
+}
+
+
+model MetodosPago {
+  id              Int            @id @default(autoincrement())
+  comprador_id    Int
+  tipo            TipoMetodoPago
+
+  nombre_provider String         @db.VarChar(100) 
+  token_externo   String?        @db.VarChar(255) 
+  es_predeterminado Boolean      @default(false)
+
+
+  Comprador       Compradores    @relation(fields: [comprador_id], references: [usuario_id], onDelete: Cascade)
+
+  @@index([comprador_id])
+  transacciones Transacciones[]
+}
+
+
 model Compradores {
-  usuario_id Int      @id
-  Usuarios   Usuarios @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  usuario_id  Int           @id
+  Usuarios    Usuarios      @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   LibrosDigitalesAdquiridos LibroDigitalAdquirido[]
+  Carrito     Carritos?
+  
+
+  metodosPago MetodosPago[] 
+
+  transacciones Transacciones[]
 }
 
 model Libros {
-  id                     Int                      @id @default(autoincrement())
-  isbn                   String                   @unique @db.VarChar(20)
-  nombre                 String                   @db.VarChar(255)
-  autor                  String                   @db.VarChar(255)
-  precio                 Decimal                  @db.Decimal(10, 2)
-  stock                  Int?                     @default(0)
-  estado                 String?                  @default("DISPONIBLE") @db.VarChar(50)
+  id                      Int                            @id @default(autoincrement())
+  isbn                    String                         @unique @db.VarChar(20)
+  nombre                  String                         @db.VarChar(255)
+  autor                   String                         @db.VarChar(255)
+  precio                  Decimal                        @db.Decimal(10, 2)
+  stock                   Int?                           @default(0)
+  estado                  String?                        @default("DISPONIBLE") @db.VarChar(50)
   archivoDigital         String?                  @db.VarChar(500)
   LibrosDigitalesAdquiridos LibroDigitalAdquirido[]
 }
@@ -39,6 +68,14 @@ model LibroDigitalAdquirido {
   Libros      Libros      @relation(fields: [libro_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@unique([comprador_id, libro_id])
+  sinopsis String?
+  imagenUrl String?
+  categoria   CategoriaLibro @default(GENERAL)
+  ofertas OfertaLibro[] 
+
+  detallesCarritos DetallesCarrito[]
+
+  detalleTransaccions DetalleTransaccion[]
 }
 
 model Proveedores {
@@ -46,15 +83,120 @@ model Proveedores {
   Usuarios   Usuarios @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
+model TiposUsuario {
+  id     Int    @id @default(autoincrement())
+  nombre String @unique @db.VarChar(50)
+
+  usuarios Usuarios[]
+}
+
+model ListaProveedor {
+  id              Int      @id @default(autoincrement())
+  usuario_id      Int      @unique // Relación 1 a 1 con Usuario
+  es_proveedor    Boolean  @default(false)
+  fecha_solicitud DateTime @default(now())
+
+  Usuario Usuarios @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+}
+
 model Usuarios {
-  id              Int              @id @default(autoincrement())
-  email           String           @unique @db.VarChar(255)
-  contrasena      String           @db.VarChar(255)
-  nombre          String           @db.VarChar(100)
-  apellido        String           @db.VarChar(100)
-  direccion       String           @db.VarChar(255)
-  tipo_usuario    String           @db.VarChar(50)
+  id         Int    @id @default(autoincrement())
+  email      String @unique @db.VarChar(255)
+  contrasena String @db.VarChar(255)
+  nombre     String @db.VarChar(100)
+  apellido   String @db.VarChar(100)
+  direccion  String @db.VarChar(255)
+
+  tipo_usuario_id Int
+
+  TipoUsuario TiposUsuario @relation(fields: [tipo_usuario_id], references: [id])
+
+  ListaProveedor  ListaProveedor?
   Administradores Administradores?
   Compradores     Compradores?
   Proveedores     Proveedores?
+}
+enum EstadoOferta {
+  ESPERANDO_ADMIN       
+  ESPERANDO_PROVEEDOR   
+  ACEPTADA             
+  RECHAZADA             
+}
+
+model OfertaLibro {
+  id               Int          @id @default(autoincrement())
+  isbn             String
+  nombre           String       
+  autor            String
+  precioProveedor  Decimal      @db.Decimal(10, 2)
+  cantidadProveedor  Int          
+  cantidadAdmin      Int?
+  estado           EstadoOferta @default(ESPERANDO_ADMIN)
+  createdAt        DateTime     @default(now())
+
+  sinopsis String?
+  imagenUrl String?
+  categoria   CategoriaLibro @default(GENERAL)
+  
+  //proveedorId      Int
+  //Proveedor        Proveedores  @relation(fields: [proveedorId], references: [usuario_id])
+
+  libroId          Int?
+  Libro            Libros?      @relation(fields: [libroId], references: [id])
+}
+
+enum CategoriaLibro {
+  FICCION
+  FANTASIA
+  TERROR
+  HISTORIA
+  INFANTIL
+  GENERAL
+}
+
+model Carritos {
+  id           Int               @id @default(autoincrement())
+  comprador_id Int               @unique
+  precio_total Decimal           @default(0.00) @db.Decimal(10, 2)
+  Compradores  Compradores       @relation(fields: [comprador_id], references: [usuario_id], onDelete: Cascade)
+  detalles     DetallesCarrito[]
+}
+
+model DetallesCarrito {
+  id         Int      @id @default(autoincrement())
+  carrito_id Int
+  libro_id   Int
+  cantidad   Int      @default(1)
+  precio     Decimal  @db.Decimal(10, 2)
+  Carrito    Carritos @relation(fields: [carrito_id], references: [id], onDelete: Cascade)
+  Libros     Libros   @relation(fields: [libro_id], references: [id], onDelete: Cascade)
+
+  @@unique([carrito_id, libro_id])
+}
+
+model Transacciones {
+  id              Int           @id @default(autoincrement())
+  comprador_id    Int
+  metodo_pago_id  Int
+  monto_total     Decimal       @db.Decimal(10, 2)
+  fecha_pago      DateTime      @default(now())
+  estado          String        @default("COMPLETADO") 
+
+
+  Comprador       Compradores   @relation(fields: [comprador_id], references: [usuario_id])
+  MetodoPago      MetodosPago   @relation(fields: [metodo_pago_id], references: [id])
+  
+ 
+  detalles        DetalleTransaccion[]
+}
+
+model DetalleTransaccion {
+  id              Int           @id @default(autoincrement())
+  transaccion_id  Int
+  libro_id        Int
+  cantidad        Int
+  precio_unitario Decimal       @db.Decimal(10, 2)
+
+  Transaccion     Transacciones @relation(fields: [transaccion_id], references: [id])
+  Libro           Libros        @relation(fields: [libro_id], references: [id])
 }
