@@ -68,12 +68,6 @@ export class VerLibrosAdmin {
   respondiendo = signal(false);
   ofertaSeleccionada = signal<OfertaLibro | undefined>(undefined);
 
-  //mock para pedir libros eligiendo proveedor
-  public proveedoresMock = [
-    { id: 10, nombre: 'Carlos', apellido: 'Editorial Planeta', email: 'planeta@libros.com', tipo_usuario: 'Proveedor' },
-    { id: 11, nombre: 'Ana', apellido: 'Distribuidora Ateneo', email: 'ateneo@libros.com', tipo_usuario: 'Proveedor' },
-    { id: 12, nombre: 'Juan', apellido: 'Ediciones Sur', email: 'sur@libros.com', tipo_usuario: 'Proveedor' }
-  ];
 
   contraofertaForm = this.fb.group({
     nuevaCantidad: [null as number | null, [Validators.required, Validators.min(1)]],
@@ -252,7 +246,8 @@ manejadorGuardarPedido(evento: { cantidad: number; proveedor: any }, libroActual
     cantidadProveedor: Number(evento.cantidad),
     precioProveedor: 0, 
     proveedorId: Number(evento.proveedor.id),
-    libroId: Number(idDelLibro) 
+    libroId: Number(idDelLibro) ,
+    creadoPor: 'ADMIN'
   };
 
   // Tu llamada al servicio

@@ -27,11 +27,14 @@ export class OfertaLibroService {
             autor,
             precioProveedor, 
             cantidadProveedor, 
+            cantidadAdmin,
             proveedorId, 
             libroId, 
             categoria, 
             sinopsis, 
-            imagenUrl } = oferta;
+            imagenUrl,
+            creadoPor} = oferta;
+            const esAdmin = creadoPor === 'ADMIN';
         if (!isbn || !nombre || !autor || precioProveedor == null || cantidadProveedor == null || !categoria) {
             throw new Error('Faltan campos obligatorios para crear la oferta');
         }
@@ -45,7 +48,8 @@ export class OfertaLibroService {
             nombre, 
             autor, 
             precioProveedor: Number(oferta.precioProveedor),
-            cantidadProveedor, 
+            cantidadAdmin: esAdmin ? Number(cantidadProveedor) : 0, 
+            cantidadProveedor: esAdmin ? 0 : Number(cantidadProveedor),
             proveedorId: Number(proveedorId),
             libroId,
             categoria,

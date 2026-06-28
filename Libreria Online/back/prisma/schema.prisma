@@ -120,9 +120,10 @@ model OfertaLibro {
   estado           EstadoOferta @default(ESPERANDO_ADMIN)
   createdAt        DateTime     @default(now())
 
-  sinopsis String?
-  imagenUrl String?
-  categoria   CategoriaLibro @default(GENERAL)
+  sinopsis         String?
+  imagenUrl        String?
+  categoria        CategoriaLibro @default(GENERAL)
+  creadoPor         String @default("ADMIN")
   
   proveedorId      Int
   //Proveedor        Proveedores  @relation(fields: [proveedorId], references: [usuario_id])

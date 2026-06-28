@@ -9,6 +9,7 @@ export class OfertaLibroRepository {
         autor: string; 
         precioProveedor: number; 
         cantidadProveedor: number; 
+        cantidadAdmin: number;
         proveedorId: number;
         libroId?: number | null, 
         categoria: CategoriaLibro, 

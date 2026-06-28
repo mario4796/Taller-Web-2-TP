@@ -175,6 +175,7 @@ export const OfertaLibroScalarFieldEnum = {
   sinopsis: 'sinopsis',
   imagenUrl: 'imagenUrl',
   categoria: 'categoria',
+  creadoPor: 'creadoPor',
   proveedorId: 'proveedorId',
   libroId: 'libroId'
 } as const
