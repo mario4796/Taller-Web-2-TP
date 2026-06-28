@@ -27,6 +27,7 @@ export interface Libro {
   sinopsis?: string;
   imagenUrl?: string | null;
   categoria?: string;
+  archivoDigital?: string | null;
 }
 
 

@@ -35,7 +35,6 @@
 
             <div class="book-overlay">
               <p-button icon="pi pi-eye" styleClass="p-button-rounded p-button-sm overlay-btn" />
-
               <p-button icon="pi pi-shopping-cart" label="Comprar" styleClass="overlay-buy" />
             </div>
           </div>
@@ -45,16 +44,10 @@
             <span class="book-category">
               {{ libro.categoria || 'GENERAL' }}
             </span>
-
-            <h3 class="book-title">
-              {{ libro.nombre }}
-            </h3>
-
+            <h3 class="book-title">{{ libro.nombre }}</h3>
             <p class="book-author">✍️ {{ libro.autor }}</p>
-
             <div class="book-footer">
               <span class="book-price"> ${{ libro.precio }} </span>
-
               <i class="pi pi-heart book-like"></i>
             </div>
           </div>

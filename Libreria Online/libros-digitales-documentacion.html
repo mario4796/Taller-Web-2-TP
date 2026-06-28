@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentación — Libros Digitales</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 15px;
+      line-height: 1.75;
+      color: #1a1a1a;
+      background: #fff;
+      padding: 60px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 6px;
+      border-bottom: 3px solid #4f46e5;
+      padding-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 40px;
+      font-family: Arial, sans-serif;
+    }
+
+    h2 {
+      font-size: 19px;
+      font-weight: 700;
+      color: #111;
+      margin-top: 40px;
+      margin-bottom: 12px;
+      padding-left: 12px;
+      border-left: 4px solid #4f46e5;
+      font-family: Arial, sans-serif;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #333;
+      margin-top: 24px;
+      margin-bottom: 8px;
+      font-family: Arial, sans-serif;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: #333;
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: #c0392b;
+    }
+
+    pre {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      padding: 18px 20px;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 14px 0 20px;
+      line-height: 1.6;
+    }
+
+    pre .kw  { color: #89b4fa; }
+    pre .str { color: #a6e3a1; }
+    pre .cm  { color: #6c7086; font-style: italic; }
+    pre .fn  { color: #cba6f7; }
+    pre .num { color: #fab387; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+    }
+
+    th {
+      background: #4f46e5;
+      color: #fff;
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #e8e8e8;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td { background: #fafafa; }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: Arial, sans-serif;
+    }
+
+    .badge-post  { background: #fef3c7; color: #92400e; }
+    .badge-get   { background: #d1fae5; color: #065f46; }
+
+    .flow-box {
+      background: #f8f7ff;
+      border: 1px solid #c7c3f5;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 16px 0 24px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #2d2b55;
+      line-height: 2;
+    }
+
+    .flow-box .arrow { color: #4f46e5; font-weight: bold; }
+
+    .warn-box {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      margin: 16px 0 24px;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      color: #78350f;
+    }
+
+    .warn-box strong { display: block; margin-bottom: 4px; color: #92400e; }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin: 40px 0;
+    }
+
+    @media print {
+      body { padding: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Libros Digitales — Documentación técnica</h1>
+  <p class="subtitle">Proyecto: Librería Online · Taller Web II · Fecha: 27/06/2026</p>
+
+  <!-- ───────────────── 1. BASE DE DATOS ───────────────── -->
+  <h2>1. Base de datos (PostgreSQL + Prisma)</h2>
+
+  <p>Dos tablas son responsables de toda la lógica de libros digitales.</p>
+
+  <h3>Tabla <code>Libros</code></h3>
+  <p>
+    Tiene el campo <code>archivoDigital VARCHAR(500)</code> que guarda únicamente el
+    <strong>nombre del archivo PDF</strong> (por ejemplo: <code>TomSawyer-Twain.pdf</code>).
+    No guarda el PDF dentro de la base de datos, solo el nombre para poder ubicarlo en el
+    sistema de archivos del servidor.
+  </p>
+
+  <h3>Tabla <code>LibroDigitalAdquirido</code></h3>
+  <p>
+    Registra qué comprador adquirió qué libro. Tiene una restricción
+    <code>UNIQUE(comprador_id, libro_id)</code> para evitar adquisiciones duplicadas.
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Columna</th><th>Tipo</th><th>Descripción</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>id</code></td><td>SERIAL</td><td>Clave primaria autoincremental</td></tr>
+      <tr><td><code>comprador_id</code></td><td>INTEGER</td><td>FK → <code>Compradores.usuario_id</code></td></tr>
+      <tr><td><code>libro_id</code></td><td>INTEGER</td><td>FK → <code>Libros.id</code></td></tr>
+      <tr><td><code>fecha_adquisicion</code></td><td>TIMESTAMP</td><td>Se asigna automáticamente al momento de la compra</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    El ORM utilizado es <strong>Prisma</strong>, que genera un cliente TypeScript a partir del
+    esquema definido en <code>back/prisma/schema.prisma</code>. Para que el backend reconozca
+    una nueva tabla, es necesario ejecutar <code>npx prisma generate</code> luego de cada
+    cambio en el esquema.
+  </p>
+
+  <!-- ───────────────── 2. BACKEND ───────────────── -->
+  <h2>2. Backend (Express + TypeScript + Bun)</h2>
+
+  <p>
+    El backend expone tres endpoints bajo la ruta base <code>/api/libros-digitales</code>,
+    definida en <code>back/src/routes/routes.ts</code> y manejada por
+    <code>libro-digital.router.ts</code>.
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Método</th><th>Ruta</th><th>Qué hace</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="badge badge-post">POST</span></td>
+        <td><code>/adquirir</code></td>
+        <td>Registra una nueva adquisición en <code>LibroDigitalAdquirido</code></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-get">GET</span></td>
+        <td><code>/comprador/:id</code></td>
+        <td>Devuelve todos los libros adquiridos por un comprador</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-get">GET</span></td>
+        <td><code>/pdf/:libroId?compradorId=X</code></td>
+        <td>Verifica la posesión y sirve el archivo PDF al navegador</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Validaciones en <code>libro-digital.service.ts</code></h3>
+  <p>Antes de registrar una adquisición, el servicio valida tres condiciones en orden:</p>
+
+  <pre>
+<span class="cm">// 1. El libro existe en la base de datos</span>
+<span class="kw">if</span> (!libro) throw <span class="kw">new</span> <span class="fn">Error</span>(<span class="str">'Libro no encontrado'</span>);
+
+<span class="cm">// 2. El libro tiene un archivo digital asignado</span>
+<span class="kw">if</span> (!libro.archivoDigital) throw <span class="kw">new</span> <span class="fn">Error</span>(<span class="str">'El libro no tiene versión digital disponible'</span>);
+
+<span class="cm">// 3. El comprador no lo adquirió antes (UNIQUE constraint)</span>
+<span class="kw">if</span> (yaAdquirido) throw <span class="kw">new</span> <span class="fn">Error</span>(<span class="str">'El comprador ya posee este libro digital'</span>);</pre>
+
+  <h3>Entrega del PDF</h3>
+  <p>
+    El endpoint <code>GET /pdf/:libroId</code> usa <code>res.sendFile()</code> de Express
+    para enviar el archivo directamente desde el sistema de archivos al navegador:
+  </p>
+
+  <pre>
+<span class="kw">const</span> rutaArchivo = path.<span class="fn">resolve</span>(<span class="str">'uploads'</span>, nombreArchivo);
+res.<span class="fn">sendFile</span>(rutaArchivo);</pre>
+
+  <p>
+    Los PDFs se almacenan en la carpeta <code>back/uploads/</code> del servidor.
+    El nombre del archivo en esa carpeta debe coincidir exactamente con el valor del
+    campo <code>archivoDigital</code> en la base de datos.
+  </p>
+
+  <!-- ───────────────── 3. FRONTEND ───────────────── -->
+  <h2>3. Frontend (Angular 17 + PrimeNG + Signals)</h2>
+
+  <h3>Mostrar el botón "Versión digital"</h3>
+  <p>
+    El componente <code>libro-estanteria</code> recibe cada libro como un signal de entrada
+    (<code>input.required&lt;Libro&gt;</code>). La interfaz <code>Libro</code> en
+    <code>shared/interfaces/libro.interface.ts</code> incluye
+    <code>archivoDigital?: string | null</code>.
+  </p>
+  <p>
+    El mapper <code>libro.mapper.ts</code> copia el campo desde la respuesta de la API.
+    En el template, el botón se muestra condicionalmente:
+  </p>
+
+  <pre>
+<span class="kw">@if</span> (libro().archivoDigital) {
+  &lt;<span class="fn">p-button</span> label=<span class="str">"Versión digital"</span> icon=<span class="str">"pi pi-file-pdf"</span>
+    (onClick)=<span class="str">"emitirCompraDigital()"</span> /&gt;
+}</pre>
+
+  <p>
+    Si el campo es <code>null</code> o <code>undefined</code>, el botón directamente
+    no se renderiza. No hay ningún estado de visibilidad oculto.
+  </p>
+
+  <h3>Flujo de adquisición</h3>
+
+  <div class="flow-box">
+    Click en "Versión digital" (libro-estanteria)<br>
+    <span class="arrow">→</span> <code>emitirCompraDigital()</code> verifica que haya sesión activa<br>
+    <span class="arrow">→</span> output <code>onComprarDigital</code> emite el <code>libroId</code><br>
+    <span class="arrow">→</span> <code>manejarCompraDigital(libroId)</code> en estanteria.ts<br>
+    <span class="arrow">→</span> <code>LibroDigitalService.adquirirLibro(compradorId, libroId)</code><br>
+    <span class="arrow">→</span> POST <code>/api/libros-digitales/adquirir</code><br>
+    <span class="arrow">→</span> Toast de éxito / advertencia (ya adquirido) / error
+  </div>
+
+  <h3>Ver "Mis libros digitales"</h3>
+  <p>
+    La ruta <code>/comprador/libros-digitales</code> carga el componente
+    <code>LibrosDigitales</code>. Al inicializar, llama a:
+  </p>
+
+  <pre>
+this.libroDigitalService.<span class="fn">getLibrosAdquiridos</span>(this.authService.<span class="fn">getUser</span>())</pre>
+
+  <p>
+    Esto hace <code>GET /api/libros-digitales/comprador/:id</code>.
+    El backend usa Prisma con <code>include: { Libros: true }</code>, que hace un JOIN
+    automático y devuelve cada registro de adquisición junto con todos los datos del libro.
+    Por eso en el template se accede como <code>adquirido.Libros.nombre</code>.
+  </p>
+  <p>
+    Los libros se muestran en una tabla de PrimeNG (<code>p-table</code>) con
+    paginador de 8 elementos por página.
+  </p>
+
+  <h3>Leer el PDF</h3>
+
+  <div class="flow-box">
+    Click en "Leer PDF" (libros-digitales)<br>
+    <span class="arrow">→</span> <code>getPdfUrl(libroId, compradorId)</code> arma la URL<br>
+    <span class="arrow">→</span> <code>window.open(url, '_blank')</code> abre una pestaña nueva<br>
+    <span class="arrow">→</span> GET <code>/api/libros-digitales/pdf/:libroId?compradorId=X</code><br>
+    <span class="arrow">→</span> Backend verifica que el comprador posea el libro<br>
+    <span class="arrow">→</span> <code>res.sendFile()</code> entrega el PDF<br>
+    <span class="arrow">→</span> El navegador muestra el PDF con su visor nativo
+  </div>
+
+  <!-- ───────────────── 4. AUTENTICACIÓN ───────────────── -->
+  <h2>4. Sesión y autenticación</h2>
+
+  <p>
+    El <code>AuthService</code> guarda la sesión en <code>localStorage</code>.
+    El método <code>getUser()</code> devuelve el <code>id</code> del usuario logueado,
+    que es el mismo valor que <code>Compradores.usuario_id</code>.
+    Por eso ese ID se usa directamente como <code>compradorId</code> en todas las
+    llamadas a la API de libros digitales sin ningún mapeo adicional.
+  </p>
+
+  <!-- ───────────────── 5. ARCHIVOS CLAVE ───────────────── -->
+  <h2>5. Archivos clave del sistema</h2>
+
+  <table>
+    <thead>
+      <tr><th>Capa</th><th>Archivo</th><th>Responsabilidad</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>BD</td><td><code>back/prisma/schema.prisma</code></td><td>Define los modelos Libros y LibroDigitalAdquirido</td></tr>
+      <tr><td>Backend</td><td><code>back/src/routes/libro-digital-router/libro-digital.router.ts</code></td><td>Declara los 3 endpoints</td></tr>
+      <tr><td>Backend</td><td><code>back/src/controller/libro-digital.controller.ts</code></td><td>Maneja requests y responses HTTP</td></tr>
+      <tr><td>Backend</td><td><code>back/src/services/libro-digital.service.ts</code></td><td>Lógica de negocio y validaciones</td></tr>
+      <tr><td>Backend</td><td><code>back/src/repository/libro-digital.repository.ts</code></td><td>Consultas a la base de datos con Prisma</td></tr>
+      <tr><td>Backend</td><td><code>back/uploads/</code></td><td>Carpeta física donde se almacenan los PDFs</td></tr>
+      <tr><td>Frontend</td><td><code>front/src/app/modules/libro-estanteria/libro-estanteria.ts</code></td><td>Tarjeta de libro con botón condicional "Versión digital"</td></tr>
+      <tr><td>Frontend</td><td><code>front/src/app/modules/estanteria/estanteria.ts</code></td><td>Maneja el evento de compra digital y llama al servicio</td></tr>
+      <tr><td>Frontend</td><td><code>front/src/app/services/libro-digital/libro-digital.service.ts</code></td><td>Comunicación HTTP con la API</td></tr>
+      <tr><td>Frontend</td><td><code>front/src/app/modules/comprador/pages/libros-digitales/libros-digitales.ts</code></td><td>Vista "Mis libros digitales"</td></tr>
+      <tr><td>Frontend</td><td><code>front/src/app/api/mapper/libros/libro.mapper.ts</code></td><td>Transforma la respuesta de la API al modelo del frontend</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ───────────────── 6. PUNTO FRÁGIL ───────────────── -->
+  <h2>6. Punto frágil a tener en cuenta</h2>
+
+  <div class="warn-box">
+    <strong>Dependencia de ruta física en el servidor</strong>
+    El backend sirve los PDFs con <code>path.resolve('uploads', nombreArchivo)</code>.
+    Esto significa que el proceso de Node/Bun debe ejecutarse desde el directorio
+    <code>back/</code> y la carpeta <code>uploads/</code> debe existir en ese mismo nivel.
+    Si el servidor se despliega en otro entorno o se cambia el directorio de trabajo,
+    hay que garantizar que esa ruta siga siendo válida o actualizar la configuración.
+  </div>
+
+  <!-- ───────────────── 7. RESUMEN ───────────────── -->
+  <h2>7. Resumen del ciclo completo de un PDF</h2>
+
+  <div class="flow-box">
+    <strong>Archivo físico:</strong> <code>back/uploads/TomSawyer-Twain.pdf</code><br><br>
+    <span class="arrow">↓</span> El nombre se guarda en la BD:<br>
+    &nbsp;&nbsp;<code>Libros.archivoDigital = 'TomSawyer-Twain.pdf'</code><br><br>
+    <span class="arrow">↓</span> El frontend recibe ese campo y muestra el botón "Versión digital"<br><br>
+    <span class="arrow">↓</span> Al adquirir, se crea un registro en <code>LibroDigitalAdquirido</code><br><br>
+    <span class="arrow">↓</span> Desde "Mis libros digitales", click en "Leer PDF":<br>
+    &nbsp;&nbsp;<code>GET /api/libros-digitales/pdf/2?compradorId=3</code><br><br>
+    <span class="arrow">↓</span> Backend verifica posesión → <code>res.sendFile()</code><br><br>
+    <span class="arrow">↓</span> El navegador muestra el PDF en una pestaña nueva
+  </div>
+
+  <hr>
+  <p style="font-size: 12px; color: #999; font-family: Arial, sans-serif; text-align: center;">
+    Documentación generada el 27/06/2026 · Proyecto Librería Online · Taller Web II
+  </p>
+
+</body>
+</html>

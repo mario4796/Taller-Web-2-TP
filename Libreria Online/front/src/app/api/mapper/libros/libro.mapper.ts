@@ -13,6 +13,7 @@ export class LibroMapper {
       sinopsis: libroRest.sinopsis ?? '',
       imagenUrl: libroRest.imagenUrl ?? null,
       categoria: libroRest.categoria ?? 'GENERAL',
+      archivoDigital: libroRest.archivoDigital ?? null,
     };
   }
 

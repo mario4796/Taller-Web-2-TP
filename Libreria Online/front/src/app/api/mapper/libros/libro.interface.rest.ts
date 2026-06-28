@@ -10,4 +10,5 @@ export interface LibroRest {
   sinopsis?: string | null;
   imagenUrl?: string | null;
   categoria?: CategoriaLibro | null;
+  archivoDigital?: string | null;
 }
