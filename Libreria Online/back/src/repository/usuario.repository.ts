@@ -6,12 +6,27 @@ import { Prisma } from "../prisma/client";
 export class UsuarioRepository {
   async obtenerProveedores(): Promise<any[]> {
     const proveedores = await prisma.usuarios.findMany({
+      
+      
       where: {
-        tipo_usuario_id: 2,
+        tipo_usuario_id: 3,
       },
     });
 
     return proveedores;
+  }
+  async obtenerProveedorPrevioPorIsbn(isbn: string): Promise<number | null> {
+    const ofertaPrevia = await prisma.ofertaLibro.findFirst({
+      where: {
+        isbn: isbn,
+        // Opcional: podés filtrar por estado si solo querés las 'ACEPTADA'
+      },
+      select: {
+        proveedorId: true
+      }
+    });
+
+    return ofertaPrevia ? ofertaPrevia.proveedorId : null;
   }
 
   async findAllUsuarios() {

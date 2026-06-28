@@ -22,14 +22,22 @@ export class OfertaLibroService {
     }
 
    async crearOferta(oferta: OfertaLibro) {
-        const { isbn, nombre, autor, precioProveedor, cantidadProveedor, libroId, categoria, sinopsis, imagenUrl } = oferta;
-
+        const { isbn,
+            nombre, 
+            autor,
+            precioProveedor, 
+            cantidadProveedor, 
+            proveedorId, 
+            libroId, 
+            categoria, 
+            sinopsis, 
+            imagenUrl } = oferta;
         if (!isbn || !nombre || !autor || precioProveedor == null || cantidadProveedor == null || !categoria) {
             throw new Error('Faltan campos obligatorios para crear la oferta');
         }
 
-        if (Number(precioProveedor) <= 0 || Number(cantidadProveedor) <= 0) {
-            throw new Error('El precio y la cantidad deben ser mayores a 0');
+        if (Number(precioProveedor) < 0 || Number(cantidadProveedor) <= 0) {
+        throw new Error('La cantidad debe ser mayor a 0 y el precio no puede ser negativo');
         }
 
         return await this.ofertaLibroRepository.crearOferta({ 
@@ -38,6 +46,7 @@ export class OfertaLibroService {
             autor, 
             precioProveedor: Number(oferta.precioProveedor),
             cantidadProveedor, 
+            proveedorId: Number(proveedorId),
             libroId,
             categoria,
             sinopsis,

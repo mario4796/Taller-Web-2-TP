@@ -1510,6 +1510,7 @@ export const OfertaLibroScalarFieldEnum = {
   sinopsis: 'sinopsis',
   imagenUrl: 'imagenUrl',
   categoria: 'categoria',
+  proveedorId: 'proveedorId',
   libroId: 'libroId'
 } as const
 

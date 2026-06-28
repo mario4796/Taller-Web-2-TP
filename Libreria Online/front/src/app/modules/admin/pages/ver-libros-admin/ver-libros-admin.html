@@ -82,10 +82,10 @@
     </div>
   }
 <app-pedir-stock-admin
-  [visible]="mostrarFormularioPedido()"
-  [libro]="libroSeleccionado()"
-  [proveedores]="proveedores()" (visibleChange)="mostrarFormularioPedido.set($event)"
-  (alGuardarPedido)="onPedidoConfirmado($event)">
+  [libro]="libroSeleccionado()" 
+  [visible]="mostrarFormularioPedido()" 
+  (visibleChange)="mostrarFormularioPedido.set($event)" 
+  (alGuardarPedido)="manejadorGuardarPedido($event, libroSeleccionado)"> 
 </app-pedir-stock-admin>
 
   <!-- ===================== OFERTAS PENDIENTES ===================== -->

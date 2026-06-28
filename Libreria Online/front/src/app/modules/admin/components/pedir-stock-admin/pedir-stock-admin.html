@@ -1,5 +1,5 @@
 <p-dialog 
-  [header]="'Solicitar Reposición: ' + (libro()?.nombre || '')" 
+  [header]="'Solicitar Reposición de: ' + (libro()?.nombre || '')" 
   [visible]="visible()" 
   (visibleChange)="visibleChange.emit($event)"
   [modal]="true" 
@@ -10,7 +10,7 @@
   
   <div style="padding-top: 1rem; display: flex; flex-direction: column; gap: 1.5rem;">
     <p style="margin: 0; font-size: 0.95rem; color: #6b7280;">
-      Seleccioná qué proveedor de la entidad <i>Usuarios</i> despachará las copias de este libro.
+      Seleccioná qué proveedor despachará las copias de este libro.
     </p>
 
     <p-inputgroup>
@@ -18,13 +18,13 @@
         <p-select 
           id="select-proveedor"
           [options]="proveedores()" [(ngModel)]="proveedorSeleccionado" 
-          optionLabel="apellido" 
+          optionLabel="nombre" 
           placeholder="Seleccioná un proveedor"
           [style]="{'width': '100%'}"
           appendTo="body"
           required>
         </p-select>
-        <label for="select-proveedor">Proveedor Mapeado (Usuario)</label>
+        <label for="select-proveedor">Proveedor</label>
       </p-floatlabel>
       <p-inputgroup-addon><i class="pi pi-truck"></i></p-inputgroup-addon>
     </p-inputgroup>

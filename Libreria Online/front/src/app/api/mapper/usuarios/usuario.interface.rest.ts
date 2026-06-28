@@ -3,7 +3,7 @@ export interface Proveedor{
   email: string;
   nombre: string;
   apellido: string; 
-  tipoUsuario: string;
+  tipo_usuario_id: number;
 }
 
 export interface Usuario {

@@ -124,7 +124,7 @@ model OfertaLibro {
   imagenUrl String?
   categoria   CategoriaLibro @default(GENERAL)
   
-  //proveedorId      Int
+  proveedorId      Int
   //Proveedor        Proveedores  @relation(fields: [proveedorId], references: [usuario_id])
 
   libroId          Int?
