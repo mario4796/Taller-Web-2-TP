@@ -185,11 +185,13 @@ export type ProveedoresWhereInput = {
   NOT?: Prisma.ProveedoresWhereInput | Prisma.ProveedoresWhereInput[]
   usuario_id?: Prisma.IntFilter<"Proveedores"> | number
   Usuarios?: Prisma.XOR<Prisma.UsuariosScalarRelationFilter, Prisma.UsuariosWhereInput>
+  ofertas?: Prisma.OfertaLibroListRelationFilter
 }
 
 export type ProveedoresOrderByWithRelationInput = {
   usuario_id?: Prisma.SortOrder
   Usuarios?: Prisma.UsuariosOrderByWithRelationInput
+  ofertas?: Prisma.OfertaLibroOrderByRelationAggregateInput
 }
 
 export type ProveedoresWhereUniqueInput = Prisma.AtLeast<{
@@ -198,6 +200,7 @@ export type ProveedoresWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ProveedoresWhereInput[]
   NOT?: Prisma.ProveedoresWhereInput | Prisma.ProveedoresWhereInput[]
   Usuarios?: Prisma.XOR<Prisma.UsuariosScalarRelationFilter, Prisma.UsuariosWhereInput>
+  ofertas?: Prisma.OfertaLibroListRelationFilter
 }, "usuario_id">
 
 export type ProveedoresOrderByWithAggregationInput = {
@@ -218,18 +221,22 @@ export type ProveedoresScalarWhereWithAggregatesInput = {
 
 export type ProveedoresCreateInput = {
   Usuarios: Prisma.UsuariosCreateNestedOneWithoutProveedoresInput
+  ofertas?: Prisma.OfertaLibroCreateNestedManyWithoutProveedorInput
 }
 
 export type ProveedoresUncheckedCreateInput = {
   usuario_id: number
+  ofertas?: Prisma.OfertaLibroUncheckedCreateNestedManyWithoutProveedorInput
 }
 
 export type ProveedoresUpdateInput = {
   Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutProveedoresNestedInput
+  ofertas?: Prisma.OfertaLibroUpdateManyWithoutProveedorNestedInput
 }
 
 export type ProveedoresUncheckedUpdateInput = {
   usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
+  ofertas?: Prisma.OfertaLibroUncheckedUpdateManyWithoutProveedorNestedInput
 }
 
 export type ProveedoresCreateManyInput = {
@@ -269,6 +276,11 @@ export type ProveedoresNullableScalarRelationFilter = {
   isNot?: Prisma.ProveedoresWhereInput | null
 }
 
+export type ProveedoresScalarRelationFilter = {
+  is?: Prisma.ProveedoresWhereInput
+  isNot?: Prisma.ProveedoresWhereInput
+}
+
 export type ProveedoresCreateNestedOneWithoutUsuariosInput = {
   create?: Prisma.XOR<Prisma.ProveedoresCreateWithoutUsuariosInput, Prisma.ProveedoresUncheckedCreateWithoutUsuariosInput>
   connectOrCreate?: Prisma.ProveedoresCreateOrConnectWithoutUsuariosInput
@@ -301,12 +313,26 @@ export type ProveedoresUncheckedUpdateOneWithoutUsuariosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProveedoresUpdateToOneWithWhereWithoutUsuariosInput, Prisma.ProveedoresUpdateWithoutUsuariosInput>, Prisma.ProveedoresUncheckedUpdateWithoutUsuariosInput>
 }
 
-export type ProveedoresCreateWithoutUsuariosInput = {
+export type ProveedoresCreateNestedOneWithoutOfertasInput = {
+  create?: Prisma.XOR<Prisma.ProveedoresCreateWithoutOfertasInput, Prisma.ProveedoresUncheckedCreateWithoutOfertasInput>
+  connectOrCreate?: Prisma.ProveedoresCreateOrConnectWithoutOfertasInput
+  connect?: Prisma.ProveedoresWhereUniqueInput
+}
 
+export type ProveedoresUpdateOneRequiredWithoutOfertasNestedInput = {
+  create?: Prisma.XOR<Prisma.ProveedoresCreateWithoutOfertasInput, Prisma.ProveedoresUncheckedCreateWithoutOfertasInput>
+  connectOrCreate?: Prisma.ProveedoresCreateOrConnectWithoutOfertasInput
+  upsert?: Prisma.ProveedoresUpsertWithoutOfertasInput
+  connect?: Prisma.ProveedoresWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProveedoresUpdateToOneWithWhereWithoutOfertasInput, Prisma.ProveedoresUpdateWithoutOfertasInput>, Prisma.ProveedoresUncheckedUpdateWithoutOfertasInput>
+}
+
+export type ProveedoresCreateWithoutUsuariosInput = {
+  ofertas?: Prisma.OfertaLibroCreateNestedManyWithoutProveedorInput
 }
 
 export type ProveedoresUncheckedCreateWithoutUsuariosInput = {
-
+  ofertas?: Prisma.OfertaLibroUncheckedCreateNestedManyWithoutProveedorInput
 }
 
 export type ProveedoresCreateOrConnectWithoutUsuariosInput = {
@@ -326,18 +352,81 @@ export type ProveedoresUpdateToOneWithWhereWithoutUsuariosInput = {
 }
 
 export type ProveedoresUpdateWithoutUsuariosInput = {
-
+  ofertas?: Prisma.OfertaLibroUpdateManyWithoutProveedorNestedInput
 }
 
 export type ProveedoresUncheckedUpdateWithoutUsuariosInput = {
-
+  ofertas?: Prisma.OfertaLibroUncheckedUpdateManyWithoutProveedorNestedInput
 }
 
+export type ProveedoresCreateWithoutOfertasInput = {
+  Usuarios: Prisma.UsuariosCreateNestedOneWithoutProveedoresInput
+}
+
+export type ProveedoresUncheckedCreateWithoutOfertasInput = {
+  usuario_id: number
+}
+
+export type ProveedoresCreateOrConnectWithoutOfertasInput = {
+  where: Prisma.ProveedoresWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProveedoresCreateWithoutOfertasInput, Prisma.ProveedoresUncheckedCreateWithoutOfertasInput>
+}
+
+export type ProveedoresUpsertWithoutOfertasInput = {
+  update: Prisma.XOR<Prisma.ProveedoresUpdateWithoutOfertasInput, Prisma.ProveedoresUncheckedUpdateWithoutOfertasInput>
+  create: Prisma.XOR<Prisma.ProveedoresCreateWithoutOfertasInput, Prisma.ProveedoresUncheckedCreateWithoutOfertasInput>
+  where?: Prisma.ProveedoresWhereInput
+}
+
+export type ProveedoresUpdateToOneWithWhereWithoutOfertasInput = {
+  where?: Prisma.ProveedoresWhereInput
+  data: Prisma.XOR<Prisma.ProveedoresUpdateWithoutOfertasInput, Prisma.ProveedoresUncheckedUpdateWithoutOfertasInput>
+}
+
+export type ProveedoresUpdateWithoutOfertasInput = {
+  Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutProveedoresNestedInput
+}
+
+export type ProveedoresUncheckedUpdateWithoutOfertasInput = {
+  usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+
+/**
+ * Count Type ProveedoresCountOutputType
+ */
+
+export type ProveedoresCountOutputType = {
+  ofertas: number
+}
+
+export type ProveedoresCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  ofertas?: boolean | ProveedoresCountOutputTypeCountOfertasArgs
+}
+
+/**
+ * ProveedoresCountOutputType without action
+ */
+export type ProveedoresCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProveedoresCountOutputType
+   */
+  select?: Prisma.ProveedoresCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ProveedoresCountOutputType without action
+ */
+export type ProveedoresCountOutputTypeCountOfertasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OfertaLibroWhereInput
+}
 
 
 export type ProveedoresSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   usuario_id?: boolean
   Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
+  ofertas?: boolean | Prisma.Proveedores$ofertasArgs<ExtArgs>
+  _count?: boolean | Prisma.ProveedoresCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proveedores"]>
 
 export type ProveedoresSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -357,6 +446,8 @@ export type ProveedoresSelectScalar = {
 export type ProveedoresOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"usuario_id", ExtArgs["result"]["proveedores"]>
 export type ProveedoresInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
+  ofertas?: boolean | Prisma.Proveedores$ofertasArgs<ExtArgs>
+  _count?: boolean | Prisma.ProveedoresCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProveedoresIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
@@ -369,6 +460,7 @@ export type $ProveedoresPayload<ExtArgs extends runtime.Types.Extensions.Interna
   name: "Proveedores"
   objects: {
     Usuarios: Prisma.$UsuariosPayload<ExtArgs>
+    ofertas: Prisma.$OfertaLibroPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     usuario_id: number
@@ -767,6 +859,7 @@ readonly fields: ProveedoresFieldRefs;
 export interface Prisma__ProveedoresClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   Usuarios<T extends Prisma.UsuariosDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuariosDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuariosClient<runtime.Types.Result.GetResult<Prisma.$UsuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  ofertas<T extends Prisma.Proveedores$ofertasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proveedores$ofertasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OfertaLibroPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1195,6 +1288,30 @@ export type ProveedoresDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many Proveedores to delete.
    */
   limit?: number
+}
+
+/**
+ * Proveedores.ofertas
+ */
+export type Proveedores$ofertasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OfertaLibro
+   */
+  select?: Prisma.OfertaLibroSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OfertaLibro
+   */
+  omit?: Prisma.OfertaLibroOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OfertaLibroInclude<ExtArgs> | null
+  where?: Prisma.OfertaLibroWhereInput
+  orderBy?: Prisma.OfertaLibroOrderByWithRelationInput | Prisma.OfertaLibroOrderByWithRelationInput[]
+  cursor?: Prisma.OfertaLibroWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OfertaLibroScalarFieldEnum | Prisma.OfertaLibroScalarFieldEnum[]
 }
 
 /**

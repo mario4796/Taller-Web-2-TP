@@ -79,6 +79,7 @@ model LibroDigitalAdquirido {
 model Proveedores {
   usuario_id Int      @id
   Usuarios   Usuarios @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ofertas    OfertaLibro[]
 }
 
 model TiposUsuario {
@@ -138,7 +139,7 @@ model OfertaLibro {
   creadoPor         String @default("ADMIN")
   
   proveedorId      Int
-  //Proveedor        Proveedores  @relation(fields: [proveedorId], references: [usuario_id])
+  Proveedor         Proveedores    @relation(fields: [proveedorId], references: [usuario_id], onDelete: Cascade)
 
   libroId          Int?
   Libro            Libros?      @relation(fields: [libroId], references: [id])
