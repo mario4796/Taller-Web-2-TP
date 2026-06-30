@@ -1,32 +1,50 @@
-@if (carrito()) {
-  <div class="cart-layout">
-    @for (detalle of carrito()!.detalles; track detalle.id) {
-      <app-libro-carrito [detalle]="detalle" (onEliminar)="manejarBorrado($event)">
-      </app-libro-carrito>
-    }
+<app-nav></app-nav>
+<p-toast position="top-right"></p-toast>
+<div class="cart-page">
+  @if (carrito()) {
+    <div class="cart-layout">
+      <div class="cart-items">
+        <h2 class="text-white mb-3">Tu carrito</h2>
 
-    <div class="cart-summary">
-      <h2>Resumen</h2>
-
-      <div class="summary-row">
-        <span>Productos</span>
-        <span>{{ carrito()!.detalles.length }}</span>
+        <div class="items-list">
+          @for (detalle of carrito()!.detalles; track detalle.id) {
+            <app-libro-carrito [detalle]="detalle" (onEliminar)="manejarBorrado($event)">
+            </app-libro-carrito>
+          }
+        </div>
       </div>
 
-      <div class="summary-row total">
-        <span>Total</span>
-        <span>${{ carrito()!.precio_total }}</span>
-      </div>
+      <div class="cart-summary">
+        <h3 class="text-white mb-4">Resumen</h3>
 
-      <p-button label="Finalizar Compra" icon="pi pi-check" (click)="finalizarCompra()"> </p-button>
+        <div class="summary-row mb-4">
+          <span class="text-secondary">Productos</span>
+          <span class="text-white fw-bold">{{ carrito()!.detalles.length }}</span>
+        </div>
+
+        <div class="summary-footer">
+          <div class="total-container">
+            <span class="text-white fw-bold">Total:</span>
+            <span class="fs-4 text-primary fw-bold m-0">${{ carrito()!.precio_total }}</span>
+          </div>
+
+          <div class="btn-container">
+            <p-button
+              label="Finalizar compra"
+              icon="pi pi-check"
+              styleClass="p-button-success p-button-rounded"
+              (click)="finalizarCompra()"
+            >
+            </p-button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-} @else {
-  <div class="empty-cart">
-    <i class="pi pi-shopping-cart"></i>
-
-    <h2>Tu carrito está vacío</h2>
-
-    <p>Agrega algunos libros para comenzar.</p>
-  </div>
-}
+  } @else {
+    <div class="empty-cart">
+      <i class="pi pi-shopping-cart text-primary"></i>
+      <h2>Tu carrito está vacío</h2>
+      <p>Agrega algunos libros para comenzar.</p>
+    </div>
+  }
+</div>

@@ -190,8 +190,14 @@
 }
 
 /* =========================
-   BOTON
+   BOTONES FOOTER
 ========================= */
+
+.footer-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
 
 :host ::ng-deep .buy-btn {
   width: 100%;
@@ -199,27 +205,39 @@
 
 :host ::ng-deep .buy-btn .p-button {
   width: 100%;
-
   border-radius: 12px;
-
   font-weight: 700;
-
   background: linear-gradient(135deg, #10b981, #059669);
-
   border: none;
-
   transition: all 0.2s ease;
 }
 
 :host ::ng-deep .buy-btn .p-button:hover {
   transform: translateY(-2px);
-
   box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
 }
 
 :host ::ng-deep .buy-btn .p-button:disabled {
   background: #475569;
   opacity: 0.7;
+}
+
+:host ::ng-deep .buy-btn-digital {
+  width: 100%;
+}
+
+:host ::ng-deep .buy-btn-digital .p-button {
+  width: 100%;
+  border-radius: 12px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  border: none;
+  transition: all 0.2s ease;
+}
+
+:host ::ng-deep .buy-btn-digital .p-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.35);
 }
 
 /* =========================

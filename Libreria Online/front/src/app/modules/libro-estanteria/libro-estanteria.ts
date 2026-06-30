@@ -41,14 +41,24 @@ import { Libro } from '../../shared/interfaces/libro.interface';
       </div>
 
       <ng-template pTemplate="footer">
-        <p-button
-          [label]="libro().stock > 0 ? 'Comprar' : 'Sin Stock'"
-          icon="pi pi-shopping-cart"
-          styleClass="buy-btn"
-          [disabled]="libro().stock <= 0"
-          (onClick)="emitirCompra()"
-        >
-        </p-button>
+        <div class="footer-buttons">
+          <p-button
+            [label]="libro().stock > 0 ? 'Comprar' : 'Sin Stock'"
+            icon="pi pi-shopping-cart"
+            styleClass="buy-btn"
+            [disabled]="libro().stock <= 0"
+            (onClick)="emitirCompra()"
+          />
+          @if (libro().archivoDigital) {
+            <p-button
+              label="Versión digital"
+              icon="pi pi-file-pdf"
+              styleClass="buy-btn-digital"
+              severity="success"
+              (onClick)="emitirCompraDigital()"
+            />
+          }
+        </div>
       </ng-template>
     </p-card>
   `,
@@ -58,10 +68,17 @@ export class LibroEstanteria {
   libro = input.required<Libro>();
 
   onComprar = output<number>();
+  onComprarDigital = output<number>();
 
   emitirCompra() {
     if (this.libro().stock > 0 && localStorage.getItem('usuario') !== null) {
       this.onComprar.emit(this.libro().id);
+    }
+  }
+
+  emitirCompraDigital() {
+    if (localStorage.getItem('usuario') !== null) {
+      this.onComprarDigital.emit(this.libro().id);
     }
   }
 }

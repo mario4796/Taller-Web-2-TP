@@ -5,7 +5,8 @@ export interface Libro {
   autor: string;
   precio: number;
   stock: number;
-
+  archivoDigital?: string | null;
   sinopsis?: string;
   categoria?: string;
+  imagen?: string;
 }

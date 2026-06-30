@@ -15,6 +15,7 @@ import { CardModule } from 'primeng/card';
 import { UsuarioService } from '../../api/services/usuario/usuario-service';
 import { Router } from '@angular/router';
 import { FloatLabel } from 'primeng/floatlabel';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-register',
@@ -26,6 +27,7 @@ import { FloatLabel } from 'primeng/floatlabel';
     ButtonModule,
     CardModule,
     FloatLabel,
+    CheckboxModule,
   ],
   templateUrl: './register.html',
   styleUrls: ['./register.css'],
@@ -44,6 +46,7 @@ export class Register {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern(this.strongPasswordPattern)]],
       confirmPassword: ['', Validators.required],
+      serProveedor: [false],
     },
     { validators: (control) => this.matchPasswords(control) },
   );
@@ -54,12 +57,19 @@ export class Register {
       return;
     }
 
-    const { confirmPassword, password, ...otros } = this.form.value;
-    const usuarioPayload = { ...otros, contrasena: password, tipo_usuario: 1 };
+    const { confirmPassword, password, serProveedor, ...datosBase } = this.form.value;
+
+    const tipoUsuario = serProveedor ? 2 : 3;
+
+    const usuarioPayload = {
+      ...datosBase,
+      contrasena: password,
+      tipo_usuario: tipoUsuario,
+    };
 
     this.usuarioService.registrar(usuarioPayload).subscribe({
       next: () => {
-        console.log('Usuario registrado con éxito');
+        console.log('Usuario registrado con éxito como tipo:', tipoUsuario);
         this.router.navigate(['']);
       },
       error: (err) => console.error('Error al registrar:', err),

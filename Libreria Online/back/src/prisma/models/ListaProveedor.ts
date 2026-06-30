@@ -337,10 +337,6 @@ export type ListaProveedorNullableScalarRelationFilter = {
   isNot?: Prisma.ListaProveedorWhereInput | null
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type ListaProveedorCreateNestedOneWithoutUsuarioInput = {
   create?: Prisma.XOR<Prisma.ListaProveedorCreateWithoutUsuarioInput, Prisma.ListaProveedorUncheckedCreateWithoutUsuarioInput>
   connectOrCreate?: Prisma.ListaProveedorCreateOrConnectWithoutUsuarioInput

@@ -4,7 +4,11 @@ import { CategoriaLibro } from "../prisma/enums.js";
 
 export class LibroRepository {
   async findAllLibros() {
-    const libros = await prisma.libros.findMany({});
+    const libros = await prisma.libros.findMany({
+      orderBy: {
+        id: "asc",
+      },
+    });
 
     return libros;
   }
@@ -91,5 +95,16 @@ export class LibroRepository {
         },
       });
     }
+  }
+
+  async findAllLibrosConStock() {
+    const libros = await prisma.libros.findMany({
+      where: {
+        stock: { gt: 0 },
+      },
+      take: 10,
+    });
+
+    return libros;
   }
 }

@@ -50,6 +50,12 @@
       <small class="p-error"> Las contraseñas no coinciden </small>
     }
 
+    <div class="field-checkbox">
+      <p-checkbox formControlName="serProveedor" [binary]="true" inputId="serProveedor">
+      </p-checkbox>
+      <label for="serProveedor" class="ms-2"> Ser proveedor</label>
+    </div>
+
     <p-button
       label="Crear Cuenta"
       icon="pi pi-user-plus"

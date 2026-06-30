@@ -1,4 +1,4 @@
-<app-nav [userName]="userName" [role]="role" [activeItem]="activeItem"></app-nav>
+<app-nav></app-nav>
 
 <p-toast position="top-right"></p-toast>
 
@@ -17,7 +17,8 @@
       [cargando]="cargando()"
       (aceptar)="aceptarOferta($event)"
       (contraofertar)="abrirContraoferta($event)"
-      (rechazar)="rechazarOferta($event)">
+      (rechazar)="rechazarOferta($event)"
+    >
     </app-ofertas-table>
   </div>
 </section>
@@ -28,5 +29,6 @@
   [form]="contraofertaForm"
   [respondiendo]="respondiendo()"
   (cerrar)="cerrarContraoferta()"
-  (enviar)="enviarContraoferta()">
+  (enviar)="enviarContraoferta()"
+>
 </app-contraoferta-admin-dialog>

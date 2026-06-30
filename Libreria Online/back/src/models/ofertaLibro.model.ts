@@ -10,6 +10,7 @@ export class OfertaLibro {
   cantidadProveedor!: number;
   estado!: EstadoOferta;
   createdAt!: Date;
+  creadoPor!: string;
   libroId?: number | null;
   sinopsis!: string;
   imagenUrl?: string | null;

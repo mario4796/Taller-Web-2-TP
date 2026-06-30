@@ -160,3 +160,10 @@
 
   background: linear-gradient(90deg, #7c3aed, #a855f7, #c084fc);
 }
+
+.field-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1.5rem;
+}

@@ -11,15 +11,20 @@ export class ProveedoresService {
   private http = inject(HttpClient);
   
   // Tu URL real hacia el endpoint que filtre usuarios donde tipo_usuario === 'Proveedor'
-  private apiUrl = `${environment.API_URL}/api/usuarios/proveedores`; 
+  private apiUrl = `${environment.API_URL}/api/proveedor/`; 
 
-  listProveedores(): Observable<Proveedor[]> {
-    console.log("Pidiéndole los proveedores de la BD a Prisma...");
+    // aceptamos el ISBN opcionalmente y cambiamos el retorno para incluir la sugerencia
+  listProveedores(isbn?: string): Observable<{ lista: Proveedor[], sugeridoId: number | null }> {
+    
+    // Si viene el isbn, lo pegamos como query param: /api/proveedor/?isbn=123456
+    const url = isbn ? `${this.apiUrl}?isbn=${isbn}` : this.apiUrl;
 
-    return this.http.get<{ message: string, data: Usuario[] }>(this.apiUrl).pipe(
+    return this.http.get<any>(url).pipe(
       map((res) => {
-        console.log('✅ [GET] Proveedores de la base de datos mapeados:');
-        return ProveedorMapper.mapRestUsuarioArrayToProveedorArrayFront(res.data);
+        return {
+          lista: ProveedorMapper.mapRestUsuarioArrayToProveedorArrayFront(res.proveedores || []),
+          sugeridoId: res.proveedorSugeridoId || null
+        };
       })
     );
   }

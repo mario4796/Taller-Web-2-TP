@@ -14,6 +14,7 @@ import { catchError, of } from 'rxjs';
 import { ToastModule } from 'primeng/toast';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { MessageService } from 'primeng/api';
+import { Proveedor } from '../../../../shared/interfaces/usuario.interface';
 
 @Component({
   selector: 'app-pedir-stock-admin',
@@ -34,51 +35,71 @@ import { MessageService } from 'primeng/api';
   styleUrl: './pedir-stock-admin.css',
 })
 export class PedirStockAdmin {
-  //mock
-  proveedoresMock = input<any[]>([]);
- 
+  //  servicio de proveedores
+  private proveedoresService = inject(ProveedoresService);
 
-  // Inputs y Outputs con sintaxis de Signals
+  // Signals (Solo lectura)
   visible = input<boolean>(false);
   libro = input<any | null>(null);
-  proveedores = input<any[]>([]);
   
-  visibleChange = output<boolean>();
-  alGuardarPedido = output<{ cantidad: number; proveedor: any }>();
+  // States internos 
+  proveedores = signal<Proveedor[]>([]);
   cantidadInput = signal<number | null>(null);
-  proveedorSeleccionado = signal<any | null>(null);
+  proveedorSeleccionado = signal<Proveedor | null>(null);
+
+  // Outputs nativos de Angular
+  visibleChange = output<boolean>();
+  alGuardarPedido = output<{ cantidad: number; proveedor: Proveedor }>();
 
   constructor() {
-    // 🚦 Efecto Reactivo: Corre cada vez que cambia el libro seleccionado en la tabla
+    //  Efecto Reactivo: Maneja la carga inicial y CUALQUIER cambio posterior del libro solo
     effect(() => {
       const libroActual = this.libro();
-      const listaProveedores = this.proveedores();
-
-      if (libroActual && libroActual.proveedorId) {
-        // Busca si coincide con la FK del modelo de la DB
-        const encontrado = listaProveedores.find(p => p.id === libroActual.proveedorId);
-        this.proveedorSeleccionado.set(encontrado || null);
+      
+      if (libroActual && libroActual.isbn) {
+        this.cargarProveedoresYSugerencia(libroActual.isbn);
       } else {
-        this.proveedorSeleccionado.set(null); // Limpio si no tiene historial
+        // Limpieza si cierran el modal o limpian el libro seleccionado
+        this.proveedores.set([]);
+        this.proveedorSeleccionado.set(null);
       }
     });
   }
-enviarPedido(): void {
+
+  private cargarProveedoresYSugerencia(isbn: string): void {
+    this.proveedoresService.listProveedores(isbn).subscribe({
+      next: (res) => {
+        this.proveedores.set(res.lista);
+        
+        // Si el backend descubrió un proveedor previo por ISBN, lo pre-seleccionamos
+        if (res.sugeridoId) {
+          const sugerido = res.lista.find(p => p.id === res.sugeridoId);
+          if (sugerido) {
+            this.proveedorSeleccionado.set(sugerido);
+          }
+        } else {
+          this.proveedorSeleccionado.set(null);
+        }
+      },
+      error: (err) => console.error('Error cargando proveedores por ISBN:', err)
+    });
+  }
+
+  enviarPedido(): void {
     if (!this.cantidadInput() || this.cantidadInput()! <= 0 || !this.proveedorSeleccionado()) return;
 
-    // Emitimos el paquete tipado hacia el padre
+    // Emitimos el objeto plano con el libro desempaquetado que el padre ya sabe leer
     this.alGuardarPedido.emit({
       cantidad: this.cantidadInput()!,
-      proveedor: this.proveedorSeleccionado()
+      proveedor: this.proveedorSeleccionado()!
     });
 
     this.cerrar();
   }
 
- cerrar(): void {
+  cerrar(): void {
     this.visibleChange.emit(false);
     this.cantidadInput.set(null);
     this.proveedorSeleccionado.set(null);
   }
-
 }

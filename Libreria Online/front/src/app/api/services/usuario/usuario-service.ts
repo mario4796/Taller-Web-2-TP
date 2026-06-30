@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Usuario } from '../../../modules/usuario/usuario-component/usuario';
 import { UsuarioRest } from './mapping/usuario.interface.rest';
 
 import { UsuarioMapper } from './mapping/usuario.mapper';

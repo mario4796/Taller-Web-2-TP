@@ -5,29 +5,34 @@ import { CompradorService } from '../../../api/services/comprador/comprador-serv
 import { LibroCarrito } from '../libro-carrito/libro-carrito';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../../services/Auth/auth-service';
+// Importaciones nuevas para el Toast
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { Nav } from '../../../shared/components/nav/nav';
 
 @Component({
   selector: 'app-carrito-component',
   standalone: true,
-  imports: [LibroCarrito, ButtonModule],
+  imports: [LibroCarrito, ButtonModule, ToastModule, Nav], // Agregar ToastModule
+  providers: [MessageService], // Es obligatorio proveer el servicio
   templateUrl: './carrito-component.html',
   styleUrl: './carrito-component.css',
 })
 export class CarritoComponent implements OnInit {
   carrito = signal<Carrito | null>(null);
+
   compradorService = inject(CompradorService);
   router = inject(Router);
   auth = inject(AuthService);
+  messageService = inject(MessageService); // Inyectar el servicio de mensajes
 
   ngOnInit(): void {
     this.cargarCarrito();
-    console.log(this.carrito);
   }
 
   cargarCarrito() {
     this.compradorService.getCarritoUsuario(this.auth.getUser()).subscribe({
       next: (res: Carrito) => {
-        console.log(res);
         this.carrito.set(res);
       },
       error: (err) => console.error('Error:', err),
@@ -45,14 +50,30 @@ export class CarritoComponent implements OnInit {
       })
       .subscribe({
         next: (res) => {
-          alert('Pago procesado con éxito: ' + res.transaccionId);
+          // Reemplazo del alert de éxito
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Compra exitosa',
+            detail: 'Transacción: ' + res.transaccionId,
+            life: 3000, // Tiempo en milisegundos que dura el mensaje
+          });
 
           this.carrito.set(null);
-          this.router.navigate(['/libros']);
+
+          // Opcional: darle tiempo al usuario de ver el mensaje antes de redirigir
+          setTimeout(() => {
+            this.router.navigate(['/libros']);
+          }, 2000);
         },
         error: (err) => {
           console.error('Error al procesar pago:', err);
-          alert('Hubo un error al procesar el pago.');
+          // Reemplazo del alert de error
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Hubo un problema al procesar el pago.',
+            life: 3000,
+          });
         },
       });
   }
@@ -66,8 +87,22 @@ export class CarritoComponent implements OnInit {
       .subscribe({
         next: () => {
           this.cargarCarrito();
+          // Opcional: Agregar un toast informando que se borró el producto
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Actualizado',
+            detail: 'Producto eliminado del carrito',
+            life: 2000,
+          });
         },
-        error: (err) => console.error('Error al borrar:', err),
+        error: (err) => {
+          console.error('Error al borrar:', err);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'No se pudo eliminar el producto',
+          });
+        },
       });
   }
 }
