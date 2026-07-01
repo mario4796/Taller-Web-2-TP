@@ -1,22 +1,28 @@
-<div class="cart-item">
-  <div class="book-cover">
-    <i class="pi pi-book"></i>
+<div class="cart-item d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center">
+  <div class="book-cover mx-auto mx-lg-0">
+    @if (detalle().Libros.imagen) {
+      <img [src]="detalle().Libros.imagen" [alt]="detalle().Libros.nombre" />
+
+      @if (detalle().Libros.imagen == null) {
+        <i class="pi pi-book"></i>
+      }
+    } @else {
+      <i class="pi pi-book"></i>
+    }
   </div>
 
-  <div class="book-info">
-    <div class="book-category">
+  <div class="book-info flex-grow-1 w-100">
+    <span class="book-category">
       {{ detalle().Libros.categoria }}
-    </div>
+    </span>
 
-    <h3>
-      {{ detalle().Libros.nombre }}
-    </h3>
+    <h3>{{ detalle().Libros.nombre }}</h3>
 
-    <p class="author">
+    <p class="author mb-1">
       {{ detalle().Libros.autor }}
     </p>
 
-    <p class="isbn">ISBN: {{ detalle().Libros.isbn }}</p>
+    <p class="isbn mb-2">ISBN: {{ detalle().Libros.isbn }}</p>
 
     @if (detalle().Libros.sinopsis) {
       <p class="sinopsis">
@@ -25,8 +31,32 @@
     }
   </div>
 
-  <div class="book-actions">
-    <div class="quantity">x{{ detalle().cantidad }}</div>
+  <div
+    class="book-actions d-flex flex-column flex-sm-row flex-lg-column align-items-center align-items-lg-end justify-content-between gap-3 w-100 w-lg-auto"
+  >
+    <div class="quantity-controls d-flex align-items-center justify-content-center">
+      <button
+        pButton
+        icon="pi pi-minus"
+        [text]="true"
+        [rounded]="true"
+        size="small"
+        (click)="onRestar.emit(detalle().libro_id)"
+      ></button>
+
+      <span class="quantity">
+        {{ detalle().cantidad }}
+      </span>
+
+      <button
+        pButton
+        icon="pi pi-plus"
+        [text]="true"
+        [rounded]="true"
+        size="small"
+        (click)="onAumentar.emit(detalle().libro_id)"
+      ></button>
+    </div>
 
     <div class="price">${{ detalle().precio }}</div>
 

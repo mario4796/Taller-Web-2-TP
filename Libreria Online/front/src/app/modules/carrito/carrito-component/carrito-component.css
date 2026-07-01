@@ -88,3 +88,9 @@
   font-size: 4rem;
   margin-bottom: 1rem;
 }
+
+@media (max-width: 991px) {
+  .cart-summary {
+    flex: 0 0 0; /* Ancho fijo para el panel derecho */
+  }
+}

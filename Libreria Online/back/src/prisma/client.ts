@@ -47,11 +47,6 @@ export { Prisma }
  */
 export type Administradores = Prisma.AdministradoresModel
 /**
- * Model MetodosPago
- * 
- */
-export type MetodosPago = Prisma.MetodosPagoModel
-/**
  * Model Compradores
  * 
  */

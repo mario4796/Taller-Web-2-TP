@@ -9,7 +9,6 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Administradores.ts'
-export type * from './models/MetodosPago.ts'
 export type * from './models/Compradores.ts'
 export type * from './models/Libros.ts'
 export type * from './models/LibroDigitalAdquirido.ts'

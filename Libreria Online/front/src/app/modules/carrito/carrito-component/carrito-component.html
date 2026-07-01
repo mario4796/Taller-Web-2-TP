@@ -8,7 +8,12 @@
 
         <div class="items-list">
           @for (detalle of carrito()!.detalles; track detalle.id) {
-            <app-libro-carrito [detalle]="detalle" (onEliminar)="manejarBorrado($event)">
+            <app-libro-carrito
+              [detalle]="detalle"
+              (onEliminar)="manejarBorrado($event)"
+              (onAumentar)="agregarLibro($event)"
+              (onRestar)="restarLibro($event)"
+            >
             </app-libro-carrito>
           }
         </div>

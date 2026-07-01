@@ -50,12 +50,10 @@ export class OfertaLibroController {
         .status(200)
         .json({ message: "Oferta obtenida correctamente", data: oferta });
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          error: "Error al obtener la oferta por ID",
-          errorDetails: error,
-        });
+      res.status(500).json({
+        error: "Error al obtener la oferta por ID",
+        errorDetails: error,
+      });
     }
   };
 
@@ -76,7 +74,10 @@ export class OfertaLibroController {
 
       res
         .status(validationMessages.includes(error.message) ? 400 : 500)
-        .json({ error: "Error al crear la oferta", errorDetails: error.message ?? error });
+        .json({
+          error: "Error al crear la oferta",
+          errorDetails: error.message ?? error,
+        });
     }
   };
 
@@ -95,19 +96,15 @@ export class OfertaLibroController {
         nuevaCantidad,
         nuevoPrecio,
       );
-      res
-        .status(200)
-        .json({
-          message: "Contraoferta enviada al proveedor",
-          data: ofertaActualizada,
-        });
+      res.status(200).json({
+        message: "Contraoferta enviada al proveedor",
+        data: ofertaActualizada,
+      });
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          error: "Error al enviar la contraoferta",
-          errorDetails: error,
-        });
+      res.status(500).json({
+        error: "Error al enviar la contraoferta",
+        errorDetails: error,
+      });
     }
   };
 
@@ -124,19 +121,15 @@ export class OfertaLibroController {
         id,
         nuevaCantidad,
       );
-      res
-        .status(200)
-        .json({
-          message: "Contraoferta enviada al administrador",
-          data: ofertaActualizada,
-        });
+      res.status(200).json({
+        message: "Contraoferta enviada al administrador",
+        data: ofertaActualizada,
+      });
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          error: "Error al enviar la contraoferta",
-          errorDetails: error,
-        });
+      res.status(500).json({
+        error: "Error al enviar la contraoferta",
+        errorDetails: error,
+      });
     }
   };
 
@@ -147,12 +140,10 @@ export class OfertaLibroController {
         return res.status(400).json({ error: "ID inválido" });
       }
       const ofertaAceptada = await ofertaLibroService.aceptarOferta(id);
-      res
-        .status(200)
-        .json({
-          message: "Oferta aceptada y stock actualizado",
-          data: ofertaAceptada,
-        });
+      res.status(200).json({
+        message: "Oferta aceptada y stock actualizado",
+        data: ofertaAceptada,
+      });
     } catch (error) {
       res
         .status(500)
@@ -168,16 +159,17 @@ export class OfertaLibroController {
       }
 
       const ofertaRechazada = await ofertaLibroService.rechazarOferta(id);
-      res
-        .status(200)
-        .json({
-          message: "Oferta rechazada correctamente",
-          data: ofertaRechazada,
-        });
+      res.status(200).json({
+        message: "Oferta rechazada correctamente",
+        data: ofertaRechazada,
+      });
     } catch (error: any) {
       res
         .status(error.message === "La oferta no existe" ? 404 : 500)
-        .json({ error: "Error al rechazar la oferta", errorDetails: error.message ?? error });
+        .json({
+          error: "Error al rechazar la oferta",
+          errorDetails: error.message ?? error,
+        });
     }
   };
 

@@ -13,8 +13,8 @@ import { Nav } from '../../../shared/components/nav/nav';
 @Component({
   selector: 'app-carrito-component',
   standalone: true,
-  imports: [LibroCarrito, ButtonModule, ToastModule, Nav], // Agregar ToastModule
-  providers: [MessageService], // Es obligatorio proveer el servicio
+  imports: [LibroCarrito, ButtonModule, ToastModule, Nav],
+  providers: [MessageService],
   templateUrl: './carrito-component.html',
   styleUrl: './carrito-component.css',
 })
@@ -24,7 +24,7 @@ export class CarritoComponent implements OnInit {
   compradorService = inject(CompradorService);
   router = inject(Router);
   auth = inject(AuthService);
-  messageService = inject(MessageService); // Inyectar el servicio de mensajes
+  messageService = inject(MessageService);
 
   ngOnInit(): void {
     this.cargarCarrito();
@@ -46,7 +46,6 @@ export class CarritoComponent implements OnInit {
     this.compradorService
       .procesarPago({
         comprador_id: this.auth.getUser(),
-        metodo_pago_id: 1,
       })
       .subscribe({
         next: (res) => {
@@ -54,20 +53,19 @@ export class CarritoComponent implements OnInit {
           this.messageService.add({
             severity: 'success',
             summary: 'Compra exitosa',
-            detail: 'Transacción: ' + res.transaccionId,
-            life: 3000, // Tiempo en milisegundos que dura el mensaje
+            detail: 'Transacción: ' + res.id,
+            life: 3000,
           });
 
           this.carrito.set(null);
 
-          // Opcional: darle tiempo al usuario de ver el mensaje antes de redirigir
           setTimeout(() => {
             this.router.navigate(['/libros']);
           }, 2000);
         },
         error: (err) => {
           console.error('Error al procesar pago:', err);
-          // Reemplazo del alert de error
+
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
@@ -76,6 +74,48 @@ export class CarritoComponent implements OnInit {
           });
         },
       });
+  }
+
+  agregarLibro(libro_id: number) {
+    if (this.auth.getUser() !== null) {
+      this.compradorService
+        .agregarProductoAlCarrito({
+          comprador_id: this.auth.getUser(),
+          libro_id: libro_id,
+          cantidad: 1,
+        })
+        .subscribe({
+          next: () => {
+            this.cargarCarrito();
+          },
+          error: (err) => {
+            console.error('Error al comprar', err);
+          },
+        });
+    } else {
+      console.log('Error usuario no encontrado');
+    }
+  }
+
+  restarLibro(libro_id: number) {
+    if (this.auth.getUser() !== null) {
+      this.compradorService
+        .descontarProducto({
+          comprador_id: this.auth.getUser(),
+          libro_id: libro_id,
+          cantidad: 1,
+        })
+        .subscribe({
+          next: () => {
+            this.cargarCarrito();
+          },
+          error: (err) => {
+            console.error('Error al descontar', err);
+          },
+        });
+    } else {
+      console.log('Error usuario no encontrado');
+    }
   }
 
   manejarBorrado(libro_id: number) {
@@ -87,7 +127,7 @@ export class CarritoComponent implements OnInit {
       .subscribe({
         next: () => {
           this.cargarCarrito();
-          // Opcional: Agregar un toast informando que se borró el producto
+
           this.messageService.add({
             severity: 'info',
             summary: 'Actualizado',

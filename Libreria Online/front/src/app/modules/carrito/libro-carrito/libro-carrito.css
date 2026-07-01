@@ -1,8 +1,6 @@
 .cart-item {
   display: flex;
-  align-items: center;
   gap: 1.5rem;
-
   padding: 1.25rem;
 
   background: rgba(15, 23, 42, 0.85);
@@ -11,14 +9,12 @@
   border: 1px solid rgba(139, 92, 246, 0.15);
   border-radius: 20px;
 
-  transition: all 0.25s ease;
+  transition: 0.25s;
 }
 
 .cart-item:hover {
   transform: translateY(-3px);
-
   border-color: rgba(139, 92, 246, 0.5);
-
   box-shadow: 0 10px 30px rgba(139, 92, 246, 0.15);
 }
 
@@ -26,86 +22,153 @@
   width: 90px;
   height: 120px;
 
-  flex-shrink: 0;
-
   border-radius: 16px;
-
-  background: linear-gradient(135deg, #7c3aed, #a855f7);
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  flex-shrink: 0;
+
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
 }
 
 .book-cover i {
-  font-size: 2rem;
   color: white;
-}
-
-.book-info {
-  flex: 1;
+  font-size: 2rem;
 }
 
 .book-category {
   display: inline-block;
-
-  background: rgba(139, 92, 246, 0.15);
-
-  color: #c4b5fd;
-
   padding: 0.3rem 0.8rem;
 
   border-radius: 999px;
 
+  background: rgba(139, 92, 246, 0.15);
+  color: #c4b5fd;
+
   font-size: 0.75rem;
   font-weight: 600;
-
-  margin-bottom: 0.75rem;
 }
 
 .book-info h3 {
+  margin: 0.6rem 0 0.4rem;
   color: white;
-
-  margin: 0 0 0.5rem;
-
-  font-size: 1.25rem;
 }
 
 .author {
   color: #cbd5e1;
-  margin: 0 0 0.4rem;
 }
 
 .isbn {
   color: #94a3b8;
   font-size: 0.85rem;
-  margin: 0 0 0.75rem;
 }
 
 .sinopsis {
   color: #cbd5e1;
-  font-size: 0.9rem;
   line-height: 1.5;
-
   margin: 0;
 }
 
 .book-actions {
-  min-width: 140px;
-
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.75rem;
+
+  gap: 1rem;
+
+  margin-left: auto; /* Empuja el bloque completamente a la derecha */
+  flex: 0 0 auto; /* Evita que crezca */
+  width: auto;
+  min-width: 160px;
+}
+
+.quantity-controls {
+  padding: 0.25rem 0.5rem;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .quantity {
-  color: #94a3b8;
-  font-weight: 600;
+  width: 30px;
+
+  text-align: center;
+
+  color: white;
+  font-weight: 700;
 }
 
 .price {
   color: #34d399;
-  font-size: 1.5rem;
-  font-weight: 800;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+@media (max-width: 991px) {
+  .cart-item {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .book-actions {
+    /* pasa debajo de toda la información */
+
+    order: 3;
+
+    flex-basis: 100%;
+
+    width: 100%;
+    min-width: auto;
+
+    margin-top: 1rem;
+
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .price {
+    margin: 0;
+  }
+
+  .quantity-controls {
+    margin: 0;
+  }
+
+  .book-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .book-info {
+    width: 100%;
+    text-align: center;
+  }
+
+  .book-category {
+    margin: 0 auto 0.75rem;
+  }
+
+  .book-info h3,
+  .book-info .author,
+  .book-info .isbn,
+  .book-info .sinopsis {
+    text-align: center;
+  }
+
+  .book-cover {
+    margin: 0 auto;
+  }
 }
