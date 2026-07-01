@@ -117,6 +117,38 @@
   line-height: 1.6;
 }
 
+.section-card {
+  border-radius: 16px;
+  border: 1px solid rgba(124, 58, 237, 0.14);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(250, 248, 255, 0.96));
+  box-shadow: 0 8px 24px rgba(88, 28, 135, 0.06);
+  overflow: hidden;
+}
+
+:host ::ng-deep .inventory-table .p-datatable-wrapper,
+:host ::ng-deep .offers-table .p-datatable-wrapper {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+:host ::ng-deep .inventory-table .p-datatable-thead > tr > th,
+:host ::ng-deep .offers-table .p-datatable-thead > tr > th {
+  background: rgba(248, 250, 252, 0.95);
+  border-bottom: 1px solid #dbe2ea;
+}
+
+:host ::ng-deep .inventory-table .p-datatable-tbody > tr > td,
+:host ::ng-deep .offers-table .p-datatable-tbody > tr > td {
+  border-bottom: 1px solid #edf2f7;
+}
+
+:host ::ng-deep .inventory-table .p-paginator,
+:host ::ng-deep .offers-table .p-paginator {
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+}
+
 /* ==========================================================================
    NUEVAS CLASES: ADAPTACIÓN DE FILAS PARA EL CONTROL DE INVENTARIO
    ========================================================================== */
@@ -144,6 +176,33 @@
 :host-context(.app-dark) .libro-row:hover {
   border-color: rgba(168, 85, 247, 0.45);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+:host-context(.app-dark) .section-card {
+  border-color: rgba(168, 85, 247, 0.18);
+  background: linear-gradient(135deg, rgba(40, 30, 65, 0.7), rgba(24, 18, 43, 0.9));
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
+}
+
+:host-context(.app-dark) ::ng-deep .inventory-table .p-datatable-thead > tr > th,
+:host-context(.app-dark) ::ng-deep .offers-table .p-datatable-thead > tr > th {
+  background: rgba(30, 41, 59, 0.92);
+  border-bottom-color: rgba(148, 163, 184, 0.16);
+  color: #e2e8f0;
+}
+
+:host-context(.app-dark) ::ng-deep .inventory-table .p-datatable-tbody > tr > td,
+:host-context(.app-dark) ::ng-deep .offers-table .p-datatable-tbody > tr > td {
+  border-bottom-color: rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.72);
+  color: #e2e8f0;
+}
+
+:host-context(.app-dark) ::ng-deep .inventory-table .p-paginator,
+:host-context(.app-dark) ::ng-deep .offers-table .p-paginator {
+  border-top-color: rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.92);
+  color: #e2e8f0;
 }
 
 /* Media Queries de Adaptación de Pantalla */

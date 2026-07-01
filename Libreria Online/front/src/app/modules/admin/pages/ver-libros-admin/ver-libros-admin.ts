@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { Libro } from '../../../../shared/interfaces/libro.interface';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -47,6 +47,7 @@ interface ApiResponse {
   styleUrl: './ver-libros-admin.css',
 })
 export class VerLibrosAdmin {
+  mostrarOfertas = input(true);
   readonly portadaFallback = '/img/portada/imagen-no-disponible-vertical.svg';
 
   private librosService = inject(LibrosService);
@@ -54,7 +55,7 @@ export class VerLibrosAdmin {
   private ofertasService = inject(OfertasLibroService);
   private toastService = inject(ToastService);
   private fb = inject(FormBuilder);
-  
+
 
   public cargando = true;
   public errorError: string | null = null;
@@ -91,14 +92,16 @@ export class VerLibrosAdmin {
       catchError(err => {
         console.error('Error al cargar proveedores desde el backend:', err);
         this.toastService.error('No se pudieron cargar los proveedores reales.');
-        return of([]); 
+        return of([]);
       })
     ),
-    { initialValue: [] } 
+    { initialValue: [] }
   );
 
   constructor() {
-    this.cargarOfertasPendientes();
+    if (this.mostrarOfertas()) {
+      this.cargarOfertasPendientes();
+    }
   }
 
   cargarOfertasPendientes(): void {
@@ -215,11 +218,11 @@ export class VerLibrosAdmin {
 
     this.mostrarFormularioPedido.set(false);
   }
-  
+
 // para guardar el OfertaLibro recibido del hijo pedirStock
 manejadorGuardarPedido(evento: { cantidad: number; proveedor: any }, libroActual: any) {
-  
-  // 🚀 BLINDAJE: Si 'libroActual' es una función (Signal), la ejecutamos. 
+
+  // 🚀 BLINDAJE: Si 'libroActual' es una función (Signal), la ejecutamos.
   // Si no, usamos el objeto directo. Esto destruye el "() => signalGetFn(node)"
   const libro = typeof libroActual === 'function' ? libroActual() : libroActual;
 
@@ -241,10 +244,10 @@ manejadorGuardarPedido(evento: { cantidad: number; proveedor: any }, libroActual
     sinopsis: libro.sinopsis || "",
     imagenUrl: libro.imagenUrl || "",
     categoria: libro.categoria || 'GENERAL',
-    
+
     cantidadAdmin: Number(evento.cantidad),
     cantidadProveedor: Number(evento.cantidad),
-    precioProveedor: 0, 
+    precioProveedor: 0,
     proveedorId: Number(evento.proveedor.id),
     libroId: Number(idDelLibro) ,
     creadoPor: 'ADMIN'
