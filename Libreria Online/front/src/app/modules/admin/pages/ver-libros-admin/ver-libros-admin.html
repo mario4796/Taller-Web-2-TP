@@ -33,7 +33,7 @@
         styleClass="p-datatable-striped inventory-table"
         [paginator]="true"
         [rows]="4"
-        [rowsPerPageOptions]="[4, 8, 12]">
+        >
 
         <ng-template pTemplate="header">
           <tr>
@@ -122,7 +122,7 @@
         styleClass="p-datatable-striped offers-table"
         [paginator]="true"
         [rows]="4"
-        [rowsPerPageOptions]="[4, 8, 12]">
+        >
 
         <ng-template pTemplate="header">
           <tr>
@@ -179,43 +179,12 @@
 <!-- ===================== DIALOGO CONTRAOFERTA ===================== -->
 <p-toast position="top-right"></p-toast>
 
-@if (mostrarOfertas()) {
-  <p-dialog header="Hacer contraoferta" [modal]="true" [(visible)]="contraofertaVisible" [style]="{ width: '30rem' }">
-    @if (ofertaSeleccionada()) {
-      <div style="margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; font-size: 0.9rem;">
-        <p style="margin:0"><strong>Libro:</strong> {{ ofertaSeleccionada()?.nombre }}</p>
-        <p style="margin:0"><strong>Precio actual:</strong> {{ ofertaSeleccionada()?.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</p>
-        <p style="margin:0"><strong>Cantidad ofertada:</strong> {{ ofertaSeleccionada()?.cantidadProveedor }} uds.</p>
-      </div>
-    }
-
-    <form [formGroup]="contraofertaForm" style="display: flex; flex-direction: column; gap: 16px;">
-      <p-inputgroup>
-        <p-floatlabel variant="in">
-          <p-inputnumber inputId="nuevaCantidad" formControlName="nuevaCantidad" [useGrouping]="false"></p-inputnumber>
-          <label for="nuevaCantidad">Nueva cantidad</label>
-        </p-floatlabel>
-        <p-inputgroup-addon><i class="pi pi-box"></i></p-inputgroup-addon>
-      </p-inputgroup>
-      @if (nuevaCantidad && nuevaCantidad.invalid && nuevaCantidad.touched) {
-        <small style="color: var(--red-500);">La cantidad debe ser mayor a 0</small>
-      }
-
-      <p-inputgroup>
-        <p-floatlabel variant="in">
-          <p-inputnumber inputId="nuevoPrecio" formControlName="nuevoPrecio" mode="currency" currency="ARS" locale="es-AR"></p-inputnumber>
-          <label for="nuevoPrecio">Nuevo precio (opcional)</label>
-        </p-floatlabel>
-        <p-inputgroup-addon><i class="pi pi-dollar"></i></p-inputgroup-addon>
-      </p-inputgroup>
-      @if (nuevoPrecio && nuevoPrecio.invalid && nuevoPrecio.touched) {
-        <small style="color: var(--red-500);">El precio debe ser mayor a 0</small>
-      }
-    </form>
-
-    <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px;">
-      <p-button label="Cancelar" severity="danger" [text]="true" (click)="cerrarContraoferta()"></p-button>
-      <p-button label="Enviar contraoferta" [outlined]="true" severity="secondary" (click)="enviarContraoferta()" [loading]="respondiendo()" [disabled]="contraofertaForm.invalid || respondiendo()"></p-button>
-    </div>
-  </p-dialog>
-}
+<app-contraoferta-admin-dialog
+  [visible]="contraofertaVisible()"
+  [oferta]="ofertaSeleccionada()"
+  [form]="contraofertaForm"
+  [respondiendo]="respondiendo()"
+  (cerrar)="cerrarContraoferta()"
+  (enviar)="enviarContraoferta()"
+>
+</app-contraoferta-admin-dialog>

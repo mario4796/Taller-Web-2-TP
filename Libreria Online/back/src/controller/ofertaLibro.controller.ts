@@ -13,6 +13,7 @@ const ofertaLibroRepository = new OfertaLibroRepository();
 const ofertaLibroService = new OfertaLibroService(
   ofertaLibroRepository,
   libroService,
+  libroRepository
 );
 
 export class OfertaLibroController {

@@ -2,12 +2,16 @@ import type { OfertaLibroRepository } from '../repository/ofertaLibro.repository
 import { EstadoOferta } from '../prisma/enums.js';
 import { LibroService } from './libro.service.js';
 import type { OfertaLibro } from '../models/ofertaLibro.model.js';
+import { LibroRepository } from '../repository/libro.repository.js';
 
 
 
 export class OfertaLibroService {
 
-    constructor(private ofertaLibroRepository: OfertaLibroRepository, private libroService: LibroService) {
+    constructor(
+        private ofertaLibroRepository: OfertaLibroRepository, 
+        private libroService: LibroService,
+        private libroRepository: LibroRepository) {
 
     }
 
@@ -47,13 +51,25 @@ export class OfertaLibroService {
         throw new Error('La cantidad debe ser mayor a 0 y el precio no puede ser negativo');
         }
 
+        let precioFinal = Number(precioProveedor);
+
+
+        if (esAdmin && libroId) {
+        
+            const libroExistente = await this.libroRepository.findLibroById(Number(libroId)); 
+            
+            if (libroExistente) {
+                precioFinal = Number(libroExistente.precio) * 1.1; 
+            } 
+        }
+
         await this.ofertaLibroRepository.asegurarProveedor(Number(proveedorId));
 
         return await this.ofertaLibroRepository.crearOferta({ 
             isbn, 
             nombre, 
             autor, 
-            precioProveedor: Number(oferta.precioProveedor),
+            precioProveedor: precioFinal,
             cantidadAdmin: esAdmin ? Number(cantidadProveedor) : 0, 
             cantidadProveedor: esAdmin ? 0 : Number(cantidadProveedor),
             estado: esAdmin ? EstadoOferta.ESPERANDO_PROVEEDOR : EstadoOferta.ESPERANDO_ADMIN,
