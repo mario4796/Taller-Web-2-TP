@@ -22,6 +22,11 @@ compradorRouter.post(
 );
 
 compradorRouter.post(
+  "/descontarProducto",
+  compradorController.descontarProductosCarrito.bind(compradorController),
+);
+
+compradorRouter.post(
   "/procesarPago",
   compradorController.comprarProductos.bind(compradorController),
 );

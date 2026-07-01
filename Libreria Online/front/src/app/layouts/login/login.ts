@@ -8,27 +8,34 @@ import { UsuarioService } from '../../api/services/usuario/usuario-service';
 
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/Auth/auth-service';
-import { FloatLabel } from 'primeng/floatlabel';
+import { MessageService } from 'primeng/api';
+import { Toast } from "primeng/toast";
+import { IftaLabelModule } from 'primeng/iftalabel';
+
 @Component({
   selector: 'app-login',
+  standalone:true,
   imports: [
     ReactiveFormsModule,
     CardModule,
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    FloatLabel,
-  ],
+    Toast,
+    IftaLabelModule
+],
+  providers: [MessageService], 
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
 })
 export class Login {
-  // inyecta servicio de angular que construye forms
+
   private fb = inject(FormBuilder);
 
   private usuarioService = inject(UsuarioService);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private messageService = inject(MessageService);
 
   public form: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -49,10 +56,17 @@ export class Login {
         console.log(respuesta.tipo_usuario_id);
         this.authService.setSesion(respuesta.tipo_usuario_id, respuesta);
         console.log(localStorage.getItem('usuario'));
-
+        
         this.router.navigate(['']);
       },
       error: (err) => {
+
+        this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Usuario o Contraseña incorrectos, por favor vuelva a intentarlo.',
+            life: 3000,
+          });
         console.error('Credenciales incorrectas', err);
       },
     });

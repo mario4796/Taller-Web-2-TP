@@ -61,6 +61,13 @@ export class CarritoRepository {
       where: {
         comprador_id: id,
       },
+      include: {
+        detalles: {
+          include: {
+            Libros: true,
+          },
+        },
+      },
     });
 
     if (!carrito) {
@@ -79,6 +86,9 @@ export class CarritoRepository {
         detalles: {
           include: {
             Libros: true,
+          },
+          orderBy: {
+            libro_id: "asc",
           },
         },
       },
@@ -135,6 +145,51 @@ export class CarritoRepository {
       });
 
       return { message: "Producto eliminado correctamente" };
+    });
+  }
+
+  async disminuirProductoCarrito(
+    carritoId: number,
+    libro: Libro,
+    cantidad: number,
+  ) {
+    const subtotal = Number(libro.precio) * cantidad;
+
+    return await prisma.$transaction(async (tx) => {
+      const detalle = await tx.detallesCarrito.upsert({
+        where: {
+          carrito_id_libro_id: {
+            carrito_id: carritoId,
+            libro_id: libro.id,
+          },
+        },
+        update: {
+          cantidad: { decrement: cantidad },
+          precio: { decrement: subtotal },
+        },
+        create: {
+          carrito_id: carritoId,
+          libro_id: libro.id,
+          cantidad: cantidad,
+          precio: subtotal,
+        },
+      });
+
+      await tx.carritos.update({
+        where: { id: carritoId },
+        data: {
+          precio_total: { decrement: subtotal },
+        },
+      });
+
+      await tx.libros.update({
+        where: { id: libro.id },
+        data: {
+          stock: { increment: cantidad },
+        },
+      });
+
+      return detalle;
     });
   }
 }

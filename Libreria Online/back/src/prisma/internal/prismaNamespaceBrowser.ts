@@ -52,7 +52,6 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Administradores: 'Administradores',
-  MetodosPago: 'MetodosPago',
   Compradores: 'Compradores',
   Libros: 'Libros',
   LibroDigitalAdquirido: 'LibroDigitalAdquirido',
@@ -88,18 +87,6 @@ export const AdministradoresScalarFieldEnum = {
 } as const
 
 export type AdministradoresScalarFieldEnum = (typeof AdministradoresScalarFieldEnum)[keyof typeof AdministradoresScalarFieldEnum]
-
-
-export const MetodosPagoScalarFieldEnum = {
-  id: 'id',
-  comprador_id: 'comprador_id',
-  tipo: 'tipo',
-  nombre_provider: 'nombre_provider',
-  token_externo: 'token_externo',
-  es_predeterminado: 'es_predeterminado'
-} as const
-
-export type MetodosPagoScalarFieldEnum = (typeof MetodosPagoScalarFieldEnum)[keyof typeof MetodosPagoScalarFieldEnum]
 
 
 export const CompradoresScalarFieldEnum = {
@@ -218,7 +205,6 @@ export type DetallesCarritoScalarFieldEnum = (typeof DetallesCarritoScalarFieldE
 export const TransaccionesScalarFieldEnum = {
   id: 'id',
   comprador_id: 'comprador_id',
-  metodo_pago_id: 'metodo_pago_id',
   monto_total: 'monto_total',
   fecha_pago: 'fecha_pago',
   estado: 'estado'

@@ -1,13 +1,14 @@
+<p-toast></p-toast>
 <p-card header="Iniciar Sesión" styleClass="login-card">
   <div class="login-icon">
     <i class="pi pi-user"></i>
   </div>
   <form [formGroup]="form" (ngSubmit)="submit()" class="login-form">
     <div class="field">
-      <p-floatLabel>
+      <p-iftalabel>
         <input pInputText id="email" formControlName="email" type="email" />
         <label for="email">Email</label>
-      </p-floatLabel>
+      </p-iftalabel>
 
       @if (form.get('email')?.invalid && form.get('email')?.touched) {
         <div class="p-error-container">
@@ -23,12 +24,12 @@
     </div>
 
     <div class="field">
-      <p-floatLabel>
+      <p-iftalabel>
         <p-password id="password" formControlName="password" [toggleMask]="true" [feedback]="false">
         </p-password>
 
         <label for="password">Contraseña</label>
-      </p-floatLabel>
+      </p-iftalabel>
 
       @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
         <div class="p-error-container">

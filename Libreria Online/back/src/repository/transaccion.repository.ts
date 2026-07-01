@@ -6,16 +6,10 @@ type CarritoConDetalles = Prisma.CarritosGetPayload<{
   include: { detalles: true };
 }>;
 export class TransaccionRepository {
-  async crear(
-    compradorId: number,
-    metodoPagoId: number,
-    carrito: any,
-    tx: any,
-  ) {
+  async crear(compradorId: number, carrito: any, tx: any) {
     return await tx.transacciones.create({
       data: {
         comprador_id: compradorId,
-        metodo_pago_id: metodoPagoId,
         monto_total: carrito.precio_total,
         detalles: {
           create: carrito.detalles.map((d: any) => ({

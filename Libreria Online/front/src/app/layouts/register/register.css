@@ -70,45 +70,85 @@
 /* ===========================
    INPUTS
 =========================== */
+.form-grid{
+    display:flex;
+    flex-direction:column;
+    gap:1.3rem;
+}
+
+.name-row{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1rem;
+}
+
+@media(max-width:640px){
+
+    .name-row{
+        grid-template-columns:1fr;
+    }
+
+}
+
+.field{
+    width:100%;
+}
+
+:host ::ng-deep .p-iftalabel{
+    display:block;
+    width:100%;
+}
 
 :host ::ng-deep .p-inputtext,
-:host ::ng-deep .p-password-input {
-  width: 100%;
+:host ::ng-deep .p-password-input{
 
-  background: rgba(255, 255, 255, 0.04);
-  color: white;
+    width:100%;
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
+    background:rgba(255,255,255,.04);
 
-  padding: 0.9rem 1rem;
+    color:white;
 
-  transition: all 0.25s ease;
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:14px;
+
+    transition:
+        border-color .25s,
+        box-shadow .25s,
+        background .25s;
+}
+
+:host ::ng-deep .p-password{
+    width:100%;
+}
+
+:host ::ng-deep .p-password-input{
+    width:100%;
 }
 
 :host ::ng-deep .p-inputtext:focus,
-:host ::ng-deep .p-password-input:focus {
-  border-color: #a855f7;
+:host ::ng-deep .p-password-input:focus{
 
-  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+    border-color:#a855f7;
+
+    box-shadow:0 0 0 3px rgba(168,85,247,.15);
+
 }
 
-/* LABELS */
+:host ::ng-deep .p-iftalabel label{
 
-:host ::ng-deep .p-float-label label {
-  color: rgba(255, 255, 255, 0.65);
+    color:rgba(255,255,255,.65);
+
+    font-weight:500;
+
 }
 
-/* PASSWORD */
+:host ::ng-deep .p-inputtext::placeholder,
+:host ::ng-deep .p-password-input::placeholder{
 
-:host ::ng-deep .p-password {
-  width: 100%;
+    color:transparent;
+
 }
-
-:host ::ng-deep .p-password-input {
-  width: 100%;
-}
-
 /* ===========================
    BOTON
 =========================== */
@@ -143,6 +183,44 @@
   font-size: 0.85rem;
   margin-top: -0.5rem;
 }
+.p-error{
+
+    display:flex;
+    align-items:center;
+
+    gap:.4rem;
+
+    padding-left:.2rem;
+
+    color:#ff7b7b;
+
+    font-size:.83rem;
+
+    animation:fadeIn .18s ease;
+
+}
+
+.p-error::before{
+
+    content:"⚠";
+
+    font-size:.9rem;
+
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(-4px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
 
 /* ===========================
    TITULO DECORATIVO
@@ -166,4 +244,28 @@
   align-items: center;
   gap: 1em;
   margin-bottom: 1.5rem;
+}
+
+.field-checkbox {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+
+    margin-top: .25rem;
+    margin-bottom: .5rem;
+}
+
+.field-checkbox label {
+    color: rgba(255,255,255,.8);
+    cursor: pointer;
+    user-select: none;
+    font-size: .95rem;
+}
+
+:host ::ng-deep .p-checkbox {
+    transform: scale(1.05);
+}
+
+:host ::ng-deep .p-checkbox-box {
+    border-radius: 6px;
 }

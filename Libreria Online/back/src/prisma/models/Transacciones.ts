@@ -29,21 +29,18 @@ export type AggregateTransacciones = {
 export type TransaccionesAvgAggregateOutputType = {
   id: number | null
   comprador_id: number | null
-  metodo_pago_id: number | null
   monto_total: runtime.Decimal | null
 }
 
 export type TransaccionesSumAggregateOutputType = {
   id: number | null
   comprador_id: number | null
-  metodo_pago_id: number | null
   monto_total: runtime.Decimal | null
 }
 
 export type TransaccionesMinAggregateOutputType = {
   id: number | null
   comprador_id: number | null
-  metodo_pago_id: number | null
   monto_total: runtime.Decimal | null
   fecha_pago: Date | null
   estado: string | null
@@ -52,7 +49,6 @@ export type TransaccionesMinAggregateOutputType = {
 export type TransaccionesMaxAggregateOutputType = {
   id: number | null
   comprador_id: number | null
-  metodo_pago_id: number | null
   monto_total: runtime.Decimal | null
   fecha_pago: Date | null
   estado: string | null
@@ -61,7 +57,6 @@ export type TransaccionesMaxAggregateOutputType = {
 export type TransaccionesCountAggregateOutputType = {
   id: number
   comprador_id: number
-  metodo_pago_id: number
   monto_total: number
   fecha_pago: number
   estado: number
@@ -72,21 +67,18 @@ export type TransaccionesCountAggregateOutputType = {
 export type TransaccionesAvgAggregateInputType = {
   id?: true
   comprador_id?: true
-  metodo_pago_id?: true
   monto_total?: true
 }
 
 export type TransaccionesSumAggregateInputType = {
   id?: true
   comprador_id?: true
-  metodo_pago_id?: true
   monto_total?: true
 }
 
 export type TransaccionesMinAggregateInputType = {
   id?: true
   comprador_id?: true
-  metodo_pago_id?: true
   monto_total?: true
   fecha_pago?: true
   estado?: true
@@ -95,7 +87,6 @@ export type TransaccionesMinAggregateInputType = {
 export type TransaccionesMaxAggregateInputType = {
   id?: true
   comprador_id?: true
-  metodo_pago_id?: true
   monto_total?: true
   fecha_pago?: true
   estado?: true
@@ -104,7 +95,6 @@ export type TransaccionesMaxAggregateInputType = {
 export type TransaccionesCountAggregateInputType = {
   id?: true
   comprador_id?: true
-  metodo_pago_id?: true
   monto_total?: true
   fecha_pago?: true
   estado?: true
@@ -200,7 +190,6 @@ export type TransaccionesGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 export type TransaccionesGroupByOutputType = {
   id: number
   comprador_id: number
-  metodo_pago_id: number
   monto_total: runtime.Decimal
   fecha_pago: Date
   estado: string
@@ -232,24 +221,20 @@ export type TransaccionesWhereInput = {
   NOT?: Prisma.TransaccionesWhereInput | Prisma.TransaccionesWhereInput[]
   id?: Prisma.IntFilter<"Transacciones"> | number
   comprador_id?: Prisma.IntFilter<"Transacciones"> | number
-  metodo_pago_id?: Prisma.IntFilter<"Transacciones"> | number
   monto_total?: Prisma.DecimalFilter<"Transacciones"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Prisma.DateTimeFilter<"Transacciones"> | Date | string
   estado?: Prisma.StringFilter<"Transacciones"> | string
   Comprador?: Prisma.XOR<Prisma.CompradoresScalarRelationFilter, Prisma.CompradoresWhereInput>
-  MetodoPago?: Prisma.XOR<Prisma.MetodosPagoScalarRelationFilter, Prisma.MetodosPagoWhereInput>
   detalles?: Prisma.DetalleTransaccionListRelationFilter
 }
 
 export type TransaccionesOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   comprador_id?: Prisma.SortOrder
-  metodo_pago_id?: Prisma.SortOrder
   monto_total?: Prisma.SortOrder
   fecha_pago?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   Comprador?: Prisma.CompradoresOrderByWithRelationInput
-  MetodoPago?: Prisma.MetodosPagoOrderByWithRelationInput
   detalles?: Prisma.DetalleTransaccionOrderByRelationAggregateInput
 }
 
@@ -259,19 +244,16 @@ export type TransaccionesWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.TransaccionesWhereInput[]
   NOT?: Prisma.TransaccionesWhereInput | Prisma.TransaccionesWhereInput[]
   comprador_id?: Prisma.IntFilter<"Transacciones"> | number
-  metodo_pago_id?: Prisma.IntFilter<"Transacciones"> | number
   monto_total?: Prisma.DecimalFilter<"Transacciones"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Prisma.DateTimeFilter<"Transacciones"> | Date | string
   estado?: Prisma.StringFilter<"Transacciones"> | string
   Comprador?: Prisma.XOR<Prisma.CompradoresScalarRelationFilter, Prisma.CompradoresWhereInput>
-  MetodoPago?: Prisma.XOR<Prisma.MetodosPagoScalarRelationFilter, Prisma.MetodosPagoWhereInput>
   detalles?: Prisma.DetalleTransaccionListRelationFilter
 }, "id">
 
 export type TransaccionesOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   comprador_id?: Prisma.SortOrder
-  metodo_pago_id?: Prisma.SortOrder
   monto_total?: Prisma.SortOrder
   fecha_pago?: Prisma.SortOrder
   estado?: Prisma.SortOrder
@@ -288,7 +270,6 @@ export type TransaccionesScalarWhereWithAggregatesInput = {
   NOT?: Prisma.TransaccionesScalarWhereWithAggregatesInput | Prisma.TransaccionesScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Transacciones"> | number
   comprador_id?: Prisma.IntWithAggregatesFilter<"Transacciones"> | number
-  metodo_pago_id?: Prisma.IntWithAggregatesFilter<"Transacciones"> | number
   monto_total?: Prisma.DecimalWithAggregatesFilter<"Transacciones"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Prisma.DateTimeWithAggregatesFilter<"Transacciones"> | Date | string
   estado?: Prisma.StringWithAggregatesFilter<"Transacciones"> | string
@@ -299,14 +280,12 @@ export type TransaccionesCreateInput = {
   fecha_pago?: Date | string
   estado?: string
   Comprador: Prisma.CompradoresCreateNestedOneWithoutTransaccionesInput
-  MetodoPago: Prisma.MetodosPagoCreateNestedOneWithoutTransaccionesInput
   detalles?: Prisma.DetalleTransaccionCreateNestedManyWithoutTransaccionInput
 }
 
 export type TransaccionesUncheckedCreateInput = {
   id?: number
   comprador_id: number
-  metodo_pago_id: number
   monto_total: runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Date | string
   estado?: string
@@ -318,14 +297,12 @@ export type TransaccionesUpdateInput = {
   fecha_pago?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   estado?: Prisma.StringFieldUpdateOperationsInput | string
   Comprador?: Prisma.CompradoresUpdateOneRequiredWithoutTransaccionesNestedInput
-  MetodoPago?: Prisma.MetodosPagoUpdateOneRequiredWithoutTransaccionesNestedInput
   detalles?: Prisma.DetalleTransaccionUpdateManyWithoutTransaccionNestedInput
 }
 
 export type TransaccionesUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   comprador_id?: Prisma.IntFieldUpdateOperationsInput | number
-  metodo_pago_id?: Prisma.IntFieldUpdateOperationsInput | number
   monto_total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   estado?: Prisma.StringFieldUpdateOperationsInput | string
@@ -335,7 +312,6 @@ export type TransaccionesUncheckedUpdateInput = {
 export type TransaccionesCreateManyInput = {
   id?: number
   comprador_id: number
-  metodo_pago_id: number
   monto_total: runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Date | string
   estado?: string
@@ -350,7 +326,6 @@ export type TransaccionesUpdateManyMutationInput = {
 export type TransaccionesUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   comprador_id?: Prisma.IntFieldUpdateOperationsInput | number
-  metodo_pago_id?: Prisma.IntFieldUpdateOperationsInput | number
   monto_total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   estado?: Prisma.StringFieldUpdateOperationsInput | string
@@ -369,7 +344,6 @@ export type TransaccionesOrderByRelationAggregateInput = {
 export type TransaccionesCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   comprador_id?: Prisma.SortOrder
-  metodo_pago_id?: Prisma.SortOrder
   monto_total?: Prisma.SortOrder
   fecha_pago?: Prisma.SortOrder
   estado?: Prisma.SortOrder
@@ -378,14 +352,12 @@ export type TransaccionesCountOrderByAggregateInput = {
 export type TransaccionesAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   comprador_id?: Prisma.SortOrder
-  metodo_pago_id?: Prisma.SortOrder
   monto_total?: Prisma.SortOrder
 }
 
 export type TransaccionesMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   comprador_id?: Prisma.SortOrder
-  metodo_pago_id?: Prisma.SortOrder
   monto_total?: Prisma.SortOrder
   fecha_pago?: Prisma.SortOrder
   estado?: Prisma.SortOrder
@@ -394,7 +366,6 @@ export type TransaccionesMaxOrderByAggregateInput = {
 export type TransaccionesMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   comprador_id?: Prisma.SortOrder
-  metodo_pago_id?: Prisma.SortOrder
   monto_total?: Prisma.SortOrder
   fecha_pago?: Prisma.SortOrder
   estado?: Prisma.SortOrder
@@ -403,55 +374,12 @@ export type TransaccionesMinOrderByAggregateInput = {
 export type TransaccionesSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   comprador_id?: Prisma.SortOrder
-  metodo_pago_id?: Prisma.SortOrder
   monto_total?: Prisma.SortOrder
 }
 
 export type TransaccionesScalarRelationFilter = {
   is?: Prisma.TransaccionesWhereInput
   isNot?: Prisma.TransaccionesWhereInput
-}
-
-export type TransaccionesCreateNestedManyWithoutMetodoPagoInput = {
-  create?: Prisma.XOR<Prisma.TransaccionesCreateWithoutMetodoPagoInput, Prisma.TransaccionesUncheckedCreateWithoutMetodoPagoInput> | Prisma.TransaccionesCreateWithoutMetodoPagoInput[] | Prisma.TransaccionesUncheckedCreateWithoutMetodoPagoInput[]
-  connectOrCreate?: Prisma.TransaccionesCreateOrConnectWithoutMetodoPagoInput | Prisma.TransaccionesCreateOrConnectWithoutMetodoPagoInput[]
-  createMany?: Prisma.TransaccionesCreateManyMetodoPagoInputEnvelope
-  connect?: Prisma.TransaccionesWhereUniqueInput | Prisma.TransaccionesWhereUniqueInput[]
-}
-
-export type TransaccionesUncheckedCreateNestedManyWithoutMetodoPagoInput = {
-  create?: Prisma.XOR<Prisma.TransaccionesCreateWithoutMetodoPagoInput, Prisma.TransaccionesUncheckedCreateWithoutMetodoPagoInput> | Prisma.TransaccionesCreateWithoutMetodoPagoInput[] | Prisma.TransaccionesUncheckedCreateWithoutMetodoPagoInput[]
-  connectOrCreate?: Prisma.TransaccionesCreateOrConnectWithoutMetodoPagoInput | Prisma.TransaccionesCreateOrConnectWithoutMetodoPagoInput[]
-  createMany?: Prisma.TransaccionesCreateManyMetodoPagoInputEnvelope
-  connect?: Prisma.TransaccionesWhereUniqueInput | Prisma.TransaccionesWhereUniqueInput[]
-}
-
-export type TransaccionesUpdateManyWithoutMetodoPagoNestedInput = {
-  create?: Prisma.XOR<Prisma.TransaccionesCreateWithoutMetodoPagoInput, Prisma.TransaccionesUncheckedCreateWithoutMetodoPagoInput> | Prisma.TransaccionesCreateWithoutMetodoPagoInput[] | Prisma.TransaccionesUncheckedCreateWithoutMetodoPagoInput[]
-  connectOrCreate?: Prisma.TransaccionesCreateOrConnectWithoutMetodoPagoInput | Prisma.TransaccionesCreateOrConnectWithoutMetodoPagoInput[]
-  upsert?: Prisma.TransaccionesUpsertWithWhereUniqueWithoutMetodoPagoInput | Prisma.TransaccionesUpsertWithWhereUniqueWithoutMetodoPagoInput[]
-  createMany?: Prisma.TransaccionesCreateManyMetodoPagoInputEnvelope
-  set?: Prisma.TransaccionesWhereUniqueInput | Prisma.TransaccionesWhereUniqueInput[]
-  disconnect?: Prisma.TransaccionesWhereUniqueInput | Prisma.TransaccionesWhereUniqueInput[]
-  delete?: Prisma.TransaccionesWhereUniqueInput | Prisma.TransaccionesWhereUniqueInput[]
-  connect?: Prisma.TransaccionesWhereUniqueInput | Prisma.TransaccionesWhereUniqueInput[]
-  update?: Prisma.TransaccionesUpdateWithWhereUniqueWithoutMetodoPagoInput | Prisma.TransaccionesUpdateWithWhereUniqueWithoutMetodoPagoInput[]
-  updateMany?: Prisma.TransaccionesUpdateManyWithWhereWithoutMetodoPagoInput | Prisma.TransaccionesUpdateManyWithWhereWithoutMetodoPagoInput[]
-  deleteMany?: Prisma.TransaccionesScalarWhereInput | Prisma.TransaccionesScalarWhereInput[]
-}
-
-export type TransaccionesUncheckedUpdateManyWithoutMetodoPagoNestedInput = {
-  create?: Prisma.XOR<Prisma.TransaccionesCreateWithoutMetodoPagoInput, Prisma.TransaccionesUncheckedCreateWithoutMetodoPagoInput> | Prisma.TransaccionesCreateWithoutMetodoPagoInput[] | Prisma.TransaccionesUncheckedCreateWithoutMetodoPagoInput[]
-  connectOrCreate?: Prisma.TransaccionesCreateOrConnectWithoutMetodoPagoInput | Prisma.TransaccionesCreateOrConnectWithoutMetodoPagoInput[]
-  upsert?: Prisma.TransaccionesUpsertWithWhereUniqueWithoutMetodoPagoInput | Prisma.TransaccionesUpsertWithWhereUniqueWithoutMetodoPagoInput[]
-  createMany?: Prisma.TransaccionesCreateManyMetodoPagoInputEnvelope
-  set?: Prisma.TransaccionesWhereUniqueInput | Prisma.TransaccionesWhereUniqueInput[]
-  disconnect?: Prisma.TransaccionesWhereUniqueInput | Prisma.TransaccionesWhereUniqueInput[]
-  delete?: Prisma.TransaccionesWhereUniqueInput | Prisma.TransaccionesWhereUniqueInput[]
-  connect?: Prisma.TransaccionesWhereUniqueInput | Prisma.TransaccionesWhereUniqueInput[]
-  update?: Prisma.TransaccionesUpdateWithWhereUniqueWithoutMetodoPagoInput | Prisma.TransaccionesUpdateWithWhereUniqueWithoutMetodoPagoInput[]
-  updateMany?: Prisma.TransaccionesUpdateManyWithWhereWithoutMetodoPagoInput | Prisma.TransaccionesUpdateManyWithWhereWithoutMetodoPagoInput[]
-  deleteMany?: Prisma.TransaccionesScalarWhereInput | Prisma.TransaccionesScalarWhereInput[]
 }
 
 export type TransaccionesCreateNestedManyWithoutCompradorInput = {
@@ -510,72 +438,15 @@ export type TransaccionesUpdateOneRequiredWithoutDetallesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TransaccionesUpdateToOneWithWhereWithoutDetallesInput, Prisma.TransaccionesUpdateWithoutDetallesInput>, Prisma.TransaccionesUncheckedUpdateWithoutDetallesInput>
 }
 
-export type TransaccionesCreateWithoutMetodoPagoInput = {
-  monto_total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  fecha_pago?: Date | string
-  estado?: string
-  Comprador: Prisma.CompradoresCreateNestedOneWithoutTransaccionesInput
-  detalles?: Prisma.DetalleTransaccionCreateNestedManyWithoutTransaccionInput
-}
-
-export type TransaccionesUncheckedCreateWithoutMetodoPagoInput = {
-  id?: number
-  comprador_id: number
-  monto_total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  fecha_pago?: Date | string
-  estado?: string
-  detalles?: Prisma.DetalleTransaccionUncheckedCreateNestedManyWithoutTransaccionInput
-}
-
-export type TransaccionesCreateOrConnectWithoutMetodoPagoInput = {
-  where: Prisma.TransaccionesWhereUniqueInput
-  create: Prisma.XOR<Prisma.TransaccionesCreateWithoutMetodoPagoInput, Prisma.TransaccionesUncheckedCreateWithoutMetodoPagoInput>
-}
-
-export type TransaccionesCreateManyMetodoPagoInputEnvelope = {
-  data: Prisma.TransaccionesCreateManyMetodoPagoInput | Prisma.TransaccionesCreateManyMetodoPagoInput[]
-  skipDuplicates?: boolean
-}
-
-export type TransaccionesUpsertWithWhereUniqueWithoutMetodoPagoInput = {
-  where: Prisma.TransaccionesWhereUniqueInput
-  update: Prisma.XOR<Prisma.TransaccionesUpdateWithoutMetodoPagoInput, Prisma.TransaccionesUncheckedUpdateWithoutMetodoPagoInput>
-  create: Prisma.XOR<Prisma.TransaccionesCreateWithoutMetodoPagoInput, Prisma.TransaccionesUncheckedCreateWithoutMetodoPagoInput>
-}
-
-export type TransaccionesUpdateWithWhereUniqueWithoutMetodoPagoInput = {
-  where: Prisma.TransaccionesWhereUniqueInput
-  data: Prisma.XOR<Prisma.TransaccionesUpdateWithoutMetodoPagoInput, Prisma.TransaccionesUncheckedUpdateWithoutMetodoPagoInput>
-}
-
-export type TransaccionesUpdateManyWithWhereWithoutMetodoPagoInput = {
-  where: Prisma.TransaccionesScalarWhereInput
-  data: Prisma.XOR<Prisma.TransaccionesUpdateManyMutationInput, Prisma.TransaccionesUncheckedUpdateManyWithoutMetodoPagoInput>
-}
-
-export type TransaccionesScalarWhereInput = {
-  AND?: Prisma.TransaccionesScalarWhereInput | Prisma.TransaccionesScalarWhereInput[]
-  OR?: Prisma.TransaccionesScalarWhereInput[]
-  NOT?: Prisma.TransaccionesScalarWhereInput | Prisma.TransaccionesScalarWhereInput[]
-  id?: Prisma.IntFilter<"Transacciones"> | number
-  comprador_id?: Prisma.IntFilter<"Transacciones"> | number
-  metodo_pago_id?: Prisma.IntFilter<"Transacciones"> | number
-  monto_total?: Prisma.DecimalFilter<"Transacciones"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  fecha_pago?: Prisma.DateTimeFilter<"Transacciones"> | Date | string
-  estado?: Prisma.StringFilter<"Transacciones"> | string
-}
-
 export type TransaccionesCreateWithoutCompradorInput = {
   monto_total: runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Date | string
   estado?: string
-  MetodoPago: Prisma.MetodosPagoCreateNestedOneWithoutTransaccionesInput
   detalles?: Prisma.DetalleTransaccionCreateNestedManyWithoutTransaccionInput
 }
 
 export type TransaccionesUncheckedCreateWithoutCompradorInput = {
   id?: number
-  metodo_pago_id: number
   monto_total: runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Date | string
   estado?: string
@@ -608,18 +479,27 @@ export type TransaccionesUpdateManyWithWhereWithoutCompradorInput = {
   data: Prisma.XOR<Prisma.TransaccionesUpdateManyMutationInput, Prisma.TransaccionesUncheckedUpdateManyWithoutCompradorInput>
 }
 
+export type TransaccionesScalarWhereInput = {
+  AND?: Prisma.TransaccionesScalarWhereInput | Prisma.TransaccionesScalarWhereInput[]
+  OR?: Prisma.TransaccionesScalarWhereInput[]
+  NOT?: Prisma.TransaccionesScalarWhereInput | Prisma.TransaccionesScalarWhereInput[]
+  id?: Prisma.IntFilter<"Transacciones"> | number
+  comprador_id?: Prisma.IntFilter<"Transacciones"> | number
+  monto_total?: Prisma.DecimalFilter<"Transacciones"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  fecha_pago?: Prisma.DateTimeFilter<"Transacciones"> | Date | string
+  estado?: Prisma.StringFilter<"Transacciones"> | string
+}
+
 export type TransaccionesCreateWithoutDetallesInput = {
   monto_total: runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Date | string
   estado?: string
   Comprador: Prisma.CompradoresCreateNestedOneWithoutTransaccionesInput
-  MetodoPago: Prisma.MetodosPagoCreateNestedOneWithoutTransaccionesInput
 }
 
 export type TransaccionesUncheckedCreateWithoutDetallesInput = {
   id?: number
   comprador_id: number
-  metodo_pago_id: number
   monto_total: runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Date | string
   estado?: string
@@ -646,44 +526,9 @@ export type TransaccionesUpdateWithoutDetallesInput = {
   fecha_pago?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   estado?: Prisma.StringFieldUpdateOperationsInput | string
   Comprador?: Prisma.CompradoresUpdateOneRequiredWithoutTransaccionesNestedInput
-  MetodoPago?: Prisma.MetodosPagoUpdateOneRequiredWithoutTransaccionesNestedInput
 }
 
 export type TransaccionesUncheckedUpdateWithoutDetallesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  comprador_id?: Prisma.IntFieldUpdateOperationsInput | number
-  metodo_pago_id?: Prisma.IntFieldUpdateOperationsInput | number
-  monto_total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  fecha_pago?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estado?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type TransaccionesCreateManyMetodoPagoInput = {
-  id?: number
-  comprador_id: number
-  monto_total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  fecha_pago?: Date | string
-  estado?: string
-}
-
-export type TransaccionesUpdateWithoutMetodoPagoInput = {
-  monto_total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  fecha_pago?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estado?: Prisma.StringFieldUpdateOperationsInput | string
-  Comprador?: Prisma.CompradoresUpdateOneRequiredWithoutTransaccionesNestedInput
-  detalles?: Prisma.DetalleTransaccionUpdateManyWithoutTransaccionNestedInput
-}
-
-export type TransaccionesUncheckedUpdateWithoutMetodoPagoInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  comprador_id?: Prisma.IntFieldUpdateOperationsInput | number
-  monto_total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  fecha_pago?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estado?: Prisma.StringFieldUpdateOperationsInput | string
-  detalles?: Prisma.DetalleTransaccionUncheckedUpdateManyWithoutTransaccionNestedInput
-}
-
-export type TransaccionesUncheckedUpdateManyWithoutMetodoPagoInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   comprador_id?: Prisma.IntFieldUpdateOperationsInput | number
   monto_total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -693,7 +538,6 @@ export type TransaccionesUncheckedUpdateManyWithoutMetodoPagoInput = {
 
 export type TransaccionesCreateManyCompradorInput = {
   id?: number
-  metodo_pago_id: number
   monto_total: runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Date | string
   estado?: string
@@ -703,13 +547,11 @@ export type TransaccionesUpdateWithoutCompradorInput = {
   monto_total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   estado?: Prisma.StringFieldUpdateOperationsInput | string
-  MetodoPago?: Prisma.MetodosPagoUpdateOneRequiredWithoutTransaccionesNestedInput
   detalles?: Prisma.DetalleTransaccionUpdateManyWithoutTransaccionNestedInput
 }
 
 export type TransaccionesUncheckedUpdateWithoutCompradorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  metodo_pago_id?: Prisma.IntFieldUpdateOperationsInput | number
   monto_total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   estado?: Prisma.StringFieldUpdateOperationsInput | string
@@ -718,7 +560,6 @@ export type TransaccionesUncheckedUpdateWithoutCompradorInput = {
 
 export type TransaccionesUncheckedUpdateManyWithoutCompradorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  metodo_pago_id?: Prisma.IntFieldUpdateOperationsInput | number
   monto_total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   estado?: Prisma.StringFieldUpdateOperationsInput | string
@@ -758,12 +599,10 @@ export type TransaccionesCountOutputTypeCountDetallesArgs<ExtArgs extends runtim
 export type TransaccionesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   comprador_id?: boolean
-  metodo_pago_id?: boolean
   monto_total?: boolean
   fecha_pago?: boolean
   estado?: boolean
   Comprador?: boolean | Prisma.CompradoresDefaultArgs<ExtArgs>
-  MetodoPago?: boolean | Prisma.MetodosPagoDefaultArgs<ExtArgs>
   detalles?: boolean | Prisma.Transacciones$detallesArgs<ExtArgs>
   _count?: boolean | Prisma.TransaccionesCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["transacciones"]>
@@ -771,61 +610,51 @@ export type TransaccionesSelect<ExtArgs extends runtime.Types.Extensions.Interna
 export type TransaccionesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   comprador_id?: boolean
-  metodo_pago_id?: boolean
   monto_total?: boolean
   fecha_pago?: boolean
   estado?: boolean
   Comprador?: boolean | Prisma.CompradoresDefaultArgs<ExtArgs>
-  MetodoPago?: boolean | Prisma.MetodosPagoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["transacciones"]>
 
 export type TransaccionesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   comprador_id?: boolean
-  metodo_pago_id?: boolean
   monto_total?: boolean
   fecha_pago?: boolean
   estado?: boolean
   Comprador?: boolean | Prisma.CompradoresDefaultArgs<ExtArgs>
-  MetodoPago?: boolean | Prisma.MetodosPagoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["transacciones"]>
 
 export type TransaccionesSelectScalar = {
   id?: boolean
   comprador_id?: boolean
-  metodo_pago_id?: boolean
   monto_total?: boolean
   fecha_pago?: boolean
   estado?: boolean
 }
 
-export type TransaccionesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "comprador_id" | "metodo_pago_id" | "monto_total" | "fecha_pago" | "estado", ExtArgs["result"]["transacciones"]>
+export type TransaccionesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "comprador_id" | "monto_total" | "fecha_pago" | "estado", ExtArgs["result"]["transacciones"]>
 export type TransaccionesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Comprador?: boolean | Prisma.CompradoresDefaultArgs<ExtArgs>
-  MetodoPago?: boolean | Prisma.MetodosPagoDefaultArgs<ExtArgs>
   detalles?: boolean | Prisma.Transacciones$detallesArgs<ExtArgs>
   _count?: boolean | Prisma.TransaccionesCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TransaccionesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Comprador?: boolean | Prisma.CompradoresDefaultArgs<ExtArgs>
-  MetodoPago?: boolean | Prisma.MetodosPagoDefaultArgs<ExtArgs>
 }
 export type TransaccionesIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Comprador?: boolean | Prisma.CompradoresDefaultArgs<ExtArgs>
-  MetodoPago?: boolean | Prisma.MetodosPagoDefaultArgs<ExtArgs>
 }
 
 export type $TransaccionesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Transacciones"
   objects: {
     Comprador: Prisma.$CompradoresPayload<ExtArgs>
-    MetodoPago: Prisma.$MetodosPagoPayload<ExtArgs>
     detalles: Prisma.$DetalleTransaccionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     comprador_id: number
-    metodo_pago_id: number
     monto_total: runtime.Decimal
     fecha_pago: Date
     estado: string
@@ -1224,7 +1053,6 @@ readonly fields: TransaccionesFieldRefs;
 export interface Prisma__TransaccionesClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   Comprador<T extends Prisma.CompradoresDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompradoresDefaultArgs<ExtArgs>>): Prisma.Prisma__CompradoresClient<runtime.Types.Result.GetResult<Prisma.$CompradoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  MetodoPago<T extends Prisma.MetodosPagoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MetodosPagoDefaultArgs<ExtArgs>>): Prisma.Prisma__MetodosPagoClient<runtime.Types.Result.GetResult<Prisma.$MetodosPagoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   detalles<T extends Prisma.Transacciones$detallesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transacciones$detallesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DetalleTransaccionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1257,7 +1085,6 @@ export interface Prisma__TransaccionesClient<T, Null = never, ExtArgs extends ru
 export interface TransaccionesFieldRefs {
   readonly id: Prisma.FieldRef<"Transacciones", 'Int'>
   readonly comprador_id: Prisma.FieldRef<"Transacciones", 'Int'>
-  readonly metodo_pago_id: Prisma.FieldRef<"Transacciones", 'Int'>
   readonly monto_total: Prisma.FieldRef<"Transacciones", 'Decimal'>
   readonly fecha_pago: Prisma.FieldRef<"Transacciones", 'DateTime'>
   readonly estado: Prisma.FieldRef<"Transacciones", 'String'>

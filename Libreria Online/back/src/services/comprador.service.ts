@@ -67,20 +67,19 @@ export class CompradorService {
     );
   }
 
-  async procesarAbono(compradorId: number, metodoPagoId: number) {
+  async procesarAbono(compradorId: number) {
     return await prisma.$transaction(async (tx) => {
       const carrito = await this.carritoRepository.findCarritoByIdComprador(
         compradorId,
         tx,
       );
-
+      console.log(carrito);
       const transaccion = await this.transaccionRepository.crear(
         compradorId,
-        metodoPagoId,
         carrito,
         tx,
       );
-
+      console.log(transaccion);
       await this.libroRepository.actualizarStockTrasCompra(
         carrito.detalles,
         tx,
@@ -91,13 +90,38 @@ export class CompradorService {
     });
   }
 
-  private validarStock(carrito: any) {
-    if (carrito.detalles.length === 0) throw new Error("El carrito está vacío");
-
-    for (const item of carrito.detalles) {
-      if ((item.Libros.stock || 0) < item.cantidad) {
-        throw new Error(`Stock insuficiente para: ${item.Libros.nombre}`);
-      }
+  async descontarProducto(
+    compradorId: number,
+    libroId: number,
+    cantidad: number,
+  ) {
+    // 1. Buscar libro
+    const libro = await this.libroRepository.findLibroById(libroId);
+    if (!libro) {
+      throw new Error("El libro no existe.");
     }
+
+    // 3. Buscar carrito
+    const carrito = await this.carritoRepository.findCarrito(compradorId);
+
+    carrito?.detalles.map((d) => {
+      if (d.libro_id == libroId) {
+        if (d.cantidad - cantidad <= 0) {
+          throw new Error("No se puede disminuir mas");
+        }
+      }
+    });
+
+    if (!carrito || !carrito.id) {
+      throw new Error("Carrito no encontrado para este comprador.");
+    }
+
+    return await this.carritoRepository.disminuirProductoCarrito(
+      carrito.id,
+      libro,
+      cantidad,
+    );
   }
 }
+
+// 4. Validar existencia estricta (no creamos nada nuevo)
