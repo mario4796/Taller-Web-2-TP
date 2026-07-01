@@ -13,8 +13,18 @@ export class LibroCarrito {
   detalle = input.required<DetalleCarrito>();
 
   onEliminar = output<number>(); // Emite el ID del libro
+  onRestar = output<number>();
+  onAumentar = output<number>();
 
   borrar() {
     this.onEliminar.emit(this.detalle().libro_id);
+  }
+
+  restar() {
+    this.onRestar.emit(this.detalle().libro_id);
+  }
+
+  aumentar() {
+    this.onAumentar.emit(this.detalle().libro_id);
   }
 }

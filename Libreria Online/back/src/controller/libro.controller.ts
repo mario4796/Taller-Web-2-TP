@@ -14,7 +14,6 @@ export class LibroController {
   public getLibros = async (req: Request, res: Response) => {
     try {
       const libros = await libroService.obtenerLibros();
-      console.log(libros);
       res
         .status(200)
         .json({ message: "Libros obtenidos correctamente", data: libros });
@@ -149,7 +148,7 @@ export class LibroController {
   public getLibrosConStock = async (req: Request, res: Response) => {
     try {
       const libros = await libroService.obtenerLibros();
-      console.log(libros);
+
       res
         .status(200)
         .json({ message: "Libros obtenidos correctamente", data: libros });

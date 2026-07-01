@@ -80,12 +80,14 @@ export class Register {
       next: () => {
         this.isLoading = false;
         this.toastService.success('Tu cuenta se creo correctamente.');
-        setTimeout(() => this.router.navigate(['']), 900);
+        setTimeout(() => this.router.navigate(['']), 2000);
       },
       error: (err) => {
         console.error('Error al registrar:', err);
         this.isLoading = false;
-        this.toastService.error('No se pudo crear la cuenta. Revisa los datos e intenta nuevamente.');
+        this.toastService.error(
+          'No se pudo crear la cuenta. Revisa los datos e intenta nuevamente.',
+        );
       },
     });
   }
@@ -95,7 +97,10 @@ export class Register {
     const confirmPasswordControl = control.get('confirmPassword');
     const confirmPassword = confirmPasswordControl?.value;
     if (password !== confirmPassword) {
-      confirmPasswordControl?.setErrors({ ...(confirmPasswordControl.errors ?? {}), noMatch: true });
+      confirmPasswordControl?.setErrors({
+        ...(confirmPasswordControl.errors ?? {}),
+        noMatch: true,
+      });
       return { passwordsDoNotMatch: true };
     }
 

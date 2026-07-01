@@ -385,7 +385,6 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Administradores: 'Administradores',
-  MetodosPago: 'MetodosPago',
   Compradores: 'Compradores',
   Libros: 'Libros',
   LibroDigitalAdquirido: 'LibroDigitalAdquirido',
@@ -413,7 +412,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "administradores" | "metodosPago" | "compradores" | "libros" | "libroDigitalAdquirido" | "proveedores" | "tiposUsuario" | "listaProveedor" | "usuarios" | "ofertaLibro" | "carritos" | "detallesCarrito" | "transacciones" | "detalleTransaccion"
+    modelProps: "administradores" | "compradores" | "libros" | "libroDigitalAdquirido" | "proveedores" | "tiposUsuario" | "listaProveedor" | "usuarios" | "ofertaLibro" | "carritos" | "detallesCarrito" | "transacciones" | "detalleTransaccion"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -488,80 +487,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.AdministradoresCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.AdministradoresCountAggregateOutputType> | number
-        }
-      }
-    }
-    MetodosPago: {
-      payload: Prisma.$MetodosPagoPayload<ExtArgs>
-      fields: Prisma.MetodosPagoFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.MetodosPagoFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetodosPagoPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.MetodosPagoFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetodosPagoPayload>
-        }
-        findFirst: {
-          args: Prisma.MetodosPagoFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetodosPagoPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.MetodosPagoFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetodosPagoPayload>
-        }
-        findMany: {
-          args: Prisma.MetodosPagoFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetodosPagoPayload>[]
-        }
-        create: {
-          args: Prisma.MetodosPagoCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetodosPagoPayload>
-        }
-        createMany: {
-          args: Prisma.MetodosPagoCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.MetodosPagoCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetodosPagoPayload>[]
-        }
-        delete: {
-          args: Prisma.MetodosPagoDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetodosPagoPayload>
-        }
-        update: {
-          args: Prisma.MetodosPagoUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetodosPagoPayload>
-        }
-        deleteMany: {
-          args: Prisma.MetodosPagoDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.MetodosPagoUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.MetodosPagoUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetodosPagoPayload>[]
-        }
-        upsert: {
-          args: Prisma.MetodosPagoUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetodosPagoPayload>
-        }
-        aggregate: {
-          args: Prisma.MetodosPagoAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateMetodosPago>
-        }
-        groupBy: {
-          args: Prisma.MetodosPagoGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.MetodosPagoGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.MetodosPagoCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.MetodosPagoCountAggregateOutputType> | number
         }
       }
     }
@@ -1499,18 +1424,6 @@ export const AdministradoresScalarFieldEnum = {
 export type AdministradoresScalarFieldEnum = (typeof AdministradoresScalarFieldEnum)[keyof typeof AdministradoresScalarFieldEnum]
 
 
-export const MetodosPagoScalarFieldEnum = {
-  id: 'id',
-  comprador_id: 'comprador_id',
-  tipo: 'tipo',
-  nombre_provider: 'nombre_provider',
-  token_externo: 'token_externo',
-  es_predeterminado: 'es_predeterminado'
-} as const
-
-export type MetodosPagoScalarFieldEnum = (typeof MetodosPagoScalarFieldEnum)[keyof typeof MetodosPagoScalarFieldEnum]
-
-
 export const CompradoresScalarFieldEnum = {
   usuario_id: 'usuario_id'
 } as const
@@ -1627,7 +1540,6 @@ export type DetallesCarritoScalarFieldEnum = (typeof DetallesCarritoScalarFieldE
 export const TransaccionesScalarFieldEnum = {
   id: 'id',
   comprador_id: 'comprador_id',
-  metodo_pago_id: 'metodo_pago_id',
   monto_total: 'monto_total',
   fecha_pago: 'fecha_pago',
   estado: 'estado'
@@ -1692,20 +1604,6 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'TipoMetodoPago'
- */
-export type EnumTipoMetodoPagoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoMetodoPago'>
-    
-
-
-/**
- * Reference to a field of type 'TipoMetodoPago[]'
- */
-export type ListEnumTipoMetodoPagoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoMetodoPago[]'>
-    
-
-
-/**
  * Reference to a field of type 'String'
  */
 export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -1716,13 +1614,6 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'String[]'
  */
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -1765,6 +1656,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -1906,7 +1804,6 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   administradores?: Prisma.AdministradoresOmit
-  metodosPago?: Prisma.MetodosPagoOmit
   compradores?: Prisma.CompradoresOmit
   libros?: Prisma.LibrosOmit
   libroDigitalAdquirido?: Prisma.LibroDigitalAdquiridoOmit

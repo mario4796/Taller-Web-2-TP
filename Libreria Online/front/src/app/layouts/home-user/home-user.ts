@@ -8,11 +8,14 @@ import { Libro } from '../../shared/interfaces/libro.interface';
 import { LibrosService } from '../../api/services/libros/libros.services';
 import { Card } from 'primeng/card';
 import { AuthService } from '../../services/Auth/auth-service';
+import { Toast } from "primeng/toast";
+import { NotificationService } from '../../services/NotificationService/notification-service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-home-user',
   standalone: true,
-  imports: [CommonModule, Nav, Home, CarouselModule, ButtonModule],
+  imports: [CommonModule, Nav, Home, CarouselModule, ButtonModule, Toast],
   templateUrl: './home-user.html',
   styleUrl: './home-user.css',
 })
@@ -20,6 +23,8 @@ export class HomeUser {
   libroService = inject(LibrosService);
   libros = signal<Libro[]>([]);
   private authService = inject(AuthService);
+    private notificationService = inject(NotificationService);
+ private messageService = inject(MessageService);
 
   logueado = computed(() => this.authService.tipoUsuario() !== null);
   role = computed(() => this.authService.tipoUsuario()?.toLowerCase() || '');
@@ -34,6 +39,13 @@ export class HomeUser {
   rutaExplorar = '/libros';
 
   ngOnInit(): void {
+    const msg = this.notificationService.getPendingMessage();
+  if (msg) {
+  
+    setTimeout(() => {
+      this.messageService.add(msg);
+    }, 100);
+  }
     this.verificarLogin();
     this.cargarLibrosDestacados();
   }

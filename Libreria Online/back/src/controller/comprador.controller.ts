@@ -52,6 +52,24 @@ export class CompradorController {
     }
   };
 
+  public descontarProductosCarrito = async (req: Request, res: Response) => {
+    try {
+      const { comprador_id, libro_id, cantidad } = req.body;
+
+      const producto = await compradorService.descontarProducto(
+        comprador_id,
+        libro_id,
+        cantidad,
+      );
+
+      console.log(producto);
+
+      res.status(200).json(producto);
+    } catch (error) {
+      res.status(500).json({ message: "Error al obtener los producto", error });
+    }
+  };
+
   public borrarProductoDelCarrito = async (req: Request, res: Response) => {
     try {
       const { comprador_id, libro_id } = req.body;
@@ -70,11 +88,9 @@ export class CompradorController {
 
   public comprarProductos = async (req: Request, res: Response) => {
     try {
-      const { comprador_id, metodo_pago_id } = req.body;
-      const compra = await compradorService.procesarAbono(
-        comprador_id,
-        metodo_pago_id,
-      );
+      const { comprador_id } = req.body;
+      console.log("Aca llego" + comprador_id);
+      const compra = await compradorService.procesarAbono(comprador_id);
 
       console.log(compra);
 

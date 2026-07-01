@@ -34,7 +34,15 @@ export class CompradorService {
     return this.http.post(`${environment.API_URL}/comprador/borrarProducto`, datos);
   }
 
-  procesarPago(datos: { comprador_id: number; metodo_pago_id: number }): Observable<any> {
+  procesarPago(datos: { comprador_id: number }): Observable<any> {
     return this.http.post(`${environment.API_URL}/comprador/procesarPago`, datos);
+  }
+
+  descontarProducto(datos: {
+    comprador_id: number;
+    libro_id: number;
+    cantidad: number;
+  }): Observable<any> {
+    return this.http.post(`${environment.API_URL}/comprador/descontarProducto`, datos);
   }
 }
