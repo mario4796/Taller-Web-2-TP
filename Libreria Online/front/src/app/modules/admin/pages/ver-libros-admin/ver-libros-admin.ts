@@ -19,6 +19,7 @@ import { ToastService } from '../../../../shared/services/toast.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of } from 'rxjs';
 import { PedirStockAdmin } from '../../components/pedir-stock-admin/pedir-stock-admin';
+import { ContraofertaAdminDialog } from '../../components/contraoferta-admin-dialog/contraoferta-admin-dialog';
 import { ProveedoresService } from '../../../../api/services/usuarios/proveedores';
 
 interface ApiResponse {
@@ -42,6 +43,7 @@ interface ApiResponse {
     InputGroupAddonModule,
     ToastModule,
     PedirStockAdmin,
+    ContraofertaAdminDialog
   ],
   templateUrl: './ver-libros-admin.html',
   styleUrl: './ver-libros-admin.css',
@@ -222,17 +224,17 @@ export class VerLibrosAdmin {
 // para guardar el OfertaLibro recibido del hijo pedirStock
 manejadorGuardarPedido(evento: { cantidad: number; proveedor: any }, libroActual: any) {
 
-  // 🚀 BLINDAJE: Si 'libroActual' es una función (Signal), la ejecutamos.
+  //  BLINDAJE: Si 'libroActual' es una función (Signal), la ejecutamos.
   // Si no, usamos el objeto directo. Esto destruye el "() => signalGetFn(node)"
   const libro = typeof libroActual === 'function' ? libroActual() : libroActual;
 
-  console.log("🔍 Datos del libro procesado en el Padre:", libro);
+  console.log(" Datos del libro procesado en el Padre:", libro);
 
   // Extraemos de forma segura el ID numérico
   const idDelLibro = libro?.id || libro?.libroId;
 
   if (!idDelLibro) {
-    console.error("🚨 Error crítico insólitamente persistente. Estructura del objeto:", libro);
+    console.error(" Error crítico:", libro);
     return;
   }
 

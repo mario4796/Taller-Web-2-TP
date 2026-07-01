@@ -15,6 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { MessageService } from 'primeng/api';
 import { Proveedor } from '../../../../shared/interfaces/usuario.interface';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-pedir-stock-admin',
@@ -35,8 +36,9 @@ import { Proveedor } from '../../../../shared/interfaces/usuario.interface';
   styleUrl: './pedir-stock-admin.css',
 })
 export class PedirStockAdmin {
-  //  servicio de proveedores
+  //  servicios
   private proveedoresService = inject(ProveedoresService);
+  private messageService = inject(MessageService);
 
   // Signals (Solo lectura)
   visible = input<boolean>(false);
@@ -85,21 +87,39 @@ export class PedirStockAdmin {
     });
   }
 
-  enviarPedido(): void {
-    if (!this.cantidadInput() || this.cantidadInput()! <= 0 || !this.proveedorSeleccionado()) return;
+enviarPedido(form: NgForm): void {
+  
+  if (form.invalid || !this.cantidadInput() || !this.proveedorSeleccionado()) return;
 
-    // Emitimos el objeto plano con el libro desempaquetado que el padre ya sabe leer
-    this.alGuardarPedido.emit({
-      cantidad: this.cantidadInput()!,
-      proveedor: this.proveedorSeleccionado()!
-    });
+  const proveedorNombre = this.proveedorSeleccionado()?.nombre;
+  const cantidad = this.cantidadInput();
 
-    this.cerrar();
-  }
+  this.alGuardarPedido.emit({
+    cantidad: this.cantidadInput()!,
+    proveedor: this.proveedorSeleccionado()!
+    
+  });
+  this.messageService.add({
+    severity: 'success',
+    summary: 'Pedido Confirmado',
+    detail: `Se solicitaron ${cantidad} unidades a ${proveedorNombre}.`,
+    life: 3000 // Dura 3 segundos
+  });
 
-  cerrar(): void {
-    this.visibleChange.emit(false);
+
+
+  this.cerrar(form);
+}
+
+  cerrar(form?: NgForm): void {
+  this.visibleChange.emit(false);
+  
+  if (form) {
+    // resetForm() limpia los estilos rojos de validación y vacía los ngModel 
+    form.resetForm(); 
+  } else {
     this.cantidadInput.set(null);
     this.proveedorSeleccionado.set(null);
   }
+}
 }
