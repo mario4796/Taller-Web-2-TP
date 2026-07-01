@@ -66,7 +66,9 @@ export class OfertaLibroController {
     } catch (error: any) {
       const validationMessages = [
         "Faltan campos obligatorios para crear la oferta",
-        "El precio y la cantidad deben ser mayores a 0",
+        "Falta el proveedor para crear la oferta",
+        "El usuario no existe o no es proveedor",
+        "La cantidad debe ser mayor a 0 y el precio no puede ser negativo",
       ];
 
       res

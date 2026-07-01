@@ -1,0 +1,58 @@
+<app-nav></app-nav>
+
+<section class="usuarios-page">
+  <header class="usuarios-header">
+    <div>
+      <p class="usuarios-eyebrow">Administracion de usuarios</p>
+      <h2>Usuarios registrados</h2>
+      <p class="usuarios-description">
+        Lista de usuarios activos con sus datos principales y el tipo de usuario.
+      </p>
+    </div>
+  </header>
+
+  @if (error()) {
+    <div class="estado estado-error">
+      {{ error() }}
+    </div>
+  }
+
+  <div class="card">
+    <p-table
+      [value]="usuarios()"
+      styleClass="usuarios-table"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [loading]="cargando()"
+      [tableStyle]="{ 'min-width': '56rem' }"
+      responsiveLayout="scroll"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Direccion</th>
+          <th>Email</th>
+          <th>Tipo de usuario</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-usuario>
+        <tr>
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.apellido }}</td>
+          <td>{{ usuario.direccion }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.tipoUsuarioDescripcion }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5">No hay usuarios registrados para mostrar.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</section>

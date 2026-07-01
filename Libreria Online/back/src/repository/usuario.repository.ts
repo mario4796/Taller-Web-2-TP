@@ -1,7 +1,4 @@
 import { prisma } from "../prisma.js";
-import { Usuario } from "../models/usuario.model.js";
-import { equal } from "node:assert";
-import { Prisma } from "../prisma/client";
 
 export class UsuarioRepository {
   async obtenerProveedores(): Promise<any[]> {
@@ -9,7 +6,7 @@ export class UsuarioRepository {
       
       
       where: {
-        tipo_usuario_id: 3,
+        tipo_usuario_id: 2,
       },
     });
 
@@ -30,9 +27,31 @@ export class UsuarioRepository {
   }
 
   async findAllUsuarios() {
-    const usuarios = await prisma.usuarios.findMany();
+    const usuarios = await prisma.usuarios.findMany({
+      select: {
+        id: true,
+        email: true,
+        nombre: true,
+        apellido: true,
+        direccion: true,
+        tipo_usuario_id: true,
+        TipoUsuario: {
+          select: {
+            nombre: true,
+          },
+        },
+      },
+    });
 
-    return usuarios;
+    return usuarios.map((usuario) => ({
+      id: usuario.id,
+      email: usuario.email,
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      direccion: usuario.direccion,
+      tipo_usuario_id: usuario.tipo_usuario_id,
+      tipo_usuario_descripcion: usuario.TipoUsuario.nombre,
+    }));
   }
 
   async findByEmailAndContrasenia(email: string, contrasenia: string) {
@@ -56,6 +75,23 @@ export class UsuarioRepository {
     direccion: string,
     tipo_usuario: number,
   ) {
+    const esProveedor = tipo_usuario === 2;
+    const relacionPorTipo = esProveedor
+      ? {
+          Proveedores: {
+            create: {},
+          },
+        }
+      : {
+          Compradores: {
+            create: {
+              Carrito: {
+                create: {},
+              },
+            },
+          },
+        };
+
     return await prisma.usuarios.create({
       data: {
         email: email,
@@ -64,13 +100,7 @@ export class UsuarioRepository {
         apellido: apellido,
         direccion: direccion,
         tipo_usuario_id: tipo_usuario,
-        Compradores: {
-          create: {
-            Carrito: {
-              create: {},
-            },
-          },
-        },
+        ...relacionPorTipo,
       },
     });
   }

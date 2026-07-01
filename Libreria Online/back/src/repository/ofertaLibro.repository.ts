@@ -2,6 +2,22 @@ import { prisma } from '../prisma.js';
 import { CategoriaLibro, EstadoOferta } from '../prisma/enums.js';
 
 export class OfertaLibroRepository {
+    async asegurarProveedor(proveedorId: number) {
+        const usuario = await prisma.usuarios.findUnique({
+            where: { id: proveedorId },
+            select: { id: true, tipo_usuario_id: true },
+        });
+
+        if (!usuario || usuario.tipo_usuario_id !== 2) {
+            throw new Error('El usuario no existe o no es proveedor');
+        }
+
+        await prisma.proveedores.upsert({
+            where: { usuario_id: proveedorId },
+            update: {},
+            create: { usuario_id: proveedorId },
+        });
+    }
     
     async crearOferta(data: {
         nombre: string; 
@@ -10,6 +26,7 @@ export class OfertaLibroRepository {
         precioProveedor: number; 
         cantidadProveedor: number; 
         cantidadAdmin: number;
+        estado: EstadoOferta;
         proveedorId: number;
         libroId?: number | null, 
         categoria: CategoriaLibro, 

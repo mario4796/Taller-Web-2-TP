@@ -15,6 +15,10 @@ export class UsuarioService {
     return await this.usuarioRepository.findAllUsuarios();
   }
 
+  async obtenerUsuariosRegistrados() {
+    return await this.usuarioRepository.findAllUsuarios();
+  }
+
   async iniciarSesion(email: string, contrasenia: string) {
     const usuario = await this.usuarioRepository.findByEmailAndContrasenia(
       email,

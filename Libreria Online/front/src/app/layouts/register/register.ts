@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -13,13 +13,11 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { UsuarioService } from '../../api/services/usuario/usuario-service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FloatLabel } from 'primeng/floatlabel';
 import { CheckboxModule } from 'primeng/checkbox';
-import { IftaLabelModule } from 'primeng/iftalabel';
-import { MessageService } from 'primeng/api';
-import { Toast } from "primeng/toast";
-import { NotificationService } from '../../services/NotificationService/notification-service';
+import { ToastModule } from 'primeng/toast';
+import { ToastService } from '../../shared/services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -31,8 +29,8 @@ import { NotificationService } from '../../services/NotificationService/notifica
     ButtonModule,
     CardModule,
     CheckboxModule,
-    IftaLabelModule,
-    Toast
+    ToastModule,
+    RouterLink,
   ],
   templateUrl: './register.html',
   styleUrls: ['./register.css'],
@@ -42,8 +40,9 @@ export class Register {
   private fb = inject(FormBuilder);
   private usuarioService = inject(UsuarioService);
   private router = inject(Router);
-  private messageService = inject(MessageService);
-  private notificationService = inject(NotificationService);
+  private toastService = inject(ToastService);
+
+  isLoading = false;
 
   public form: FormGroup = this.fb.group(
     {
@@ -64,6 +63,8 @@ export class Register {
       return;
     }
 
+    this.isLoading = true;
+
     const { confirmPassword, password, serProveedor, ...datosBase } = this.form.value;
 
     const tipoUsuario = serProveedor ? 2 : 3;
@@ -76,60 +77,37 @@ export class Register {
 
     this.usuarioService.registrar(usuarioPayload).subscribe({
       next: () => {
-        console.log('Usuario registrado con éxito como tipo:', tipoUsuario);
-        this.notificationService.setPendingMessage({
-          severity: 'success',
-           summary: 'Registro Exitoso',
-          detail: 'Usuario registrado correctamente',
-              life: 3000, 
-        });
-        this.router.navigate(['']);
-
+        this.isLoading = false;
+        this.toastService.success('Tu cuenta se creo correctamente.');
+        setTimeout(() => this.router.navigate(['']), 900);
       },
       error: (err) => {
-        console.error('Error al registrar:', err)
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Ya existe un usuario registrado con ese Email.',
-          life: 3000,
-        });
+        console.error('Error al registrar:', err);
+        this.isLoading = false;
+        this.toastService.error(
+          'No se pudo crear la cuenta. Revisa los datos e intenta nuevamente.',
+        );
       },
     });
   }
+
   private matchPasswords(control: AbstractControl): ValidationErrors | null {
-
-    const password = control.get('password');
-    const confirmPassword = control.get('confirmPassword');
-
-    if (!password || !confirmPassword) {
-      return null;
-    }
-
-    if (confirmPassword.hasError('required')) {
-      return null;
-    }
-
-    if (password.value !== confirmPassword.value) {
-      confirmPassword.setErrors({
-        ...confirmPassword.errors,
-        noMatch: true
+    const password = control.get('password')?.value;
+    const confirmPasswordControl = control.get('confirmPassword');
+    const confirmPassword = confirmPasswordControl?.value;
+    if (password !== confirmPassword) {
+      confirmPasswordControl?.setErrors({
+        ...(confirmPasswordControl.errors ?? {}),
+        noMatch: true,
       });
-    } else {
+      return { passwordsDoNotMatch: true };
+    }
 
-      if (confirmPassword.hasError('noMatch')) {
-
-        const errors = { ...confirmPassword.errors };
-        delete errors['noMatch'];
-
-        confirmPassword.setErrors(
-          Object.keys(errors).length ? errors : null
-        );
-      }
-
+    if (confirmPasswordControl?.hasError('noMatch')) {
+      const { noMatch, ...errors } = confirmPasswordControl.errors ?? {};
+      confirmPasswordControl.setErrors(Object.keys(errors).length ? errors : null);
     }
 
     return null;
-
   }
 }

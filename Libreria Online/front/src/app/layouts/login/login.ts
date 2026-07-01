@@ -1,73 +1,81 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
-import { UsuarioService } from '../../api/services/usuario/usuario-service';
-
-import { Router } from '@angular/router';
-import { AuthService } from '../../services/Auth/auth-service';
-import { MessageService } from 'primeng/api';
-import { Toast } from "primeng/toast";
+import { ToastModule } from 'primeng/toast';
 import { IftaLabelModule } from 'primeng/iftalabel';
+
+import { UsuarioService } from '../../api/services/usuario/usuario-service';
+import { AuthService } from '../../services/Auth/auth-service';
+import { ToastService } from '../../shared/services/toast.service';
 
 @Component({
   selector: 'app-login',
-  standalone:true,
+  standalone: true,
   imports: [
     ReactiveFormsModule,
     CardModule,
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    Toast,
-    IftaLabelModule
-],
-  providers: [MessageService], 
+    IftaLabelModule,
+    ToastModule,
+  ],
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
 })
 export class Login {
-
   private fb = inject(FormBuilder);
-
   private usuarioService = inject(UsuarioService);
   private authService = inject(AuthService);
   private router = inject(Router);
-  private messageService = inject(MessageService);
+  private toastService = inject(ToastService);
 
-  public form: FormGroup = this.fb.group({
+  isLoading = false;
+
+  form: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    password: ['', Validators.required],
   });
-  submit() {
+
+  submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
+
+    this.isLoading = true;
+
     const datos = {
-      email: this.form.get('email')?.value,
-      contrasena: this.form.get('password')?.value,
+      email: this.form.value.email,
+      contrasena: this.form.value.password,
     };
 
     this.usuarioService.login(datos).subscribe({
       next: (respuesta) => {
-        console.log(respuesta.tipo_usuario_id);
+        this.isLoading = false;
+
         this.authService.setSesion(respuesta.tipo_usuario_id, respuesta);
-        console.log(localStorage.getItem('usuario'));
-        
-        this.router.navigate(['']);
+
+        if (respuesta.tipo_usuario_id === 1) {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['']);
+        }
       },
       error: (err) => {
-
-        this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Usuario o Contraseña incorrectos, por favor vuelva a intentarlo.',
-            life: 3000,
-          });
         console.error('Credenciales incorrectas', err);
+
+        this.isLoading = false;
+
+        this.toastService.error(
+          'Revisa el email y la contraseña ingresados.',
+          'No se pudo iniciar sesión',
+        );
       },
     });
   }

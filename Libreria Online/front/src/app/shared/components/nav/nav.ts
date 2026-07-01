@@ -53,10 +53,9 @@ export class Nav {
         return [
           { label: 'Inicio', icon: 'home', link: '/admin' },
           { label: 'Usuarios', icon: 'people', link: '/admin/usuarios' },
-          { label: 'Libros', icon: 'book', link: '/admin/libros' },
           { label: 'Ofertas', icon: 'sell', link: '/admin/ofertas' },
           { label: 'Stock', icon: 'inventory', link: '/admin/stock' },
-          { label: 'Reportes', icon: 'description', link: '/admin/reportes' },
+          { label: 'Reportes', icon: 'description' },
         ];
       case 'proveedor':
         return [
@@ -100,6 +99,18 @@ export class Nav {
   logout() {
     this.authService.logout();
     this.router.navigate(['/']);
+  }
+
+  onNavItemClick(item: NavItem, closeMobile = false): void {
+    if (closeMobile) {
+      this.mobileNavOpen.set(false);
+    }
+
+    if (!item.link) {
+      return;
+    }
+
+    this.router.navigateByUrl(item.link);
   }
 
   get initials(): string {

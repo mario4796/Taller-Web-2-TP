@@ -6,7 +6,7 @@
 
   <div class="nav-links">
     @for (item of navItems(); track item.label) {
-      <button class="nav-link" [routerLink]="item.link" type="button">
+      <button class="nav-link" type="button" (click)="onNavItemClick(item)">
         <span class="material-symbols-rounded">{{ item.icon }}</span>
         <span>{{ item.label }}</span>
       </button>
@@ -67,13 +67,36 @@
       @for (item of navItems(); track item.label) {
         <button
           class="mobile-nav-item"
-          [routerLink]="item.link"
           type="button"
-          (click)="mobileNavOpen.set(false)"
+          (click)="onNavItemClick(item, true)"
         >
           <span class="material-symbols-rounded">{{ item.icon }}</span>
           <span>{{ item.label }}</span>
         </button>
+      }
+
+      @if (!isLogged()) {
+        <div class="mobile-auth-actions">
+          <button
+            class="mobile-nav-item mobile-auth-item"
+            routerLink="/login"
+            type="button"
+            (click)="mobileNavOpen.set(false)"
+          >
+            <span class="material-symbols-rounded">login</span>
+            <span>Iniciar sesion</span>
+          </button>
+
+          <button
+            class="mobile-nav-item mobile-auth-item primary"
+            routerLink="/register"
+            type="button"
+            (click)="mobileNavOpen.set(false)"
+          >
+            <span class="material-symbols-rounded">person_add</span>
+            <span>Registrarme</span>
+          </button>
+        </div>
       }
     </div>
   </div>

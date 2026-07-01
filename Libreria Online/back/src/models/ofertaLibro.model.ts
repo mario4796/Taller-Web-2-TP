@@ -12,7 +12,7 @@ export class OfertaLibro {
   estado!: EstadoOferta;
   createdAt!: Date;
   creadoPor!: string;
-  libroId!: number | null;
+  libroId?: number | null;
   sinopsis!: string;
   imagenUrl!: string | null;
   categoria!: CategoriaLibro;
