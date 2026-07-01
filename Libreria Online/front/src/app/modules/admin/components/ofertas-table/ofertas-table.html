@@ -84,6 +84,7 @@
           [text]="true"
           severity="danger"
           title="Rechazar oferta y eliminarla"
+          [disabled]="!puedeResponder(oferta)"
           (click)="rechazar.emit(oferta)">
         </p-button>
       </td>

@@ -56,6 +56,7 @@ export class OfertaLibroService {
             precioProveedor: Number(oferta.precioProveedor),
             cantidadAdmin: esAdmin ? Number(cantidadProveedor) : 0, 
             cantidadProveedor: esAdmin ? 0 : Number(cantidadProveedor),
+            estado: esAdmin ? EstadoOferta.ESPERANDO_PROVEEDOR : EstadoOferta.ESPERANDO_ADMIN,
             proveedorId: Number(proveedorId),
             libroId,
             categoria,

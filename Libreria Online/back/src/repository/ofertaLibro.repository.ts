@@ -26,6 +26,7 @@ export class OfertaLibroRepository {
         precioProveedor: number; 
         cantidadProveedor: number; 
         cantidadAdmin: number;
+        estado: EstadoOferta;
         proveedorId: number;
         libroId?: number | null, 
         categoria: CategoriaLibro, 

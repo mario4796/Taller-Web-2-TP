@@ -59,6 +59,11 @@ export class Login {
         this.isLoading = false;
         this.authService.setSesion(respuesta.tipo_usuario_id, respuesta);
 
+        if (respuesta.tipo_usuario_id === 1) {
+          this.router.navigate(['/admin']);
+          return;
+        }
+
         this.router.navigate(['']);
       },
       error: (err) => {
