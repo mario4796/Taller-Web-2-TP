@@ -5,6 +5,8 @@ const usuarioRouter = Router();
 
 const usuarioController = new UsuarioController();
 
+usuarioRouter.get("/", usuarioController.obtenerUsuariosRegistrados.bind(usuarioController));
+
 usuarioRouter.post(
   "/iniciarSesion",
   usuarioController.iniciarSesion.bind(usuarioController),

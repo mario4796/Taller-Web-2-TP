@@ -11,6 +11,15 @@ const usuarioService = new UsuarioService(usuarioRepository);
 export class UsuarioController {
   constructor() {}
 
+  public obtenerUsuariosRegistrados = async (_req: Request, res: Response) => {
+    try {
+      const usuarios = await usuarioService.obtenerUsuariosRegistrados();
+      res.status(200).json(usuarios);
+    } catch (error) {
+      res.status(500).json({ message: "Error al obtener los usuarios", error });
+    }
+  };
+
   public iniciarSesion = async (req: Request, res: Response) => {
     try {
       console.log("Datos recibidos en el Body:", req.body);

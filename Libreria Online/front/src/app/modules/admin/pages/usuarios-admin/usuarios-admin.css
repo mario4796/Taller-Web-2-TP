@@ -1,0 +1,110 @@
+.usuarios-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.usuarios-header {
+  margin-bottom: 1rem;
+}
+
+.usuarios-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #0ea5e9;
+  margin: 0 0 0.35rem;
+}
+
+.usuarios-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.usuarios-description {
+  margin: 0.5rem 0 0;
+  color: #5b6472;
+}
+
+.card {
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  padding: 1rem;
+}
+
+.estado {
+  border-radius: 0.75rem;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.estado-error {
+  color: #991b1b;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+}
+
+:host ::ng-deep .usuarios-table .p-datatable-wrapper {
+  border: 1px solid #dbe2ea;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+:host ::ng-deep .usuarios-table .p-datatable-thead > tr > th {
+  background: #f8fafc;
+  border-bottom: 1px solid #dbe2ea;
+}
+
+:host ::ng-deep .usuarios-table .p-datatable-tbody > tr > td {
+  border-bottom: 1px solid #edf2f7;
+}
+
+:host ::ng-deep .usuarios-table .p-paginator {
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+  border-radius: 0 0 1rem 1rem;
+}
+
+:host-context(.app-dark) .usuarios-description {
+  color: #cbd5e1;
+}
+
+:host-context(.app-dark) .card {
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+}
+
+:host-context(.app-dark) .estado-error {
+  color: #fecaca;
+  background: rgba(127, 29, 29, 0.35);
+  border-color: rgba(248, 113, 113, 0.45);
+}
+
+:host-context(.app-dark) ::ng-deep .usuarios-table .p-datatable-wrapper,
+:host-context(.app-dark) ::ng-deep .usuarios-table .p-datatable-tbody > tr > td {
+  border-color: rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e2e8f0;
+}
+
+:host-context(.app-dark) ::ng-deep .usuarios-table .p-datatable-thead > tr > th {
+  background: rgba(30, 41, 59, 0.92);
+  border-bottom-color: rgba(148, 163, 184, 0.16);
+  color: #e2e8f0;
+}
+
+:host-context(.app-dark) ::ng-deep .usuarios-table .p-paginator {
+  border-top-color: rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.92);
+  color: #e2e8f0;
+}
+
+@media (max-width: 768px) {
+  .usuarios-page {
+    padding: 1rem;
+  }
+}

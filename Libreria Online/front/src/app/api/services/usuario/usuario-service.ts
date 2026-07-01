@@ -1,11 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { UsuarioRest } from './mapping/usuario.interface.rest';
-
-import { UsuarioMapper } from './mapping/usuario.mapper';
-import { UsuarioPrueba } from '../../../modules/usuario/usuario.interface';
 import { environment } from '../../../../environmets/environmet.development';
+
+interface UsuarioListadoRest {
+  id: number;
+  email: string;
+  nombre: string;
+  apellido: string;
+  direccion: string;
+  tipo_usuario_id: number;
+  tipo_usuario_descripcion: string;
+}
+
+export interface UsuarioListado {
+  id: number;
+  email: string;
+  nombre: string;
+  apellido: string;
+  direccion: string;
+  tipoUsuarioId: number;
+  tipoUsuarioDescripcion: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -13,13 +29,19 @@ import { environment } from '../../../../environmets/environmet.development';
 export class UsuarioService {
   http = inject(HttpClient);
 
-  listUsuarios(): Observable<UsuarioPrueba[]> {
-    console.log('entro al servicio');
-
-    return this.http.get<UsuarioRest[]>(`${environment.API_URL}/usuarios`).pipe(
-      map((res) => {
-        return UsuarioMapper.mapRestUsuarioArrayToUsuarioArrayFront(res);
-      }),
+  listUsuarios(): Observable<UsuarioListado[]> {
+    return this.http.get<UsuarioListadoRest[]>(`${environment.API_URL}/usuarios`).pipe(
+      map((usuarios) =>
+        usuarios.map((usuario) => ({
+          id: usuario.id,
+          email: usuario.email,
+          nombre: usuario.nombre,
+          apellido: usuario.apellido,
+          direccion: usuario.direccion,
+          tipoUsuarioId: usuario.tipo_usuario_id,
+          tipoUsuarioDescripcion: usuario.tipo_usuario_descripcion,
+        })),
+      ),
     );
   }
 

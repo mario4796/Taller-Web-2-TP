@@ -27,9 +27,31 @@ export class UsuarioRepository {
   }
 
   async findAllUsuarios() {
-    const usuarios = await prisma.usuarios.findMany();
+    const usuarios = await prisma.usuarios.findMany({
+      select: {
+        id: true,
+        email: true,
+        nombre: true,
+        apellido: true,
+        direccion: true,
+        tipo_usuario_id: true,
+        TipoUsuario: {
+          select: {
+            nombre: true,
+          },
+        },
+      },
+    });
 
-    return usuarios;
+    return usuarios.map((usuario) => ({
+      id: usuario.id,
+      email: usuario.email,
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      direccion: usuario.direccion,
+      tipo_usuario_id: usuario.tipo_usuario_id,
+      tipo_usuario_descripcion: usuario.TipoUsuario.nombre,
+    }));
   }
 
   async findByEmailAndContrasenia(email: string, contrasenia: string) {
