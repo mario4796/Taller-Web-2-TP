@@ -1,53 +1,72 @@
+<p-toast position="top-right"></p-toast>
+
 <p-card header="Crear Cuenta" styleClass="register-card">
+  <a routerLink="/" class="auth-back-link">
+    <i class="pi pi-home"></i>
+    Volver al inicio
+  </a>
+
   <form [formGroup]="form" (ngSubmit)="submit()" class="form-grid">
     <div class="name-row">
-      <p-floatLabel>
+      <p-floatLabel variant="on">
         <input pInputText id="nombre" formControlName="nombre" />
         <label for="nombre">Nombre</label>
       </p-floatLabel>
 
-      <p-floatLabel>
+      <p-floatLabel variant="on">
         <input pInputText id="apellido" formControlName="apellido" />
         <label for="apellido">Apellido</label>
       </p-floatLabel>
     </div>
 
-    <p-floatLabel>
+    <p-floatLabel variant="on">
       <input pInputText id="direccion" formControlName="direccion" />
-      <label for="direccion">Dirección</label>
+      <label for="direccion">Direccion</label>
     </p-floatLabel>
 
-    <p-floatLabel>
-      <input pInputText id="email" formControlName="email" />
+    <p-floatLabel variant="on">
+      <input pInputText id="email" formControlName="email" type="email" />
       <label for="email">Email</label>
     </p-floatLabel>
 
-    <p-floatLabel>
+    <p-floatLabel variant="on">
       <p-password
-        id="password"
+        inputId="password"
         formControlName="password"
         [toggleMask]="true"
-        [feedback]="false"
-      ></p-password>
-      <label for="password">Contraseña</label>
+        [feedback]="true"
+        promptLabel="Ingresa una contrasena"
+        weakLabel="Debil"
+        mediumLabel="Media"
+        strongLabel="Fuerte"
+      >
+        <ng-template #footer>
+          <ul class="password-tips">
+            <li>Minimo 6 caracteres</li>
+            <li>Al menos una mayuscula</li>
+            <li>Al menos un numero</li>
+          </ul>
+        </ng-template>
+      </p-password>
+      <label for="password">Contrasena</label>
     </p-floatLabel>
 
     @if (form.get('password')?.hasError('pattern') && form.get('password')?.touched) {
-      <small class="p-error"> Mínimo 6 caracteres, 1 mayúscula y 1 número. </small>
+      <small class="p-error"> Minimo 6 caracteres, 1 mayuscula y 1 numero. </small>
     }
 
-    <p-floatLabel>
+    <p-floatLabel variant="on">
       <p-password
-        id="confirmPassword"
+        inputId="confirmPassword"
         formControlName="confirmPassword"
         [toggleMask]="true"
         [feedback]="false"
       ></p-password>
-      <label for="confirmPassword">Confirmar contraseña</label>
+      <label for="confirmPassword">Confirmar contrasena</label>
     </p-floatLabel>
 
     @if (form.get('confirmPassword')?.hasError('noMatch') && form.get('confirmPassword')?.touched) {
-      <small class="p-error"> Las contraseñas no coinciden </small>
+      <small class="p-error"> Las contrasenas no coinciden </small>
     }
 
     <div class="field-checkbox">
@@ -60,7 +79,8 @@
       label="Crear Cuenta"
       icon="pi pi-user-plus"
       type="submit"
-      [disabled]="form.invalid"
+      [loading]="isLoading"
+      [disabled]="form.invalid || isLoading"
       styleClass="register-btn"
     ></p-button>
   </form>

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -13,9 +13,11 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { UsuarioService } from '../../api/services/usuario/usuario-service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FloatLabel } from 'primeng/floatlabel';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ToastModule } from 'primeng/toast';
+import { ToastService } from '../../shared/services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -28,6 +30,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     CardModule,
     FloatLabel,
     CheckboxModule,
+    ToastModule,
+    RouterLink,
   ],
   templateUrl: './register.html',
   styleUrls: ['./register.css'],
@@ -37,6 +41,9 @@ export class Register {
   private fb = inject(FormBuilder);
   private usuarioService = inject(UsuarioService);
   private router = inject(Router);
+  private toastService = inject(ToastService);
+
+  isLoading = false;
 
   public form: FormGroup = this.fb.group(
     {
@@ -57,6 +64,8 @@ export class Register {
       return;
     }
 
+    this.isLoading = true;
+
     const { confirmPassword, password, serProveedor, ...datosBase } = this.form.value;
 
     const tipoUsuario = serProveedor ? 2 : 3;
@@ -69,19 +78,32 @@ export class Register {
 
     this.usuarioService.registrar(usuarioPayload).subscribe({
       next: () => {
-        console.log('Usuario registrado con éxito como tipo:', tipoUsuario);
-        this.router.navigate(['']);
+        this.isLoading = false;
+        this.toastService.success('Tu cuenta se creo correctamente.');
+        setTimeout(() => this.router.navigate(['']), 900);
       },
-      error: (err) => console.error('Error al registrar:', err),
+      error: (err) => {
+        console.error('Error al registrar:', err);
+        this.isLoading = false;
+        this.toastService.error('No se pudo crear la cuenta. Revisa los datos e intenta nuevamente.');
+      },
     });
   }
+
   private matchPasswords(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
-    const confirmPassword = control.get('confirmPassword')?.value;
+    const confirmPasswordControl = control.get('confirmPassword');
+    const confirmPassword = confirmPasswordControl?.value;
     if (password !== confirmPassword) {
-      control.get('confirmPassword')?.setErrors({ noMatch: true });
+      confirmPasswordControl?.setErrors({ ...(confirmPasswordControl.errors ?? {}), noMatch: true });
       return { passwordsDoNotMatch: true };
     }
+
+    if (confirmPasswordControl?.hasError('noMatch')) {
+      const { noMatch, ...errors } = confirmPasswordControl.errors ?? {};
+      confirmPasswordControl.setErrors(Object.keys(errors).length ? errors : null);
+    }
+
     return null;
   }
 }

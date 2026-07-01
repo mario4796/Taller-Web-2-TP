@@ -6,9 +6,11 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { UsuarioService } from '../../api/services/usuario/usuario-service';
 
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/Auth/auth-service';
 import { FloatLabel } from 'primeng/floatlabel';
+import { ToastModule } from 'primeng/toast';
+import { ToastService } from '../../shared/services/toast.service';
 @Component({
   selector: 'app-login',
   imports: [
@@ -18,6 +20,8 @@ import { FloatLabel } from 'primeng/floatlabel';
     PasswordModule,
     ButtonModule,
     FloatLabel,
+    ToastModule,
+    RouterLink,
   ],
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
@@ -29,6 +33,9 @@ export class Login {
   private usuarioService = inject(UsuarioService);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private toastService = inject(ToastService);
+
+  isLoading = false;
 
   public form: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -39,6 +46,9 @@ export class Login {
       this.form.markAllAsTouched();
       return;
     }
+
+    this.isLoading = true;
+
     const datos = {
       email: this.form.get('email')?.value,
       contrasena: this.form.get('password')?.value,
@@ -46,14 +56,15 @@ export class Login {
 
     this.usuarioService.login(datos).subscribe({
       next: (respuesta) => {
-        console.log(respuesta.tipo_usuario_id);
+        this.isLoading = false;
         this.authService.setSesion(respuesta.tipo_usuario_id, respuesta);
-        console.log(localStorage.getItem('usuario'));
 
         this.router.navigate(['']);
       },
       error: (err) => {
         console.error('Credenciales incorrectas', err);
+        this.isLoading = false;
+        this.toastService.error('Revisa el email y la contrasena ingresados.', 'No se pudo iniciar sesion');
       },
     });
   }

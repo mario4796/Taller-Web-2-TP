@@ -45,6 +45,24 @@
   padding: 2rem;
 }
 
+.auth-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: fit-content;
+  margin-bottom: 1.25rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.auth-back-link:hover {
+  color: #c084fc;
+  transform: translateX(-2px);
+}
+
 /* ===========================
    FORM
 =========================== */
@@ -86,6 +104,10 @@
   transition: all 0.25s ease;
 }
 
+:host ::ng-deep .p-floatlabel {
+  width: 100%;
+}
+
 :host ::ng-deep .p-inputtext:focus,
 :host ::ng-deep .p-password-input:focus {
   border-color: #a855f7;
@@ -95,7 +117,8 @@
 
 /* LABELS */
 
-:host ::ng-deep .p-float-label label {
+:host ::ng-deep .p-float-label label,
+:host ::ng-deep .p-floatlabel label {
   color: rgba(255, 255, 255, 0.65);
 }
 
@@ -107,6 +130,27 @@
 
 :host ::ng-deep .p-password-input {
   width: 100%;
+}
+
+:host ::ng-deep .p-password-meter-text {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+:host ::ng-deep .p-password-meter-text::before {
+  content: "\e9b9";
+  font-family: "PrimeIcons";
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.password-tips {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+  color: #d1d5db;
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 /* ===========================
