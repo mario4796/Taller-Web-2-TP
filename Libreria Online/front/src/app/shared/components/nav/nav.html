@@ -75,6 +75,30 @@
           <span>{{ item.label }}</span>
         </button>
       }
+
+      @if (!isLogged()) {
+        <div class="mobile-auth-actions">
+          <button
+            class="mobile-nav-item mobile-auth-item"
+            routerLink="/login"
+            type="button"
+            (click)="mobileNavOpen.set(false)"
+          >
+            <span class="material-symbols-rounded">login</span>
+            <span>Iniciar sesion</span>
+          </button>
+
+          <button
+            class="mobile-nav-item mobile-auth-item primary"
+            routerLink="/register"
+            type="button"
+            (click)="mobileNavOpen.set(false)"
+          >
+            <span class="material-symbols-rounded">person_add</span>
+            <span>Registrarme</span>
+          </button>
+        </div>
+      }
     </div>
   </div>
 </nav>

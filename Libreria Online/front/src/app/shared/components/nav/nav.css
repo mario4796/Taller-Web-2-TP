@@ -375,6 +375,43 @@
   background: color-mix(in srgb, var(--primary-color) 8%, transparent);
 }
 
+.mobile-auth-actions {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(124, 58, 237, 0.12);
+}
+
+:host-context(.app-dark) .mobile-auth-actions {
+  border-top-color: rgba(192, 132, 252, 0.14);
+}
+
+.mobile-nav .mobile-auth-item {
+  border: 1px solid rgba(124, 58, 237, 0.18);
+  background: rgba(124, 58, 237, 0.06);
+  color: #6d28d9;
+}
+
+.mobile-nav .mobile-auth-item.primary {
+  color: #ffffff;
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  border-color: transparent;
+}
+
+:host-context(.app-dark) .mobile-nav .mobile-auth-item {
+  color: #c084fc;
+  border-color: rgba(192, 132, 252, 0.24);
+  background: rgba(168, 85, 247, 0.12);
+}
+
+:host-context(.app-dark) .mobile-nav .mobile-auth-item.primary {
+  color: #ffffff;
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  border-color: transparent;
+}
+
 @keyframes mobileNavIn {
   from {
     opacity: 0;
@@ -389,6 +426,14 @@
 @media (max-width: 700px) {
   .nav-links {
     display: none;
+  }
+
+  .auth-buttons {
+    display: none;
+  }
+
+  .mobile-auth-actions {
+    display: flex;
   }
 
   .hamburger-button {
@@ -461,6 +506,12 @@
 /* Ajuste responsive para ocultar texto en pantallas muy pequeñas */
 @media (max-width: 768px) {
   .user-text {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .auth-buttons {
     display: none;
   }
 }
