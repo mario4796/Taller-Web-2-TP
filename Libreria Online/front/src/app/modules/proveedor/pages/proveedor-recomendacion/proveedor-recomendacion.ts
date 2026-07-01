@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { catchError, of } from 'rxjs';
@@ -16,6 +15,7 @@ import { Nav } from '../../../../shared/components/nav/nav';
 import { Libro } from '../../../../shared/interfaces/libro.interface';
 import { OfertaLibro } from '../../../../shared/interfaces/oferta-libro.interface';
 import { ToastService } from '../../../../shared/services/toast.service';
+import { AuthService } from '../../../../services/Auth/auth-service';
 
 interface CamposLibroBloqueados {
   nombre: boolean;
@@ -57,7 +57,7 @@ export class ProveedorRecomendacion implements OnInit {
   private ofertasService = inject(OfertasLibroService);
   private librosService = inject(LibrosService);
   private toastService = inject(ToastService);
-  private messageService = inject(MessageService);
+  private authService = inject(AuthService);
 
   recomendaciones = signal<OfertaLibro[]>([]);
   cargando = signal(true);
@@ -148,12 +148,7 @@ export class ProveedorRecomendacion implements OnInit {
       if (libro) {
         this.completarDesdeLibro(libro);
         this.buscandoIsbn.set(false);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Libro encontrado',
-          detail: 'El ISBN existe en la base de datos de la libreria.',
-          life: 3500,
-        });
+        this.toastService.success('El ISBN existe en la base de datos de la libreria.', 'Libro encontrado');
         return;
       }
 
@@ -174,9 +169,19 @@ export class ProveedorRecomendacion implements OnInit {
     }
 
     this.guardando.set(true);
+    const proveedorId = this.obtenerProveedorIdLogueado();
+
+    if (!proveedorId) {
+      this.guardando.set(false);
+      this.toastService.error('No se pudo identificar el proveedor logueado.');
+      return;
+    }
+
     const recomendacion = {
       ...this.recomendacionForm.value,
       imagenUrl: this.recomendacionForm.value.imagenUrl?.trim() || null,
+      proveedorId,
+      creadoPor: 'PROVEEDOR',
     };
 
     this.ofertasService.crearOferta(recomendacion).subscribe({
@@ -270,12 +275,10 @@ export class ProveedorRecomendacion implements OnInit {
           this.isbnVerificado.set(true);
           this.isbnVerificadoValor.set(isbn);
           this.camposLibroBloqueados.set({ ...CAMPOS_LIBRO_EDITABLES });
-          this.messageService.add({
-            severity: 'warn',
-            summary: 'Sin datos externos',
-            detail: 'No se encontro en la base de datos ni en OpenLibrary. Podes completar titulo y autor manualmente.',
-            life: 4500,
-          });
+          this.toastService.warn(
+            'No se encontro en la base de datos ni en OpenLibrary. Podes completar titulo y autor manualmente.',
+            'Sin datos externos',
+          );
           return;
         }
 
@@ -301,14 +304,12 @@ export class ProveedorRecomendacion implements OnInit {
           imagenUrl: Boolean(imagenUrl),
         });
 
-        this.messageService.add({
-          severity: 'info',
-          summary: 'OpenLibrary',
-          detail: titulo && autor && imagenUrl
+        this.toastService.info(
+          titulo && autor && imagenUrl
             ? 'No estaba en la base de datos. Se completaron los datos encontrados en la API.'
             : 'OpenLibrary trajo datos parciales. Completa los campos faltantes manualmente.',
-          life: 4000,
-        });
+          'OpenLibrary',
+        );
       },
       error: (error) => {
         console.error('Error al consultar OpenLibrary', error);
@@ -343,6 +344,14 @@ export class ProveedorRecomendacion implements OnInit {
 
   private normalizarIsbn(isbn: string | null | undefined): string {
     return String(isbn ?? '').trim().replace(/[^0-9Xx]/g, '').toUpperCase();
+  }
+
+  private obtenerProveedorIdLogueado(): number | null {
+    try {
+      return Number(this.authService.getUser()) || null;
+    } catch {
+      return null;
+    }
   }
 
   get isbn() { return this.recomendacionForm.get('isbn'); }

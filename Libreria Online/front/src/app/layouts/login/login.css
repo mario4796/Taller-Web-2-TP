@@ -63,6 +63,24 @@
   padding: 2rem;
 }
 
+.auth-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: fit-content;
+  margin-bottom: 1.25rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.auth-back-link:hover {
+  color: #c084fc;
+  transform: translateX(-2px);
+}
+
 /* ======================
    FORM
 ====================== */
@@ -97,6 +115,10 @@
   transition: all 0.25s ease;
 }
 
+:host ::ng-deep .p-floatlabel {
+  width: 100%;
+}
+
 /* Focus violeta */
 
 :host ::ng-deep .p-inputtext:focus,
@@ -108,7 +130,8 @@
 
 /* Labels */
 
-:host ::ng-deep .p-float-label label {
+:host ::ng-deep .p-float-label label,
+:host ::ng-deep .p-floatlabel label {
   color: rgba(255, 255, 255, 0.65);
 }
 
