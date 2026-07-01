@@ -70,22 +70,10 @@
     }
 
     <div class="field-checkbox">
-      <p-checkbox inputId="serProveedor" formControlName="serProveedor" [binary]="true">
+      <p-checkbox formControlName="serProveedor" [binary]="true" inputId="serProveedor">
       </p-checkbox>
-
-      <div class="checkbox-content">
-        <label for="serProveedor">Registrarme como proveedor</label>
-      </div>
+      <label for="serProveedor" class="ms-2"> Ser proveedor</label>
     </div>
-
-    <p-button
-      label="Crear Cuenta"
-      icon="pi pi-user-plus"
-      type="submit"
-      [disabled]="form.invalid"
-      styleClass="register-btn"
-    >
-    </p-button>
 
     <p-button
       label="Crear Cuenta"

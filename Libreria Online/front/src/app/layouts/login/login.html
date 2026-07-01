@@ -1,48 +1,57 @@
-<div class="field">
-  <p-iftalabel>
-    <input pInputText id="email" type="email" formControlName="email" />
-    <label for="email">Email</label>
-  </p-iftalabel>
+<p-toast position="top-right"></p-toast>
 
-  @if (form.get('email')?.invalid && form.get('email')?.touched) {
-    <div class="p-error-container">
-      @if (form.get('email')?.hasError('required')) {
-        <small class="p-error"> El email es obligatorio. </small>
-      }
+<p-card header="Iniciar Sesion" styleClass="login-card">
+  <a routerLink="/" class="auth-back-link">
+    <i class="pi pi-home"></i>
+    Volver al inicio
+  </a>
 
-      @if (form.get('email')?.hasError('email')) {
-        <small class="p-error"> Ingresa un email válido. </small>
+  <div class="login-icon">
+    <i class="pi pi-user"></i>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="login-form">
+    <div class="field">
+      <p-floatLabel variant="in">
+        <input pInputText id="email" formControlName="email" type="email" />
+        <label for="email">Email</label>
+      </p-floatLabel>
+
+      @if (form.get('email')?.invalid && form.get('email')?.touched) {
+        <div class="p-error-container">
+          @if (form.get('email')?.hasError('required')) {
+            <small class="p-error"> El email es obligatorio. </small>
+          }
+
+          @if (form.get('email')?.hasError('email')) {
+            <small class="p-error"> Ingresa un email valido. </small>
+          }
+        </div>
       }
     </div>
-  }
-</div>
 
-<div class="field">
-  <p-iftalabel>
-    <p-password
-      inputId="password"
-      formControlName="password"
-      [toggleMask]="true"
-      [feedback]="false"
+    <div class="field">
+      <p-floatLabel variant="in">
+        <p-password inputId="password" formControlName="password" [toggleMask]="true" [feedback]="false">
+        </p-password>
+
+        <label for="password">Contrasena</label>
+      </p-floatLabel>
+
+      @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
+        <div class="p-error-container">
+          <small class="p-error"> La contrasena es obligatoria. </small>
+        </div>
+      }
+    </div>
+
+    <p-button
+      label="Ingresar"
+      icon="pi pi-sign-in"
+      type="submit"
+      [loading]="isLoading"
+      [disabled]="form.invalid || isLoading"
+      styleClass="login-btn"
     >
-    </p-password>
-
-    <label for="password">Contraseña</label>
-  </p-iftalabel>
-
-  @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
-    <div class="p-error-container">
-      <small class="p-error"> La contraseña es obligatoria. </small>
-    </div>
-  }
-</div>
-
-<p-button
-  label="Ingresar"
-  icon="pi pi-sign-in"
-  type="submit"
-  [loading]="isLoading"
-  [disabled]="form.invalid || isLoading"
-  styleClass="login-btn"
->
-</p-button>
+    </p-button>
+  </form>
+</p-card>

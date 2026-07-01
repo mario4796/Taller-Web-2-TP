@@ -28,6 +28,7 @@ import { ToastService } from '../../shared/services/toast.service';
     PasswordModule,
     ButtonModule,
     CardModule,
+    FloatLabel,
     CheckboxModule,
     ToastModule,
     RouterLink,
@@ -79,7 +80,7 @@ export class Register {
       next: () => {
         this.isLoading = false;
         this.toastService.success('Tu cuenta se creo correctamente.');
-        setTimeout(() => this.router.navigate(['']), 900);
+        setTimeout(() => this.router.navigate(['']), 2000);
       },
       error: (err) => {
         console.error('Error al registrar:', err);

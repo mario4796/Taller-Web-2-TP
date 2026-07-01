@@ -55,9 +55,7 @@
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
-  transition:
-    color 0.2s ease,
-    transform 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .auth-back-link:hover {
@@ -90,57 +88,20 @@
 /* ===========================
    INPUTS
 =========================== */
-.form-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.3rem;
-}
-
-.name-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-}
-
-@media (max-width: 640px) {
-  .name-row {
-    grid-template-columns: 1fr;
-  }
-}
-
-.field {
-  width: 100%;
-}
-
-:host ::ng-deep .p-iftalabel {
-  display: block;
-  width: 100%;
-}
 
 :host ::ng-deep .p-inputtext,
 :host ::ng-deep .p-password-input {
   width: 100%;
 
   background: rgba(255, 255, 255, 0.04);
-
   color: white;
 
-  border: 1px solid rgba(255, 255, 255, 0.12);
-
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 14px;
 
-  transition:
-    border-color 0.25s,
-    box-shadow 0.25s,
-    background 0.25s;
-}
+  padding: 0.9rem 1rem;
 
-:host ::ng-deep .p-password {
-  width: 100%;
-}
-
-:host ::ng-deep .p-password-input {
-  width: 100%;
+  transition: all 0.25s ease;
 }
 
 :host ::ng-deep .p-floatlabel {
@@ -154,158 +115,99 @@
   box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
 }
 
-:host ::ng-deep .p-iftalabel label {
+/* LABELS */
+
+:host ::ng-deep .p-float-label label,
+:host ::ng-deep .p-floatlabel label {
   color: rgba(255, 255, 255, 0.65);
+}
 
-  font-weight: 500;
+/* PASSWORD */
 
-  :host ::ng-deep .p-float-label label,
-  :host ::ng-deep .p-floatlabel label {
-    color: rgba(255, 255, 255, 0.65);
-  }
+:host ::ng-deep .p-password {
+  width: 100%;
+}
 
-  :host ::ng-deep .p-inputtext::placeholder,
-  :host ::ng-deep .p-password-input::placeholder {
-    color: transparent;
-  }
+:host ::ng-deep .p-password-input {
+  width: 100%;
+}
 
-  :host ::ng-deep .p-password-input {
-    width: 100%;
-  }
+:host ::ng-deep .p-password-meter-text {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
 
-  :host ::ng-deep .p-password-meter-text {
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
-  }
+:host ::ng-deep .p-password-meter-text::before {
+  content: "\e9b9";
+  font-family: "PrimeIcons";
+  font-size: 0.95rem;
+  line-height: 1;
+}
 
-  :host ::ng-deep .p-password-meter-text::before {
-    content: '\e9b9';
-    font-family: 'PrimeIcons';
-    font-size: 0.95rem;
-    line-height: 1;
-  }
+.password-tips {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+  color: #d1d5db;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
 
-  .password-tips {
-    margin: 0.75rem 0 0;
-    padding-left: 1.25rem;
-    color: #d1d5db;
-    font-size: 0.85rem;
-    line-height: 1.5;
-  }
-
-  /* ===========================
+/* ===========================
    BOTON
 =========================== */
 
-  :host ::ng-deep .register-btn {
-    width: 100%;
-    margin-top: 0.5rem;
+:host ::ng-deep .register-btn {
+  width: 100%;
+  margin-top: 0.5rem;
 
-    background: linear-gradient(135deg, #7c3aed, #a855f7);
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
 
-    border: none;
-    border-radius: 14px;
+  border: none;
+  border-radius: 14px;
 
-    font-weight: 600;
-    padding: 0.9rem;
+  font-weight: 600;
+  padding: 0.9rem;
 
-    transition: all 0.25s ease;
-  }
+  transition: all 0.25s ease;
+}
 
-  :host ::ng-deep .register-btn:hover {
-    transform: translateY(-2px);
+:host ::ng-deep .register-btn:hover {
+  transform: translateY(-2px);
 
-    box-shadow: 0 8px 20px rgba(168, 85, 247, 0.35);
-  }
+  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.35);
+}
 
-  /* ===========================
+/* ===========================
    ERROR
 =========================== */
 
-  .p-error {
-    color: #ff7b7b;
-    font-size: 0.85rem;
-    margin-top: -0.5rem;
-  }
-  .p-error {
-    display: flex;
-    align-items: center;
+.p-error {
+  color: #ff7b7b;
+  font-size: 0.85rem;
+  margin-top: -0.5rem;
+}
 
-    gap: 0.4rem;
-
-    padding-left: 0.2rem;
-
-    color: #ff7b7b;
-
-    font-size: 0.83rem;
-
-    animation: fadeIn 0.18s ease;
-  }
-
-  .p-error::before {
-    content: '⚠';
-
-    font-size: 0.9rem;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-4px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* ===========================
+/* ===========================
    TITULO DECORATIVO
 =========================== */
 
-  :host ::ng-deep .p-card::before {
-    content: '';
+:host ::ng-deep .p-card::before {
+  content: '';
 
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 
-    width: 100%;
-    height: 4px;
+  width: 100%;
+  height: 4px;
 
-    background: linear-gradient(90deg, #7c3aed, #a855f7, #c084fc);
-  }
+  background: linear-gradient(90deg, #7c3aed, #a855f7, #c084fc);
+}
 
-  .field-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 1em;
-    margin-bottom: 1.5rem;
-  }
-
-  .field-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-
-    margin-top: 0.25rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .field-checkbox label {
-    color: rgba(255, 255, 255, 0.8);
-    cursor: pointer;
-    user-select: none;
-    font-size: 0.95rem;
-  }
-
-  :host ::ng-deep .p-checkbox {
-    transform: scale(1.05);
-  }
-
-  :host ::ng-deep .p-checkbox-box {
-    border-radius: 6px;
-  }
+.field-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1.5rem;
 }
