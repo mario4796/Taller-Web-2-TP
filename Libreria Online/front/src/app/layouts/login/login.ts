@@ -59,12 +59,17 @@ export class Login {
         this.isLoading = false;
         this.authService.setSesion(respuesta.tipo_usuario_id, respuesta);
 
-        if (respuesta.tipo_usuario_id === 1) {
-          this.router.navigate(['/admin']);
-          return;
+        switch (respuesta.tipo_usuario_id) {
+          case 1:
+            this.router.navigate(['/admin']);
+            break;
+          case 2:
+            this.router.navigate(['/proveedor/recomendaciones']);
+            break;
+          default:
+            this.router.navigate(['']);
+            break;
         }
-
-        this.router.navigate(['']);
       },
       error: (err) => {
         console.error('Credenciales incorrectas', err);
