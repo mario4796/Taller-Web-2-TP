@@ -9,7 +9,7 @@ export class ProveedorMapper {
       email: rest.email,
       nombre: rest.nombre,
       apellido: rest.apellido, 
-      tipoUsuario: rest.tipo_usuario_id === 3 ? 'PROVEEDOR' : 'USUARIO'
+      tipoUsuario: rest.tipo_usuario_id === 2 ? 'PROVEEDOR' : 'USUARIO'
     };
   }
 

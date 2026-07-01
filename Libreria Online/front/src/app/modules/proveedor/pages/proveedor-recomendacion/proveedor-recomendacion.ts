@@ -16,6 +16,7 @@ import { Nav } from '../../../../shared/components/nav/nav';
 import { Libro } from '../../../../shared/interfaces/libro.interface';
 import { OfertaLibro } from '../../../../shared/interfaces/oferta-libro.interface';
 import { ToastService } from '../../../../shared/services/toast.service';
+import { AuthService } from '../../../../services/Auth/auth-service';
 
 interface CamposLibroBloqueados {
   nombre: boolean;
@@ -58,6 +59,7 @@ export class ProveedorRecomendacion implements OnInit {
   private librosService = inject(LibrosService);
   private toastService = inject(ToastService);
   private messageService = inject(MessageService);
+  private authService = inject(AuthService);
 
   recomendaciones = signal<OfertaLibro[]>([]);
   cargando = signal(true);
@@ -174,9 +176,19 @@ export class ProveedorRecomendacion implements OnInit {
     }
 
     this.guardando.set(true);
+    const proveedorId = this.obtenerProveedorIdLogueado();
+
+    if (!proveedorId) {
+      this.guardando.set(false);
+      this.toastService.error('No se pudo identificar el proveedor logueado.');
+      return;
+    }
+
     const recomendacion = {
       ...this.recomendacionForm.value,
       imagenUrl: this.recomendacionForm.value.imagenUrl?.trim() || null,
+      proveedorId,
+      creadoPor: 'PROVEEDOR',
     };
 
     this.ofertasService.crearOferta(recomendacion).subscribe({
@@ -343,6 +355,14 @@ export class ProveedorRecomendacion implements OnInit {
 
   private normalizarIsbn(isbn: string | null | undefined): string {
     return String(isbn ?? '').trim().replace(/[^0-9Xx]/g, '').toUpperCase();
+  }
+
+  private obtenerProveedorIdLogueado(): number | null {
+    try {
+      return Number(this.authService.getUser()) || null;
+    } catch {
+      return null;
+    }
   }
 
   get isbn() { return this.recomendacionForm.get('isbn'); }

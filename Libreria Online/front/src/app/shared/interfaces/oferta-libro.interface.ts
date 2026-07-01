@@ -20,6 +20,8 @@ export interface OfertaLibro {
   sinopsis?: string | null;
   imagenUrl?: string | null;
   categoria: CategoriaLibro;
+  proveedorId?: number;
+  creadoPor?: string;
 }
 
 export type NuevaOfertaLibro = Omit<OfertaLibro, 'id' | 'estado' | 'createdAt' | 'cantidadAdmin'>;

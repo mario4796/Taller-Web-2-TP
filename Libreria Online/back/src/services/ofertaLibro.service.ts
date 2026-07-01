@@ -1,7 +1,7 @@
 import type { OfertaLibroRepository } from '../repository/ofertaLibro.repository.js';
 import { EstadoOferta } from '../prisma/enums.js';
 import { LibroService } from './libro.service.js';
-import { OfertaLibro } from '../prisma/client.js';
+import type { OfertaLibro } from '../models/ofertaLibro.model.js';
 
 
 
@@ -39,9 +39,15 @@ export class OfertaLibroService {
             throw new Error('Faltan campos obligatorios para crear la oferta');
         }
 
+        if (!proveedorId || Number.isNaN(Number(proveedorId))) {
+            throw new Error('Falta el proveedor para crear la oferta');
+        }
+
         if (Number(precioProveedor) < 0 || Number(cantidadProveedor) <= 0) {
         throw new Error('La cantidad debe ser mayor a 0 y el precio no puede ser negativo');
         }
+
+        await this.ofertaLibroRepository.asegurarProveedor(Number(proveedorId));
 
         return await this.ofertaLibroRepository.crearOferta({ 
             isbn, 
