@@ -152,6 +152,20 @@
 
   <div class="dialog-actions">
     <p-button label="Cancelar" severity="danger" [text]="true" (click)="cerrar.emit()"></p-button>
-    <p-button label="Guardar" type="button" [outlined]="true" severity="secondary" (click)="guardar.emit()" [loading]="guardando()" [disabled]="form().invalid || !isbnVerificado() || guardando()"></p-button>
+    <span
+      class="save-tooltip-target"
+      [pTooltip]="guardarTooltip()"
+      [tooltipDisabled]="!guardarTooltip()"
+      tooltipPosition="top">
+      <p-button
+        label="Guardar"
+        type="button"
+        [outlined]="true"
+        severity="success"
+        (click)="guardar.emit()"
+        [loading]="guardando()"
+        [disabled]="guardarDeshabilitado()">
+      </p-button>
+    </span>
   </div>
 </p-dialog>

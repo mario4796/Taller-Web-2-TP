@@ -57,6 +57,10 @@
   margin-top: 1rem;
 }
 
+.save-tooltip-target {
+  display: inline-flex;
+}
+
 .error-message,
 .warning-message {
   display: block;

@@ -70,6 +70,26 @@ export class RecomendacionFormDialog {
     (event.target as HTMLImageElement).style.display = 'block';
   }
 
+  guardarDeshabilitado(): boolean {
+    return this.form().invalid || !this.isbnVerificado() || this.guardando();
+  }
+
+  guardarTooltip(): string | undefined {
+    if (this.guardando()) {
+      return undefined;
+    }
+
+    if (this.form().invalid) {
+      return 'Completa los campos requeridos antes de guardar.';
+    }
+
+    if (!this.isbnVerificado()) {
+      return 'Busca el ISBN antes de guardar.';
+    }
+
+    return undefined;
+  }
+
   portadaActual(): string | undefined {
     return this.imagenUrl?.value || this.portadaPreview();
   }
