@@ -59,11 +59,11 @@ export class Nav {
         ];
       case 'proveedor':
         return [
-          { label: 'Inicio', icon: 'home', link: '/proveedor' },
+          { label: 'Recomendar libro', icon: 'auto_stories', link: '/proveedor/recomendacion' },
           { label: 'Peticiones', icon: 'assignment', link: '/proveedor/peticiones' },
           { label: 'Estadísticas', icon: 'monitoring', link: '/proveedor/estadisticas' },
           { label: 'Ventas', icon: 'shopping_cart', link: '/proveedor/ventas' },
-          { label: 'Recomendar libro', icon: 'auto_stories', link: '/proveedor/recomendacion' },
+
         ];
       default:
         return [

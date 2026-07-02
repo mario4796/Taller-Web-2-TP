@@ -34,10 +34,6 @@ export const routes: Routes = [
     loadChildren: () => import('./modules/admin/admin.routes').then((m) => m.adminRoutes),
   },
   {
-    path: 'proveedor',
-    loadChildren: () => import('./modules/proveedor/proveedor.routes').then((m) => m.proveedorRoutes),
-  },
-  {
     path: 'libros',
     component: Estanteria,
     canActivate: [authGuard],
