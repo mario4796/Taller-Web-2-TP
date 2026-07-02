@@ -8,7 +8,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectModule } from 'primeng/select';
-import { ProveedoresService } from '../../../../api/services/usuarios/proveedores';
+import { ProveedoresService } from '../../../../api/services/proveedor/proveedores';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, of } from 'rxjs';
 import { ToastModule } from 'primeng/toast';

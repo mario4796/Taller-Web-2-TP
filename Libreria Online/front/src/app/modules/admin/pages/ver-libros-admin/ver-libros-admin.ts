@@ -20,7 +20,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of } from 'rxjs';
 import { PedirStockAdmin } from '../../components/pedir-stock-admin/pedir-stock-admin';
 import { ContraofertaAdminDialog } from '../../components/contraoferta-admin-dialog/contraoferta-admin-dialog';
-import { ProveedoresService } from '../../../../api/services/usuarios/proveedores';
+import { ProveedoresService } from '../../../../api/services/proveedor/proveedores';
 
 interface ApiResponse {
   message: string;
@@ -63,7 +63,6 @@ export class VerLibrosAdmin {
   public errorError: string | null = null;
   mostrarFormularioPedido = signal<boolean>(false);
   libroSeleccionado = signal<any | null>(null);
-
   // Estado para la sección de ofertas pendientes
   ofertasPendientes = signal<OfertaLibro[]>([]);
   cargandoOfertas = signal(true);
@@ -209,28 +208,21 @@ export class VerLibrosAdmin {
   onPedidoConfirmado(evento: { cantidad: number; proveedor: any }): void {
     const libroActual = this.libroSeleccionado();
     if (!libroActual) return;
-
-    // 🚀 Como es local, le avisamos al Admin el éxito de la operación
     this.toastService.updated(
       `Pedido enviado a ${evento.proveedor.apellido}: Solicitadas ${evento.cantidad} un. de "${libroActual.nombre}"`
     );
-
-    // Guardamos la simulación del ID del proveedor en el objeto por si vuelve a abrir el mismo libro
     libroActual.proveedorId = evento.proveedor.id;
-
     this.mostrarFormularioPedido.set(false);
   }
 
 // para guardar el OfertaLibro recibido del hijo pedirStock
 manejadorGuardarPedido(evento: { cantidad: number; proveedor: any }, libroActual: any) {
 
-  //  BLINDAJE: Si 'libroActual' es una función (Signal), la ejecutamos.
-  // Si no, usamos el objeto directo. Esto destruye el "() => signalGetFn(node)"
+  // Si 'libroActual' es una función (Signal), la ejecutamos.
+  // Si no, usamos el objeto directo."
   const libro = typeof libroActual === 'function' ? libroActual() : libroActual;
 
   console.log(" Datos del libro procesado en el Padre:", libro);
-
-  // Extraemos de forma segura el ID numérico
   const idDelLibro = libro?.id || libro?.libroId;
 
   if (!idDelLibro) {
@@ -238,7 +230,7 @@ manejadorGuardarPedido(evento: { cantidad: number; proveedor: any }, libroActual
     return;
   }
 
-  // Estructuramos el payload limpio para mandar al backend
+  // Payload para backend
   const nuevaOferta = {
     isbn: libro.isbn,
     nombre: libro.nombre,
@@ -255,7 +247,7 @@ manejadorGuardarPedido(evento: { cantidad: number; proveedor: any }, libroActual
     creadoPor: 'ADMIN'
   };
 
-  // Tu llamada al servicio
+  
   this.ofertasService.crearOferta(nuevaOferta).subscribe({
     next: (ofertaCreada) => console.log('¡Pedido e hilo de oferta creados!:', ofertaCreada),
     error: (err) => console.error('Error en la petición HTTP:', err)
