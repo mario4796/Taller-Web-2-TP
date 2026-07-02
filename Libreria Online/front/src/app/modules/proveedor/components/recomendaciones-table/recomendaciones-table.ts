@@ -40,7 +40,15 @@ export class RecomendacionesTable {
   recomendaciones = input.required<OfertaLibro[]>();
   cargando = input(false);
   recomendacionesOrdenadas = computed(() =>
-    [...this.recomendaciones()].sort((a, b) => this.prioridadEstado(a.estado) - this.prioridadEstado(b.estado))
+    [...this.recomendaciones()].sort((a, b) => {
+      const prioridad = this.prioridadEstado(a.estado) - this.prioridadEstado(b.estado);
+
+      if (prioridad !== 0) {
+        return prioridad;
+      }
+
+      return this.fechaOrden(b) - this.fechaOrden(a) || b.id - a.id;
+    })
   );
 
   aceptar = output<OfertaLibro>();
@@ -86,5 +94,9 @@ export class RecomendacionesTable {
 
   private prioridadEstado(estado: EstadoOferta): number {
     return estado === 'ESPERANDO_ADMIN' || estado === 'ESPERANDO_PROVEEDOR' ? 0 : 1;
+  }
+
+  private fechaOrden(recomendacion: OfertaLibro): number {
+    return recomendacion.createdAt ? new Date(recomendacion.createdAt).getTime() : 0;
   }
 }
