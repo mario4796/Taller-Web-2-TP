@@ -92,11 +92,13 @@ export class OfertaLibroService {
         });
     }
 
-    async contraofertaProveedor(id: number, nuevaCantidad: number) {
+    async contraofertaProveedor(id: number, nuevaCantidad: number, nuevoPrecio?: number) {
         if (nuevaCantidad <= 0) throw new Error('La cantidad debe ser mayor a 0');
+        if (nuevoPrecio !== undefined && nuevoPrecio <= 0) throw new Error('El precio debe ser mayor a 0');
 
         return await this.ofertaLibroRepository.actualizarOferta(id, {
             cantidadProveedor: nuevaCantidad,
+            ...(nuevoPrecio !== undefined ? { precioProveedor: nuevoPrecio } : {}),
             estado: EstadoOferta.ESPERANDO_ADMIN
         });
     }

@@ -24,6 +24,17 @@
     @if (nuevaCantidad && nuevaCantidad.invalid && nuevaCantidad.touched) {
       <small class="error-message">La cantidad debe ser mayor a 0</small>
     }
+
+    <p-inputgroup class="recommendation-inputgroup">
+      <p-inputgroup-addon><i class="pi pi-dollar"></i></p-inputgroup-addon>
+      <p-floatlabel variant="in">
+        <p-inputnumber inputId="nuevoPrecio" formControlName="nuevoPrecio" mode="currency" currency="ARS" locale="es-AR"></p-inputnumber>
+        <label for="nuevoPrecio">Nuevo precio (opcional)</label>
+      </p-floatlabel>
+    </p-inputgroup>
+    @if (nuevoPrecio && nuevoPrecio.invalid && nuevoPrecio.touched) {
+      <small class="error-message">El precio debe ser mayor a 0</small>
+    }
   </form>
 
   <div class="dialog-actions">
