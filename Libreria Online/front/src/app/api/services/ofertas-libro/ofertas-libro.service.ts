@@ -35,10 +35,11 @@ export class OfertasLibroService {
       .pipe(map((res) => OfertaLibroMapper.mapRestOfertaToOfertaFront(res.data)));
   }
 
-  contraofertarProveedor(id: number, nuevaCantidad: number): Observable<OfertaLibro> {
+  contraofertarProveedor(id: number, nuevaCantidad: number, nuevoPrecio?: number): Observable<OfertaLibro> {
     return this.http
       .put<{ message: string; data: OfertaLibroRest }>(`${this.apiUrl}/proveedor/contraofertar/${id}`, {
         nuevaCantidad,
+        ...(nuevoPrecio !== undefined ? { nuevoPrecio } : {}),
       })
       .pipe(map((res) => OfertaLibroMapper.mapRestOfertaToOfertaFront(res.data)));
   }

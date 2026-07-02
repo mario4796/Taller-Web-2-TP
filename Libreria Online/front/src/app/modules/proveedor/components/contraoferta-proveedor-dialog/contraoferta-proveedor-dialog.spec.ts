@@ -16,6 +16,7 @@ describe('ContraofertaProveedorDialog', () => {
     fixture = TestBed.createComponent(ContraofertaProveedorDialog);
     fixture.componentRef.setInput('form', fb.group({
       nuevaCantidad: [null, Validators.required],
+      nuevoPrecio: [null],
     }));
     component = fixture.componentInstance;
     await fixture.whenStable();

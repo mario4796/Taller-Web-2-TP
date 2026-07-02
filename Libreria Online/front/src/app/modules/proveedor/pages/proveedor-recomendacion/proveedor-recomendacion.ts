@@ -91,6 +91,7 @@ export class ProveedorRecomendacion implements OnInit {
 
   contraofertaForm: FormGroup = this.fb.group({
     nuevaCantidad: [null, [Validators.required, Validators.min(1)]],
+    nuevoPrecio: [null, [Validators.min(1)]],
   });
 
   ngOnInit(): void {
@@ -208,6 +209,7 @@ export class ProveedorRecomendacion implements OnInit {
     this.ofertaSeleccionada.set(recomendacion);
     this.contraofertaForm.reset({
       nuevaCantidad: recomendacion.cantidadAdmin ?? recomendacion.cantidadProveedor,
+      nuevoPrecio: recomendacion.precioProveedor,
     });
     this.contraofertaVisible.set(true);
   }
@@ -228,8 +230,9 @@ export class ProveedorRecomendacion implements OnInit {
 
     this.respondiendo.set(true);
     const nuevaCantidad = this.contraofertaForm.value.nuevaCantidad;
+    const nuevoPrecio = this.contraofertaForm.value.nuevoPrecio ?? undefined;
 
-    this.ofertasService.contraofertarProveedor(oferta.id, nuevaCantidad).subscribe({
+   this.ofertasService.contraofertarProveedor(oferta.id, nuevaCantidad, nuevoPrecio).subscribe({
       next: () => {
         this.respondiendo.set(false);
         this.cerrarContraoferta();

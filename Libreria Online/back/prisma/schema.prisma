@@ -12,14 +12,12 @@ model Administradores {
   Usuarios   Usuarios @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
-
 model Compradores {
-  usuario_id  Int           @id
-  Usuarios    Usuarios      @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  usuario_id                Int                     @id
+  Carrito                   Carritos?
+  Usuarios                  Usuarios                @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   LibrosDigitalesAdquiridos LibroDigitalAdquirido[]
-  Carrito     Carritos?
-
-  transacciones Transacciones[]
+  transacciones             Transacciones[]
 }
 
 model Libros {
@@ -34,10 +32,10 @@ model Libros {
   sinopsis                  String?
   imagenUrl                 String?
   categoria                 CategoriaLibro          @default(GENERAL)
+  detalleTransaccions       DetalleTransaccion[]
+  detallesCarritos          DetallesCarrito[]
   LibrosDigitalesAdquiridos LibroDigitalAdquirido[]
   ofertas                   OfertaLibro[]
-  detallesCarritos          DetallesCarrito[]
-  detalleTransaccions       DetalleTransaccion[]
 }
 
 model LibroDigitalAdquirido {
@@ -52,81 +50,58 @@ model LibroDigitalAdquirido {
 }
 
 model Proveedores {
-  usuario_id Int      @id
-  Usuarios   Usuarios @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  usuario_id Int           @id
   ofertas    OfertaLibro[]
+  Usuarios   Usuarios      @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model TiposUsuario {
-  id     Int    @id @default(autoincrement())
-  nombre String @unique @db.VarChar(50)
-
+  id       Int        @id @default(autoincrement())
+  nombre   String     @unique @db.VarChar(50)
   usuarios Usuarios[]
 }
 
 model ListaProveedor {
   id              Int      @id @default(autoincrement())
-  usuario_id      Int      @unique // Relación 1 a 1 con Usuario
+  usuario_id      Int      @unique
   es_proveedor    Boolean  @default(false)
   fecha_solicitud DateTime @default(now())
-
-  Usuario Usuarios @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+  Usuario         Usuarios @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
 }
 
 model Usuarios {
-  id         Int    @id @default(autoincrement())
-  email      String @unique @db.VarChar(255)
-  contrasena String @db.VarChar(255)
-  nombre     String @db.VarChar(100)
-  apellido   String @db.VarChar(100)
-  direccion  String @db.VarChar(255)
-
+  id              Int              @id @default(autoincrement())
+  email           String           @unique @db.VarChar(255)
+  contrasena      String           @db.VarChar(255)
+  nombre          String           @db.VarChar(100)
+  apellido        String           @db.VarChar(100)
+  direccion       String           @db.VarChar(255)
   tipo_usuario_id Int
-
-  TipoUsuario TiposUsuario @relation(fields: [tipo_usuario_id], references: [id])
-
-  ListaProveedor  ListaProveedor?
   Administradores Administradores?
   Compradores     Compradores?
+  ListaProveedor  ListaProveedor?
   Proveedores     Proveedores?
-}
-enum EstadoOferta {
-  ESPERANDO_ADMIN       
-  ESPERANDO_PROVEEDOR   
-  ACEPTADA             
-  RECHAZADA             
+  TipoUsuario     TiposUsuario     @relation(fields: [tipo_usuario_id], references: [id])
 }
 
 model OfertaLibro {
-  id               Int          @id @default(autoincrement())
-  isbn             String
-  nombre           String       
-  autor            String
-  precioProveedor  Decimal      @db.Decimal(10, 2)
-  cantidadProveedor  Int          
-  cantidadAdmin      Int?
-  estado           EstadoOferta @default(ESPERANDO_ADMIN)
-  createdAt        DateTime     @default(now())
-
-  sinopsis         String?
-  imagenUrl        String?
-  categoria        CategoriaLibro @default(GENERAL)
-  creadoPor         String @default("ADMIN")
-  
-  proveedorId      Int
+  id                Int            @id @default(autoincrement())
+  isbn              String
+  nombre            String
+  autor             String
+  precioProveedor   Decimal        @db.Decimal(10, 2)
+  cantidadProveedor Int
+  cantidadAdmin     Int?
+  estado            EstadoOferta   @default(ESPERANDO_ADMIN)
+  createdAt         DateTime       @default(now())
+  sinopsis          String?
+  imagenUrl         String?
+  categoria         CategoriaLibro @default(GENERAL)
+  creadoPor         String         @default("ADMIN")
+  proveedorId       Int
+  libroId           Int?
+  Libro             Libros?        @relation(fields: [libroId], references: [id])
   Proveedor         Proveedores    @relation(fields: [proveedorId], references: [usuario_id], onDelete: Cascade)
-
-  libroId          Int?
-  Libro            Libros?      @relation(fields: [libroId], references: [id])
-}
-
-enum CategoriaLibro {
-  FICCION
-  FANTASIA
-  TERROR
-  HISTORIA
-  INFANTIL
-  GENERAL
 }
 
 model Carritos {
@@ -150,16 +125,13 @@ model DetallesCarrito {
 }
 
 model Transacciones {
-  id              Int           @id @default(autoincrement())
-  comprador_id    Int
-  monto_total     Decimal       @db.Decimal(10, 2)
-  fecha_pago      DateTime      @default(now())
-  estado          String        @default("COMPLETADO") 
-
-
-  Comprador       Compradores   @relation(fields: [comprador_id], references: [usuario_id])
-  
-  detalles        DetalleTransaccion[]
+  id           Int                  @id @default(autoincrement())
+  comprador_id Int
+  monto_total  Decimal              @db.Decimal(10, 2)
+  fecha_pago   DateTime             @default(now())
+  estado       String               @default("COMPLETADO")
+  detalles     DetalleTransaccion[]
+  Comprador    Compradores          @relation(fields: [comprador_id], references: [usuario_id])
 }
 
 model DetalleTransaccion {
@@ -168,7 +140,22 @@ model DetalleTransaccion {
   libro_id        Int
   cantidad        Int
   precio_unitario Decimal       @db.Decimal(10, 2)
-
-  Transaccion     Transacciones @relation(fields: [transaccion_id], references: [id])
   Libro           Libros        @relation(fields: [libro_id], references: [id])
+  Transaccion     Transacciones @relation(fields: [transaccion_id], references: [id])
+}
+
+enum EstadoOferta {
+  ESPERANDO_ADMIN
+  ESPERANDO_PROVEEDOR
+  ACEPTADA
+  RECHAZADA
+}
+
+enum CategoriaLibro {
+  FICCION
+  FANTASIA
+  TERROR
+  HISTORIA
+  INFANTIL
+  GENERAL
 }

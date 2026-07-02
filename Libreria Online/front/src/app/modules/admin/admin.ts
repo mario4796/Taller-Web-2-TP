@@ -10,8 +10,7 @@ import { Nav } from '../../shared/components/nav/nav';
   styleUrl: './admin.css',
 })
 export class Admin {
-  userName = 'María Rodríguez';
-  role = 'admin';
+
 }
 
-//test
+
