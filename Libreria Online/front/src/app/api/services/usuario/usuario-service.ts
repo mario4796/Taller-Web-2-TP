@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { environment } from '../../../../environmets/environmet.development';
+import { environment } from '../../../../environments/environment.development';
 
 interface UsuarioListadoRest {
   id: number;
@@ -30,7 +30,7 @@ export class UsuarioService {
   http = inject(HttpClient);
 
   listUsuarios(): Observable<UsuarioListado[]> {
-    return this.http.get<UsuarioListadoRest[]>(`${environment.API_URL}/usuarios`).pipe(
+    return this.http.get<UsuarioListadoRest[]>(`${environment.API_URL}/api/usuarios`).pipe(
       map((usuarios) =>
         usuarios.map((usuario) => ({
           id: usuario.id,

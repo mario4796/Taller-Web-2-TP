@@ -6,20 +6,26 @@ import { LibrosDigitales } from './modules/comprador/pages/libros-digitales/libr
 import { Estanteria } from './modules/estanteria/estanteria';
 import { CarritoComponent } from './modules/carrito/carrito-component/carrito-component';
 import { authGuard } from './services/Auth/auth-guard';
+import { homeRedirectGuard } from './services/Auth/home-redirect-guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeUser,
+    canActivate: [homeRedirectGuard],
   },
   {
     path: 'proveedor',
     loadChildren: () =>
       import('./modules/proveedor/proveedor.routes').then((m) => m.proveedorRoutes),
+    canActivate: [authGuard],
+    data: { roles: ['PROVEEDOR'] },
   },
   {
     path: 'comprador/libros-digitales',
     component: LibrosDigitales,
+    canActivate: [authGuard],
+    data: { roles: ['COMPRADOR'] },
   },
   {
     path: 'register',
@@ -32,6 +38,8 @@ export const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./modules/admin/admin.routes').then((m) => m.adminRoutes),
+    canActivate: [authGuard],
+    data: { roles: ['ADMIN'] },
   },
   {
     path: 'libros',
@@ -45,4 +53,8 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { roles: ['COMPRADOR'] },
   },
+  {
+    path: '**',
+    redirectTo: '',
+  }
 ];

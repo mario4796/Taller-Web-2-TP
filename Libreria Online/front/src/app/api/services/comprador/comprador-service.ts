@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Carrito } from '../../../modules/carrito/interfaces/carrito.interface';
 import { CarritoRest } from './mapping/carrito.interface.rest';
-import { environment } from '../../../../environmets/environmet.development';
+import { environment } from '../../../../environments/environment.development';
 import { CarritoMapper } from './mapping/carrito.mapper';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class CompradorService {
 
   getCarritoUsuario(comprador_id: number): Observable<Carrito> {
     return this.http
-      .get<CarritoRest>(`${environment.API_URL}/comprador/carrito/${comprador_id}`) // <-- Sin []
+      .get<CarritoRest>(`${environment.API_URL}/api/comprador/carrito/${comprador_id}`) // <-- Sin []
       .pipe(
         map((res) => {
           return CarritoMapper.mapRestCarritoToCarrioFront(res);
