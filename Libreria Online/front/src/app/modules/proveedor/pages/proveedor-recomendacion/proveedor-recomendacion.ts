@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { catchError, of } from 'rxjs';
 
@@ -39,11 +41,13 @@ const CAMPOS_LIBRO_EDITABLES: CamposLibroBloqueados = {
     ReactiveFormsModule,
     Nav,
     ButtonModule,
+    ConfirmDialogModule,
     ToastModule,
     RecomendacionesTable,
     RecomendacionFormDialog,
     ContraofertaProveedorDialog,
   ],
+  providers: [ConfirmationService],
   templateUrl: './proveedor-recomendacion.html',
   styleUrl: './proveedor-recomendacion.css',
 })
@@ -58,6 +62,7 @@ export class ProveedorRecomendacion implements OnInit {
   private librosService = inject(LibrosService);
   private toastService = inject(ToastService);
   private authService = inject(AuthService);
+  private confirmationService = inject(ConfirmationService);
 
   recomendaciones = signal<OfertaLibro[]>([]);
   cargando = signal(true);
@@ -254,9 +259,22 @@ export class ProveedorRecomendacion implements OnInit {
   }
 
   rechazarOferta(recomendacion: OfertaLibro): void {
+    this.confirmationService.confirm({
+      header: 'Rechazar contraoferta',
+      message: `Estas seguro de rechazar la contraoferta de "${recomendacion.nombre}"?`,
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Rechazar',
+      rejectLabel: 'Cancelar',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-text',
+      accept: () => this.confirmarRechazoOferta(recomendacion),
+    });
+  }
+
+  private confirmarRechazoOferta(recomendacion: OfertaLibro): void {
     this.ofertasService.rechazarOferta(recomendacion.id).subscribe({
       next: () => {
-        this.toastService.error('Oferta rechazada');
+        this.toastService.success('La contraoferta fue rechazada correctamente.', 'Oferta rechazada');
         this.cargarOfertasRecomendadas();
       },
       error: (error) => {
