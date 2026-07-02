@@ -1,8 +1,4 @@
 
-.synopsis-popover {
-  max-width: 28rem;
-}
-
 .cover-cell {
   width: 3.4rem;
   height: 5.1rem;
@@ -21,13 +17,18 @@
   display: block;
 }
 
-.synopsis-popover strong {
-  display: block;
-  margin-bottom: 0.5rem;
+.book-cell {
+  display: grid;
+  gap: 0.25rem;
 }
 
-.synopsis-popover p {
+.book-cell strong,
+.book-cell span {
   margin: 0;
-  line-height: 1.5;
-  white-space: pre-line;
+  line-height: 1.35;
+}
+
+.book-cell span {
+  color: #64748b;
+  font-size: 0.9rem;
 }
