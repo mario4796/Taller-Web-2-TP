@@ -12,12 +12,12 @@ import { ButtonModule } from 'primeng/button';
 export class LibroCarrito {
   detalle = input.required<DetalleCarrito>();
 
-  onEliminar = output<number>(); // Emite el ID del libro
+  onEliminar = output<DetalleCarrito>();
   onRestar = output<number>();
   onAumentar = output<number>();
 
   borrar() {
-    this.onEliminar.emit(this.detalle().libro_id);
+    this.onEliminar.emit(this.detalle());
   }
 
   restar() {

@@ -48,6 +48,7 @@ export type DetallesCarritoMinAggregateOutputType = {
   libro_id: number | null
   cantidad: number | null
   precio: runtime.Decimal | null
+  es_digital: boolean | null
 }
 
 export type DetallesCarritoMaxAggregateOutputType = {
@@ -56,6 +57,7 @@ export type DetallesCarritoMaxAggregateOutputType = {
   libro_id: number | null
   cantidad: number | null
   precio: runtime.Decimal | null
+  es_digital: boolean | null
 }
 
 export type DetallesCarritoCountAggregateOutputType = {
@@ -64,6 +66,7 @@ export type DetallesCarritoCountAggregateOutputType = {
   libro_id: number
   cantidad: number
   precio: number
+  es_digital: number
   _all: number
 }
 
@@ -90,6 +93,7 @@ export type DetallesCarritoMinAggregateInputType = {
   libro_id?: true
   cantidad?: true
   precio?: true
+  es_digital?: true
 }
 
 export type DetallesCarritoMaxAggregateInputType = {
@@ -98,6 +102,7 @@ export type DetallesCarritoMaxAggregateInputType = {
   libro_id?: true
   cantidad?: true
   precio?: true
+  es_digital?: true
 }
 
 export type DetallesCarritoCountAggregateInputType = {
@@ -106,6 +111,7 @@ export type DetallesCarritoCountAggregateInputType = {
   libro_id?: true
   cantidad?: true
   precio?: true
+  es_digital?: true
   _all?: true
 }
 
@@ -201,6 +207,7 @@ export type DetallesCarritoGroupByOutputType = {
   libro_id: number
   cantidad: number
   precio: runtime.Decimal
+  es_digital: boolean
   _count: DetallesCarritoCountAggregateOutputType | null
   _avg: DetallesCarritoAvgAggregateOutputType | null
   _sum: DetallesCarritoSumAggregateOutputType | null
@@ -232,6 +239,7 @@ export type DetallesCarritoWhereInput = {
   libro_id?: Prisma.IntFilter<"DetallesCarrito"> | number
   cantidad?: Prisma.IntFilter<"DetallesCarrito"> | number
   precio?: Prisma.DecimalFilter<"DetallesCarrito"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolFilter<"DetallesCarrito"> | boolean
   Carrito?: Prisma.XOR<Prisma.CarritosScalarRelationFilter, Prisma.CarritosWhereInput>
   Libros?: Prisma.XOR<Prisma.LibrosScalarRelationFilter, Prisma.LibrosWhereInput>
 }
@@ -242,13 +250,14 @@ export type DetallesCarritoOrderByWithRelationInput = {
   libro_id?: Prisma.SortOrder
   cantidad?: Prisma.SortOrder
   precio?: Prisma.SortOrder
+  es_digital?: Prisma.SortOrder
   Carrito?: Prisma.CarritosOrderByWithRelationInput
   Libros?: Prisma.LibrosOrderByWithRelationInput
 }
 
 export type DetallesCarritoWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  carrito_id_libro_id?: Prisma.DetallesCarritoCarrito_idLibro_idCompoundUniqueInput
+  carrito_id_libro_id_es_digital?: Prisma.DetallesCarritoCarrito_idLibro_idEs_digitalCompoundUniqueInput
   AND?: Prisma.DetallesCarritoWhereInput | Prisma.DetallesCarritoWhereInput[]
   OR?: Prisma.DetallesCarritoWhereInput[]
   NOT?: Prisma.DetallesCarritoWhereInput | Prisma.DetallesCarritoWhereInput[]
@@ -256,9 +265,10 @@ export type DetallesCarritoWhereUniqueInput = Prisma.AtLeast<{
   libro_id?: Prisma.IntFilter<"DetallesCarrito"> | number
   cantidad?: Prisma.IntFilter<"DetallesCarrito"> | number
   precio?: Prisma.DecimalFilter<"DetallesCarrito"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolFilter<"DetallesCarrito"> | boolean
   Carrito?: Prisma.XOR<Prisma.CarritosScalarRelationFilter, Prisma.CarritosWhereInput>
   Libros?: Prisma.XOR<Prisma.LibrosScalarRelationFilter, Prisma.LibrosWhereInput>
-}, "id" | "carrito_id_libro_id">
+}, "id" | "carrito_id_libro_id_es_digital">
 
 export type DetallesCarritoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -266,6 +276,7 @@ export type DetallesCarritoOrderByWithAggregationInput = {
   libro_id?: Prisma.SortOrder
   cantidad?: Prisma.SortOrder
   precio?: Prisma.SortOrder
+  es_digital?: Prisma.SortOrder
   _count?: Prisma.DetallesCarritoCountOrderByAggregateInput
   _avg?: Prisma.DetallesCarritoAvgOrderByAggregateInput
   _max?: Prisma.DetallesCarritoMaxOrderByAggregateInput
@@ -282,11 +293,13 @@ export type DetallesCarritoScalarWhereWithAggregatesInput = {
   libro_id?: Prisma.IntWithAggregatesFilter<"DetallesCarrito"> | number
   cantidad?: Prisma.IntWithAggregatesFilter<"DetallesCarrito"> | number
   precio?: Prisma.DecimalWithAggregatesFilter<"DetallesCarrito"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolWithAggregatesFilter<"DetallesCarrito"> | boolean
 }
 
 export type DetallesCarritoCreateInput = {
   cantidad?: number
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: boolean
   Carrito: Prisma.CarritosCreateNestedOneWithoutDetallesInput
   Libros: Prisma.LibrosCreateNestedOneWithoutDetallesCarritosInput
 }
@@ -297,11 +310,13 @@ export type DetallesCarritoUncheckedCreateInput = {
   libro_id: number
   cantidad?: number
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: boolean
 }
 
 export type DetallesCarritoUpdateInput = {
   cantidad?: Prisma.IntFieldUpdateOperationsInput | number
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Carrito?: Prisma.CarritosUpdateOneRequiredWithoutDetallesNestedInput
   Libros?: Prisma.LibrosUpdateOneRequiredWithoutDetallesCarritosNestedInput
 }
@@ -312,6 +327,7 @@ export type DetallesCarritoUncheckedUpdateInput = {
   libro_id?: Prisma.IntFieldUpdateOperationsInput | number
   cantidad?: Prisma.IntFieldUpdateOperationsInput | number
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type DetallesCarritoCreateManyInput = {
@@ -320,11 +336,13 @@ export type DetallesCarritoCreateManyInput = {
   libro_id: number
   cantidad?: number
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: boolean
 }
 
 export type DetallesCarritoUpdateManyMutationInput = {
   cantidad?: Prisma.IntFieldUpdateOperationsInput | number
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type DetallesCarritoUncheckedUpdateManyInput = {
@@ -333,6 +351,7 @@ export type DetallesCarritoUncheckedUpdateManyInput = {
   libro_id?: Prisma.IntFieldUpdateOperationsInput | number
   cantidad?: Prisma.IntFieldUpdateOperationsInput | number
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type DetallesCarritoListRelationFilter = {
@@ -345,9 +364,10 @@ export type DetallesCarritoOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type DetallesCarritoCarrito_idLibro_idCompoundUniqueInput = {
+export type DetallesCarritoCarrito_idLibro_idEs_digitalCompoundUniqueInput = {
   carrito_id: number
   libro_id: number
+  es_digital: boolean
 }
 
 export type DetallesCarritoCountOrderByAggregateInput = {
@@ -356,6 +376,7 @@ export type DetallesCarritoCountOrderByAggregateInput = {
   libro_id?: Prisma.SortOrder
   cantidad?: Prisma.SortOrder
   precio?: Prisma.SortOrder
+  es_digital?: Prisma.SortOrder
 }
 
 export type DetallesCarritoAvgOrderByAggregateInput = {
@@ -372,6 +393,7 @@ export type DetallesCarritoMaxOrderByAggregateInput = {
   libro_id?: Prisma.SortOrder
   cantidad?: Prisma.SortOrder
   precio?: Prisma.SortOrder
+  es_digital?: Prisma.SortOrder
 }
 
 export type DetallesCarritoMinOrderByAggregateInput = {
@@ -380,6 +402,7 @@ export type DetallesCarritoMinOrderByAggregateInput = {
   libro_id?: Prisma.SortOrder
   cantidad?: Prisma.SortOrder
   precio?: Prisma.SortOrder
+  es_digital?: Prisma.SortOrder
 }
 
 export type DetallesCarritoSumOrderByAggregateInput = {
@@ -477,6 +500,7 @@ export type DetallesCarritoUncheckedUpdateManyWithoutCarritoNestedInput = {
 export type DetallesCarritoCreateWithoutLibrosInput = {
   cantidad?: number
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: boolean
   Carrito: Prisma.CarritosCreateNestedOneWithoutDetallesInput
 }
 
@@ -485,6 +509,7 @@ export type DetallesCarritoUncheckedCreateWithoutLibrosInput = {
   carrito_id: number
   cantidad?: number
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: boolean
 }
 
 export type DetallesCarritoCreateOrConnectWithoutLibrosInput = {
@@ -522,11 +547,13 @@ export type DetallesCarritoScalarWhereInput = {
   libro_id?: Prisma.IntFilter<"DetallesCarrito"> | number
   cantidad?: Prisma.IntFilter<"DetallesCarrito"> | number
   precio?: Prisma.DecimalFilter<"DetallesCarrito"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolFilter<"DetallesCarrito"> | boolean
 }
 
 export type DetallesCarritoCreateWithoutCarritoInput = {
   cantidad?: number
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: boolean
   Libros: Prisma.LibrosCreateNestedOneWithoutDetallesCarritosInput
 }
 
@@ -535,6 +562,7 @@ export type DetallesCarritoUncheckedCreateWithoutCarritoInput = {
   libro_id: number
   cantidad?: number
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: boolean
 }
 
 export type DetallesCarritoCreateOrConnectWithoutCarritoInput = {
@@ -568,11 +596,13 @@ export type DetallesCarritoCreateManyLibrosInput = {
   carrito_id: number
   cantidad?: number
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: boolean
 }
 
 export type DetallesCarritoUpdateWithoutLibrosInput = {
   cantidad?: Prisma.IntFieldUpdateOperationsInput | number
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Carrito?: Prisma.CarritosUpdateOneRequiredWithoutDetallesNestedInput
 }
 
@@ -581,6 +611,7 @@ export type DetallesCarritoUncheckedUpdateWithoutLibrosInput = {
   carrito_id?: Prisma.IntFieldUpdateOperationsInput | number
   cantidad?: Prisma.IntFieldUpdateOperationsInput | number
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type DetallesCarritoUncheckedUpdateManyWithoutLibrosInput = {
@@ -588,6 +619,7 @@ export type DetallesCarritoUncheckedUpdateManyWithoutLibrosInput = {
   carrito_id?: Prisma.IntFieldUpdateOperationsInput | number
   cantidad?: Prisma.IntFieldUpdateOperationsInput | number
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type DetallesCarritoCreateManyCarritoInput = {
@@ -595,11 +627,13 @@ export type DetallesCarritoCreateManyCarritoInput = {
   libro_id: number
   cantidad?: number
   precio: runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: boolean
 }
 
 export type DetallesCarritoUpdateWithoutCarritoInput = {
   cantidad?: Prisma.IntFieldUpdateOperationsInput | number
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Libros?: Prisma.LibrosUpdateOneRequiredWithoutDetallesCarritosNestedInput
 }
 
@@ -608,6 +642,7 @@ export type DetallesCarritoUncheckedUpdateWithoutCarritoInput = {
   libro_id?: Prisma.IntFieldUpdateOperationsInput | number
   cantidad?: Prisma.IntFieldUpdateOperationsInput | number
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type DetallesCarritoUncheckedUpdateManyWithoutCarritoInput = {
@@ -615,6 +650,7 @@ export type DetallesCarritoUncheckedUpdateManyWithoutCarritoInput = {
   libro_id?: Prisma.IntFieldUpdateOperationsInput | number
   cantidad?: Prisma.IntFieldUpdateOperationsInput | number
   precio?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  es_digital?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -625,6 +661,7 @@ export type DetallesCarritoSelect<ExtArgs extends runtime.Types.Extensions.Inter
   libro_id?: boolean
   cantidad?: boolean
   precio?: boolean
+  es_digital?: boolean
   Carrito?: boolean | Prisma.CarritosDefaultArgs<ExtArgs>
   Libros?: boolean | Prisma.LibrosDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["detallesCarrito"]>
@@ -635,6 +672,7 @@ export type DetallesCarritoSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   libro_id?: boolean
   cantidad?: boolean
   precio?: boolean
+  es_digital?: boolean
   Carrito?: boolean | Prisma.CarritosDefaultArgs<ExtArgs>
   Libros?: boolean | Prisma.LibrosDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["detallesCarrito"]>
@@ -645,6 +683,7 @@ export type DetallesCarritoSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   libro_id?: boolean
   cantidad?: boolean
   precio?: boolean
+  es_digital?: boolean
   Carrito?: boolean | Prisma.CarritosDefaultArgs<ExtArgs>
   Libros?: boolean | Prisma.LibrosDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["detallesCarrito"]>
@@ -655,9 +694,10 @@ export type DetallesCarritoSelectScalar = {
   libro_id?: boolean
   cantidad?: boolean
   precio?: boolean
+  es_digital?: boolean
 }
 
-export type DetallesCarritoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "carrito_id" | "libro_id" | "cantidad" | "precio", ExtArgs["result"]["detallesCarrito"]>
+export type DetallesCarritoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "carrito_id" | "libro_id" | "cantidad" | "precio" | "es_digital", ExtArgs["result"]["detallesCarrito"]>
 export type DetallesCarritoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Carrito?: boolean | Prisma.CarritosDefaultArgs<ExtArgs>
   Libros?: boolean | Prisma.LibrosDefaultArgs<ExtArgs>
@@ -683,6 +723,7 @@ export type $DetallesCarritoPayload<ExtArgs extends runtime.Types.Extensions.Int
     libro_id: number
     cantidad: number
     precio: runtime.Decimal
+    es_digital: boolean
   }, ExtArgs["result"]["detallesCarrito"]>
   composites: {}
 }
@@ -1113,6 +1154,7 @@ export interface DetallesCarritoFieldRefs {
   readonly libro_id: Prisma.FieldRef<"DetallesCarrito", 'Int'>
   readonly cantidad: Prisma.FieldRef<"DetallesCarrito", 'Int'>
   readonly precio: Prisma.FieldRef<"DetallesCarrito", 'Decimal'>
+  readonly es_digital: Prisma.FieldRef<"DetallesCarrito", 'Boolean'>
 }
     
 

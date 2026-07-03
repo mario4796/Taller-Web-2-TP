@@ -197,7 +197,8 @@ export const DetallesCarritoScalarFieldEnum = {
   carrito_id: 'carrito_id',
   libro_id: 'libro_id',
   cantidad: 'cantidad',
-  precio: 'precio'
+  precio: 'precio',
+  es_digital: 'es_digital'
 } as const
 
 export type DetallesCarritoScalarFieldEnum = (typeof DetallesCarritoScalarFieldEnum)[keyof typeof DetallesCarritoScalarFieldEnum]

@@ -27,11 +27,16 @@ export class CompradorService {
     comprador_id: number;
     libro_id: number;
     cantidad: number;
+    es_digital?: boolean;
   }): Observable<any> {
     return this.http.post(`${this.apiUrl}/agregarProducto`, datos);
   }
 
-  borrarProducto(datos: { comprador_id: number; libro_id: number }): Observable<any> {
+  borrarProducto(datos: {
+    comprador_id: number;
+    libro_id: number;
+    es_digital?: boolean;
+  }): Observable<any> {
     return this.http.post(`${this.apiUrl}/borrarProducto`, datos);
   }
 

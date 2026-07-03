@@ -119,10 +119,11 @@ model DetallesCarrito {
   libro_id   Int
   cantidad   Int      @default(1)
   precio     Decimal  @db.Decimal(10, 2)
+  es_digital Boolean  @default(false)
   Carrito    Carritos @relation(fields: [carrito_id], references: [id], onDelete: Cascade)
   Libros     Libros   @relation(fields: [libro_id], references: [id], onDelete: Cascade)
 
-  @@unique([carrito_id, libro_id])
+  @@unique([carrito_id, libro_id, es_digital])
 }
 
 model Transacciones {

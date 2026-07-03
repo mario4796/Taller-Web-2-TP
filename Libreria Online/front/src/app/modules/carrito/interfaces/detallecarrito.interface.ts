@@ -6,5 +6,6 @@ export interface DetalleCarrito {
   libro_id: number;
   cantidad: number;
   precio: number;
+  es_digital: boolean;
   Libros: Libro;
 }
