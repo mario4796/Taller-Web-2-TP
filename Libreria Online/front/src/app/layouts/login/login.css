@@ -73,7 +73,9 @@
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .auth-back-link:hover {
@@ -215,4 +217,34 @@
 .login-icon i {
   font-size: 3rem;
   color: #a855f7;
+}
+
+.register-link-container {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.register-link {
+  color: #8b5cf6;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+  color: #7c3aed;
+}
+
+:host-context(.app-dark) .register-link-container {
+  border-top: 1px solid #334155;
+  color: #94a3b8;
+}
+
+:host-context(.app-dark) .register-link {
+  color: #a78bfa;
 }

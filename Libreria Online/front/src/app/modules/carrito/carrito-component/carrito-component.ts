@@ -64,14 +64,23 @@ export class CarritoComponent implements OnInit {
           }, 2000);
         },
         error: (err) => {
-          console.error('Error al procesar pago:', err);
+          if (err.status == 400) {
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Error',
+              detail: 'El carrito esta vacio, no puede realizar la compra',
+              life: 3000,
+            });
+          } else {
+            console.error('Error al procesar pago:', err);
 
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Hubo un problema al procesar el pago.',
-            life: 3000,
-          });
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Hubo un problema al procesar el pago.',
+              life: 3000,
+            });
+          }
         },
       });
   }

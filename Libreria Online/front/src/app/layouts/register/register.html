@@ -87,12 +87,14 @@
     @if (isRedirecting) {
       <div class="redirect-feedback" aria-live="polite">
         <span>Cuenta creada. Te estamos llevando al inicio...</span>
-        <p-progressbar
-          mode="indeterminate"
-          [showValue]="false"
-          styleClass="redirect-progress">
+        <p-progressbar mode="indeterminate" [showValue]="false" styleClass="redirect-progress">
         </p-progressbar>
       </div>
     }
   </form>
+
+  <div class="register-link-container">
+    <span>¿Ya tenés cuenta? </span>
+    <a routerLink="/register" class="register-link">Inicia Sesion</a>
+  </div>
 </p-card>

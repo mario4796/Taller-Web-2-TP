@@ -31,7 +31,12 @@
 
     <div class="field">
       <p-floatLabel variant="in">
-        <p-password inputId="password" formControlName="password" [toggleMask]="true" [feedback]="false">
+        <p-password
+          inputId="password"
+          formControlName="password"
+          [toggleMask]="true"
+          [feedback]="false"
+        >
         </p-password>
 
         <label for="password">Contrasena</label>
@@ -54,4 +59,8 @@
     >
     </p-button>
   </form>
+  <div class="register-link-container">
+    <span>¿No tenés cuenta? </span>
+    <a routerLink="/register" class="register-link">Registrate aquí</a>
+  </div>
 </p-card>

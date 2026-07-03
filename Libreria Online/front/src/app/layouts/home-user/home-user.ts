@@ -160,7 +160,7 @@ export class HomeUser implements OnInit {
           },
         });
     } else if (this.authService.getUser() === null) {
-      this.router.navigate(['/register']);
+      this.router.navigate(['/login']);
     } else {
       console.log('Error no esperado');
     }

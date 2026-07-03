@@ -73,6 +73,10 @@ export class CompradorService {
         compradorId,
         tx,
       );
+
+      if (!carrito || !carrito.detalles || carrito.detalles.length === 0) {
+        throw new Error("Carrito vacio.");
+      }
       console.log(carrito);
       const transaccion = await this.transaccionRepository.crear(
         compradorId,
@@ -80,10 +84,7 @@ export class CompradorService {
         tx,
       );
       console.log(transaccion);
-      await this.libroRepository.actualizarStockTrasCompra(
-        carrito.detalles,
-        tx,
-      );
+
       await this.carritoRepository.limpiarCarrito(carrito.id, tx);
 
       return transaccion;
