@@ -62,7 +62,6 @@ export class Nav {
           { label: 'Peticiones', icon: 'assignment', link: '/proveedor/peticiones' },
           { label: 'Estadísticas', icon: 'monitoring', link: '/proveedor/estadisticas' },
           { label: 'Ventas', icon: 'shopping_cart', link: '/proveedor/ventas' },
-
         ];
       default:
         return [

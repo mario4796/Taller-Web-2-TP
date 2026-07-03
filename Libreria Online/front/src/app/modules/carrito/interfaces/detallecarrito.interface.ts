@@ -1,4 +1,4 @@
-import { Libro } from '../../libros/interfaces/libro.interface';
+import { Libro } from '../../../shared/interfaces/libro.interface';
 
 export interface DetalleCarrito {
   id: number;

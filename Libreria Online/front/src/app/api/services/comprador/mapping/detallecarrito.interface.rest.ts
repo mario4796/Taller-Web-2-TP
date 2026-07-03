@@ -1,5 +1,5 @@
-import { Libro } from '../../../../modules/libros/interfaces/libro.interface';
 import { LibroRest } from '../../../../services/libros/mapping/libro.interface.rest';
+import { Libro } from '../../../../shared/interfaces/libro.interface';
 
 export interface DetalleCarritoRest {
   id: number;

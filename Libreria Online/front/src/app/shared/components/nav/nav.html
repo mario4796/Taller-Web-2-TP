@@ -1,102 +1,66 @@
-<nav class="top-nav">
-  <div class="brand">
-    <span class="material-symbols-rounded brand-icon">auto_stories</span>
-    <span>Librería Online</span>
-  </div>
+<nav class="navbar navbar-expand-xl sticky-top px-3 px-md-4 border-bottom custom-navbar">
+  <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="#">
+    <!-- Sin clases de color de Bootstrap aquí -->
+    <span class="material-symbols-rounded brand-icon fs-2">auto_stories</span>
+    <span class="brand-text">Librería Online</span>
+  </a>
 
-  <div class="nav-links">
+  <!-- Desktop Nav Links -->
+  <div class="d-none d-xl-flex flex-grow-1 justify-content-center gap-2 nav-desktop-links">
     @for (item of navItems(); track item.label) {
-      <button class="nav-link" type="button" (click)="onNavItemClick(item)">
-        <span class="material-symbols-rounded">{{ item.icon }}</span>
-        <span>{{ item.label }}</span>
-      </button>
+      <p-button [text]="true" [plain]="true" (onClick)="onNavItemClick(item)">
+        <span class="material-symbols-rounded me-2">{{ item.icon }}</span>
+        {{ item.label }}
+      </p-button>
     }
   </div>
 
-  <div class="nav-actions">
-    <p-button
-      [rounded]="true"
-      [text]="true"
-      styleClass="nav-icon-button"
-      (onClick)="toggleTheme()"
-      [attr.aria-label]="isDark() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
-    >
-      <span class="material-symbols-rounded">
-        {{ isDark() ? 'light_mode' : 'dark_mode' }}
-      </span>
+  <div class="d-flex align-items-center gap-2">
+    <p-button [rounded]="true" [text]="true" (onClick)="toggleTheme()">
+      <span class="material-symbols-rounded">{{ isDark() ? 'light_mode' : 'dark_mode' }}</span>
     </p-button>
 
-    @if (isLogged()) {
-      <div class="user-menu-wrapper">
-        <div class="user-info" (click)="menu.toggle($event)">
-          <p-avatar [label]="initials" shape="circle" styleClass="mr-2"></p-avatar>
+    <div class="d-flex align-items-center gap-2 auth-container">
+      @if (isLogged()) {
+        <p-avatar [label]="initials" shape="circle"></p-avatar>
+        <p-button
+          icon="pi pi-sign-out"
+          [rounded]="true"
+          [text]="true"
+          styleClass="text-danger"
+          (onClick)="logout()"
+        ></p-button>
+      } @else {
+        <p-button routerLink="/login" label="Login" severity="secondary" [outlined]="true" />
+        <p-button routerLink="/register" label="Registro" />
+      }
+    </div>
 
-          <div class="user-text">
-            <strong>{{ userName() }}</strong>
-            <small>{{ roleLabel }}</small>
-          </div>
-
-          <span class="material-symbols-rounded">expand_more</span>
-        </div>
-
-        <p-menu #menu [model]="userMenuItems" [popup]="true" appendTo="body"></p-menu>
-      </div>
-    } @else {
-      <div class="auth-buttons d-flex gap-3">
-        <p-button routerLink="/login" severity="secondary" styleClass="auth-prime-btn">
-          <span>Iniciar sesión</span>
-        </p-button>
-
-        <p-button routerLink="/register" styleClass="auth-prime-btn">
-          <span>Registrarme</span>
-        </p-button>
-      </div>
-    }
-
+    <!-- Hamburguesa -->
     <p-button
-      class="hamburger-button"
+      class="d-xl-none"
       [rounded]="true"
       [text]="true"
-      styleClass="nav-icon-button"
       (onClick)="mobileNavOpen.set(!mobileNavOpen())"
-      aria-label="Abrir menú"
     >
       <span class="material-symbols-rounded">menu</span>
     </p-button>
   </div>
+</nav>
 
-  <div class="mobile-nav" [class.open]="mobileNavOpen()">
-    <div class="mobile-nav-inner">
+<!-- Menú móvil: Condición simple -->
+@if (mobileNavOpen()) {
+  <div class="mobile-menu-compact border-bottom shadow-sm">
+    <div class="d-flex flex-column p-2">
       @for (item of navItems(); track item.label) {
-        <button class="mobile-nav-item" type="button" (click)="onNavItemClick(item, true)">
-          <span class="material-symbols-rounded">{{ item.icon }}</span>
-          <span>{{ item.label }}</span>
-        </button>
-      }
-
-      @if (!isLogged()) {
-        <div class="mobile-auth-actions">
-          <button
-            class="mobile-nav-item mobile-auth-item"
-            routerLink="/login"
-            type="button"
-            (click)="mobileNavOpen.set(false)"
-          >
-            <span class="material-symbols-rounded">login</span>
-            <span>Iniciar sesion</span>
-          </button>
-
-          <button
-            class="mobile-nav-item mobile-auth-item primary"
-            routerLink="/register"
-            type="button"
-            (click)="mobileNavOpen.set(false)"
-          >
-            <span class="material-symbols-rounded">person_add</span>
-            <span>Registrarme</span>
-          </button>
-        </div>
+        <p-button
+          [text]="true"
+          (onClick)="onNavItemClick(item, true)"
+          styleClass="w-100 justify-content-start py-2"
+        >
+          {{ item.label }}
+        </p-button>
       }
     </div>
   </div>
-</nav>
+}
