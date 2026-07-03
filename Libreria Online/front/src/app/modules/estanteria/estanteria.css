@@ -1,7 +1,6 @@
 :host {
   display: block;
   min-height: 100vh;
-
   background: #f8fafc;
 }
 
@@ -18,18 +17,17 @@
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 0.5rem;
-  color: #1e293b; /* light default */
+  color: #1e293b;
 }
 
 .library-header p {
   font-size: 1.1rem;
-  color: #64748b; /* light muted */
+  color: #64748b;
 }
 
 :host-context(.app-dark) .library-header h1 {
   color: #ffffff;
 }
-
 :host-context(.app-dark) .library-header p {
   color: #94a3b8;
 }
@@ -38,4 +36,79 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
+}
+
+.search-wrapper {
+  max-width: 800px; /* Ampliado para mejor balance */
+  margin: 1.5rem auto;
+  padding: 1em;
+}
+
+/* --- ESTILOS UNIFICADOS: BUSCADOR Y CATEGORÍA --- */
+
+.search-input,
+:host ::ng-deep .category-dropdown {
+  background: #f1f5f9 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 12px !important;
+  height: 52px !important; /* Altura unificada más cómoda */
+  transition: all 0.3s ease !important;
+  display: flex;
+  align-items: center;
+}
+
+/* Estado Focus */
+.search-input:focus,
+:host ::ng-deep .category-dropdown.p-focus {
+  border-color: #8b5cf6 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2) !important;
+}
+
+/* Texto del Input y Dropdown */
+.search-input {
+  color: #000000 !important;
+  padding: 0.6rem 1rem 0.6rem 2.5rem !important;
+}
+:host ::ng-deep .category-dropdown .p-select-label {
+  padding: 0.6rem 1rem !important;
+  color: #000000 !important;
+}
+
+/* Icono del buscador */
+:host ::ng-deep .p-input-icon-left > i {
+  color: #94a3b8;
+  left: 1rem;
+}
+
+/* --- MODO OSCURO UNIFICADO --- */
+
+:host-context(.app-dark) .search-input,
+:host-context(.app-dark) :host ::ng-deep .category-dropdown {
+  background: rgba(30, 35, 48, 0.98) !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+}
+
+:host-context(.app-dark) .search-input {
+  color: #ffffff !important;
+}
+:host-context(.app-dark) :host ::ng-deep .category-dropdown .p-select-label {
+  color: #ffffff !important;
+}
+:host-context(.app-dark) :host ::ng-deep .p-select-dropdown {
+  color: #94a3b8 !important;
+}
+
+/* Panel de opciones del select en modo oscuro */
+:host-context(.app-dark) ::ng-deep .p-select-panel {
+  background: #1e2330 !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+  color: #ffffff !important;
+}
+
+:host-context(.app-dark) ::ng-deep .p-select-option {
+  color: #ffffff !important;
+}
+:host-context(.app-dark) ::ng-deep .p-select-option.p-focus {
+  background: rgba(139, 92, 246, 0.2) !important;
 }

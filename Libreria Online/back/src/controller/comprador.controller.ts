@@ -62,8 +62,6 @@ export class CompradorController {
         cantidad,
       );
 
-      console.log(producto);
-
       res.status(200).json(producto);
     } catch (error) {
       res.status(500).json({ message: "Error al obtener los producto", error });
@@ -78,8 +76,6 @@ export class CompradorController {
         libro_id,
       );
 
-      console.log(producto);
-
       res.status(200).json(producto);
     } catch (error) {
       res.status(500).json({ message: "Error al obtener los producto", error });
@@ -89,16 +85,18 @@ export class CompradorController {
   public comprarProductos = async (req: Request, res: Response) => {
     try {
       const { comprador_id } = req.body;
-      console.log("Aca llego" + comprador_id);
+
       const compra = await compradorService.procesarAbono(comprador_id);
 
-      console.log(compra);
-
       res.status(200).json(compra);
-    } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Error al realizar la transaccion", error });
+    } catch (error: any) {
+      if (error.message === "Carrito vacio.") {
+        return res.status(400).json({ message: error.message });
+      }
+      res.status(500).json({
+        message: "Error al realizar la transacción",
+        error: error.message,
+      });
     }
   };
 

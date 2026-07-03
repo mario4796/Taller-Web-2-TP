@@ -58,7 +58,11 @@ export class Nav {
         ];
       case 'proveedor':
         return [
-          { label: 'Solicitudes de libros', icon: 'auto_stories', link: '/proveedor/recomendaciones' },
+          {
+            label: 'Solicitudes de libros',
+            icon: 'auto_stories',
+            link: '/proveedor/recomendaciones',
+          },
           { label: 'Estadísticas', icon: 'monitoring', link: '/proveedor/estadisticas' },
           { label: 'Ventas', icon: 'shopping_cart', link: '/proveedor/ventas' },
         ];

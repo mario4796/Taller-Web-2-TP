@@ -83,7 +83,11 @@ export class LibroRepository {
     });
   }
 
-  async incrementarStockYActualizarPrecio(id: number, cantidad: number, precio: number) {
+  async incrementarStockYActualizarPrecio(
+    id: number,
+    cantidad: number,
+    precio: number,
+  ) {
     return await prisma.libros.update({
       where: { id },
       data: {
@@ -112,7 +116,6 @@ export class LibroRepository {
       where: {
         stock: { gt: 0 },
       },
-      take: 10,
     });
 
     return libros;

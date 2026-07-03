@@ -5,9 +5,45 @@
   <p>Explora nuestro catálogo de libros</p>
 </div>
 
+<!-- Buscador -->
+<div class="container search-wrapper">
+  <div class="row g-3">
+    <!-- Buscador -->
+    <div class="col-12 col-md-8">
+      <span class="p-input-icon-left w-100">
+        <input
+          type="text"
+          pInputText
+          (input)="actualizarBusqueda($event)"
+          placeholder="Buscar por nombre..."
+          class="w-100 search-input"
+        />
+      </span>
+    </div>
+    <!-- Selector Categoría -->
+    <div class="col-12 col-md-4">
+      <p-select
+        [options]="categorias()"
+        [ngModel]="categoriaSeleccionada()"
+        (ngModelChange)="categoriaSeleccionada.set($event)"
+        placeholder="Categoría"
+        styleClass="w-100 category-dropdown"
+        optionLabel="label"
+        optionValue="value"
+      >
+      </p-select>
+    </div>
+  </div>
+</div>
+
 <div class="books-grid">
-  @for (libro of libros(); track libro.id) {
-    <app-libro-estanteria [libro]="libro" (onComprar)="manejarCompra($event)" (onComprarDigital)="manejarCompraDigital($event)">
+  <!-- Iteramos sobre librosFiltrados() en lugar de libros() -->
+  @for (libro of librosFiltrados(); track libro.id) {
+    <app-libro-estanteria
+      [libro]="libro"
+      (onComprar)="manejarCompra($event)"
+      (onComprarDigital)="manejarCompraDigital($event)"
+    >
     </app-libro-estanteria>
   }
 </div>
