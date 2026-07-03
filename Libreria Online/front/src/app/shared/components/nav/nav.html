@@ -30,10 +30,12 @@
       <div class="user-menu-wrapper">
         <div class="user-info" (click)="menu.toggle($event)">
           <p-avatar [label]="initials" shape="circle" styleClass="mr-2"></p-avatar>
+
           <div class="user-text">
             <strong>{{ userName() }}</strong>
             <small>{{ roleLabel }}</small>
           </div>
+
           <span class="material-symbols-rounded">expand_more</span>
         </div>
 
@@ -44,6 +46,7 @@
         <p-button routerLink="/login" severity="secondary" styleClass="auth-prime-btn">
           <span>Iniciar sesión</span>
         </p-button>
+
         <p-button routerLink="/register" styleClass="auth-prime-btn">
           <span>Registrarme</span>
         </p-button>
@@ -65,11 +68,7 @@
   <div class="mobile-nav" [class.open]="mobileNavOpen()">
     <div class="mobile-nav-inner">
       @for (item of navItems(); track item.label) {
-        <button
-          class="mobile-nav-item"
-          type="button"
-          (click)="onNavItemClick(item, true)"
-        >
+        <button class="mobile-nav-item" type="button" (click)="onNavItemClick(item, true)">
           <span class="material-symbols-rounded">{{ item.icon }}</span>
           <span>{{ item.label }}</span>
         </button>

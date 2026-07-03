@@ -83,11 +83,17 @@ export class Register {
         setTimeout(() => this.router.navigate(['']), 2000);
       },
       error: (err) => {
-        console.error('Error al registrar:', err);
-        this.isLoading = false;
-        this.toastService.error(
-          'No se pudo crear la cuenta. Revisa los datos e intenta nuevamente.',
-        );
+        if (err.status == 409) {
+          this.isLoading = false;
+          this.toastService.error(
+            'Ya existe una cuenta con este EMAIL registrado, por favor utilice otro EMAIL.',
+          );
+        } else {
+          this.isLoading = false;
+          this.toastService.error(
+            'No se pudo crear la cuenta. Revisa los datos e intenta nuevamente.',
+          );
+        }
       },
     });
   }

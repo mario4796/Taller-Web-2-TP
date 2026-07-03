@@ -11,12 +11,20 @@ import { Button } from 'primeng/button';
 })
 export class Home {
   imageBanner = input('');
+
   eyebrow = input('');
+
   title = input('');
+
   description = input('');
+
   buttonText = input('');
+
   buttonLink = input('');
+
   buttonRoute = input('');
+
   buttonLinkRoute = input('');
+
   role = input('');
 }

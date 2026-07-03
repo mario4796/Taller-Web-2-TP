@@ -37,13 +37,23 @@ export class UsuarioService {
     direccion: string,
     tipo_usuario: number,
   ) {
-    return this.usuarioRepository.createUsuario(
-      email,
-      contrasena,
-      nombre,
-      apellido,
-      direccion,
-      tipo_usuario,
-    );
+    try {
+      return await this.usuarioRepository.createUsuario(
+        email,
+        contrasena,
+        nombre,
+        apellido,
+        direccion,
+        tipo_usuario,
+      );
+    } catch (error: any) {
+      if (
+        error.message === "El correo electrónico ya se encuentra registrado."
+      ) {
+        throw new Error("EMAIL_DUPLICADO");
+      }
+
+      throw error;
+    }
   }
 }

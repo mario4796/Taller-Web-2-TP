@@ -1,4 +1,5 @@
 <p-toast></p-toast>
+
 <app-nav></app-nav>
 <app-home
   [eyebrow]="eyebrow"
@@ -9,51 +10,123 @@
   [buttonRoute]="rutaExplorar"
   [imageBanner]="imageBanner"
 >
-  <section class="books-section">
-    <div class="section-header">
-      <h2>🔥 Libros destacados</h2>
-      <p>Explorá los títulos más populares de la plataforma</p>
-    </div>
-
-    <p-carousel
-      [value]="libros()"
-      [numVisible]="4"
-      [numScroll]="1"
-      [circular]="true"
-      [responsiveOptions]="responsiveOptions"
-    >
-      <ng-template let-libro pTemplate="item">
-        <div class="book-card">
-          <!-- COVER -->
+  <p-carousel
+    [value]="libros()"
+    [numVisible]="4"
+    [numScroll]="1"
+    [circular]="true"
+    [responsiveOptions]="responsiveOptions"
+  >
+    <ng-template let-libro pTemplate="item">
+      <div class="px-2 py-3">
+        <div class="book-card h-100" (click)="abrirLibro(libro)">
           <div class="book-cover">
             @if (libro.imagen) {
-              <img [src]="libro.imagen" [alt]="libro.nombre" />
+              <img
+                [src]="libro.imagen"
+                [alt]="libro.nombre"
+                class="img-fluid w-100 h-100 object-fit-cover"
+              />
             } @else {
-              <div class="cover-placeholder">
+              <div class="book-placeholder-container">
                 <i class="pi pi-book"></i>
               </div>
             }
 
             <div class="book-overlay">
-              <p-button icon="pi pi-eye" styleClass="p-button-rounded p-button-sm overlay-btn" />
-              <p-button icon="pi pi-shopping-cart" label="Comprar" styleClass="overlay-buy" />
+              <i class="pi pi-eye fs-3 mb-2"></i>
+              <span class="fw-semibold">Ver detalles</span>
             </div>
           </div>
 
-          <!-- INFO -->
-          <div class="book-info">
-            <span class="book-category">
-              {{ libro.categoria || 'GENERAL' }}
-            </span>
-            <h3 class="book-title">{{ libro.nombre }}</h3>
-            <p class="book-author">✍️ {{ libro.autor }}</p>
-            <div class="book-footer">
-              <span class="book-price"> ${{ libro.precio }} </span>
-              <i class="pi pi-heart book-like"></i>
+          <div class="p-3">
+            <h5 class="fw-bold text-truncate mb-3">
+              {{ libro.nombre }}
+            </h5>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="fw-bold text-success fs-5"> $ {{ libro.precio }} </span>
+
+              <small class="text-secondary"> Stock {{ libro.stock }} </small>
             </div>
           </div>
         </div>
-      </ng-template>
-    </p-carousel>
-  </section>
+      </div>
+    </ng-template>
+  </p-carousel>
 </app-home>
+
+<p-dialog
+  [(visible)]="dialogVisible"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+  [style]="{ width: 'min(620px,95vw)' }"
+  header="Detalles del libro"
+>
+  @if (selectedBook(); as libro) {
+    <div class="container-fluid p-0">
+      <div class="row g-4 align-items-start">
+        <!-- Imagen -->
+        <div class="col-12 col-md-4 text-center">
+          @if (libro.imagenUrl) {
+            <img
+              [src]="libro.imagenUrl"
+              [alt]="libro.nombre"
+              class="img-fluid rounded-4 shadow-sm modal-book-image"
+            />
+          } @else {
+            <div class="book-placeholder-container rounded-4">
+              <i class="pi pi-book fs-1"></i>
+            </div>
+          }
+        </div>
+
+        <div class="col-12 col-md-8">
+          <h3 class="fw-bold mb-2">
+            {{ libro.nombre }}
+          </h3>
+
+          <div class="mb-3">
+            <p-tag [value]="libro.categoria"></p-tag>
+          </div>
+
+          <div class="border rounded-4 overflow-hidden">
+            <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+              <span class="text-secondary">Autor</span>
+              <strong>{{ libro.autor }}</strong>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+              <span class="text-secondary">ISBN</span>
+              <strong>{{ libro.isbn }}</strong>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center px-3 py-2">
+              <span class="text-secondary">Categoría</span>
+              <strong>{{ libro.categoria }}</strong>
+            </div>
+          </div>
+
+          <div class="fs-2 fw-bold text-success mt-4">$ {{ libro.precio }}</div>
+        </div>
+      </div>
+
+      <hr class="my-4" />
+
+      <h5 class="fw-bold mb-3">Sinopsis</h5>
+
+      <p class="text-secondary mb-4">
+        {{ libro.sinopsis || 'Este libro no posee descripción.' }}
+      </p>
+
+      <p-button
+        label="Agregar al carrito"
+        icon="pi pi-shopping-cart"
+        styleClass="w-100"
+        (onClick)="agregarCarrito(libro)"
+      ></p-button>
+    </div>
+  }
+</p-dialog>

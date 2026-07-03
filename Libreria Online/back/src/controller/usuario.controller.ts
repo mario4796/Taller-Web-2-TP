@@ -39,7 +39,6 @@ export class UsuarioController {
 
   public crearUsuario = async (req: Request, res: Response) => {
     try {
-      console.log("Datos recibidos en el Body:", req.body);
       const { email, contrasena, nombre, apellido, direccion, tipo_usuario } =
         req.body;
       const usuario = await usuarioService.crearUsuario(
@@ -55,8 +54,12 @@ export class UsuarioController {
       }
 
       res.status(200).json(usuario);
-    } catch (error) {
-      res.status(500).json({ message: "Error al crear el usuario ", error });
+    } catch (error: any) {
+      if (error.message === "EMAIL_DUPLICADO") {
+        return res.status(409).json({ message: "El email ya está en uso." });
+      }
+
+      return res.status(500).json({ message: "Error interno del servidor." });
     }
   };
 }
