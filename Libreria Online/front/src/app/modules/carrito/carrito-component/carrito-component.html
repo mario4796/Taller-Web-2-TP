@@ -22,7 +22,7 @@
       <div class="cart-summary">
         <h3 class="text-white mb-4">Resumen</h3>
 
-        <div class="summary-row mb-4">
+        <div class="summary-row mb-4 gap-3">
           <span class="text-secondary">Productos</span>
           <span class="text-white fw-bold">{{ carrito()!.detalles.length }}</span>
         </div>
@@ -37,7 +37,7 @@
             <p-button
               label="Finalizar compra"
               icon="pi pi-check"
-              styleClass="p-button-success p-button-rounded"
+              styleClass="p-button-success p-button-rounded p-button-sm w-100 checkout-btn"
               (click)="finalizarCompra()"
             >
             </p-button>

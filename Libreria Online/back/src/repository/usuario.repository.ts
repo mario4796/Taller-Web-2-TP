@@ -1,10 +1,9 @@
+import { error } from "node:console";
 import { prisma } from "../prisma.js";
 
 export class UsuarioRepository {
   async obtenerProveedores(): Promise<any[]> {
     const proveedores = await prisma.usuarios.findMany({
-      
-      
       where: {
         tipo_usuario_id: 2,
       },
@@ -19,8 +18,8 @@ export class UsuarioRepository {
         // Opcional: podés filtrar por estado si solo querés las 'ACEPTADA'
       },
       select: {
-        proveedorId: true
-      }
+        proveedorId: true,
+      },
     });
 
     return ofertaPrevia ? ofertaPrevia.proveedorId : null;
@@ -77,32 +76,27 @@ export class UsuarioRepository {
   ) {
     const esProveedor = tipo_usuario === 2;
     const relacionPorTipo = esProveedor
-      ? {
-          Proveedores: {
-            create: {},
-          },
-        }
-      : {
-          Compradores: {
-            create: {
-              Carrito: {
-                create: {},
-              },
-            },
-          },
-        };
+      ? { Proveedores: { create: {} } }
+      : { Compradores: { create: { Carrito: { create: {} } } } };
 
-    return await prisma.usuarios.create({
-      data: {
-        email: email,
-        contrasena: contrasena,
-        nombre: nombre,
-        apellido: apellido,
-        direccion: direccion,
-        tipo_usuario_id: tipo_usuario,
-        ...relacionPorTipo,
-      },
-    });
+    try {
+      return await prisma.usuarios.create({
+        data: {
+          email,
+          contrasena,
+          nombre,
+          apellido,
+          direccion,
+          tipo_usuario_id: tipo_usuario,
+          ...relacionPorTipo,
+        },
+      });
+    } catch (error: any) {
+      if (error.code === "P2002") {
+        throw new Error("El correo electrónico ya se encuentra registrado.");
+      }
+      throw error;
+    }
   }
 
   async createProveedor(id_usuario: number) {

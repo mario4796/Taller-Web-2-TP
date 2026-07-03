@@ -1,79 +1,87 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Nav } from '../../shared/components/nav/nav';
+
 import { Home } from '../../shared/components/home/home';
+
 import { CarouselModule, CarouselResponsiveOptions } from 'primeng/carousel';
+
 import { ButtonModule } from 'primeng/button';
-import { Libro } from '../../shared/interfaces/libro.interface';
-import { LibrosService } from '../../api/services/libros/libros.services';
-import { Card } from 'primeng/card';
-import { AuthService } from '../../services/Auth/auth-service';
-import { Toast } from "primeng/toast";
-import { NotificationService } from '../../services/NotificationService/notification-service';
+import { DialogModule } from 'primeng/dialog';
+import { TagModule } from 'primeng/tag';
+import { ToastModule } from 'primeng/toast';
+
 import { MessageService } from 'primeng/api';
+
+import { Libro } from '../../shared/interfaces/libro.interface';
+
+import { LibrosService } from '../../api/services/libros/libros.services';
+
+import { AuthService } from '../../services/Auth/auth-service';
+import { NotificationService } from '../../services/NotificationService/notification-service';
+import { Nav } from '../../shared/components/nav/nav';
+import { CompradorService } from '../../api/services/comprador/comprador-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-user',
   standalone: true,
-  imports: [CommonModule, Nav, Home, CarouselModule, ButtonModule, Toast],
+  imports: [
+    CommonModule,
+    Home,
+    CarouselModule,
+    ButtonModule,
+    DialogModule,
+    TagModule,
+    ToastModule,
+    Nav,
+  ],
   templateUrl: './home-user.html',
   styleUrl: './home-user.css',
 })
-export class HomeUser {
-  libroService = inject(LibrosService);
-  libros = signal<Libro[]>([]);
+export class HomeUser implements OnInit {
+  private libroService = inject(LibrosService);
+
   private authService = inject(AuthService);
-    private notificationService = inject(NotificationService);
- private messageService = inject(MessageService);
+
+  private notificationService = inject(NotificationService);
+
+  private messageService = inject(MessageService);
+
+  private compradorService = inject(CompradorService);
+  private router = inject(Router);
+
+  libros = signal<Libro[]>([]);
+
+  selectedBook = signal<Libro | null>(null);
+
+  dialogVisible = false;
 
   logueado = computed(() => this.authService.tipoUsuario() !== null);
+
   role = computed(() => this.authService.tipoUsuario()?.toLowerCase() || '');
 
-  // Propiedades del banner
   imageBanner = 'img/libreria_banner_transparente.svg';
+
   eyebrow = 'Bienvenido a la Librería Online';
+
   title = 'Descubrí tu próximo libro favorito';
+
   description = 'Explorá miles de títulos de todos los géneros. Leé, aprendé e inspirate.';
+
   buttonText = 'Explorar libros';
+
   buttonLink = 'Crear Cuenta';
+
   rutaExplorar = '/libros';
 
-  ngOnInit(): void {
-    const msg = this.notificationService.getPendingMessage();
-  if (msg) {
-  
-    setTimeout(() => {
-      this.messageService.add(msg);
-    }, 100);
-  }
-    this.verificarLogin();
-    this.cargarLibrosDestacados();
-  }
-
-  verificarLogin() {}
-
-  cargarLibrosDestacados() {
-    this.libroService.listLibrosCarrusel().subscribe({
-      next: (data) => {
-        console.log('DATA:', data);
-        this.libros.set(data);
-
-        console.log('SIGNAL:', this.libros());
-      },
-      error: (err) => {
-        console.error('❌ Error al cargar libros:', err);
-      },
-    });
-  }
-
-  responsiveOptions = [
+  responsiveOptions: CarouselResponsiveOptions[] = [
     {
       breakpoint: '1400px',
       numVisible: 4,
       numScroll: 1,
     },
     {
-      breakpoint: '1024px',
+      breakpoint: '1100px',
       numVisible: 3,
       numScroll: 1,
     },
@@ -83,9 +91,78 @@ export class HomeUser {
       numScroll: 1,
     },
     {
-      breakpoint: '560px',
+      breakpoint: '576px',
       numVisible: 1,
       numScroll: 1,
     },
   ];
+
+  ngOnInit(): void {
+    const msg = this.notificationService.getPendingMessage();
+
+    if (msg) {
+      setTimeout(() => {
+        this.messageService.add(msg);
+      });
+    }
+
+    this.cargarLibrosDestacados();
+  }
+
+  cargarLibrosDestacados(): void {
+    this.libroService.listLibrosCarrusel().subscribe({
+      next: (libros) => {
+        this.libros.set(libros);
+      },
+
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+
+  abrirLibro(libro: Libro): void {
+    this.selectedBook.set(libro);
+
+    this.dialogVisible = true;
+  }
+
+  cerrarDialog(): void {
+    this.dialogVisible = false;
+
+    this.selectedBook.set(null);
+  }
+
+  agregarCarrito(libro: Libro): void {
+    if (this.authService.getUser() !== null) {
+      this.compradorService
+        .agregarProductoAlCarrito({
+          comprador_id: this.authService.getUser(),
+          libro_id: libro.id,
+          cantidad: 1,
+        })
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: '¡Éxito!',
+              detail: libro.nombre + ' agregado al carrito',
+              life: 3000,
+            });
+          },
+          error: (err) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'No se pudo agregar el libro',
+            });
+            console.error('Error al comprar', err);
+          },
+        });
+    } else if (this.authService.getUser() === null) {
+      this.router.navigate(['/register']);
+    } else {
+      console.log('Error no esperado');
+    }
+  }
 }

@@ -128,6 +128,15 @@ export class CarritoRepository {
 
       if (!detalle) throw new Error("Producto no encontrado en el carrito");
 
+      await tx.libros.update({
+        where: {
+          id: libroId,
+        },
+        data: {
+          stock: { increment: detalle.cantidad },
+        },
+      });
+
       await tx.detallesCarrito.delete({
         where: {
           carrito_id_libro_id: {
