@@ -76,9 +76,6 @@ export class Nav {
   });
 
   userMenuItems: MenuItem[] = [
-    { label: 'Perfil', icon: 'pi pi-user', routerLink: '/perfil' },
-    { label: 'Configuración', icon: 'pi pi-cog', routerLink: '/configuracion' },
-    { separator: true },
     { label: 'Cerrar sesión', icon: 'pi pi-sign-out', command: () => this.logout() },
   ];
 

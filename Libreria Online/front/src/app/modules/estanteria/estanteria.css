@@ -1,6 +1,11 @@
 :host {
   display: block;
   min-height: 100vh;
+
+  background: #f8fafc;
+}
+
+:host-context(.app-dark) {
   background: radial-gradient(circle at top, rgba(124, 58, 237, 0.15), transparent 40%), #050816;
 }
 
@@ -10,15 +15,23 @@
 }
 
 .library-header h1 {
-  color: #ffffff;
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 0.5rem;
+  color: #1e293b; /* light default */
 }
 
 .library-header p {
-  color: #94a3b8;
   font-size: 1.1rem;
+  color: #64748b; /* light muted */
+}
+
+:host-context(.app-dark) .library-header h1 {
+  color: #ffffff;
+}
+
+:host-context(.app-dark) .library-header p {
+  color: #94a3b8;
 }
 
 .books-grid {

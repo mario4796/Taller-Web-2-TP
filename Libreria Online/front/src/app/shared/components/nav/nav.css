@@ -470,13 +470,11 @@
   background: linear-gradient(135deg, #ef4444, #b91c1c);
 }
 
-/* Espaciado para botones de Auth */
 .auth-buttons {
   display: flex;
-  gap: 1rem; /* Mayor separación */
+  gap: 1rem;
 }
 
-/* Contenedor del usuario */
 .user-info {
   display: flex;
   align-items: center;
@@ -503,7 +501,6 @@
   text-transform: uppercase;
 }
 
-/* Ajuste responsive para ocultar texto en pantallas muy pequeñas */
 @media (max-width: 768px) {
   .user-text {
     display: none;
@@ -514,4 +511,13 @@
   .auth-buttons {
     display: none;
   }
+}
+
+:host ::ng-deep .logout-item {
+  color: #ef4444 !important;
+  font-weight: 600;
+}
+
+:host ::ng-deep .logout-item .p-menuitem-icon {
+  color: #ef4444 !important;
 }
