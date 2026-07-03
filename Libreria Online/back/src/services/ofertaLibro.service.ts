@@ -59,7 +59,7 @@ export class OfertaLibroService {
             const libroExistente = await this.libroRepository.findLibroById(Number(libroId)); 
             
             if (libroExistente) {
-                precioFinal = Number(libroExistente.precio) * 1.1; 
+                precioFinal = Number(libroExistente.precio); 
             } 
         }
 
@@ -122,6 +122,7 @@ export class OfertaLibroService {
         const libroExistente = await this.libroService.obtenerLibroPorIsbn(oferta.isbn);
 
         if (libroExistente) {
+            // el sumarStock no actualiza el precio
             await this.libroService.sumarStock(libroExistente.id, cantidadFinal);
         } else {
             await this.libroService.crearLibro({
@@ -129,7 +130,7 @@ export class OfertaLibroService {
                 isbn: oferta.isbn,
                 nombre: oferta.nombre,
                 autor: oferta.autor,
-                precio: oferta.precioProveedor.toNumber(),
+                precio: oferta.precioProveedor.toNumber() * 1.1,
                 stock: cantidadFinal,
                 categoria:oferta.categoria,
                 sinopsis: oferta.sinopsis || "",
