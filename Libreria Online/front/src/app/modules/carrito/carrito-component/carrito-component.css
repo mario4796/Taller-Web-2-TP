@@ -140,3 +140,9 @@
 .text-white {
   color: var(--text) !important;
 }
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
