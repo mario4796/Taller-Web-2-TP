@@ -26,6 +26,7 @@ export class LibroRepository {
     libro.autor = data.autor;
     libro.precio = Number(data.precio); // Convertimos Decimal a number
     libro.stock = data.stock ?? 0; // Si es null, ponemos 0
+    libro.archivoDigital = data.archivoDigital ?? undefined;
     libro.sinopsis = data.sinopsis ?? "";
     libro.imagenUrl = data.imagenUrl;
     libro.categoria = data.categoria;

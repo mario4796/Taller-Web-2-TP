@@ -88,6 +88,20 @@
   color: var(--text);
 }
 
+.digital-badge {
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+
+  background: rgba(124, 58, 237, 0.12);
+  color: var(--primary);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+:host-context(.app-dark) .digital-badge {
+  background: rgba(168, 85, 247, 0.18);
+}
+
 .price {
   color: var(--success);
   font-size: 1.3rem;

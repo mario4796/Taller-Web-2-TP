@@ -16,15 +16,17 @@ export class CarritoRepository {
     carritoId: number,
     libro: Libro,
     cantidad: number,
+    esDigital: boolean = false,
   ) {
     const subtotal = Number(libro.precio) * cantidad;
 
     return await prisma.$transaction(async (tx) => {
       const detalle = await tx.detallesCarrito.upsert({
         where: {
-          carrito_id_libro_id: {
+          carrito_id_libro_id_es_digital: {
             carrito_id: carritoId,
             libro_id: libro.id,
+            es_digital: esDigital,
           },
         },
         update: {
@@ -36,6 +38,7 @@ export class CarritoRepository {
           libro_id: libro.id,
           cantidad: cantidad,
           precio: subtotal,
+          es_digital: esDigital,
         },
       });
 
@@ -46,12 +49,14 @@ export class CarritoRepository {
         },
       });
 
-      await tx.libros.update({
-        where: { id: libro.id },
-        data: {
-          stock: { decrement: cantidad },
-        },
-      });
+      if (!esDigital) {
+        await tx.libros.update({
+          where: { id: libro.id },
+          data: {
+            stock: { decrement: cantidad },
+          },
+        });
+      }
 
       return detalle;
     });
@@ -115,33 +120,41 @@ export class CarritoRepository {
       data: { precio_total: 0 },
     });
   }
-  async eliminarProductoDelCarrito(carritoId: number, libroId: number) {
+  async eliminarProductoDelCarrito(
+    carritoId: number,
+    libroId: number,
+    esDigital: boolean = false,
+  ) {
     return await prisma.$transaction(async (tx) => {
       const detalle = await tx.detallesCarrito.findUnique({
         where: {
-          carrito_id_libro_id: {
+          carrito_id_libro_id_es_digital: {
             carrito_id: carritoId,
             libro_id: libroId,
+            es_digital: esDigital,
           },
         },
       });
 
       if (!detalle) throw new Error("Producto no encontrado en el carrito");
 
-      await tx.libros.update({
-        where: {
-          id: libroId,
-        },
-        data: {
-          stock: { increment: detalle.cantidad },
-        },
-      });
+      if (!esDigital) {
+        await tx.libros.update({
+          where: {
+            id: libroId,
+          },
+          data: {
+            stock: { increment: detalle.cantidad },
+          },
+        });
+      }
 
       await tx.detallesCarrito.delete({
         where: {
-          carrito_id_libro_id: {
+          carrito_id_libro_id_es_digital: {
             carrito_id: carritoId,
             libro_id: libroId,
+            es_digital: esDigital,
           },
         },
       });
@@ -167,9 +180,10 @@ export class CarritoRepository {
     return await prisma.$transaction(async (tx) => {
       const detalle = await tx.detallesCarrito.upsert({
         where: {
-          carrito_id_libro_id: {
+          carrito_id_libro_id_es_digital: {
             carrito_id: carritoId,
             libro_id: libro.id,
+            es_digital: false,
           },
         },
         update: {

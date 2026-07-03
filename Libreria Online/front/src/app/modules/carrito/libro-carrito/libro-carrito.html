@@ -34,29 +34,35 @@
   <div
     class="book-actions d-flex flex-column flex-sm-row flex-lg-column align-items-center align-items-lg-end justify-content-between gap-3 w-100 w-lg-auto"
   >
-    <div class="quantity-controls d-flex align-items-center justify-content-center">
-      <button
-        pButton
-        icon="pi pi-minus"
-        [text]="true"
-        [rounded]="true"
-        size="small"
-        (click)="onRestar.emit(detalle().libro_id)"
-      ></button>
+    @if (detalle().es_digital) {
+      <div class="digital-badge d-flex align-items-center justify-content-center w-100">
+        <span>Versión digital</span>
+      </div>
+    } @else {
+      <div class="quantity-controls d-flex align-items-center justify-content-center">
+        <button
+          pButton
+          icon="pi pi-minus"
+          [text]="true"
+          [rounded]="true"
+          size="small"
+          (click)="restar()"
+        ></button>
 
-      <span class="quantity">
-        {{ detalle().cantidad }}
-      </span>
+        <span class="quantity">
+          {{ detalle().cantidad }}
+        </span>
 
-      <button
-        pButton
-        icon="pi pi-plus"
-        [text]="true"
-        [rounded]="true"
-        size="small"
-        (click)="onAumentar.emit(detalle().libro_id)"
-      ></button>
-    </div>
+        <button
+          pButton
+          icon="pi pi-plus"
+          [text]="true"
+          [rounded]="true"
+          size="small"
+          (click)="aumentar()"
+        ></button>
+      </div>
+    }
 
     <div class="price">${{ detalle().precio }}</div>
 

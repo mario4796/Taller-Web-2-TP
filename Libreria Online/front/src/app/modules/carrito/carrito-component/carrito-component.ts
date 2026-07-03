@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Carrito } from '../interfaces/carrito.interface';
+import { DetalleCarrito } from '../interfaces/detallecarrito.interface';
 import { Router } from '@angular/router';
 import { CompradorService } from '../../../api/services/comprador/comprador-service';
 import { LibroCarrito } from '../libro-carrito/libro-carrito';
@@ -127,11 +128,12 @@ export class CarritoComponent implements OnInit {
     }
   }
 
-  manejarBorrado(libro_id: number) {
+  manejarBorrado(detalle: DetalleCarrito) {
     this.compradorService
       .borrarProducto({
         comprador_id: this.auth.getUser(),
-        libro_id: libro_id,
+        libro_id: detalle.libro_id,
+        es_digital: detalle.es_digital,
       })
       .subscribe({
         next: () => {
