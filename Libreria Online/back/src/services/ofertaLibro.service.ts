@@ -77,7 +77,8 @@ export class OfertaLibroService {
             libroId,
             categoria,
             sinopsis,
-            imagenUrl
+            imagenUrl,
+            creadoPor: esAdmin ? 'ADMIN' : 'PROVEEDOR'
         });
     }
 

@@ -117,7 +117,7 @@ export class ProveedorRecomendacion implements OnInit {
       error: (error) => {
         console.error('Error al traer las recomendaciones', error);
         this.cargando.set(false);
-        this.toastService.error('No se pudieron cargar los libros recomendados.');
+        this.toastService.error('No se pudieron cargar las solicitudes de libros.');
       },
     });
   }
@@ -236,13 +236,13 @@ export class ProveedorRecomendacion implements OnInit {
       next: () => {
         this.respondiendo.set(false);
         this.cerrarContraoferta();
-        this.toastService.updated('Contraoferta enviada al administrador');
+        this.toastService.updated(this.esSolicitudAdmin(oferta) ? 'Respuesta enviada al administrador' : 'Contraoferta enviada al administrador');
         this.cargarOfertasRecomendadas();
       },
       error: (error) => {
         console.error('Error al enviar contraoferta', error);
         this.respondiendo.set(false);
-        this.toastService.error('No se pudo enviar la contraoferta.');
+        this.toastService.error(this.esSolicitudAdmin(oferta) ? 'No se pudo responder la solicitud.' : 'No se pudo enviar la contraoferta.');
       },
     });
   }
@@ -252,20 +252,22 @@ export class ProveedorRecomendacion implements OnInit {
     const precioAceptado = recomendacion.precioAdmin ?? recomendacion.precioProveedor;
     this.ofertasService.contraofertarProveedor(recomendacion.id, cantidadAceptada, precioAceptado).subscribe({
       next: () => {
-        this.toastService.updated('Contraoferta aceptada y enviada al administrador');
+        this.toastService.updated(this.esSolicitudAdmin(recomendacion) ? 'Solicitud aceptada y enviada al administrador' : 'Contraoferta aceptada y enviada al administrador');
         this.cargarOfertasRecomendadas();
       },
       error: (error) => {
         console.error('Error al aceptar la contraoferta', error);
-        this.toastService.error('No se pudo aceptar la contraoferta.');
+        this.toastService.error(this.esSolicitudAdmin(recomendacion) ? 'No se pudo aceptar la solicitud.' : 'No se pudo aceptar la contraoferta.');
       },
     });
   }
 
   rechazarOferta(recomendacion: OfertaLibro): void {
+    const esSolicitudAdmin = this.esSolicitudAdmin(recomendacion);
+
     this.confirmationService.confirm({
-      header: 'Rechazar contraoferta',
-      message: `Estas seguro de rechazar la contraoferta de "${recomendacion.nombre}"?`,
+      header: esSolicitudAdmin ? 'Rechazar solicitud' : 'Rechazar contraoferta',
+      message: `Estas seguro de rechazar ${esSolicitudAdmin ? 'la solicitud' : 'la contraoferta'} de "${recomendacion.nombre}"?`,
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Rechazar',
       rejectLabel: 'Cancelar',
@@ -278,7 +280,12 @@ export class ProveedorRecomendacion implements OnInit {
   private confirmarRechazoOferta(recomendacion: OfertaLibro): void {
     this.ofertasService.rechazarOferta(recomendacion.id).subscribe({
       next: () => {
-        this.toastService.success('La contraoferta fue rechazada correctamente.', 'Oferta rechazada');
+        this.toastService.success(
+          this.esSolicitudAdmin(recomendacion)
+            ? 'La solicitud fue rechazada correctamente.'
+            : 'La contraoferta fue rechazada correctamente.',
+          'Oferta rechazada'
+        );
         this.cargarOfertasRecomendadas();
       },
       error: (error) => {
@@ -374,6 +381,10 @@ export class ProveedorRecomendacion implements OnInit {
     } catch {
       return null;
     }
+  }
+
+  private esSolicitudAdmin(oferta: OfertaLibro): boolean {
+    return oferta.creadoPor === 'ADMIN' && oferta.cantidadProveedor === 0;
   }
 
   get isbn() { return this.recomendacionForm.get('isbn'); }

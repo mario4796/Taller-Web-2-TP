@@ -32,7 +32,8 @@ export class OfertaLibroRepository {
         libroId?: number | null, 
         categoria: CategoriaLibro, 
         sinopsis: string | null, 
-        imagenUrl?: string | null}) {
+        imagenUrl?: string | null,
+        creadoPor?: string}) {
         return await prisma.ofertaLibro.create({ data });
     }
 

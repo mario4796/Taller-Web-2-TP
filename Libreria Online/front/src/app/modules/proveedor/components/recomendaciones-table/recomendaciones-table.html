@@ -72,19 +72,21 @@
       </td>
       <td>
         <div class="quantity-cell">
-          <span>{{ cantidadVisible(recomendacion) }} uds.</span>
-          <br>
+          @if (!esSolicitudAdmin(recomendacion)) {
+            <span>{{ cantidadVisible(recomendacion) }} uds.</span>
+            <br>
+          }
           @if (recomendacion.cantidadAdmin && recomendacion.estado === 'ESPERANDO_PROVEEDOR') {
              <p-tag
               icon="pi pi-info-circle"
-              [value]="'Admin propuso ' + recomendacion.cantidadAdmin"
-              severity="warn">
+              [value]="textoCantidadAdmin(recomendacion)"
+              [severity]="cantidadAdminSeverity(recomendacion)">
               </p-tag>
           }
         </div>
       </td>
       <td>
-        <p-tag [value]="estadoLabel(recomendacion.estado)" [severity]="estadoSeverity(recomendacion.estado)"></p-tag>
+        <p-tag [value]="estadoFilaLabel(recomendacion)" [severity]="estadoSeverity(recomendacion.estado)"></p-tag>
       </td>
       <td style="text-align: center;">
         @if (puedeResponder(recomendacion)) {
@@ -93,7 +95,7 @@
             [rounded]="true"
             [text]="true"
             severity="success"
-            title="Aceptar propuesta del admin y enviar al administrador"
+            [title]="textoAccionAceptar(recomendacion)"
             (click)="aceptar.emit(recomendacion)">
           </p-button>
           <p-button
@@ -101,7 +103,7 @@
             [rounded]="true"
             [text]="true"
             severity="info"
-            title="Modificar y enviar una nueva contraoferta"
+            [title]="textoAccionResponder(recomendacion)"
             (click)="contraofertar.emit(recomendacion)">
           </p-button>
           <p-button
@@ -109,7 +111,7 @@
             [rounded]="true"
             [text]="true"
             severity="danger"
-            title="Rechazar contraoferta"
+            [title]="textoAccionRechazar(recomendacion)"
             (click)="rechazar.emit(recomendacion)">
           </p-button>
         }
@@ -120,7 +122,7 @@
   <ng-template pTemplate="emptymessage">
     <tr>
       <td colspan="7" style="text-align: center; padding: 2rem;">
-        No hay libros recomendados todavia.
+        No hay solicitudes de libros todavia.
       </td>
     </tr>
   </ng-template>
