@@ -46,7 +46,9 @@ export class ProveedorEstadisticas implements OnInit {
   ofertasRechazadas = computed(() => this.contarPorEstado('RECHAZADA'));
 
   valorPotencial = computed(() =>
-    this.ofertas().reduce((total, oferta) => total + oferta.precioProveedor * this.cantidadActual(oferta), 0)
+    this.ofertas()
+      .filter((oferta) => oferta.estado !== 'RECHAZADA')
+      .reduce((total, oferta) => total + oferta.precioProveedor * this.cantidadActual(oferta), 0)
   );
 
   tasaAceptacion = computed(() => {
