@@ -58,15 +58,18 @@ export class Nav {
         ];
       case 'proveedor':
         return [
-          { label: 'Recomendar libro', icon: 'auto_stories', link: '/proveedor/recomendacion' },
-          { label: 'Peticiones', icon: 'assignment', link: '/proveedor/peticiones' },
+          {
+            label: 'Solicitudes de libros',
+            icon: 'auto_stories',
+            link: '/proveedor/recomendaciones',
+          },
           { label: 'Estadísticas', icon: 'monitoring', link: '/proveedor/estadisticas' },
           { label: 'Ventas', icon: 'shopping_cart', link: '/proveedor/ventas' },
         ];
       default:
         return [
           { label: 'Inicio', icon: 'home', link: '/' },
-          { label: 'Ofertas', icon: 'sell', link: '/libros' },
+          { label: 'Biblioteca', icon: 'category', link: '/libros' },
           { label: 'Mis pedidos', icon: 'shopping_cart', link: '/carrito' },
           { label: 'Mis libros digitales', icon: 'menu_book', link: '/comprador/libros-digitales' },
         ];

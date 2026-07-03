@@ -1,5 +1,5 @@
 <p-dialog
-  header="Responder contraoferta"
+  [header]="dialogTitle()"
   [modal]="true"
   [visible]="visible()"
   (visibleChange)="$event ? null : cerrar.emit()"
@@ -8,8 +8,8 @@
   @if (oferta()) {
     <div class="informacion-oferta">
       <p><strong>Libro:</strong> {{ oferta()?.nombre }}</p>
-      <p><strong>Precio propuesto por admin:</strong> {{ oferta()?.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</p>
-      <p><strong>Cantidad propuesta por admin:</strong> {{ oferta()?.cantidadAdmin ?? oferta()?.cantidadProveedor }} uds.</p>
+      <p><strong>{{ precioReferenciaLabel() }}:</strong> {{ (oferta()?.precioAdmin ?? oferta()?.precioProveedor) | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</p>
+      <p><strong>{{ cantidadReferenciaLabel() }}:</strong> {{ oferta()?.cantidadAdmin ?? oferta()?.cantidadProveedor }} uds.</p>
     </div>
   }
 
@@ -39,6 +39,6 @@
 
   <div class="dialog-actions">
     <p-button label="Cancelar" severity="danger" [text]="true" (click)="cerrar.emit()"></p-button>
-    <p-button label="Enviar" [outlined]="true" [severity]="form().valid ? 'success' : 'secondary'" (click)="enviar.emit()" [loading]="respondiendo()" [disabled]="form().invalid || respondiendo()"></p-button>
+    <p-button [label]="enviarLabel()" [outlined]="true" [severity]="form().valid ? 'success' : 'secondary'" (click)="enviar.emit()" [loading]="respondiendo()" [disabled]="form().invalid || respondiendo()"></p-button>
   </div>
 </p-dialog>

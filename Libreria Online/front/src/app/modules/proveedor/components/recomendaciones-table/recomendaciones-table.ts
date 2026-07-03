@@ -84,12 +84,51 @@ export class RecomendacionesTable {
     return estadoOfertaLabel(estado);
   }
 
+  estadoFilaLabel(recomendacion: OfertaLibro): string {
+    if (this.esSolicitudAdmin(recomendacion) && recomendacion.estado === 'ESPERANDO_PROVEEDOR') {
+      return 'Solicitud recibida';
+    }
+
+    return this.estadoLabel(recomendacion.estado);
+  }
+
   estadoSeverity(estado: EstadoOferta): 'success' | 'info' | 'warn' | 'danger' {
     return estadoOfertaSeverity(estado);
   }
 
   cantidadVisible(recomendacion: OfertaLibro): number {
     return recomendacion.cantidadProveedor;
+  }
+
+  textoCantidadAdmin(recomendacion: OfertaLibro): string {
+    const cantidad = recomendacion.cantidadAdmin ?? 0;
+    return this.esSolicitudAdmin(recomendacion)
+      ? `Admin solicito ${cantidad}`
+      : `Admin propuso ${cantidad}`;
+  }
+
+  cantidadAdminSeverity(recomendacion: OfertaLibro): 'info' | 'warn' {
+    return this.esSolicitudAdmin(recomendacion) ? 'info' : 'warn';
+  }
+
+  textoAccionAceptar(recomendacion: OfertaLibro): string {
+    return this.esSolicitudAdmin(recomendacion)
+      ? 'Aceptar solicitud y enviar al administrador'
+      : 'Aceptar propuesta del admin y enviar al administrador';
+  }
+
+  textoAccionResponder(recomendacion: OfertaLibro): string {
+    return this.esSolicitudAdmin(recomendacion)
+      ? 'Responder solicitud'
+      : 'Modificar y enviar una nueva contraoferta';
+  }
+
+  textoAccionRechazar(recomendacion: OfertaLibro): string {
+    return this.esSolicitudAdmin(recomendacion) ? 'Rechazar solicitud' : 'Rechazar contraoferta';
+  }
+
+  esSolicitudAdmin(recomendacion: OfertaLibro): boolean {
+    return recomendacion.creadoPor === 'ADMIN' && recomendacion.cantidadProveedor === 0;
   }
 
   private prioridadEstado(estado: EstadoOferta): number {
