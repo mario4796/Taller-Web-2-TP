@@ -55,8 +55,19 @@ export class AuthService {
   }
 
   getUsuario() {
-    const usuario = localStorage.getItem('usuario') || '';
-    return JSON.parse(usuario);
+    const usuario = localStorage.getItem('usuario');
+    
+    
+    if (!usuario) {
+      return null; 
+    }
+
+    try {
+      return JSON.parse(usuario);
+    } catch (error) {
+      
+      return null;
+    }
   }
 
   private roleMap: Record<number, string> = {

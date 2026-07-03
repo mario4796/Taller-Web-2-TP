@@ -43,8 +43,7 @@ export class Nav {
     if (!logged) {
       return [
         { label: 'Inicio', icon: 'home', link: '/' },
-        { label: 'Categorías', icon: 'category', link: '/categorias' },
-        { label: 'Ofertas', icon: 'sell', link: '/ofertas' },
+
       ];
     }
 

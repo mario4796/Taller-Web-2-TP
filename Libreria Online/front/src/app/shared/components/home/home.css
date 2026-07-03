@@ -92,14 +92,14 @@
   font-size: clamp(2.4rem, 4vw, 4.3rem);
   font-weight: 900;
   line-height: 1.1;
-  color: #374151;
+  color: #fbe8ff;
   margin-bottom: 1.5rem;
 }
 
 .description {
   max-width: 600px;
   font-size: 1.1rem;
-  color: #6b7280;
+  color: #ffffff;
   line-height: 1.8;
   margin-bottom: 2rem;
 }

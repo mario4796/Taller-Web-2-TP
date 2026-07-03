@@ -15,15 +15,15 @@
         </p>
 
         <div class="welcome-actions">
-          <p-button
-            [label]="buttonText()"
-            [routerLink]="buttonRoute()"
-            icon="pi pi-arrow-right"
-            iconPos="right"
-            severity="help"
-            styleClass="btn-primary-glow"
-          >
-          </p-button>
+      <p-button
+        [label]="buttonText()"
+        (click)="handleClick()"
+        icon="pi pi-arrow-right"
+        iconPos="right"
+        severity="help"
+        styleClass="btn-primary-glow"
+      >
+      </p-button>
         </div>
       </div>
 
