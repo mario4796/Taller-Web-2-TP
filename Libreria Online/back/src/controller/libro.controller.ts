@@ -147,7 +147,7 @@ export class LibroController {
 
   public getLibrosConStock = async (req: Request, res: Response) => {
     try {
-      const libros = await libroService.obtenerLibros();
+      const libros = await libroService.obtenerLibrosConStock();
 
       res
         .status(200)

@@ -149,6 +149,7 @@ export class HomeUser implements OnInit {
               detail: libro.nombre + ' agregado al carrito',
               life: 3000,
             });
+            this.cargarLibrosDestacados();
           },
           error: (err) => {
             this.messageService.add({
