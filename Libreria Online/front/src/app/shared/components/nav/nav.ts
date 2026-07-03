@@ -55,7 +55,6 @@ export class Nav {
           { label: 'Usuarios', icon: 'people', link: '/admin/usuarios' },
           { label: 'Ofertas', icon: 'sell', link: '/admin/ofertas' },
           { label: 'Stock', icon: 'inventory', link: '/admin/stock' },
-          { label: 'Reportes', icon: 'description' },
         ];
       case 'proveedor':
         return [

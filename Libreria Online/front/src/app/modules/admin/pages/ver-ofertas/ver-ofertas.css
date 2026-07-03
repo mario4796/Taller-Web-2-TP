@@ -1,6 +1,6 @@
 .offers-page {
   padding: 2rem;
-  max-width: 1200px;
+  max-width: min(1600px, 96vw);
   margin: 0 auto;
 }
 
@@ -136,7 +136,8 @@
 :host ::ng-deep .offers-table .p-datatable-wrapper {
   border: 1px solid #dbe2ea;
   border-radius: 1rem;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
   background: #fff;
 }
 

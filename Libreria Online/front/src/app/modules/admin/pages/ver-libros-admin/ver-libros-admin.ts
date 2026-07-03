@@ -20,6 +20,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of } from 'rxjs';
 import { PedirStockAdmin } from '../../components/pedir-stock-admin/pedir-stock-admin';
 import { ContraofertaAdminDialog } from '../../components/contraoferta-admin-dialog/contraoferta-admin-dialog';
+import { OfertasTable } from '../../components/ofertas-table/ofertas-table';
 import { ProveedoresService } from '../../../../api/services/proveedor/proveedores';
 
 interface ApiResponse {
@@ -43,7 +44,8 @@ interface ApiResponse {
     InputGroupAddonModule,
     ToastModule,
     PedirStockAdmin,
-    ContraofertaAdminDialog
+    ContraofertaAdminDialog,
+    OfertasTable,
   ],
   templateUrl: './ver-libros-admin.html',
   styleUrl: './ver-libros-admin.css',
@@ -75,6 +77,17 @@ export class VerLibrosAdmin {
     nuevaCantidad: [null as number | null, [Validators.required, Validators.min(1)]],
     nuevoPrecio: [null as number | null, [Validators.min(1)]],
   });
+
+  private ordenarOfertas(ofertas: OfertaLibro[]): OfertaLibro[] {
+    const prioridadEstado: Record<OfertaLibro['estado'], number> = {
+      ESPERANDO_ADMIN: 0,
+      ESPERANDO_PROVEEDOR: 1,
+      ACEPTADA: 2,
+      RECHAZADA: 3,
+    };
+
+    return [...ofertas].sort((a, b) => prioridadEstado[a.estado] - prioridadEstado[b.estado]);
+  }
 
   public libros = toSignal(
     this.librosService.listLibros().pipe(
@@ -109,7 +122,7 @@ export class VerLibrosAdmin {
     this.cargandoOfertas.set(true);
     this.ofertasService.listOfertas().subscribe({
       next: (data) => {
-        this.ofertasPendientes.set(data.filter(o => o.estado === 'ESPERANDO_ADMIN'));
+        this.ofertasPendientes.set(this.ordenarOfertas(data));
         this.cargandoOfertas.set(false);
       },
       error: () => {
@@ -248,7 +261,7 @@ manejadorGuardarPedido(evento: { cantidad: number; proveedor: any }, libroActual
     creadoPor: 'ADMIN'
   };
 
-  
+
   this.ofertasService.crearOferta(nuevaOferta).subscribe({
     next: (ofertaCreada) => console.log('¡Pedido e hilo de oferta creados!:', ofertaCreada),
     error: (err) => console.error('Error en la petición HTTP:', err)

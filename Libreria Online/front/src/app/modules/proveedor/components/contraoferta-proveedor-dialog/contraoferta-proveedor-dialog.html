@@ -39,6 +39,6 @@
 
   <div class="dialog-actions">
     <p-button label="Cancelar" severity="danger" [text]="true" (click)="cerrar.emit()"></p-button>
-    <p-button label="Enviar" [outlined]="true" severity="secondary" (click)="enviar.emit()" [loading]="respondiendo()" [disabled]="form().invalid || respondiendo()"></p-button>
+    <p-button label="Enviar" [outlined]="true" [severity]="form().valid ? 'success' : 'secondary'" (click)="enviar.emit()" [loading]="respondiendo()" [disabled]="form().invalid || respondiendo()"></p-button>
   </div>
 </p-dialog>

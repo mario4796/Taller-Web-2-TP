@@ -1,13 +1,13 @@
-<p-dialog 
-  [header]="'Solicitar Reposición de: ' + (libro()?.nombre || '')" 
-  [visible]="visible()" 
+<p-dialog
+  [header]="'Solicitar Reposición de: ' + (libro()?.nombre || '')"
+  [visible]="visible()"
   (visibleChange)="visibleChange.emit($event)"
-  [modal]="true" 
+  [modal]="true"
   [style]="{ width: '28rem' }"
   [draggable]="false"
   [resizable]="false"
   (onHide)="cerrar(pedidoForm)"> <form #pedidoForm="ngForm" (ngSubmit)="enviarPedido(pedidoForm)" novalidate>
-    
+
     <div style="padding-top: 1rem; display: flex; flex-direction: column; gap: 1.5rem;">
       <p style="margin: 0; font-size: 0.95rem; color: #6b7280;">
         Seleccioná qué proveedor despachará las copias de este libro.
@@ -15,13 +15,13 @@
 
       <p-inputgroup>
         <p-floatlabel variant="in">
-          <p-select 
+          <p-select
             id="select-proveedor"
             name="proveedor"
-            [options]="proveedores()" 
-            [(ngModel)]="proveedorSeleccionado" 
-            optionLabel="nombre" 
-            
+            [options]="proveedores()"
+            [(ngModel)]="proveedorSeleccionado"
+            optionLabel="nombre"
+
             [style]="{'width': '100%'}"
             appendTo="body"
             required>
@@ -33,8 +33,8 @@
 
       <p-inputgroup>
         <p-floatlabel variant="in">
-          <p-inputnumber 
-            inputId="cantidadStock" 
+          <p-inputnumber
+            inputId="cantidadStock"
             name="cantidad"
             [(ngModel)]="cantidadInput"
             [min]="1"
@@ -49,11 +49,11 @@
 
     <div class="dialog-actions" style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 2rem;">
       <p-button label="Cancelar" severity="danger" [text]="true" (click)="cerrar(pedidoForm)"></p-button>
-      
-      <p-button 
-        label="Confirmar Pedido" 
-        [outlined]="true" 
-        severity="secondary" 
+
+      <p-button
+        label="Confirmar Pedido"
+        [outlined]="true"
+        [severity]="pedidoForm.valid ? 'success' : 'secondary'"
         type="submit"
         [disabled]="pedidoForm.invalid">
       </p-button>

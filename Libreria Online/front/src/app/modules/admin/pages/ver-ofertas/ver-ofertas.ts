@@ -42,6 +42,17 @@ export class VerOfertas {
     nuevoPrecio: [null as number | null, [Validators.min(1)]],
   });
 
+  private ordenarOfertas(ofertas: OfertaLibro[]): OfertaLibro[] {
+    const prioridadEstado: Record<OfertaLibro['estado'], number> = {
+      ESPERANDO_ADMIN: 0,
+      ESPERANDO_PROVEEDOR: 1,
+      ACEPTADA: 2,
+      RECHAZADA: 3,
+    };
+
+    return [...ofertas].sort((a, b) => prioridadEstado[a.estado] - prioridadEstado[b.estado]);
+  }
+
   constructor() {
     this.obtenerOfertas();
   }
@@ -51,7 +62,7 @@ export class VerOfertas {
 
     this.ofertasService.listOfertas().subscribe({
       next: (data) => {
-        this.ofertas.set(data);
+        this.ofertas.set(this.ordenarOfertas(data));
         this.cargando.set(false);
       },
       error: (error) => {
