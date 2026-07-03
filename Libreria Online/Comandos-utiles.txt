@@ -1,0 +1,14 @@
+
+npx prisma db push --force-reset
+npx prisma generate
+npx prisma db seed
+
+npm install -g bun  (para instalar la dependencia "bun" y poder levantar la seed)
+
+ng serve host 0.0.0.0
+
+Algunos ISBN para probar:
+9788420471839
+9788422616337
+9788432215315
+9788497592208
