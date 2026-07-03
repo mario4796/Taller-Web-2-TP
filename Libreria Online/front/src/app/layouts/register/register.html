@@ -76,12 +76,23 @@
     </div>
 
     <p-button
-      label="Crear Cuenta"
+      [label]="registerButtonLabel"
       icon="pi pi-user-plus"
       type="submit"
-      [loading]="isLoading"
-      [disabled]="form.invalid || isLoading"
+      [loading]="isLoading || isRedirecting"
+      [disabled]="form.invalid || isLoading || isRedirecting"
       styleClass="register-btn"
     ></p-button>
+
+    @if (isRedirecting) {
+      <div class="redirect-feedback" aria-live="polite">
+        <span>Cuenta creada. Te estamos llevando al inicio...</span>
+        <p-progressbar
+          mode="indeterminate"
+          [showValue]="false"
+          styleClass="redirect-progress">
+        </p-progressbar>
+      </div>
+    }
   </form>
 </p-card>

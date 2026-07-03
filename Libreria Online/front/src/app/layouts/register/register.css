@@ -178,6 +178,26 @@
   box-shadow: 0 8px 20px rgba(168, 85, 247, 0.35);
 }
 
+.redirect-feedback {
+  display: grid;
+  gap: 0.65rem;
+  color: #d8b4fe;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+:host ::ng-deep .redirect-progress {
+  height: 0.4rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+:host ::ng-deep .redirect-progress .p-progressbar-value {
+  background: linear-gradient(135deg, #7c3aed, #c084fc);
+}
+
 /* ===========================
    ERROR
 =========================== */

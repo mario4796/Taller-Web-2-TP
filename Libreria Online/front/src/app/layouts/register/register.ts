@@ -16,6 +16,7 @@ import { UsuarioService } from '../../api/services/usuario/usuario-service';
 import { Router, RouterLink } from '@angular/router';
 import { FloatLabel } from 'primeng/floatlabel';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 import { ToastService } from '../../shared/services/toast.service';
 
@@ -30,6 +31,7 @@ import { ToastService } from '../../shared/services/toast.service';
     CardModule,
     FloatLabel,
     CheckboxModule,
+    ProgressBarModule,
     ToastModule,
     RouterLink,
   ],
@@ -44,6 +46,7 @@ export class Register {
   private toastService = inject(ToastService);
 
   isLoading = false;
+  isRedirecting = false;
 
   public form: FormGroup = this.fb.group(
     {
@@ -59,6 +62,10 @@ export class Register {
   );
 
   submit() {
+    if (this.isLoading || this.isRedirecting) {
+      return;
+    }
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -79,6 +86,7 @@ export class Register {
     this.usuarioService.registrar(usuarioPayload).subscribe({
       next: () => {
         this.isLoading = false;
+        this.isRedirecting = true;
         this.toastService.success('Tu cuenta se creo correctamente.');
         setTimeout(() => this.router.navigate(['']), 2000);
       },
@@ -90,6 +98,14 @@ export class Register {
         );
       },
     });
+  }
+
+  get registerButtonLabel(): string {
+    if (this.isRedirecting) {
+      return 'Redirigiendo';
+    }
+
+    return this.isLoading ? 'Creando cuenta' : 'Crear Cuenta';
   }
 
   private matchPasswords(control: AbstractControl): ValidationErrors | null {
