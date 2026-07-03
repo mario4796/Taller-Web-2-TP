@@ -146,3 +146,12 @@
   flex-direction: column;
   gap: 1em;
 }
+
+.empty-cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  margin-top: 10em;
+}

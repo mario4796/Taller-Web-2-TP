@@ -1,9 +1,9 @@
 <div class="cart-item d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center">
   <div class="book-cover mx-auto mx-lg-0">
-    @if (detalle().Libros.imagen) {
-      <img [src]="detalle().Libros.imagen" [alt]="detalle().Libros.nombre" />
+    @if (detalle().Libros.imagenUrl) {
+      <img [src]="detalle().Libros.imagenUrl" [alt]="detalle().Libros.nombre" />
 
-      @if (detalle().Libros.imagen == null) {
+      @if (detalle().Libros.imagenUrl == null) {
         <i class="pi pi-book"></i>
       }
     } @else {

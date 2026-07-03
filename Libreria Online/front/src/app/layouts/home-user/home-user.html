@@ -21,9 +21,9 @@
       <div class="px-2 py-3">
         <div class="book-card h-100" (click)="abrirLibro(libro)">
           <div class="book-cover">
-            @if (libro.imagen) {
+            @if (libro.imagenUrl) {
               <img
-                [src]="libro.imagen"
+                [src]="libro.imagenUrl"
                 [alt]="libro.nombre"
                 class="img-fluid w-100 h-100 object-fit-cover"
               />

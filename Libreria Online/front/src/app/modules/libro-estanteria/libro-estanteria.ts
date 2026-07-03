@@ -11,7 +11,17 @@ import { Libro } from '../../shared/interfaces/libro.interface';
     <p-card styleClass="book-card">
       <div class="book-content">
         <div class="book-cover">
-          <i class="pi pi-book"></i>
+          @if (libro().imagenUrl) {
+            <img
+              [src]="libro().imagenUrl"
+              [alt]="libro().nombre"
+              class="img-fluid w-100 h-100 object-fit-cover"
+            />
+          } @else {
+            <div class="book-placeholder-container">
+              <i class="pi pi-book"></i>
+            </div>
+          }
         </div>
         <div class="book-category">
           {{ libro().categoria || 'GENERAL' }}

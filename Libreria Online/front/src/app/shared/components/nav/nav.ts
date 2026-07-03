@@ -62,13 +62,12 @@ export class Nav {
           { label: 'Peticiones', icon: 'assignment', link: '/proveedor/peticiones' },
           { label: 'Estadísticas', icon: 'monitoring', link: '/proveedor/estadisticas' },
           { label: 'Ventas', icon: 'shopping_cart', link: '/proveedor/ventas' },
-
         ];
       default:
         return [
           { label: 'Inicio', icon: 'home', link: '/' },
           { label: 'Categorías', icon: 'category', link: '/categorias' },
-          { label: 'Ofertas', icon: 'sell', link: '/ofertas' },
+          { label: 'Ofertas', icon: 'sell', link: '/libros' },
           { label: 'Mis pedidos', icon: 'shopping_cart', link: '/carrito' },
           { label: 'Mis libros digitales', icon: 'menu_book', link: '/comprador/libros-digitales' },
         ];
