@@ -1,4 +1,3 @@
-import { error } from "node:console";
 import { prisma } from "../prisma.js";
 
 export class UsuarioRepository {
@@ -105,6 +104,69 @@ export class UsuarioRepository {
         usuario_id: id_usuario,
         es_proveedor: false,
       },
+    });
+  }
+
+  async actualizarUsuario(
+    id: number,
+    datos: {
+      nombre: string;
+      apellido: string;
+      direccion: string;
+      tipo_usuario_id: number;
+    },
+  ) {
+    const usuarioActual = await prisma.usuarios.findUnique({
+      where: { id },
+      select: { tipo_usuario_id: true },
+    });
+
+    if (!usuarioActual) {
+      return null;
+    }
+
+    return await prisma.$transaction(async (tx) => {
+      if (usuarioActual.tipo_usuario_id !== datos.tipo_usuario_id) {
+        await tx.administradores.deleteMany({ where: { usuario_id: id } });
+        await tx.compradores.deleteMany({ where: { usuario_id: id } });
+        await tx.proveedores.deleteMany({ where: { usuario_id: id } });
+        await tx.listaProveedor.deleteMany({ where: { usuario_id: id } });
+
+        if (datos.tipo_usuario_id === 1) {
+          await tx.administradores.create({ data: { usuario_id: id } });
+        }
+
+        if (datos.tipo_usuario_id === 2) {
+          await tx.proveedores.create({ data: { usuario_id: id } });
+        }
+
+        if (datos.tipo_usuario_id === 3) {
+          await tx.compradores.create({
+            data: {
+              usuario_id: id,
+              Carrito: {
+                create: {},
+              },
+            },
+          });
+        }
+      }
+
+      return await tx.usuarios.update({
+        where: { id },
+        data: {
+          nombre: datos.nombre,
+          apellido: datos.apellido,
+          direccion: datos.direccion,
+          tipo_usuario_id: datos.tipo_usuario_id,
+        },
+      });
+    });
+  }
+
+  async eliminarUsuario(id: number) {
+    return await prisma.usuarios.delete({
+      where: { id },
     });
   }
 }

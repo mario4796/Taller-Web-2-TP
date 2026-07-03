@@ -23,6 +23,13 @@ export interface UsuarioListado {
   tipoUsuarioDescripcion: string;
 }
 
+export interface UsuarioActualizacionPayload {
+  nombre: string;
+  apellido: string;
+  direccion: string;
+  tipo_usuario_id: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -52,5 +59,13 @@ export class UsuarioService {
 
   registrar(datos: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/registrarse`, datos);
+  }
+
+  updateUsuario(id: number, datos: UsuarioActualizacionPayload): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${id}`, datos);
+  }
+
+  deleteUsuario(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

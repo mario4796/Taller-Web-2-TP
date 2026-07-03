@@ -1,15 +1,21 @@
-<app-nav></app-nav>
+@if (!compact()) {
+  <app-nav></app-nav>
 
-<section class="usuarios-page">
-  <header class="usuarios-header">
-    <div>
-      <p class="usuarios-eyebrow">Administracion de usuarios</p>
-      <h2>Usuarios registrados</h2>
-      <p class="usuarios-description">
-        Lista de usuarios activos con sus datos principales y el tipo de usuario.
-      </p>
-    </div>
-  </header>
+  <p-toast position="top-right"></p-toast>
+}
+
+<section class="usuarios-page" [class.compact]="compact()">
+  @if (!compact()) {
+    <header class="usuarios-header">
+      <div>
+        <p class="usuarios-eyebrow">Administracion de usuarios</p>
+        <h2>Usuarios registrados</h2>
+        <p class="usuarios-description">
+          Lista de usuarios activos con sus datos principales y el tipo de usuario.
+        </p>
+      </div>
+    </header>
+  }
 
   @if (error()) {
     <div class="estado estado-error">
@@ -25,7 +31,7 @@
       [rows]="10"
       [rowsPerPageOptions]="[5, 10, 20]"
       [loading]="cargando()"
-      [tableStyle]="{ 'min-width': '56rem' }"
+      [tableStyle]="{ 'min-width': '64rem' }"
       responsiveLayout="scroll"
     >
       <ng-template pTemplate="header">
@@ -35,6 +41,7 @@
           <th>Direccion</th>
           <th>Email</th>
           <th>Tipo de usuario</th>
+          <th style="text-align: center;">Acciones</th>
         </tr>
       </ng-template>
 
@@ -45,14 +52,140 @@
           <td>{{ usuario.direccion }}</td>
           <td>{{ usuario.email }}</td>
           <td>{{ usuario.tipoUsuarioDescripcion }}</td>
+          <td class="acciones-celda">
+            <p-button
+              icon="pi pi-pencil"
+              [rounded]="true"
+              [text]="true"
+              severity="info"
+              title="Editar usuario"
+              (click)="abrirEdicion(usuario)">
+            </p-button>
+            <p-button
+              icon="pi pi-trash"
+              [rounded]="true"
+              [text]="true"
+              severity="danger"
+              title="Eliminar usuario"
+              (click)="abrirEliminacion(usuario)">
+            </p-button>
+          </td>
         </tr>
       </ng-template>
 
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="5">No hay usuarios registrados para mostrar.</td>
+          <td colspan="6">No hay usuarios registrados para mostrar.</td>
         </tr>
       </ng-template>
     </p-table>
   </div>
+
+  <p-dialog
+    header="Editar usuario"
+    [visible]="mostrarDialogoEdicion()"
+    (visibleChange)="$event ? null : cerrarEdicion()"
+    [modal]="true"
+    [style]="{ width: '34rem' }"
+    [contentStyle]="{ overflow: 'visible' }"
+    [draggable]="false"
+    [resizable]="false"
+    styleClass="usuario-edit-dialog"
+  >
+    <form [formGroup]="usuarioForm" (ngSubmit)="guardarEdicion()" class="usuario-dialog-form">
+      @if (usuarioEditando()) {
+        <p class="usuario-dialog-helper">
+          Email: <strong>{{ usuarioEditando()?.email }}</strong>
+        </p>
+      }
+
+      <div class="usuario-dialog-grid">
+        <div class="field-span-1">
+          <p-floatlabel variant="in">
+            <input id="nombre" pInputText formControlName="nombre" />
+            <label for="nombre">Nombre</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="field-span-1">
+          <p-floatlabel variant="in">
+            <input id="apellido" pInputText formControlName="apellido" />
+            <label for="apellido">Apellido</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="field-span-2">
+          <p-floatlabel variant="in">
+            <input id="direccion" pInputText formControlName="direccion" />
+            <label for="direccion">Direccion</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="field-span-2">
+          <p-floatlabel variant="in">
+            <p-select
+              id="tipoUsuarioId"
+              formControlName="tipoUsuarioId"
+              [options]="tipoUsuarioOpciones"
+              optionLabel="label"
+              optionValue="value"
+              appendTo="body"
+            ></p-select>
+            <label for="tipoUsuarioId">Tipo de usuario</label>
+          </p-floatlabel>
+        </div>
+      </div>
+
+      <div class="dialog-actions">
+        <p-button
+          label="Cancelar"
+          severity="danger"
+          [text]="true"
+          (click)="cerrarEdicion()"
+        ></p-button>
+        <p-button
+          label="Guardar cambios"
+          severity="success"
+          type="submit"
+          [disabled]="usuarioForm.invalid || accionEnProgreso()"
+        ></p-button>
+      </div>
+    </form>
+  </p-dialog>
+
+  <p-dialog
+    header="Eliminar usuario"
+    [visible]="mostrarDialogoEliminar()"
+    (visibleChange)="$event ? null : cerrarEliminacion()"
+    [modal]="true"
+    [style]="{ width: '28rem' }"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div class="usuario-delete-dialog">
+      @if (usuarioAEliminar()) {
+        <p>
+          Vas a eliminar a <strong>{{ usuarioAEliminar()?.nombre }} {{ usuarioAEliminar()?.apellido }}</strong>.
+        </p>
+        <p class="usuario-dialog-helper">
+          Esta acción no se puede deshacer.
+        </p>
+      }
+
+      <div class="dialog-actions">
+        <p-button
+          label="Cancelar"
+          severity="danger"
+          [text]="true"
+          (click)="cerrarEliminacion()"
+        ></p-button>
+        <p-button
+          label="Eliminar"
+          severity="danger"
+          [loading]="accionEnProgreso()"
+          (click)="eliminarUsuario()"
+        ></p-button>
+      </div>
+    </div>
+  </p-dialog>
 </section>

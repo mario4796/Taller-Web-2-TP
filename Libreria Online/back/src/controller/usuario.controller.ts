@@ -1,6 +1,5 @@
 import { type Request, type Response } from "express";
 import { UsuarioRepository } from "../repository/usuario.repository.ts";
-import { prisma } from "../prisma.js";
 import { UsuarioService } from "../services/usuario.service.js";
 
 const usuarioRepository = new UsuarioRepository();
@@ -60,6 +59,58 @@ export class UsuarioController {
       }
 
       return res.status(500).json({ message: "Error interno del servidor." });
+    }
+  };
+
+  public actualizarUsuario = async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+      const { nombre, apellido, direccion, tipo_usuario_id } = req.body;
+
+      if (
+        Number.isNaN(id) ||
+        !nombre ||
+        !apellido ||
+        !direccion ||
+        tipo_usuario_id === undefined ||
+        tipo_usuario_id === null
+      ) {
+        return res.status(400).json({ message: "Datos inválidos" });
+      }
+
+      const usuario = await usuarioService.actualizarUsuario(id, {
+        nombre,
+        apellido,
+        direccion,
+        tipo_usuario_id: Number(tipo_usuario_id),
+      });
+
+      return res.status(200).json(usuario);
+    } catch (error: any) {
+      if (error.message === "USUARIO_NO_ENCONTRADO") {
+        return res.status(404).json({ message: "Usuario no encontrado" });
+      }
+
+      return res.status(500).json({ message: "Error al actualizar el usuario", error });
+    }
+  };
+
+  public eliminarUsuario = async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+
+      if (Number.isNaN(id)) {
+        return res.status(400).json({ message: "ID inválido" });
+      }
+
+      await usuarioService.eliminarUsuario(id);
+      return res.status(200).json({ message: "Usuario eliminado correctamente" });
+    } catch (error: any) {
+      if (error.code === 'P2025') {
+        return res.status(404).json({ message: "Usuario no encontrado" });
+      }
+
+      return res.status(500).json({ message: "Error al eliminar el usuario", error });
     }
   };
 }

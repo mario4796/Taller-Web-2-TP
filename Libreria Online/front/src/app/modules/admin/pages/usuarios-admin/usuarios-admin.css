@@ -4,6 +4,12 @@
   margin: 0 auto;
 }
 
+.usuarios-page.compact {
+  padding: 0;
+  max-width: none;
+  margin: 0;
+}
+
 .usuarios-header {
   margin-bottom: 1rem;
 }
@@ -47,6 +53,56 @@
   border: 1px solid #fecaca;
 }
 
+.acciones-celda {
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.usuario-dialog-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.usuario-dialog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.field-span-1,
+.field-span-2 {
+  min-width: 0;
+}
+
+.field-span-2 {
+  grid-column: span 2;
+}
+
+.usuario-dialog-helper {
+  margin: 0 0 0.25rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.usuario-delete-dialog {
+  display: grid;
+  gap: 0.75rem;
+}
+
+:host ::ng-deep .usuario-edit-dialog .p-dialog-content {
+  overflow: visible;
+  padding-bottom: 1rem;
+}
+
+:host ::ng-deep .usuario-edit-dialog .p-dialog-header {
+  padding-bottom: 0.5rem;
+}
+
+:host ::ng-deep .usuario-edit-dialog .p-dialog {
+  max-height: none;
+}
+
 :host ::ng-deep .usuarios-table .p-datatable-wrapper {
   border: 1px solid #dbe2ea;
   border-radius: 1rem;
@@ -84,6 +140,10 @@
   border-color: rgba(248, 113, 113, 0.45);
 }
 
+:host-context(.app-dark) .usuario-dialog-helper {
+  color: #cbd5e1;
+}
+
 :host-context(.app-dark) ::ng-deep .usuarios-table .p-datatable-wrapper,
 :host-context(.app-dark) ::ng-deep .usuarios-table .p-datatable-tbody > tr > td {
   border-color: rgba(148, 163, 184, 0.16);
@@ -106,5 +166,17 @@
 @media (max-width: 768px) {
   .usuarios-page {
     padding: 1rem;
+  }
+
+  .usuario-dialog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-span-2 {
+    grid-column: span 1;
+  }
+
+  .acciones-celda {
+    justify-content: flex-start;
   }
 }

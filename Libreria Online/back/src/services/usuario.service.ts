@@ -56,4 +56,26 @@ export class UsuarioService {
       throw error;
     }
   }
+
+  async actualizarUsuario(
+    id: number,
+    datos: {
+      nombre: string;
+      apellido: string;
+      direccion: string;
+      tipo_usuario_id: number;
+    },
+  ) {
+    const usuarioActualizado = await this.usuarioRepository.actualizarUsuario(id, datos);
+
+    if (!usuarioActualizado) {
+      throw new Error('USUARIO_NO_ENCONTRADO');
+    }
+
+    return usuarioActualizado;
+  }
+
+  async eliminarUsuario(id: number) {
+    return await this.usuarioRepository.eliminarUsuario(id);
+  }
 }
