@@ -125,24 +125,33 @@ export class UsuarioRepository {
       return null;
     }
 
+    if (usuarioActual.tipo_usuario_id === 1) {
+      throw new Error('USUARIO_ADMIN_PROTEGIDO');
+    }
+
     return await prisma.$transaction(async (tx) => {
       if (usuarioActual.tipo_usuario_id !== datos.tipo_usuario_id) {
-        await tx.administradores.deleteMany({ where: { usuario_id: id } });
-        await tx.compradores.deleteMany({ where: { usuario_id: id } });
-        await tx.proveedores.deleteMany({ where: { usuario_id: id } });
-        await tx.listaProveedor.deleteMany({ where: { usuario_id: id } });
-
         if (datos.tipo_usuario_id === 1) {
-          await tx.administradores.create({ data: { usuario_id: id } });
+          await tx.administradores.upsert({
+            where: { usuario_id: id },
+            update: {},
+            create: { usuario_id: id },
+          });
         }
 
         if (datos.tipo_usuario_id === 2) {
-          await tx.proveedores.create({ data: { usuario_id: id } });
+          await tx.proveedores.upsert({
+            where: { usuario_id: id },
+            update: {},
+            create: { usuario_id: id },
+          });
         }
 
         if (datos.tipo_usuario_id === 3) {
-          await tx.compradores.create({
-            data: {
+          await tx.compradores.upsert({
+            where: { usuario_id: id },
+            update: {},
+            create: {
               usuario_id: id,
               Carrito: {
                 create: {},
@@ -165,6 +174,19 @@ export class UsuarioRepository {
   }
 
   async eliminarUsuario(id: number) {
+    const usuarioActual = await prisma.usuarios.findUnique({
+      where: { id },
+      select: { tipo_usuario_id: true },
+    });
+
+    if (!usuarioActual) {
+      return null;
+    }
+
+    if (usuarioActual.tipo_usuario_id === 1) {
+      throw new Error('USUARIO_ADMIN_PROTEGIDO');
+    }
+
     return await prisma.usuarios.delete({
       where: { id },
     });

@@ -59,6 +59,15 @@
   gap: 0.35rem;
 }
 
+.acciones-bloqueadas {
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  background: rgba(148, 163, 184, 0.16);
+}
+
 .usuario-dialog-form {
   display: grid;
   gap: 1rem;

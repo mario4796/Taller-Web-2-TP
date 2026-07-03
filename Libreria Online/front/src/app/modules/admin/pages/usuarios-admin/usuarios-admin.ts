@@ -68,6 +68,10 @@ export class UsuariosAdmin {
     tipoUsuarioId: [1, [Validators.required]],
   });
 
+  esAdministrador(usuario: UsuarioListado): boolean {
+    return usuario.tipoUsuarioId === 1 || usuario.tipoUsuarioDescripcion?.toUpperCase().includes('ADMIN');
+  }
+
   constructor() {
     this.cargarUsuarios();
   }
@@ -89,6 +93,11 @@ export class UsuariosAdmin {
   }
 
   abrirEdicion(usuario: UsuarioListado): void {
+    if (this.esAdministrador(usuario)) {
+      this.toastService.warn('Los usuarios administradores no se pueden modificar.');
+      return;
+    }
+
     this.usuarioEditando.set(usuario);
     this.usuarioForm.reset({
       nombre: usuario.nombre,
@@ -149,6 +158,11 @@ export class UsuariosAdmin {
   }
 
   abrirEliminacion(usuario: UsuarioListado): void {
+    if (this.esAdministrador(usuario)) {
+      this.toastService.warn('Los usuarios administradores no se pueden eliminar.');
+      return;
+    }
+
     this.usuarioAEliminar.set(usuario);
     this.mostrarDialogoEliminar.set(true);
   }

@@ -53,22 +53,26 @@
           <td>{{ usuario.email }}</td>
           <td>{{ usuario.tipoUsuarioDescripcion }}</td>
           <td class="acciones-celda">
-            <p-button
-              icon="pi pi-pencil"
-              [rounded]="true"
-              [text]="true"
-              severity="info"
-              title="Editar usuario"
-              (click)="abrirEdicion(usuario)">
-            </p-button>
-            <p-button
-              icon="pi pi-trash"
-              [rounded]="true"
-              [text]="true"
-              severity="danger"
-              title="Eliminar usuario"
-              (click)="abrirEliminacion(usuario)">
-            </p-button>
+            @if (esAdministrador(usuario)) {
+              <span class="acciones-bloqueadas">Bloqueado</span>
+            } @else {
+              <p-button
+                icon="pi pi-pencil"
+                [rounded]="true"
+                [text]="true"
+                severity="info"
+                title="Editar usuario"
+                (click)="abrirEdicion(usuario)">
+              </p-button>
+              <p-button
+                icon="pi pi-trash"
+                [rounded]="true"
+                [text]="true"
+                severity="danger"
+                title="Eliminar usuario"
+                (click)="abrirEliminacion(usuario)">
+              </p-button>
+            }
           </td>
         </tr>
       </ng-template>

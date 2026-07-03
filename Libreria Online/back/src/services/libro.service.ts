@@ -74,6 +74,10 @@ export class LibroService {
     return await this.libroRepository.incrementarStock(id, cantidad);
   }
 
+  async sumarStockYActualizarPrecio(id: number, cantidad: number, precio: number) {
+    return await this.libroRepository.incrementarStockYActualizarPrecio(id, cantidad, precio);
+  }
+
   async eliminarLibro(id: number) {
     try {
       await this.libroRepository.deleteLibro(id);

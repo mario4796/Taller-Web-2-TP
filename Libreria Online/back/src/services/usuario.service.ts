@@ -76,6 +76,12 @@ export class UsuarioService {
   }
 
   async eliminarUsuario(id: number) {
-    return await this.usuarioRepository.eliminarUsuario(id);
+    const resultado = await this.usuarioRepository.eliminarUsuario(id);
+
+    if (!resultado) {
+      throw new Error('USUARIO_NO_ENCONTRADO');
+    }
+
+    return resultado;
   }
 }

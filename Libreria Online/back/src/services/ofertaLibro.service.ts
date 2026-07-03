@@ -123,18 +123,20 @@ export class OfertaLibroService {
         } else {
             throw new Error('La oferta ya fue cerrada o no se puede aceptar en este estado');
         }
+
+        const precioConMargen = Number((precioFinal.toNumber() * 1.1).toFixed(2));
+
         const libroExistente = await this.libroService.obtenerLibroPorIsbn(oferta.isbn);
 
         if (libroExistente) {
-            // el sumarStock no actualiza el precio
-            await this.libroService.sumarStock(libroExistente.id, cantidadFinal);
+            await this.libroService.sumarStockYActualizarPrecio(libroExistente.id, cantidadFinal, precioConMargen);
         } else {
             await this.libroService.crearLibro({
                 id: 0,
                 isbn: oferta.isbn,
                 nombre: oferta.nombre,
                 autor: oferta.autor,
-                precio: precioFinal.toNumber() * 1.1,
+                precio: precioConMargen,
                 stock: cantidadFinal,
                 categoria:oferta.categoria,
                 sinopsis: oferta.sinopsis || "",

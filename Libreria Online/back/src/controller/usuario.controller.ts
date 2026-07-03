@@ -91,6 +91,10 @@ export class UsuarioController {
         return res.status(404).json({ message: "Usuario no encontrado" });
       }
 
+      if (error.message === 'USUARIO_ADMIN_PROTEGIDO') {
+        return res.status(403).json({ message: 'Los usuarios administradores no se pueden modificar.' });
+      }
+
       return res.status(500).json({ message: "Error al actualizar el usuario", error });
     }
   };
@@ -106,8 +110,12 @@ export class UsuarioController {
       await usuarioService.eliminarUsuario(id);
       return res.status(200).json({ message: "Usuario eliminado correctamente" });
     } catch (error: any) {
-      if (error.code === 'P2025') {
+      if (error.message === 'USUARIO_NO_ENCONTRADO' || error.code === 'P2025') {
         return res.status(404).json({ message: "Usuario no encontrado" });
+      }
+
+      if (error.message === 'USUARIO_ADMIN_PROTEGIDO') {
+        return res.status(403).json({ message: 'Los usuarios administradores no se pueden eliminar.' });
       }
 
       return res.status(500).json({ message: "Error al eliminar el usuario", error });

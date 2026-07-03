@@ -83,6 +83,16 @@ export class LibroRepository {
     });
   }
 
+  async incrementarStockYActualizarPrecio(id: number, cantidad: number, precio: number) {
+    return await prisma.libros.update({
+      where: { id },
+      data: {
+        stock: { increment: cantidad },
+        precio,
+      },
+    });
+  }
+
   async actualizarStockTrasCompra(detalles: any[], tx: any) {
     for (const item of detalles) {
       const nuevoStock = (item.Libros.stock || 0) - item.cantidad;
