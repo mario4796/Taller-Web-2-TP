@@ -12,6 +12,7 @@ export interface OfertaLibro {
   nombre: string;
   autor: string;
   precioProveedor: number;
+  precioAdmin?: number | null;
   cantidadProveedor: number;
   cantidadAdmin?: number | null;
   estado: EstadoOferta;
@@ -24,4 +25,4 @@ export interface OfertaLibro {
   creadoPor?: string;
 }
 
-export type NuevaOfertaLibro = Omit<OfertaLibro, 'id' | 'estado' | 'createdAt' | 'cantidadAdmin'>;
+export type NuevaOfertaLibro = Omit<OfertaLibro, 'id' | 'estado' | 'createdAt' | 'cantidadAdmin' | 'precioAdmin'>;

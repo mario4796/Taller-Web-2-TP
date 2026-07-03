@@ -232,8 +232,8 @@ export type DetalleTransaccionWhereInput = {
   libro_id?: Prisma.IntFilter<"DetalleTransaccion"> | number
   cantidad?: Prisma.IntFilter<"DetalleTransaccion"> | number
   precio_unitario?: Prisma.DecimalFilter<"DetalleTransaccion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  Transaccion?: Prisma.XOR<Prisma.TransaccionesScalarRelationFilter, Prisma.TransaccionesWhereInput>
   Libro?: Prisma.XOR<Prisma.LibrosScalarRelationFilter, Prisma.LibrosWhereInput>
+  Transaccion?: Prisma.XOR<Prisma.TransaccionesScalarRelationFilter, Prisma.TransaccionesWhereInput>
 }
 
 export type DetalleTransaccionOrderByWithRelationInput = {
@@ -242,8 +242,8 @@ export type DetalleTransaccionOrderByWithRelationInput = {
   libro_id?: Prisma.SortOrder
   cantidad?: Prisma.SortOrder
   precio_unitario?: Prisma.SortOrder
-  Transaccion?: Prisma.TransaccionesOrderByWithRelationInput
   Libro?: Prisma.LibrosOrderByWithRelationInput
+  Transaccion?: Prisma.TransaccionesOrderByWithRelationInput
 }
 
 export type DetalleTransaccionWhereUniqueInput = Prisma.AtLeast<{
@@ -255,8 +255,8 @@ export type DetalleTransaccionWhereUniqueInput = Prisma.AtLeast<{
   libro_id?: Prisma.IntFilter<"DetalleTransaccion"> | number
   cantidad?: Prisma.IntFilter<"DetalleTransaccion"> | number
   precio_unitario?: Prisma.DecimalFilter<"DetalleTransaccion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  Transaccion?: Prisma.XOR<Prisma.TransaccionesScalarRelationFilter, Prisma.TransaccionesWhereInput>
   Libro?: Prisma.XOR<Prisma.LibrosScalarRelationFilter, Prisma.LibrosWhereInput>
+  Transaccion?: Prisma.XOR<Prisma.TransaccionesScalarRelationFilter, Prisma.TransaccionesWhereInput>
 }, "id">
 
 export type DetalleTransaccionOrderByWithAggregationInput = {
@@ -286,8 +286,8 @@ export type DetalleTransaccionScalarWhereWithAggregatesInput = {
 export type DetalleTransaccionCreateInput = {
   cantidad: number
   precio_unitario: runtime.Decimal | runtime.DecimalJsLike | number | string
-  Transaccion: Prisma.TransaccionesCreateNestedOneWithoutDetallesInput
   Libro: Prisma.LibrosCreateNestedOneWithoutDetalleTransaccionsInput
+  Transaccion: Prisma.TransaccionesCreateNestedOneWithoutDetallesInput
 }
 
 export type DetalleTransaccionUncheckedCreateInput = {
@@ -301,8 +301,8 @@ export type DetalleTransaccionUncheckedCreateInput = {
 export type DetalleTransaccionUpdateInput = {
   cantidad?: Prisma.IntFieldUpdateOperationsInput | number
   precio_unitario?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  Transaccion?: Prisma.TransaccionesUpdateOneRequiredWithoutDetallesNestedInput
   Libro?: Prisma.LibrosUpdateOneRequiredWithoutDetalleTransaccionsNestedInput
+  Transaccion?: Prisma.TransaccionesUpdateOneRequiredWithoutDetallesNestedInput
 }
 
 export type DetalleTransaccionUncheckedUpdateInput = {
@@ -619,8 +619,8 @@ export type DetalleTransaccionSelect<ExtArgs extends runtime.Types.Extensions.In
   libro_id?: boolean
   cantidad?: boolean
   precio_unitario?: boolean
-  Transaccion?: boolean | Prisma.TransaccionesDefaultArgs<ExtArgs>
   Libro?: boolean | Prisma.LibrosDefaultArgs<ExtArgs>
+  Transaccion?: boolean | Prisma.TransaccionesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["detalleTransaccion"]>
 
 export type DetalleTransaccionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -629,8 +629,8 @@ export type DetalleTransaccionSelectCreateManyAndReturn<ExtArgs extends runtime.
   libro_id?: boolean
   cantidad?: boolean
   precio_unitario?: boolean
-  Transaccion?: boolean | Prisma.TransaccionesDefaultArgs<ExtArgs>
   Libro?: boolean | Prisma.LibrosDefaultArgs<ExtArgs>
+  Transaccion?: boolean | Prisma.TransaccionesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["detalleTransaccion"]>
 
 export type DetalleTransaccionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -639,8 +639,8 @@ export type DetalleTransaccionSelectUpdateManyAndReturn<ExtArgs extends runtime.
   libro_id?: boolean
   cantidad?: boolean
   precio_unitario?: boolean
-  Transaccion?: boolean | Prisma.TransaccionesDefaultArgs<ExtArgs>
   Libro?: boolean | Prisma.LibrosDefaultArgs<ExtArgs>
+  Transaccion?: boolean | Prisma.TransaccionesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["detalleTransaccion"]>
 
 export type DetalleTransaccionSelectScalar = {
@@ -653,23 +653,23 @@ export type DetalleTransaccionSelectScalar = {
 
 export type DetalleTransaccionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "transaccion_id" | "libro_id" | "cantidad" | "precio_unitario", ExtArgs["result"]["detalleTransaccion"]>
 export type DetalleTransaccionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Transaccion?: boolean | Prisma.TransaccionesDefaultArgs<ExtArgs>
   Libro?: boolean | Prisma.LibrosDefaultArgs<ExtArgs>
+  Transaccion?: boolean | Prisma.TransaccionesDefaultArgs<ExtArgs>
 }
 export type DetalleTransaccionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Transaccion?: boolean | Prisma.TransaccionesDefaultArgs<ExtArgs>
   Libro?: boolean | Prisma.LibrosDefaultArgs<ExtArgs>
+  Transaccion?: boolean | Prisma.TransaccionesDefaultArgs<ExtArgs>
 }
 export type DetalleTransaccionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Transaccion?: boolean | Prisma.TransaccionesDefaultArgs<ExtArgs>
   Libro?: boolean | Prisma.LibrosDefaultArgs<ExtArgs>
+  Transaccion?: boolean | Prisma.TransaccionesDefaultArgs<ExtArgs>
 }
 
 export type $DetalleTransaccionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "DetalleTransaccion"
   objects: {
-    Transaccion: Prisma.$TransaccionesPayload<ExtArgs>
     Libro: Prisma.$LibrosPayload<ExtArgs>
+    Transaccion: Prisma.$TransaccionesPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1071,8 +1071,8 @@ readonly fields: DetalleTransaccionFieldRefs;
  */
 export interface Prisma__DetalleTransaccionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Transaccion<T extends Prisma.TransaccionesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TransaccionesDefaultArgs<ExtArgs>>): Prisma.Prisma__TransaccionesClient<runtime.Types.Result.GetResult<Prisma.$TransaccionesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   Libro<T extends Prisma.LibrosDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LibrosDefaultArgs<ExtArgs>>): Prisma.Prisma__LibrosClient<runtime.Types.Result.GetResult<Prisma.$LibrosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Transaccion<T extends Prisma.TransaccionesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TransaccionesDefaultArgs<ExtArgs>>): Prisma.Prisma__TransaccionesClient<runtime.Types.Result.GetResult<Prisma.$TransaccionesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

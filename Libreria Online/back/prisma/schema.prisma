@@ -90,6 +90,7 @@ model OfertaLibro {
   nombre            String
   autor             String
   precioProveedor   Decimal        @db.Decimal(10, 2)
+  precioAdmin       Decimal?       @db.Decimal(10, 2)
   cantidadProveedor Int
   cantidadAdmin     Int?
   estado            EstadoOferta   @default(ESPERANDO_ADMIN)

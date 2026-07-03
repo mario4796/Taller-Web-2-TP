@@ -6,6 +6,7 @@ export class OfertaLibroMapper {
     return {
       ...ofertaRest,
       precioProveedor: Number(ofertaRest.precioProveedor),
+      precioAdmin: ofertaRest.precioAdmin == null ? null : Number(ofertaRest.precioAdmin),
       categoria: ofertaRest.categoria ?? 'GENERAL',
       sinopsis: ofertaRest.sinopsis ?? '',
     };

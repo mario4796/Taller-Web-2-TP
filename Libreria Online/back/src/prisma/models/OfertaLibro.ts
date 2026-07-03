@@ -29,6 +29,7 @@ export type AggregateOfertaLibro = {
 export type OfertaLibroAvgAggregateOutputType = {
   id: number | null
   precioProveedor: runtime.Decimal | null
+  precioAdmin: runtime.Decimal | null
   cantidadProveedor: number | null
   cantidadAdmin: number | null
   proveedorId: number | null
@@ -38,6 +39,7 @@ export type OfertaLibroAvgAggregateOutputType = {
 export type OfertaLibroSumAggregateOutputType = {
   id: number | null
   precioProveedor: runtime.Decimal | null
+  precioAdmin: runtime.Decimal | null
   cantidadProveedor: number | null
   cantidadAdmin: number | null
   proveedorId: number | null
@@ -50,6 +52,7 @@ export type OfertaLibroMinAggregateOutputType = {
   nombre: string | null
   autor: string | null
   precioProveedor: runtime.Decimal | null
+  precioAdmin: runtime.Decimal | null
   cantidadProveedor: number | null
   cantidadAdmin: number | null
   estado: $Enums.EstadoOferta | null
@@ -68,6 +71,7 @@ export type OfertaLibroMaxAggregateOutputType = {
   nombre: string | null
   autor: string | null
   precioProveedor: runtime.Decimal | null
+  precioAdmin: runtime.Decimal | null
   cantidadProveedor: number | null
   cantidadAdmin: number | null
   estado: $Enums.EstadoOferta | null
@@ -86,6 +90,7 @@ export type OfertaLibroCountAggregateOutputType = {
   nombre: number
   autor: number
   precioProveedor: number
+  precioAdmin: number
   cantidadProveedor: number
   cantidadAdmin: number
   estado: number
@@ -103,6 +108,7 @@ export type OfertaLibroCountAggregateOutputType = {
 export type OfertaLibroAvgAggregateInputType = {
   id?: true
   precioProveedor?: true
+  precioAdmin?: true
   cantidadProveedor?: true
   cantidadAdmin?: true
   proveedorId?: true
@@ -112,6 +118,7 @@ export type OfertaLibroAvgAggregateInputType = {
 export type OfertaLibroSumAggregateInputType = {
   id?: true
   precioProveedor?: true
+  precioAdmin?: true
   cantidadProveedor?: true
   cantidadAdmin?: true
   proveedorId?: true
@@ -124,6 +131,7 @@ export type OfertaLibroMinAggregateInputType = {
   nombre?: true
   autor?: true
   precioProveedor?: true
+  precioAdmin?: true
   cantidadProveedor?: true
   cantidadAdmin?: true
   estado?: true
@@ -142,6 +150,7 @@ export type OfertaLibroMaxAggregateInputType = {
   nombre?: true
   autor?: true
   precioProveedor?: true
+  precioAdmin?: true
   cantidadProveedor?: true
   cantidadAdmin?: true
   estado?: true
@@ -160,6 +169,7 @@ export type OfertaLibroCountAggregateInputType = {
   nombre?: true
   autor?: true
   precioProveedor?: true
+  precioAdmin?: true
   cantidadProveedor?: true
   cantidadAdmin?: true
   estado?: true
@@ -265,6 +275,7 @@ export type OfertaLibroGroupByOutputType = {
   nombre: string
   autor: string
   precioProveedor: runtime.Decimal
+  precioAdmin: runtime.Decimal | null
   cantidadProveedor: number
   cantidadAdmin: number | null
   estado: $Enums.EstadoOferta
@@ -306,6 +317,7 @@ export type OfertaLibroWhereInput = {
   nombre?: Prisma.StringFilter<"OfertaLibro"> | string
   autor?: Prisma.StringFilter<"OfertaLibro"> | string
   precioProveedor?: Prisma.DecimalFilter<"OfertaLibro"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.DecimalNullableFilter<"OfertaLibro"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntFilter<"OfertaLibro"> | number
   cantidadAdmin?: Prisma.IntNullableFilter<"OfertaLibro"> | number | null
   estado?: Prisma.EnumEstadoOfertaFilter<"OfertaLibro"> | $Enums.EstadoOferta
@@ -316,8 +328,8 @@ export type OfertaLibroWhereInput = {
   creadoPor?: Prisma.StringFilter<"OfertaLibro"> | string
   proveedorId?: Prisma.IntFilter<"OfertaLibro"> | number
   libroId?: Prisma.IntNullableFilter<"OfertaLibro"> | number | null
-  Proveedor?: Prisma.XOR<Prisma.ProveedoresScalarRelationFilter, Prisma.ProveedoresWhereInput>
   Libro?: Prisma.XOR<Prisma.LibrosNullableScalarRelationFilter, Prisma.LibrosWhereInput> | null
+  Proveedor?: Prisma.XOR<Prisma.ProveedoresScalarRelationFilter, Prisma.ProveedoresWhereInput>
 }
 
 export type OfertaLibroOrderByWithRelationInput = {
@@ -326,6 +338,7 @@ export type OfertaLibroOrderByWithRelationInput = {
   nombre?: Prisma.SortOrder
   autor?: Prisma.SortOrder
   precioProveedor?: Prisma.SortOrder
+  precioAdmin?: Prisma.SortOrderInput | Prisma.SortOrder
   cantidadProveedor?: Prisma.SortOrder
   cantidadAdmin?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
@@ -336,8 +349,8 @@ export type OfertaLibroOrderByWithRelationInput = {
   creadoPor?: Prisma.SortOrder
   proveedorId?: Prisma.SortOrder
   libroId?: Prisma.SortOrderInput | Prisma.SortOrder
-  Proveedor?: Prisma.ProveedoresOrderByWithRelationInput
   Libro?: Prisma.LibrosOrderByWithRelationInput
+  Proveedor?: Prisma.ProveedoresOrderByWithRelationInput
 }
 
 export type OfertaLibroWhereUniqueInput = Prisma.AtLeast<{
@@ -349,6 +362,7 @@ export type OfertaLibroWhereUniqueInput = Prisma.AtLeast<{
   nombre?: Prisma.StringFilter<"OfertaLibro"> | string
   autor?: Prisma.StringFilter<"OfertaLibro"> | string
   precioProveedor?: Prisma.DecimalFilter<"OfertaLibro"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.DecimalNullableFilter<"OfertaLibro"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntFilter<"OfertaLibro"> | number
   cantidadAdmin?: Prisma.IntNullableFilter<"OfertaLibro"> | number | null
   estado?: Prisma.EnumEstadoOfertaFilter<"OfertaLibro"> | $Enums.EstadoOferta
@@ -359,8 +373,8 @@ export type OfertaLibroWhereUniqueInput = Prisma.AtLeast<{
   creadoPor?: Prisma.StringFilter<"OfertaLibro"> | string
   proveedorId?: Prisma.IntFilter<"OfertaLibro"> | number
   libroId?: Prisma.IntNullableFilter<"OfertaLibro"> | number | null
-  Proveedor?: Prisma.XOR<Prisma.ProveedoresScalarRelationFilter, Prisma.ProveedoresWhereInput>
   Libro?: Prisma.XOR<Prisma.LibrosNullableScalarRelationFilter, Prisma.LibrosWhereInput> | null
+  Proveedor?: Prisma.XOR<Prisma.ProveedoresScalarRelationFilter, Prisma.ProveedoresWhereInput>
 }, "id">
 
 export type OfertaLibroOrderByWithAggregationInput = {
@@ -369,6 +383,7 @@ export type OfertaLibroOrderByWithAggregationInput = {
   nombre?: Prisma.SortOrder
   autor?: Prisma.SortOrder
   precioProveedor?: Prisma.SortOrder
+  precioAdmin?: Prisma.SortOrderInput | Prisma.SortOrder
   cantidadProveedor?: Prisma.SortOrder
   cantidadAdmin?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
@@ -395,6 +410,7 @@ export type OfertaLibroScalarWhereWithAggregatesInput = {
   nombre?: Prisma.StringWithAggregatesFilter<"OfertaLibro"> | string
   autor?: Prisma.StringWithAggregatesFilter<"OfertaLibro"> | string
   precioProveedor?: Prisma.DecimalWithAggregatesFilter<"OfertaLibro"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.DecimalNullableWithAggregatesFilter<"OfertaLibro"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntWithAggregatesFilter<"OfertaLibro"> | number
   cantidadAdmin?: Prisma.IntNullableWithAggregatesFilter<"OfertaLibro"> | number | null
   estado?: Prisma.EnumEstadoOfertaWithAggregatesFilter<"OfertaLibro"> | $Enums.EstadoOferta
@@ -412,6 +428,7 @@ export type OfertaLibroCreateInput = {
   nombre: string
   autor: string
   precioProveedor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor: number
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
@@ -420,8 +437,8 @@ export type OfertaLibroCreateInput = {
   imagenUrl?: string | null
   categoria?: $Enums.CategoriaLibro
   creadoPor?: string
-  Proveedor: Prisma.ProveedoresCreateNestedOneWithoutOfertasInput
   Libro?: Prisma.LibrosCreateNestedOneWithoutOfertasInput
+  Proveedor: Prisma.ProveedoresCreateNestedOneWithoutOfertasInput
 }
 
 export type OfertaLibroUncheckedCreateInput = {
@@ -430,6 +447,7 @@ export type OfertaLibroUncheckedCreateInput = {
   nombre: string
   autor: string
   precioProveedor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor: number
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
@@ -447,6 +465,7 @@ export type OfertaLibroUpdateInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   precioProveedor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntFieldUpdateOperationsInput | number
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
@@ -455,8 +474,8 @@ export type OfertaLibroUpdateInput = {
   imagenUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.EnumCategoriaLibroFieldUpdateOperationsInput | $Enums.CategoriaLibro
   creadoPor?: Prisma.StringFieldUpdateOperationsInput | string
-  Proveedor?: Prisma.ProveedoresUpdateOneRequiredWithoutOfertasNestedInput
   Libro?: Prisma.LibrosUpdateOneWithoutOfertasNestedInput
+  Proveedor?: Prisma.ProveedoresUpdateOneRequiredWithoutOfertasNestedInput
 }
 
 export type OfertaLibroUncheckedUpdateInput = {
@@ -465,6 +484,7 @@ export type OfertaLibroUncheckedUpdateInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   precioProveedor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntFieldUpdateOperationsInput | number
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
@@ -483,6 +503,7 @@ export type OfertaLibroCreateManyInput = {
   nombre: string
   autor: string
   precioProveedor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor: number
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
@@ -500,6 +521,7 @@ export type OfertaLibroUpdateManyMutationInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   precioProveedor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntFieldUpdateOperationsInput | number
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
@@ -516,6 +538,7 @@ export type OfertaLibroUncheckedUpdateManyInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   precioProveedor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntFieldUpdateOperationsInput | number
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
@@ -544,6 +567,7 @@ export type OfertaLibroCountOrderByAggregateInput = {
   nombre?: Prisma.SortOrder
   autor?: Prisma.SortOrder
   precioProveedor?: Prisma.SortOrder
+  precioAdmin?: Prisma.SortOrder
   cantidadProveedor?: Prisma.SortOrder
   cantidadAdmin?: Prisma.SortOrder
   estado?: Prisma.SortOrder
@@ -559,6 +583,7 @@ export type OfertaLibroCountOrderByAggregateInput = {
 export type OfertaLibroAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   precioProveedor?: Prisma.SortOrder
+  precioAdmin?: Prisma.SortOrder
   cantidadProveedor?: Prisma.SortOrder
   cantidadAdmin?: Prisma.SortOrder
   proveedorId?: Prisma.SortOrder
@@ -571,6 +596,7 @@ export type OfertaLibroMaxOrderByAggregateInput = {
   nombre?: Prisma.SortOrder
   autor?: Prisma.SortOrder
   precioProveedor?: Prisma.SortOrder
+  precioAdmin?: Prisma.SortOrder
   cantidadProveedor?: Prisma.SortOrder
   cantidadAdmin?: Prisma.SortOrder
   estado?: Prisma.SortOrder
@@ -589,6 +615,7 @@ export type OfertaLibroMinOrderByAggregateInput = {
   nombre?: Prisma.SortOrder
   autor?: Prisma.SortOrder
   precioProveedor?: Prisma.SortOrder
+  precioAdmin?: Prisma.SortOrder
   cantidadProveedor?: Prisma.SortOrder
   cantidadAdmin?: Prisma.SortOrder
   estado?: Prisma.SortOrder
@@ -604,6 +631,7 @@ export type OfertaLibroMinOrderByAggregateInput = {
 export type OfertaLibroSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   precioProveedor?: Prisma.SortOrder
+  precioAdmin?: Prisma.SortOrder
   cantidadProveedor?: Prisma.SortOrder
   cantidadAdmin?: Prisma.SortOrder
   proveedorId?: Prisma.SortOrder
@@ -694,6 +722,14 @@ export type OfertaLibroUncheckedUpdateManyWithoutProveedorNestedInput = {
   deleteMany?: Prisma.OfertaLibroScalarWhereInput | Prisma.OfertaLibroScalarWhereInput[]
 }
 
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
 export type EnumEstadoOfertaFieldUpdateOperationsInput = {
   set?: $Enums.EstadoOferta
 }
@@ -703,6 +739,7 @@ export type OfertaLibroCreateWithoutLibroInput = {
   nombre: string
   autor: string
   precioProveedor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor: number
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
@@ -720,6 +757,7 @@ export type OfertaLibroUncheckedCreateWithoutLibroInput = {
   nombre: string
   autor: string
   precioProveedor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor: number
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
@@ -766,6 +804,7 @@ export type OfertaLibroScalarWhereInput = {
   nombre?: Prisma.StringFilter<"OfertaLibro"> | string
   autor?: Prisma.StringFilter<"OfertaLibro"> | string
   precioProveedor?: Prisma.DecimalFilter<"OfertaLibro"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.DecimalNullableFilter<"OfertaLibro"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntFilter<"OfertaLibro"> | number
   cantidadAdmin?: Prisma.IntNullableFilter<"OfertaLibro"> | number | null
   estado?: Prisma.EnumEstadoOfertaFilter<"OfertaLibro"> | $Enums.EstadoOferta
@@ -783,6 +822,7 @@ export type OfertaLibroCreateWithoutProveedorInput = {
   nombre: string
   autor: string
   precioProveedor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor: number
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
@@ -800,6 +840,7 @@ export type OfertaLibroUncheckedCreateWithoutProveedorInput = {
   nombre: string
   autor: string
   precioProveedor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor: number
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
@@ -843,6 +884,7 @@ export type OfertaLibroCreateManyLibroInput = {
   nombre: string
   autor: string
   precioProveedor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor: number
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
@@ -859,6 +901,7 @@ export type OfertaLibroUpdateWithoutLibroInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   precioProveedor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntFieldUpdateOperationsInput | number
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
@@ -876,6 +919,7 @@ export type OfertaLibroUncheckedUpdateWithoutLibroInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   precioProveedor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntFieldUpdateOperationsInput | number
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
@@ -893,6 +937,7 @@ export type OfertaLibroUncheckedUpdateManyWithoutLibroInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   precioProveedor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntFieldUpdateOperationsInput | number
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
@@ -910,6 +955,7 @@ export type OfertaLibroCreateManyProveedorInput = {
   nombre: string
   autor: string
   precioProveedor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor: number
   cantidadAdmin?: number | null
   estado?: $Enums.EstadoOferta
@@ -926,6 +972,7 @@ export type OfertaLibroUpdateWithoutProveedorInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   precioProveedor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntFieldUpdateOperationsInput | number
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
@@ -943,6 +990,7 @@ export type OfertaLibroUncheckedUpdateWithoutProveedorInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   precioProveedor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntFieldUpdateOperationsInput | number
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
@@ -960,6 +1008,7 @@ export type OfertaLibroUncheckedUpdateManyWithoutProveedorInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   precioProveedor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  precioAdmin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   cantidadProveedor?: Prisma.IntFieldUpdateOperationsInput | number
   cantidadAdmin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estado?: Prisma.EnumEstadoOfertaFieldUpdateOperationsInput | $Enums.EstadoOferta
@@ -979,6 +1028,7 @@ export type OfertaLibroSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   nombre?: boolean
   autor?: boolean
   precioProveedor?: boolean
+  precioAdmin?: boolean
   cantidadProveedor?: boolean
   cantidadAdmin?: boolean
   estado?: boolean
@@ -989,8 +1039,8 @@ export type OfertaLibroSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   creadoPor?: boolean
   proveedorId?: boolean
   libroId?: boolean
-  Proveedor?: boolean | Prisma.ProveedoresDefaultArgs<ExtArgs>
   Libro?: boolean | Prisma.OfertaLibro$LibroArgs<ExtArgs>
+  Proveedor?: boolean | Prisma.ProveedoresDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ofertaLibro"]>
 
 export type OfertaLibroSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -999,6 +1049,7 @@ export type OfertaLibroSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   nombre?: boolean
   autor?: boolean
   precioProveedor?: boolean
+  precioAdmin?: boolean
   cantidadProveedor?: boolean
   cantidadAdmin?: boolean
   estado?: boolean
@@ -1009,8 +1060,8 @@ export type OfertaLibroSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   creadoPor?: boolean
   proveedorId?: boolean
   libroId?: boolean
-  Proveedor?: boolean | Prisma.ProveedoresDefaultArgs<ExtArgs>
   Libro?: boolean | Prisma.OfertaLibro$LibroArgs<ExtArgs>
+  Proveedor?: boolean | Prisma.ProveedoresDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ofertaLibro"]>
 
 export type OfertaLibroSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1019,6 +1070,7 @@ export type OfertaLibroSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   nombre?: boolean
   autor?: boolean
   precioProveedor?: boolean
+  precioAdmin?: boolean
   cantidadProveedor?: boolean
   cantidadAdmin?: boolean
   estado?: boolean
@@ -1029,8 +1081,8 @@ export type OfertaLibroSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   creadoPor?: boolean
   proveedorId?: boolean
   libroId?: boolean
-  Proveedor?: boolean | Prisma.ProveedoresDefaultArgs<ExtArgs>
   Libro?: boolean | Prisma.OfertaLibro$LibroArgs<ExtArgs>
+  Proveedor?: boolean | Prisma.ProveedoresDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ofertaLibro"]>
 
 export type OfertaLibroSelectScalar = {
@@ -1039,6 +1091,7 @@ export type OfertaLibroSelectScalar = {
   nombre?: boolean
   autor?: boolean
   precioProveedor?: boolean
+  precioAdmin?: boolean
   cantidadProveedor?: boolean
   cantidadAdmin?: boolean
   estado?: boolean
@@ -1051,25 +1104,25 @@ export type OfertaLibroSelectScalar = {
   libroId?: boolean
 }
 
-export type OfertaLibroOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isbn" | "nombre" | "autor" | "precioProveedor" | "cantidadProveedor" | "cantidadAdmin" | "estado" | "createdAt" | "sinopsis" | "imagenUrl" | "categoria" | "creadoPor" | "proveedorId" | "libroId", ExtArgs["result"]["ofertaLibro"]>
+export type OfertaLibroOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isbn" | "nombre" | "autor" | "precioProveedor" | "precioAdmin" | "cantidadProveedor" | "cantidadAdmin" | "estado" | "createdAt" | "sinopsis" | "imagenUrl" | "categoria" | "creadoPor" | "proveedorId" | "libroId", ExtArgs["result"]["ofertaLibro"]>
 export type OfertaLibroInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Proveedor?: boolean | Prisma.ProveedoresDefaultArgs<ExtArgs>
   Libro?: boolean | Prisma.OfertaLibro$LibroArgs<ExtArgs>
+  Proveedor?: boolean | Prisma.ProveedoresDefaultArgs<ExtArgs>
 }
 export type OfertaLibroIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Proveedor?: boolean | Prisma.ProveedoresDefaultArgs<ExtArgs>
   Libro?: boolean | Prisma.OfertaLibro$LibroArgs<ExtArgs>
+  Proveedor?: boolean | Prisma.ProveedoresDefaultArgs<ExtArgs>
 }
 export type OfertaLibroIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Proveedor?: boolean | Prisma.ProveedoresDefaultArgs<ExtArgs>
   Libro?: boolean | Prisma.OfertaLibro$LibroArgs<ExtArgs>
+  Proveedor?: boolean | Prisma.ProveedoresDefaultArgs<ExtArgs>
 }
 
 export type $OfertaLibroPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "OfertaLibro"
   objects: {
-    Proveedor: Prisma.$ProveedoresPayload<ExtArgs>
     Libro: Prisma.$LibrosPayload<ExtArgs> | null
+    Proveedor: Prisma.$ProveedoresPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1077,6 +1130,7 @@ export type $OfertaLibroPayload<ExtArgs extends runtime.Types.Extensions.Interna
     nombre: string
     autor: string
     precioProveedor: runtime.Decimal
+    precioAdmin: runtime.Decimal | null
     cantidadProveedor: number
     cantidadAdmin: number | null
     estado: $Enums.EstadoOferta
@@ -1481,8 +1535,8 @@ readonly fields: OfertaLibroFieldRefs;
  */
 export interface Prisma__OfertaLibroClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Proveedor<T extends Prisma.ProveedoresDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProveedoresDefaultArgs<ExtArgs>>): Prisma.Prisma__ProveedoresClient<runtime.Types.Result.GetResult<Prisma.$ProveedoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   Libro<T extends Prisma.OfertaLibro$LibroArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OfertaLibro$LibroArgs<ExtArgs>>): Prisma.Prisma__LibrosClient<runtime.Types.Result.GetResult<Prisma.$LibrosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  Proveedor<T extends Prisma.ProveedoresDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProveedoresDefaultArgs<ExtArgs>>): Prisma.Prisma__ProveedoresClient<runtime.Types.Result.GetResult<Prisma.$ProveedoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1517,6 +1571,7 @@ export interface OfertaLibroFieldRefs {
   readonly nombre: Prisma.FieldRef<"OfertaLibro", 'String'>
   readonly autor: Prisma.FieldRef<"OfertaLibro", 'String'>
   readonly precioProveedor: Prisma.FieldRef<"OfertaLibro", 'Decimal'>
+  readonly precioAdmin: Prisma.FieldRef<"OfertaLibro", 'Decimal'>
   readonly cantidadProveedor: Prisma.FieldRef<"OfertaLibro", 'Int'>
   readonly cantidadAdmin: Prisma.FieldRef<"OfertaLibro", 'Int'>
   readonly estado: Prisma.FieldRef<"OfertaLibro", 'EstadoOferta'>

@@ -87,7 +87,7 @@ export class OfertaLibroService {
 
         return await this.ofertaLibroRepository.actualizarOferta(id, {
             cantidadAdmin: nuevaCantidad,
-            ...(nuevoPrecio !== undefined ? { precioProveedor: nuevoPrecio } : {}),
+            ...(nuevoPrecio !== undefined ? { precioAdmin: nuevoPrecio } : {}),
             estado: EstadoOferta.ESPERANDO_PROVEEDOR 
         });
     }
@@ -98,7 +98,7 @@ export class OfertaLibroService {
 
         return await this.ofertaLibroRepository.actualizarOferta(id, {
             cantidadProveedor: nuevaCantidad,
-            ...(nuevoPrecio !== undefined ? { precioProveedor: nuevoPrecio } : {}),
+            ...(nuevoPrecio !== undefined ? { precioProveedor: nuevoPrecio, precioAdmin: null } : {}),
             estado: EstadoOferta.ESPERANDO_ADMIN
         });
     }
@@ -112,12 +112,14 @@ export class OfertaLibroService {
         }
 
         let cantidadFinal = 0;
+        let precioFinal = oferta.precioProveedor;
 
         if (oferta.estado === EstadoOferta.ESPERANDO_ADMIN) {
             cantidadFinal = oferta.cantidadProveedor;
 
         } else if (oferta.estado === EstadoOferta.ESPERANDO_PROVEEDOR) {
             cantidadFinal = oferta.cantidadAdmin!; 
+            precioFinal = oferta.precioAdmin ?? oferta.precioProveedor;
         } else {
             throw new Error('La oferta ya fue cerrada o no se puede aceptar en este estado');
         }
@@ -131,7 +133,7 @@ export class OfertaLibroService {
                 isbn: oferta.isbn,
                 nombre: oferta.nombre,
                 autor: oferta.autor,
-                precio: oferta.precioProveedor.toNumber(),
+                precio: precioFinal.toNumber(),
                 stock: cantidadFinal,
                 categoria:oferta.categoria,
                 sinopsis: oferta.sinopsis || "",

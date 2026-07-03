@@ -224,8 +224,8 @@ export type TransaccionesWhereInput = {
   monto_total?: Prisma.DecimalFilter<"Transacciones"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Prisma.DateTimeFilter<"Transacciones"> | Date | string
   estado?: Prisma.StringFilter<"Transacciones"> | string
-  Comprador?: Prisma.XOR<Prisma.CompradoresScalarRelationFilter, Prisma.CompradoresWhereInput>
   detalles?: Prisma.DetalleTransaccionListRelationFilter
+  Comprador?: Prisma.XOR<Prisma.CompradoresScalarRelationFilter, Prisma.CompradoresWhereInput>
 }
 
 export type TransaccionesOrderByWithRelationInput = {
@@ -234,8 +234,8 @@ export type TransaccionesOrderByWithRelationInput = {
   monto_total?: Prisma.SortOrder
   fecha_pago?: Prisma.SortOrder
   estado?: Prisma.SortOrder
-  Comprador?: Prisma.CompradoresOrderByWithRelationInput
   detalles?: Prisma.DetalleTransaccionOrderByRelationAggregateInput
+  Comprador?: Prisma.CompradoresOrderByWithRelationInput
 }
 
 export type TransaccionesWhereUniqueInput = Prisma.AtLeast<{
@@ -247,8 +247,8 @@ export type TransaccionesWhereUniqueInput = Prisma.AtLeast<{
   monto_total?: Prisma.DecimalFilter<"Transacciones"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Prisma.DateTimeFilter<"Transacciones"> | Date | string
   estado?: Prisma.StringFilter<"Transacciones"> | string
-  Comprador?: Prisma.XOR<Prisma.CompradoresScalarRelationFilter, Prisma.CompradoresWhereInput>
   detalles?: Prisma.DetalleTransaccionListRelationFilter
+  Comprador?: Prisma.XOR<Prisma.CompradoresScalarRelationFilter, Prisma.CompradoresWhereInput>
 }, "id">
 
 export type TransaccionesOrderByWithAggregationInput = {
@@ -279,8 +279,8 @@ export type TransaccionesCreateInput = {
   monto_total: runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Date | string
   estado?: string
-  Comprador: Prisma.CompradoresCreateNestedOneWithoutTransaccionesInput
   detalles?: Prisma.DetalleTransaccionCreateNestedManyWithoutTransaccionInput
+  Comprador: Prisma.CompradoresCreateNestedOneWithoutTransaccionesInput
 }
 
 export type TransaccionesUncheckedCreateInput = {
@@ -296,8 +296,8 @@ export type TransaccionesUpdateInput = {
   monto_total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   fecha_pago?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   estado?: Prisma.StringFieldUpdateOperationsInput | string
-  Comprador?: Prisma.CompradoresUpdateOneRequiredWithoutTransaccionesNestedInput
   detalles?: Prisma.DetalleTransaccionUpdateManyWithoutTransaccionNestedInput
+  Comprador?: Prisma.CompradoresUpdateOneRequiredWithoutTransaccionesNestedInput
 }
 
 export type TransaccionesUncheckedUpdateInput = {
@@ -602,8 +602,8 @@ export type TransaccionesSelect<ExtArgs extends runtime.Types.Extensions.Interna
   monto_total?: boolean
   fecha_pago?: boolean
   estado?: boolean
-  Comprador?: boolean | Prisma.CompradoresDefaultArgs<ExtArgs>
   detalles?: boolean | Prisma.Transacciones$detallesArgs<ExtArgs>
+  Comprador?: boolean | Prisma.CompradoresDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.TransaccionesCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["transacciones"]>
 
@@ -635,8 +635,8 @@ export type TransaccionesSelectScalar = {
 
 export type TransaccionesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "comprador_id" | "monto_total" | "fecha_pago" | "estado", ExtArgs["result"]["transacciones"]>
 export type TransaccionesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Comprador?: boolean | Prisma.CompradoresDefaultArgs<ExtArgs>
   detalles?: boolean | Prisma.Transacciones$detallesArgs<ExtArgs>
+  Comprador?: boolean | Prisma.CompradoresDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.TransaccionesCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TransaccionesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -649,8 +649,8 @@ export type TransaccionesIncludeUpdateManyAndReturn<ExtArgs extends runtime.Type
 export type $TransaccionesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Transacciones"
   objects: {
-    Comprador: Prisma.$CompradoresPayload<ExtArgs>
     detalles: Prisma.$DetalleTransaccionPayload<ExtArgs>[]
+    Comprador: Prisma.$CompradoresPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1052,8 +1052,8 @@ readonly fields: TransaccionesFieldRefs;
  */
 export interface Prisma__TransaccionesClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Comprador<T extends Prisma.CompradoresDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompradoresDefaultArgs<ExtArgs>>): Prisma.Prisma__CompradoresClient<runtime.Types.Result.GetResult<Prisma.$CompradoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   detalles<T extends Prisma.Transacciones$detallesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transacciones$detallesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DetalleTransaccionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Comprador<T extends Prisma.CompradoresDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompradoresDefaultArgs<ExtArgs>>): Prisma.Prisma__CompradoresClient<runtime.Types.Result.GetResult<Prisma.$CompradoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

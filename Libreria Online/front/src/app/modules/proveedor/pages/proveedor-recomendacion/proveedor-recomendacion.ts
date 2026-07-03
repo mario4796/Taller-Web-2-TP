@@ -209,7 +209,7 @@ export class ProveedorRecomendacion implements OnInit {
     this.ofertaSeleccionada.set(recomendacion);
     this.contraofertaForm.reset({
       nuevaCantidad: recomendacion.cantidadAdmin ?? recomendacion.cantidadProveedor,
-      nuevoPrecio: recomendacion.precioProveedor,
+      nuevoPrecio: recomendacion.precioAdmin ?? recomendacion.precioProveedor,
     });
     this.contraofertaVisible.set(true);
   }
@@ -249,7 +249,8 @@ export class ProveedorRecomendacion implements OnInit {
 
   aceptarCantidadPropuestaPorAdmin(recomendacion: OfertaLibro): void {
     const cantidadAceptada = recomendacion.cantidadAdmin ?? recomendacion.cantidadProveedor;
-    this.ofertasService.contraofertarProveedor(recomendacion.id, cantidadAceptada).subscribe({
+    const precioAceptado = recomendacion.precioAdmin ?? recomendacion.precioProveedor;
+    this.ofertasService.contraofertarProveedor(recomendacion.id, cantidadAceptada, precioAceptado).subscribe({
       next: () => {
         this.toastService.updated('Contraoferta aceptada y enviada al administrador');
         this.cargarOfertasRecomendadas();

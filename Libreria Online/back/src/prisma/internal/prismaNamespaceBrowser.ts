@@ -167,6 +167,7 @@ export const OfertaLibroScalarFieldEnum = {
   nombre: 'nombre',
   autor: 'autor',
   precioProveedor: 'precioProveedor',
+  precioAdmin: 'precioAdmin',
   cantidadProveedor: 'cantidadProveedor',
   cantidadAdmin: 'cantidadAdmin',
   estado: 'estado',

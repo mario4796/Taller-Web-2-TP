@@ -57,7 +57,19 @@
         </div>
       </td>
       <td>{{ recomendacion.isbn }}</td>
-      <td>{{ recomendacion.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</td>
+      <td>
+        <div class="price-cell">
+          <span>{{ recomendacion.precioProveedor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</span>
+          <br>
+          @if (recomendacion.precioAdmin && recomendacion.estado === 'ESPERANDO_PROVEEDOR') {
+            <p-tag
+              icon="pi pi-info-circle"
+              [value]="'Admin propuso ' + (recomendacion.precioAdmin | currency:'ARS':'symbol':'1.2-2':'es-AR')"
+              severity="warn">
+            </p-tag>
+          }
+        </div>
+      </td>
       <td>
         <div class="quantity-cell">
           <span>{{ cantidadVisible(recomendacion) }} uds.</span>

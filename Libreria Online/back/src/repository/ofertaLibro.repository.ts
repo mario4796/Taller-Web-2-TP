@@ -24,6 +24,7 @@ export class OfertaLibroRepository {
         isbn: string; 
         autor: string; 
         precioProveedor: number; 
+        precioAdmin?: number | null;
         cantidadProveedor: number; 
         cantidadAdmin: number;
         estado: EstadoOferta;
@@ -57,6 +58,7 @@ export class OfertaLibroRepository {
     cantidadProveedor?: number; 
     cantidadAdmin?: number; 
     precioProveedor?: number;
+    precioAdmin?: number | null;
     estado?: EstadoOferta; 
     }) {
     return await prisma.ofertaLibro.update({

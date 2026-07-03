@@ -184,14 +184,14 @@ export type ProveedoresWhereInput = {
   OR?: Prisma.ProveedoresWhereInput[]
   NOT?: Prisma.ProveedoresWhereInput | Prisma.ProveedoresWhereInput[]
   usuario_id?: Prisma.IntFilter<"Proveedores"> | number
-  Usuarios?: Prisma.XOR<Prisma.UsuariosScalarRelationFilter, Prisma.UsuariosWhereInput>
   ofertas?: Prisma.OfertaLibroListRelationFilter
+  Usuarios?: Prisma.XOR<Prisma.UsuariosScalarRelationFilter, Prisma.UsuariosWhereInput>
 }
 
 export type ProveedoresOrderByWithRelationInput = {
   usuario_id?: Prisma.SortOrder
-  Usuarios?: Prisma.UsuariosOrderByWithRelationInput
   ofertas?: Prisma.OfertaLibroOrderByRelationAggregateInput
+  Usuarios?: Prisma.UsuariosOrderByWithRelationInput
 }
 
 export type ProveedoresWhereUniqueInput = Prisma.AtLeast<{
@@ -199,8 +199,8 @@ export type ProveedoresWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ProveedoresWhereInput | Prisma.ProveedoresWhereInput[]
   OR?: Prisma.ProveedoresWhereInput[]
   NOT?: Prisma.ProveedoresWhereInput | Prisma.ProveedoresWhereInput[]
-  Usuarios?: Prisma.XOR<Prisma.UsuariosScalarRelationFilter, Prisma.UsuariosWhereInput>
   ofertas?: Prisma.OfertaLibroListRelationFilter
+  Usuarios?: Prisma.XOR<Prisma.UsuariosScalarRelationFilter, Prisma.UsuariosWhereInput>
 }, "usuario_id">
 
 export type ProveedoresOrderByWithAggregationInput = {
@@ -220,8 +220,8 @@ export type ProveedoresScalarWhereWithAggregatesInput = {
 }
 
 export type ProveedoresCreateInput = {
-  Usuarios: Prisma.UsuariosCreateNestedOneWithoutProveedoresInput
   ofertas?: Prisma.OfertaLibroCreateNestedManyWithoutProveedorInput
+  Usuarios: Prisma.UsuariosCreateNestedOneWithoutProveedoresInput
 }
 
 export type ProveedoresUncheckedCreateInput = {
@@ -230,8 +230,8 @@ export type ProveedoresUncheckedCreateInput = {
 }
 
 export type ProveedoresUpdateInput = {
-  Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutProveedoresNestedInput
   ofertas?: Prisma.OfertaLibroUpdateManyWithoutProveedorNestedInput
+  Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutProveedoresNestedInput
 }
 
 export type ProveedoresUncheckedUpdateInput = {
@@ -424,8 +424,8 @@ export type ProveedoresCountOutputTypeCountOfertasArgs<ExtArgs extends runtime.T
 
 export type ProveedoresSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   usuario_id?: boolean
-  Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
   ofertas?: boolean | Prisma.Proveedores$ofertasArgs<ExtArgs>
+  Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ProveedoresCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proveedores"]>
 
@@ -445,8 +445,8 @@ export type ProveedoresSelectScalar = {
 
 export type ProveedoresOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"usuario_id", ExtArgs["result"]["proveedores"]>
 export type ProveedoresInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
   ofertas?: boolean | Prisma.Proveedores$ofertasArgs<ExtArgs>
+  Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ProveedoresCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProveedoresIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -459,8 +459,8 @@ export type ProveedoresIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.
 export type $ProveedoresPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Proveedores"
   objects: {
-    Usuarios: Prisma.$UsuariosPayload<ExtArgs>
     ofertas: Prisma.$OfertaLibroPayload<ExtArgs>[]
+    Usuarios: Prisma.$UsuariosPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     usuario_id: number
@@ -858,8 +858,8 @@ readonly fields: ProveedoresFieldRefs;
  */
 export interface Prisma__ProveedoresClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Usuarios<T extends Prisma.UsuariosDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuariosDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuariosClient<runtime.Types.Result.GetResult<Prisma.$UsuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   ofertas<T extends Prisma.Proveedores$ofertasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proveedores$ofertasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OfertaLibroPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Usuarios<T extends Prisma.UsuariosDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuariosDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuariosClient<runtime.Types.Result.GetResult<Prisma.$UsuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

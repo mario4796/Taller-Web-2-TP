@@ -184,17 +184,17 @@ export type CompradoresWhereInput = {
   OR?: Prisma.CompradoresWhereInput[]
   NOT?: Prisma.CompradoresWhereInput | Prisma.CompradoresWhereInput[]
   usuario_id?: Prisma.IntFilter<"Compradores"> | number
+  Carrito?: Prisma.XOR<Prisma.CarritosNullableScalarRelationFilter, Prisma.CarritosWhereInput> | null
   Usuarios?: Prisma.XOR<Prisma.UsuariosScalarRelationFilter, Prisma.UsuariosWhereInput>
   LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoListRelationFilter
-  Carrito?: Prisma.XOR<Prisma.CarritosNullableScalarRelationFilter, Prisma.CarritosWhereInput> | null
   transacciones?: Prisma.TransaccionesListRelationFilter
 }
 
 export type CompradoresOrderByWithRelationInput = {
   usuario_id?: Prisma.SortOrder
+  Carrito?: Prisma.CarritosOrderByWithRelationInput
   Usuarios?: Prisma.UsuariosOrderByWithRelationInput
   LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoOrderByRelationAggregateInput
-  Carrito?: Prisma.CarritosOrderByWithRelationInput
   transacciones?: Prisma.TransaccionesOrderByRelationAggregateInput
 }
 
@@ -203,9 +203,9 @@ export type CompradoresWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.CompradoresWhereInput | Prisma.CompradoresWhereInput[]
   OR?: Prisma.CompradoresWhereInput[]
   NOT?: Prisma.CompradoresWhereInput | Prisma.CompradoresWhereInput[]
+  Carrito?: Prisma.XOR<Prisma.CarritosNullableScalarRelationFilter, Prisma.CarritosWhereInput> | null
   Usuarios?: Prisma.XOR<Prisma.UsuariosScalarRelationFilter, Prisma.UsuariosWhereInput>
   LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoListRelationFilter
-  Carrito?: Prisma.XOR<Prisma.CarritosNullableScalarRelationFilter, Prisma.CarritosWhereInput> | null
   transacciones?: Prisma.TransaccionesListRelationFilter
 }, "usuario_id">
 
@@ -226,30 +226,30 @@ export type CompradoresScalarWhereWithAggregatesInput = {
 }
 
 export type CompradoresCreateInput = {
+  Carrito?: Prisma.CarritosCreateNestedOneWithoutCompradoresInput
   Usuarios: Prisma.UsuariosCreateNestedOneWithoutCompradoresInput
   LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoCreateNestedManyWithoutCompradoresInput
-  Carrito?: Prisma.CarritosCreateNestedOneWithoutCompradoresInput
   transacciones?: Prisma.TransaccionesCreateNestedManyWithoutCompradorInput
 }
 
 export type CompradoresUncheckedCreateInput = {
   usuario_id: number
-  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedCreateNestedManyWithoutCompradoresInput
   Carrito?: Prisma.CarritosUncheckedCreateNestedOneWithoutCompradoresInput
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedCreateNestedManyWithoutCompradoresInput
   transacciones?: Prisma.TransaccionesUncheckedCreateNestedManyWithoutCompradorInput
 }
 
 export type CompradoresUpdateInput = {
+  Carrito?: Prisma.CarritosUpdateOneWithoutCompradoresNestedInput
   Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutCompradoresNestedInput
   LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUpdateManyWithoutCompradoresNestedInput
-  Carrito?: Prisma.CarritosUpdateOneWithoutCompradoresNestedInput
   transacciones?: Prisma.TransaccionesUpdateManyWithoutCompradorNestedInput
 }
 
 export type CompradoresUncheckedUpdateInput = {
   usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
-  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedUpdateManyWithoutCompradoresNestedInput
   Carrito?: Prisma.CarritosUncheckedUpdateOneWithoutCompradoresNestedInput
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedUpdateManyWithoutCompradoresNestedInput
   transacciones?: Prisma.TransaccionesUncheckedUpdateManyWithoutCompradorNestedInput
 }
 
@@ -370,8 +370,8 @@ export type CompradoresUpdateOneRequiredWithoutTransaccionesNestedInput = {
 }
 
 export type CompradoresCreateWithoutLibrosDigitalesAdquiridosInput = {
-  Usuarios: Prisma.UsuariosCreateNestedOneWithoutCompradoresInput
   Carrito?: Prisma.CarritosCreateNestedOneWithoutCompradoresInput
+  Usuarios: Prisma.UsuariosCreateNestedOneWithoutCompradoresInput
   transacciones?: Prisma.TransaccionesCreateNestedManyWithoutCompradorInput
 }
 
@@ -398,8 +398,8 @@ export type CompradoresUpdateToOneWithWhereWithoutLibrosDigitalesAdquiridosInput
 }
 
 export type CompradoresUpdateWithoutLibrosDigitalesAdquiridosInput = {
-  Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutCompradoresNestedInput
   Carrito?: Prisma.CarritosUpdateOneWithoutCompradoresNestedInput
+  Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutCompradoresNestedInput
   transacciones?: Prisma.TransaccionesUpdateManyWithoutCompradorNestedInput
 }
 
@@ -410,14 +410,14 @@ export type CompradoresUncheckedUpdateWithoutLibrosDigitalesAdquiridosInput = {
 }
 
 export type CompradoresCreateWithoutUsuariosInput = {
-  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoCreateNestedManyWithoutCompradoresInput
   Carrito?: Prisma.CarritosCreateNestedOneWithoutCompradoresInput
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoCreateNestedManyWithoutCompradoresInput
   transacciones?: Prisma.TransaccionesCreateNestedManyWithoutCompradorInput
 }
 
 export type CompradoresUncheckedCreateWithoutUsuariosInput = {
-  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedCreateNestedManyWithoutCompradoresInput
   Carrito?: Prisma.CarritosUncheckedCreateNestedOneWithoutCompradoresInput
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedCreateNestedManyWithoutCompradoresInput
   transacciones?: Prisma.TransaccionesUncheckedCreateNestedManyWithoutCompradorInput
 }
 
@@ -438,14 +438,14 @@ export type CompradoresUpdateToOneWithWhereWithoutUsuariosInput = {
 }
 
 export type CompradoresUpdateWithoutUsuariosInput = {
-  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUpdateManyWithoutCompradoresNestedInput
   Carrito?: Prisma.CarritosUpdateOneWithoutCompradoresNestedInput
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUpdateManyWithoutCompradoresNestedInput
   transacciones?: Prisma.TransaccionesUpdateManyWithoutCompradorNestedInput
 }
 
 export type CompradoresUncheckedUpdateWithoutUsuariosInput = {
-  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedUpdateManyWithoutCompradoresNestedInput
   Carrito?: Prisma.CarritosUncheckedUpdateOneWithoutCompradoresNestedInput
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedUpdateManyWithoutCompradoresNestedInput
   transacciones?: Prisma.TransaccionesUncheckedUpdateManyWithoutCompradorNestedInput
 }
 
@@ -490,15 +490,15 @@ export type CompradoresUncheckedUpdateWithoutCarritoInput = {
 }
 
 export type CompradoresCreateWithoutTransaccionesInput = {
+  Carrito?: Prisma.CarritosCreateNestedOneWithoutCompradoresInput
   Usuarios: Prisma.UsuariosCreateNestedOneWithoutCompradoresInput
   LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoCreateNestedManyWithoutCompradoresInput
-  Carrito?: Prisma.CarritosCreateNestedOneWithoutCompradoresInput
 }
 
 export type CompradoresUncheckedCreateWithoutTransaccionesInput = {
   usuario_id: number
-  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedCreateNestedManyWithoutCompradoresInput
   Carrito?: Prisma.CarritosUncheckedCreateNestedOneWithoutCompradoresInput
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedCreateNestedManyWithoutCompradoresInput
 }
 
 export type CompradoresCreateOrConnectWithoutTransaccionesInput = {
@@ -518,15 +518,15 @@ export type CompradoresUpdateToOneWithWhereWithoutTransaccionesInput = {
 }
 
 export type CompradoresUpdateWithoutTransaccionesInput = {
+  Carrito?: Prisma.CarritosUpdateOneWithoutCompradoresNestedInput
   Usuarios?: Prisma.UsuariosUpdateOneRequiredWithoutCompradoresNestedInput
   LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUpdateManyWithoutCompradoresNestedInput
-  Carrito?: Prisma.CarritosUpdateOneWithoutCompradoresNestedInput
 }
 
 export type CompradoresUncheckedUpdateWithoutTransaccionesInput = {
   usuario_id?: Prisma.IntFieldUpdateOperationsInput | number
-  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedUpdateManyWithoutCompradoresNestedInput
   Carrito?: Prisma.CarritosUncheckedUpdateOneWithoutCompradoresNestedInput
+  LibrosDigitalesAdquiridos?: Prisma.LibroDigitalAdquiridoUncheckedUpdateManyWithoutCompradoresNestedInput
 }
 
 
@@ -571,9 +571,9 @@ export type CompradoresCountOutputTypeCountTransaccionesArgs<ExtArgs extends run
 
 export type CompradoresSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   usuario_id?: boolean
+  Carrito?: boolean | Prisma.Compradores$CarritoArgs<ExtArgs>
   Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
   LibrosDigitalesAdquiridos?: boolean | Prisma.Compradores$LibrosDigitalesAdquiridosArgs<ExtArgs>
-  Carrito?: boolean | Prisma.Compradores$CarritoArgs<ExtArgs>
   transacciones?: boolean | Prisma.Compradores$transaccionesArgs<ExtArgs>
   _count?: boolean | Prisma.CompradoresCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["compradores"]>
@@ -594,9 +594,9 @@ export type CompradoresSelectScalar = {
 
 export type CompradoresOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"usuario_id", ExtArgs["result"]["compradores"]>
 export type CompradoresInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Carrito?: boolean | Prisma.Compradores$CarritoArgs<ExtArgs>
   Usuarios?: boolean | Prisma.UsuariosDefaultArgs<ExtArgs>
   LibrosDigitalesAdquiridos?: boolean | Prisma.Compradores$LibrosDigitalesAdquiridosArgs<ExtArgs>
-  Carrito?: boolean | Prisma.Compradores$CarritoArgs<ExtArgs>
   transacciones?: boolean | Prisma.Compradores$transaccionesArgs<ExtArgs>
   _count?: boolean | Prisma.CompradoresCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -610,9 +610,9 @@ export type CompradoresIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.
 export type $CompradoresPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Compradores"
   objects: {
+    Carrito: Prisma.$CarritosPayload<ExtArgs> | null
     Usuarios: Prisma.$UsuariosPayload<ExtArgs>
     LibrosDigitalesAdquiridos: Prisma.$LibroDigitalAdquiridoPayload<ExtArgs>[]
-    Carrito: Prisma.$CarritosPayload<ExtArgs> | null
     transacciones: Prisma.$TransaccionesPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1011,9 +1011,9 @@ readonly fields: CompradoresFieldRefs;
  */
 export interface Prisma__CompradoresClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  Carrito<T extends Prisma.Compradores$CarritoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Compradores$CarritoArgs<ExtArgs>>): Prisma.Prisma__CarritosClient<runtime.Types.Result.GetResult<Prisma.$CarritosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   Usuarios<T extends Prisma.UsuariosDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuariosDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuariosClient<runtime.Types.Result.GetResult<Prisma.$UsuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   LibrosDigitalesAdquiridos<T extends Prisma.Compradores$LibrosDigitalesAdquiridosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Compradores$LibrosDigitalesAdquiridosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LibroDigitalAdquiridoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  Carrito<T extends Prisma.Compradores$CarritoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Compradores$CarritoArgs<ExtArgs>>): Prisma.Prisma__CarritosClient<runtime.Types.Result.GetResult<Prisma.$CarritosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   transacciones<T extends Prisma.Compradores$transaccionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Compradores$transaccionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransaccionesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1446,6 +1446,25 @@ export type CompradoresDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
+ * Compradores.Carrito
+ */
+export type Compradores$CarritoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Carritos
+   */
+  select?: Prisma.CarritosSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Carritos
+   */
+  omit?: Prisma.CarritosOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CarritosInclude<ExtArgs> | null
+  where?: Prisma.CarritosWhereInput
+}
+
+/**
  * Compradores.LibrosDigitalesAdquiridos
  */
 export type Compradores$LibrosDigitalesAdquiridosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1467,25 +1486,6 @@ export type Compradores$LibrosDigitalesAdquiridosArgs<ExtArgs extends runtime.Ty
   take?: number
   skip?: number
   distinct?: Prisma.LibroDigitalAdquiridoScalarFieldEnum | Prisma.LibroDigitalAdquiridoScalarFieldEnum[]
-}
-
-/**
- * Compradores.Carrito
- */
-export type Compradores$CarritoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Carritos
-   */
-  select?: Prisma.CarritosSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Carritos
-   */
-  omit?: Prisma.CarritosOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CarritosInclude<ExtArgs> | null
-  where?: Prisma.CarritosWhereInput
 }
 
 /**

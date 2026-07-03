@@ -7,6 +7,7 @@ export class OfertaLibro {
   nombre!: string;
   autor!: string;
   precioProveedor!: Decimal;
+  precioAdmin?: Decimal | null;
   cantidadAdmin!: number;
   cantidadProveedor!: number;
   estado!: EstadoOferta;

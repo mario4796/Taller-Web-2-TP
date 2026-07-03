@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 
 interface UsuarioListadoRest {
   id: number;
@@ -28,9 +28,10 @@ export interface UsuarioListado {
 })
 export class UsuarioService {
   http = inject(HttpClient);
+  private apiUrl = `${environment.API_URL}/api/usuarios`;
 
   listUsuarios(): Observable<UsuarioListado[]> {
-    return this.http.get<UsuarioListadoRest[]>(`${environment.API_URL}/api/usuarios`).pipe(
+    return this.http.get<UsuarioListadoRest[]>(this.apiUrl).pipe(
       map((usuarios) =>
         usuarios.map((usuario) => ({
           id: usuario.id,
@@ -46,11 +47,10 @@ export class UsuarioService {
   }
 
   login(datos: { email: string; contrasena: string }): Observable<any> {
-    console.log('esto se ejecuto');
-    return this.http.post(`${environment.API_URL}/usuarios/iniciarSesion`, datos);
+    return this.http.post(`${this.apiUrl}/iniciarSesion`, datos);
   }
 
   registrar(datos: any): Observable<any> {
-    return this.http.post(`${environment.API_URL}/usuarios/registrarse`, datos);
+    return this.http.post(`${this.apiUrl}/registrarse`, datos);
   }
 }
