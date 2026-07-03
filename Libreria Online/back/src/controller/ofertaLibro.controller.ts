@@ -111,7 +111,7 @@ export class OfertaLibroController {
   public contraofertaProveedor = async (req: Request, res: Response) => {
     try {
       const id = Number(req.params.id);
-      const { nuevaCantidad } = req.body;
+      const { nuevaCantidad, nuevoPrecio } = req.body;
       if (isNaN(id) || !nuevaCantidad) {
         return res
           .status(400)
@@ -120,6 +120,7 @@ export class OfertaLibroController {
       const ofertaActualizada = await ofertaLibroService.contraofertaProveedor(
         id,
         nuevaCantidad,
+        nuevoPrecio
       );
       res.status(200).json({
         message: "Contraoferta enviada al administrador",

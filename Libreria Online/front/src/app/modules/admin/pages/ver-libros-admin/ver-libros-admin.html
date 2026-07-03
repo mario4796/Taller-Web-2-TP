@@ -41,7 +41,9 @@
             <th>Título</th>
             <th>Autor</th>
             <th>ISBN</th>
+            <th>Precio</th>
             <th>Stock</th>
+            
             <th style="text-align: center;">Acción</th>
           </tr>
         </ng-template>
@@ -56,15 +58,16 @@
                   (error)="usarPortadaFallback($event)" />
               </div>
             </td>
-            <td><strong>{{ item.nombre }}</strong></td>
+            <td><strong>{{ item.nombre }}</strong></td>           
             <td>{{ item.autor }}</td>
             <td>{{ item.isbn }}</td>
+            <td>{{ item.precio }} $</td>
             <td>
               <p-tag
                 [value]="item.stock + ' un.'"
                 [severity]="getSeverity(item.stock)">
               </p-tag>
-            </td>
+            </td>            
             <td style="text-align: center;">
               <p-button
                 label="Pedir más"

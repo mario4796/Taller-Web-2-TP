@@ -238,6 +238,7 @@ manejadorGuardarPedido(evento: { cantidad: number; proveedor: any }, libroActual
     sinopsis: libro.sinopsis || "",
     imagenUrl: libro.imagenUrl || "",
     categoria: libro.categoria || 'GENERAL',
+    precio: libro.precio || 0,
 
     cantidadAdmin: Number(evento.cantidad),
     cantidadProveedor: Number(evento.cantidad),

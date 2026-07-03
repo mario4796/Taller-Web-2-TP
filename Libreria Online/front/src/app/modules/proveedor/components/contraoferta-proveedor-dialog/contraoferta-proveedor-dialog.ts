@@ -35,5 +35,8 @@ export class ContraofertaProveedorDialog {
   cerrar = output<void>();
   enviar = output<void>();
 
+
+
   get nuevaCantidad() { return this.form().get('nuevaCantidad'); }
+  get nuevoPrecio() { return this.form().get('nuevoPrecio'); }
 }
