@@ -28,8 +28,6 @@ export class CompradorController {
     try {
       const compradores = await compradorService.obtenerCompradores();
 
-      console.log(compradores);
-
       res.status(200).json(compradores);
     } catch (error) {
       res

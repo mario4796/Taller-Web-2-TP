@@ -235,7 +235,6 @@ manejadorGuardarPedido(evento: { cantidad: number; proveedor: any }, libroActual
   // Si no, usamos el objeto directo."
   const libro = typeof libroActual === 'function' ? libroActual() : libroActual;
 
-  console.log(" Datos del libro procesado en el Padre:", libro);
   const idDelLibro = libro?.id || libro?.libroId;
 
   if (!idDelLibro) {
@@ -263,7 +262,6 @@ manejadorGuardarPedido(evento: { cantidad: number; proveedor: any }, libroActual
 
 
   this.ofertasService.crearOferta(nuevaOferta).subscribe({
-    next: (ofertaCreada) => console.log('¡Pedido e hilo de oferta creados!:', ofertaCreada),
     error: (err) => console.error('Error en la petición HTTP:', err)
   });
 }

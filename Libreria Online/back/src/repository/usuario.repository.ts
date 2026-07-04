@@ -60,8 +60,6 @@ export class UsuarioRepository {
       },
     });
 
-    console.log(usuario);
-
     return usuario;
   }
 

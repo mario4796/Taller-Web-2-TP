@@ -77,15 +77,11 @@ export class AgregarLibro implements OnInit {
       return;
     }
 
-    console.log('2. Formulario v\u00e1lido. Preparando env\u00edo al backend...');
     this.isLoading = true;
     const formData = this.bookForm.getRawValue();
 
-    console.log('Datos exactos que viajan al servicio:', formData);
-
     this.librosService.crearLibro(formData).subscribe({
-      next: (response) => {
-        console.log('3. EXITO: El backend respondi\u00f3 que todo sali\u00f3 bien', response);
+      next: () => {
         this.closeDialog();
         this.isLoading = false;
         this.toastService.created('Libro');
