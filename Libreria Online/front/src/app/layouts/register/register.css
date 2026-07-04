@@ -111,6 +111,19 @@
   gap: 0.4rem;
 }
 
+:host ::ng-deep .p-password-meter-text::before {
+  content: 'shield';
+  color: #c084fc;
+  font-family: 'Material Symbols Rounded';
+  font-size: 1rem;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 600,
+    'GRAD' 0,
+    'opsz' 20;
+  line-height: 1;
+}
+
 .password-tips {
   margin: 0.5rem 0 0;
   padding-left: 1rem;
