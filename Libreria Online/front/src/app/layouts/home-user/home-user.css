@@ -30,6 +30,13 @@
   color: var(--text);
 }
 
+.book-slide {
+  max-width: 100%;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
 .book-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -39,7 +46,12 @@
   transition: 0.3s ease;
   box-shadow: var(--shadow);
   height: 100%;
+  max-width: 100%;
+  min-width: 0;
+  width: 100%;
   color: var(--text);
+  display: flex;
+  flex-direction: column;
 }
 
 .book-card:hover {
@@ -49,14 +61,19 @@
 
 .book-cover {
   position: relative;
-  aspect-ratio: 2 / 3;
+  height: 320px;
   overflow: hidden;
+  flex: 0 0 auto;
+  width: 100%;
+  background: var(--surface);
 }
 
 .book-cover img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+  display: block;
   transition: 0.35s;
 }
 
@@ -84,7 +101,7 @@
 
 .book-placeholder-container {
   width: 100%;
-  aspect-ratio: 2 / 3;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,6 +109,29 @@
   border: 2px dashed var(--border);
   color: var(--text-muted);
   font-size: 3rem;
+}
+
+.book-info {
+  min-height: 112px;
+  min-width: 0;
+  padding: 1rem;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+
+.book-info h5 {
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.book-meta {
+  margin-top: auto;
+  min-width: 0;
+  gap: 0.75rem;
 }
 
 :host ::ng-deep .p-dialog {
@@ -145,7 +185,17 @@
   background: transparent;
 }
 
+:host ::ng-deep .p-carousel-viewport,
+:host ::ng-deep .p-carousel-item {
+  min-width: 0;
+  overflow: hidden;
+}
+
 @media (max-width: 768px) {
+  .book-cover {
+    height: 280px;
+  }
+
   .book-placeholder-container {
     font-size: 2.5rem;
   }
@@ -156,6 +206,10 @@
 }
 
 @media (max-width: 576px) {
+  .book-cover {
+    height: min(72vw, 360px);
+  }
+
   .book-card {
     border-radius: 1.2rem;
   }
