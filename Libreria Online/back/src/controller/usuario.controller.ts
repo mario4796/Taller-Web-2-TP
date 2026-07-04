@@ -21,7 +21,6 @@ export class UsuarioController {
 
   public iniciarSesion = async (req: Request, res: Response) => {
     try {
-      console.log("Datos recibidos en el Body:", req.body);
       const { email, contrasena } = req.body;
 
       const usuario = await usuarioService.iniciarSesion(email, contrasena);

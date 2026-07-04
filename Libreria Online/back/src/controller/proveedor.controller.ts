@@ -16,8 +16,6 @@ export class ProveedorController {
         const proveedores = await usuarioService.obtenerProveedores();
         const isbn = req.query.isbn as string;
         let proveedorSugeridoId = null;
-  
-        console.log(proveedores);
 
         if (isbn) {
         proveedorSugeridoId = await usuarioRepository.obtenerProveedorPrevioPorIsbn(isbn);

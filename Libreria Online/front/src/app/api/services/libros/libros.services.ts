@@ -18,11 +18,8 @@ export class LibrosService {
   private apiUrl = `${environment.API_URL}/api/libros`;
 
   listLibros(): Observable<Libro[]> {
-    console.log('Pidiéndole los libros al backend...');
-
     return this.http.get<{ message: string; data: LibroRest[] }>(this.apiUrl).pipe(
       map((res) => {
-        console.log('✅ [GET] Datos mapeados con éxito:');
         return LibroMapper.mapRestLibroArrayToLibroArrayFront(res.data);
       }),
     );
@@ -67,11 +64,8 @@ export class LibrosService {
   }
 
   listLibrosCarrusel(): Observable<Libro[]> {
-    console.log('Pidiéndole los libros al backend...');
-
     return this.http.get<{ message: string; data: LibroRest[] }>(`${this.apiUrl}/carrusel`).pipe(
       map((res) => {
-        console.log('✅ [GET] Datos mapeados con éxito:');
         return LibroMapper.mapRestLibroArrayToLibroArrayFront(res.data);
       }),
     );
