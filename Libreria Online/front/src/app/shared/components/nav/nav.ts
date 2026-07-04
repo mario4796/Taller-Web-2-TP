@@ -41,10 +41,7 @@ export class Nav {
     const role = this.role()?.toLowerCase() || '';
 
     if (!logged) {
-      return [
-        { label: 'Inicio', icon: 'home', link: '/' },
-
-      ];
+      return [];
     }
 
     switch (role) {
