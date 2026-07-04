@@ -1,36 +1,52 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #f8fafc;
+
+  --bg-color: #f8fafc;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+
+  --input-bg: #f1f5f9;
+  --input-border: #cbd5e1;
+  --input-text: #1e293b;
+
+  --panel-bg: #ffffff;
+
+  --accent: #8b5cf6;
+
+  background: var(--bg-color);
+  transition: background 0.3s ease;
 }
 
 :host-context(.app-dark) {
+  --bg-color: #050816;
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+
+  --input-bg: rgba(30, 35, 48, 0.98);
+  --input-border: rgba(139, 92, 246, 0.3);
+  --input-text: #ffffff;
+
+  --panel-bg: #1e2330;
+
   background: radial-gradient(circle at top, rgba(124, 58, 237, 0.15), transparent 40%), #050816;
 }
 
 .library-header {
   text-align: center;
-  margin-bottom: 3rem;
-  margin-top: 3rem;
+  margin: 3rem 0;
 }
 
 .library-header h1 {
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 0.5rem;
-  color: #1e293b;
+  color: var(--text-main);
 }
 
 .library-header p {
   font-size: 1.1rem;
-  color: #64748b;
-}
-
-:host-context(.app-dark) .library-header h1 {
-  color: #ffffff;
-}
-:host-context(.app-dark) .library-header p {
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 .books-grid {
@@ -40,76 +56,131 @@
 }
 
 .search-wrapper {
-  max-width: 800px; /* Ampliado para mejor balance */
+  max-width: 800px;
   margin: 1.5rem auto;
-  padding: 1em;
+  padding: 1rem;
 }
-
-/* --- ESTILOS UNIFICADOS: BUSCADOR Y CATEGORÍA --- */
 
 .search-input,
 :host ::ng-deep .category-dropdown {
-  background: #f1f5f9 !important;
-  border: 2px solid #000000 !important;
+  background: var(--input-bg) !important;
+  color: var(--input-text) !important;
+
+  border: 2px solid var(--input-border) !important;
   border-radius: 12px !important;
-  height: 52px !important; /* Altura unificada más cómoda */
-  transition: all 0.3s ease !important;
+
+  height: 52px !important;
+
   display: flex;
   align-items: center;
+
+  transition: all 0.25s ease;
 }
 
-/* Estado Focus */
-.search-input:focus,
-:host ::ng-deep .category-dropdown.p-focus {
-  border-color: #8b5cf6 !important;
-  outline: none !important;
-  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2) !important;
-}
-
-/* Texto del Input y Dropdown */
 .search-input {
-  color: #000000 !important;
   padding: 0.6rem 1rem 0.6rem 2.5rem !important;
 }
-:host ::ng-deep .category-dropdown .p-select-label {
-  padding: 0.6rem 1rem !important;
-  color: #000000 !important;
+
+.search-input:focus,
+:host ::ng-deep .category-dropdown.p-focus {
+  border-color: var(--accent) !important;
+
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2) !important;
+
+  outline: none !important;
 }
 
-/* Icono del buscador */
 :host ::ng-deep .p-input-icon-left > i {
-  color: #94a3b8;
   left: 1rem;
+  color: #94a3b8;
 }
 
-/* --- MODO OSCURO UNIFICADO --- */
-
-:host-context(.app-dark) .search-input,
-:host-context(.app-dark) :host ::ng-deep .category-dropdown {
-  background: rgba(30, 35, 48, 0.98) !important;
-  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+:host ::ng-deep .category-dropdown .p-select-label {
+  color: var(--input-text) !important;
+  padding: 0.6rem 1rem !important;
 }
 
-:host-context(.app-dark) .search-input {
-  color: #ffffff !important;
-}
-:host-context(.app-dark) :host ::ng-deep .category-dropdown .p-select-label {
-  color: #ffffff !important;
-}
-:host-context(.app-dark) :host ::ng-deep .p-select-dropdown {
-  color: #94a3b8 !important;
+:host ::ng-deep .p-select-dropdown {
+  color: var(--text-muted) !important;
 }
 
-/* Panel de opciones del select en modo oscuro */
-:host-context(.app-dark) ::ng-deep .p-select-panel {
-  background: #1e2330 !important;
-  border: 1px solid rgba(139, 92, 246, 0.3) !important;
-  color: #ffffff !important;
+:host ::ng-deep .p-select-panel {
+  background: var(--panel-bg) !important;
+
+  border: 1px solid var(--input-border) !important;
+
+  color: var(--text-main) !important;
 }
 
-:host-context(.app-dark) ::ng-deep .p-select-option {
-  color: #ffffff !important;
+:host ::ng-deep .p-select-option {
+  color: var(--text-main) !important;
 }
-:host-context(.app-dark) ::ng-deep .p-select-option.p-focus {
-  background: rgba(139, 92, 246, 0.2) !important;
+
+:host ::ng-deep .p-select-option.p-focus,
+:host ::ng-deep .p-select-option:hover {
+  background: rgba(139, 92, 246, 0.15) !important;
+}
+
+:host ::ng-deep .p-card {
+  height: 100%;
+  background: transparent;
+  border-radius: 22px;
+  box-shadow: none;
+}
+
+:host ::ng-deep .p-card-body,
+:host ::ng-deep .p-card-content {
+  height: 100%;
+}
+
+:host ::ng-deep .p-card-footer {
+  margin-top: auto;
+}
+
+@media (max-width: 992px) {
+  .library-header h1 {
+    font-size: 2.4rem;
+  }
+
+  .books-grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .library-header {
+    margin: 2rem 0;
+  }
+
+  .library-header h1 {
+    font-size: 2rem;
+  }
+
+  .library-header p {
+    font-size: 1rem;
+  }
+
+  .books-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .search-wrapper {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .library-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .books-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-input,
+  :host ::ng-deep .category-dropdown {
+    height: 48px !important;
+  }
 }
