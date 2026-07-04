@@ -11,6 +11,7 @@ async function main() {
             { nombre: 'ADMIN' },
             { nombre: 'PROVEEDOR' },
             { nombre: 'COMPRADOR' },
+            { nombre: 'INACTIVO' },
         ],
         skipDuplicates: true,
     });

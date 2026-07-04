@@ -117,6 +117,10 @@ export class UsuarioController {
         return res.status(403).json({ message: 'Los usuarios administradores no se pueden eliminar.' });
       }
 
+      if (error.message === 'TIPO_INACTIVO_NO_ENCONTRADO') {
+        return res.status(500).json({ message: 'No existe el tipo de usuario INACTIVO en la base de datos.' });
+      }
+
       return res.status(500).json({ message: "Error al eliminar el usuario", error });
     }
   };

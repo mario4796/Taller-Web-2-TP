@@ -1,6 +1,15 @@
 import { prisma } from "../prisma.js";
 
 export class UsuarioRepository {
+  private async obtenerTipoUsuarioIdPorNombre(nombre: string): Promise<number | null> {
+    const tipoUsuario = await prisma.tiposUsuario.findFirst({
+      where: { nombre },
+      select: { id: true },
+    });
+
+    return tipoUsuario?.id ?? null;
+  }
+
   async obtenerProveedores(): Promise<any[]> {
     const proveedores = await prisma.usuarios.findMany({
       where: {
@@ -25,7 +34,16 @@ export class UsuarioRepository {
   }
 
   async findAllUsuarios() {
+    const tipoInactivoId = await this.obtenerTipoUsuarioIdPorNombre("INACTIVO");
+
     const usuarios = await prisma.usuarios.findMany({
+      where: tipoInactivoId
+        ? {
+            tipo_usuario_id: {
+              not: tipoInactivoId,
+            },
+          }
+        : undefined,
       select: {
         id: true,
         email: true,
@@ -53,10 +71,19 @@ export class UsuarioRepository {
   }
 
   async findByEmailAndContrasenia(email: string, contrasenia: string) {
+    const tipoInactivoId = await this.obtenerTipoUsuarioIdPorNombre("INACTIVO");
+
     const usuario = await prisma.usuarios.findFirst({
       where: {
         email: email,
         contrasena: contrasenia,
+        ...(tipoInactivoId
+          ? {
+              tipo_usuario_id: {
+                not: tipoInactivoId,
+              },
+            }
+          : {}),
       },
     });
 
@@ -172,6 +199,12 @@ export class UsuarioRepository {
   }
 
   async eliminarUsuario(id: number) {
+    const tipoInactivoId = await this.obtenerTipoUsuarioIdPorNombre("INACTIVO");
+
+    if (!tipoInactivoId) {
+      throw new Error('TIPO_INACTIVO_NO_ENCONTRADO');
+    }
+
     const usuarioActual = await prisma.usuarios.findUnique({
       where: { id },
       select: { tipo_usuario_id: true },
@@ -185,8 +218,9 @@ export class UsuarioRepository {
       throw new Error('USUARIO_ADMIN_PROTEGIDO');
     }
 
-    return await prisma.usuarios.delete({
+    return await prisma.usuarios.update({
       where: { id },
+      data: { tipo_usuario_id: tipoInactivoId },
     });
   }
 }
