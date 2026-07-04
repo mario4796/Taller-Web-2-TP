@@ -8,7 +8,18 @@ npm install -g bun  (para instalar la dependencia "bun" y poder levantar la seed
 ng serve host 0.0.0.0
 
 Algunos ISBN para probar:
-9788420471839
-9788422616337
-9788432215315
-9788497592208
+
+| ISBN 13         | Libro                                   | Autor               |
+| --------------- | --------------------------------------- | ------------------- |
+| `9780439708180` | Harry Potter and the Sorcerer’s Stone   | J. K. Rowling       |
+| `9780545791328` | Harry Potter and the Chamber of Secrets | J. K. Rowling       |
+| `9780061120084` | To Kill a Mockingbird                   | Harper Lee          |
+| `9780451524935` | 1984                                    | George Orwell       |
+| `9780743273565` | The Great Gatsby                        | F. Scott Fitzgerald |
+| `9780141439518` | Pride and Prejudice                     | Jane Austen         |
+| `9780140328721` | Matilda                                 | Roald Dahl          |
+| `9780553386790` | A Game of Thrones                       | George R. R. Martin |
+| `9780345391803` | The Hitchhiker’s Guide to the Galaxy    | Douglas Adams       |
+| `9780307277671` | The Da Vinci Code                       | Dan Brown           |
+| `9780307277923` | The Road                                | Cormac McCarthy     |
+| `9788498388886` | Harry Potter y la piedra filosofal      | J. K. Rowling       |
