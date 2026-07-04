@@ -9,6 +9,7 @@
   align-items: center;
   padding-left: 1rem;
   padding-right: 1rem;
+  z-index: 1030;
 }
 
 /* --- Modo Oscuro --- */
@@ -69,12 +70,15 @@
 
 /* --- Menú Móvil (Hamburguesa) --- */
 .mobile-menu-compact {
-  position: absolute;
+  position: fixed;
   top: 78px;
   left: 0;
+  right: 0;
   width: 100%;
+  max-height: calc(100dvh - 78px);
+  overflow-y: auto;
   background-color: #ffffff !important;
-  z-index: 999;
+  z-index: 1029;
   border-bottom: 1px solid #e2e8f0;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
