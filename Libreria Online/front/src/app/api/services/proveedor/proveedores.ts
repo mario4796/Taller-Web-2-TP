@@ -9,14 +9,11 @@ import { environment } from '../../../../environments/environment';
 })
 export class ProveedoresService {
   private http = inject(HttpClient);
-  
-  // Tu URL real hacia el endpoint que filtre usuarios donde tipo_usuario === 'Proveedor'
-  private apiUrl = `${environment.API_URL}/api/proveedor/`; 
 
-    // aceptamos el ISBN opcionalmente y cambiamos el retorno para incluir la sugerencia
+  private apiUrl = `${environment.API_URL}/api/proveedor/`;
+
   listProveedores(isbn?: string): Observable<{ lista: Proveedor[], sugeridoId: number | null }> {
-    
-    // Si viene el isbn, lo pegamos como query param: /api/proveedor/?isbn=123456
+
     const url = isbn ? `${this.apiUrl}?isbn=${isbn}` : this.apiUrl;
 
     return this.http.get<any>(url).pipe(
