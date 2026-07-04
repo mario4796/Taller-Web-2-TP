@@ -5,7 +5,7 @@ npx prisma db seed
 
 npm install -g bun  (para instalar la dependencia "bun" y poder levantar la seed)
 
-ng serve host 0.0.0.0
+ng serve --host 0.0.0.0
 
 Algunos ISBN para probar:
 
