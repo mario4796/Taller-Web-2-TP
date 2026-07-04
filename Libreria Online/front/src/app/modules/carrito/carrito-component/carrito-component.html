@@ -38,6 +38,7 @@
               label="Finalizar compra"
               icon="pi pi-check"
               styleClass="p-button-success p-button-rounded p-button-sm w-100 checkout-btn"
+              [disabled]="carritoVacio()"
               (click)="finalizarCompra()"
             >
             </p-button>

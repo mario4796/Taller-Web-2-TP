@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Carrito } from '../interfaces/carrito.interface';
 import { DetalleCarrito } from '../interfaces/detallecarrito.interface';
 import { Router } from '@angular/router';
@@ -21,6 +21,7 @@ import { Nav } from '../../../shared/components/nav/nav';
 })
 export class CarritoComponent implements OnInit {
   carrito = signal<Carrito | null>(null);
+  carritoVacio = computed(() => !this.carrito() || this.carrito()!.detalles.length === 0);
 
   compradorService = inject(CompradorService);
   router = inject(Router);
@@ -73,8 +74,6 @@ export class CarritoComponent implements OnInit {
               life: 3000,
             });
           } else {
-            console.error('Error al procesar pago:', err);
-
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
